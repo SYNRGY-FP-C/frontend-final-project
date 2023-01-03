@@ -1,29 +1,29 @@
-# Final Project - Front End Web
+# Frontend
 
-[About](./ABOUT.md)
+- Local demo: [http://localhost:3000](http://localhost:3000)
+
+## How to set .env variables
+
+Please copy from [Here](https://github.com/SYNRGY-FP-C/dotenv/blob/main/fsw/frontend/.env)
+
+or
+
+use your own variables
 
 ## How to run
 
-1. Install dependencies
+- Install dependencies
 
 ```bash
 npm install
 ```
 
-2. Run the project
+- Run the app
 
 ```bash
 npm run dev
 ```
 
-## How to contribute to the project
+## How to contribute
 
-- Clone repository (pertama kali)
-- Checkout ke branch `development`
-- Buat branch baru dengan pattern `feature/namafitur` , branch `development` sebagai parrentnya nanti PR ke sana
-- Ngoding di branch yang baru dibuat yaitu `feature/namafitur`
-- Ketika sudah selesai, Pull dulu dari branch `development` (mastiin gada konflik)
-- Add, Commit dan Push ke branch `feature/namafitur`
-- Pull Request ke branch `development` di github
-
-Kalo mau nambah fitur lagi (ngerjain task) lakuin dari step 2 + pull dulu ke branch `development`, sisanya sama aja
+Please read [Documentation](https://docs-fp.zekhoi.dev/contribute)
