@@ -1,0 +1,7 @@
+{
+  "compilerOptions": {
+    "isolatedModules": false
+  },
+  "include": ["**/*.ts"],
+  "extends": "../tsconfig.json"
+}
