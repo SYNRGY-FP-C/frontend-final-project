@@ -22,7 +22,7 @@
       "@services/*": ["./src/services/*"],
       "@utils/*": ["./src/utils/*"]
     },
-    "types": ["cypress", "node"]
+    "types": ["node"]
   },
   "include": ["next-env.d.ts", "./src/**/*.ts", "./src/**/*.tsx"],
   "exclude": ["node_modules"]
