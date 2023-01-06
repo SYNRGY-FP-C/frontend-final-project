@@ -1,8 +1,8 @@
 import React from "react";
 
 type ButtonProps = {
-  isLoading: boolean,
-  children: React.ReactNode,
+  isLoading: boolean;
+  children: React.ReactNode;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 export default function Button({

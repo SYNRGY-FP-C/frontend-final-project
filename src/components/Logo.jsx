@@ -3,9 +3,8 @@ import React from "react";
 
 export default function Logo() {
   return (
-    <Link className="text-2xl font-extrabold" href="/">
-      Belajar
-      <span className="text-blue-500">.</span>
+    <Link className="text-3xl font-extrabold text-blind" href="/">
+      KostHub
     </Link>
   );
 }

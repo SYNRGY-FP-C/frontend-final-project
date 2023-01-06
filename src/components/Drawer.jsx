@@ -1,10 +1,14 @@
 import clsxm from "clsx";
 import React from "react";
-import { HiX } from "react-icons/hi";
 
-import Logo from "./Logo";
+import CloseButton from "./buttons/CloseButton";
+import Logo from "../components/Logo";
 
-export default function Drawer({ children, isOpen = false, setIsOpen }) {
+export default function Drawer({
+  children = "children",
+  isOpen = false,
+  setIsOpen,
+}) {
   return (
     <>
       <div
@@ -27,17 +31,14 @@ export default function Drawer({ children, isOpen = false, setIsOpen }) {
           }
         )}
       >
-        <div className="container px-4 py-4">
-          <div className="flex justify-between mb-3">
+        <div className="container h-full px-4 my-4">
+          <div className="flex justify-between mb-6">
             <Logo />
-            <button
-              className="flex items-center justify-center transition-all bg-gray-200 rounded-md h-9 w-9 ring-gray-300 hover:ring-2"
-              onClick={() => setIsOpen(!isOpen)}
-            >
-              <HiX />
-            </button>
+            <CloseButton setIsOpen={() => setIsOpen(!isOpen)} />
           </div>
-          <div className="flex flex-col space-y-3">{children}</div>
+          <div className="flex flex-col justify-between gap-y-12">
+            {children}
+          </div>
         </div>
       </div>
     </>
