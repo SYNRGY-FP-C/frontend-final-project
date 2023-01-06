@@ -1,4 +1,4 @@
-import ErrorPage from "@components/ErrorPage";
+import ErrorPage from "@/components/ErrorPage";
 import Link from "next/link";
 import React from "react";
 

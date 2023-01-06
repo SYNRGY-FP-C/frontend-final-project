@@ -1,13 +1,6 @@
 import React from "react";
 
-type InputWithLabelProps = {
-  labelName?: string;
-} & React.ComponentPropsWithoutRef<"input">;
-
-export default function InputWithLabel({
-  labelName = "input",
-  ...rest
-}: InputWithLabelProps) {
+export default function InputWithLabel({ labelName = "input", ...rest }) {
   return (
     <div className="space-y-3">
       <label
