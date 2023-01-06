@@ -16,11 +16,7 @@
     "jsx": "preserve",
     "baseUrl": "./",
     "paths": {
-      "@components/*": ["./src/components/*"],
-      "@contexts/*": ["./src/contexts/*"],
-      "@layouts/*": ["./src/layouts/*"],
-      "@services/*": ["./src/services/*"],
-      "@utils/*": ["./src/utils/*"]
+      "@/*": ["src/*"]
     },
     "types": ["node"]
   },
