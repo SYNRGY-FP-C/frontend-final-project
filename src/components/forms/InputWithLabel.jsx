@@ -5,7 +5,7 @@ export default function InputWithLabel({ labelName = "input", ...rest }) {
     <div className="space-y-3">
       <label
         htmlFor={labelName}
-        className="block text-sm font-medium text-gray-900"
+        className="block text-xl font-medium text-blind"
       >
         {labelName}
       </label>
