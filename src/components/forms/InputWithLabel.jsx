@@ -2,7 +2,7 @@ import React from "react";
 
 export default function InputWithLabel({ labelName = "input", ...rest }) {
   return (
-    <div className="space-y-2">
+    <div className="w-full space-y-2">
       <label htmlFor={labelName} className="block text-lg text-blind">
         {labelName}
       </label>
