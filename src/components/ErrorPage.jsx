@@ -19,10 +19,10 @@ export default function ErrorPage({
       <section className="flex items-center justify-center flex-1 min-h-screen">
         <div className="max-w-screen-xl px-4 py-8 mx-auto lg:py-16 lg:px-6">
           <div className="max-w-screen-sm mx-auto text-center">
-            <h1 className="mb-4 font-extrabold tracking-tight text-blue-600 text-7xl lg:text-9xl">
+            <h1 className="mb-4 font-extrabold tracking-tight text-blind text-7xl lg:text-9xl">
               {code}
             </h1>
-            <p className="mb-4 text-3xl font-bold tracking-tight text-gray-700 md:text-4xl">
+            <p className="mb-4 text-3xl font-bold tracking-tight text-blind md:text-4xl">
               {statuses[code]}
             </p>
             {children}
