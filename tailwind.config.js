@@ -2,6 +2,7 @@
 /**
  * @type {import('@types/tailwindcss/tailwind-config').TailwindConfig}
  */
+const defaultTheme = require("tailwindcss/defaultTheme");
 const colors = require("tailwindcss/colors");
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
@@ -12,7 +13,11 @@ module.exports = {
       blind: {
         DEFAULT: "#454848",
         100: "#303030",
+        200: "#D9D9D9",
       },
+    },
+    fontFamily: {
+      sans: ["Poppins", ...defaultTheme.fontFamily.sans],
     },
   },
 };

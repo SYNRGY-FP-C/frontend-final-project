@@ -12,7 +12,7 @@ export default function AuthButton({ variant = "light", menu = [], children }) {
     <div className="relative">
       <button
         className={clsx(
-          "inline-flex relative items-center py-3 font-medium text-center px-7 rounded-lg border",
+          "inline-flex relative items-center py-2 font-medium text-center px-4 rounded-lg border",
           variants[variant].text,
           variants[variant].bg,
           variants[variant].border
@@ -34,7 +34,7 @@ export default function AuthButton({ variant = "light", menu = [], children }) {
               <Link
                 href={item.link}
                 className={clsx(
-                  "block px-6 py-2 text-center",
+                  "block px-3 py-2 text-center",
                   variants["gray"].text,
                   variants["gray"].bg,
                   variants[variant].border,

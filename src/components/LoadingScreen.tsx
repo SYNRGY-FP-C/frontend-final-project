@@ -3,6 +3,9 @@ export default function LoadingScreen({ redirect = false, page = "login" }) {
     <>
       <div className="items-center justify-center w-full h-screen bg-white">
         <div className="loading">
+          <h1 className="py-4 text-4xl font-bold text-center text-gray-700">
+            KostHub
+          </h1>
           <div className="balls">
             <div className="one"></div>
             <div className="two"></div>

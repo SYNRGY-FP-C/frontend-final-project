@@ -10,9 +10,9 @@ import { MdStarRate } from "react-icons/md";
 
 export default function Search() {
   return (
-    <DefaultLayout title="Cari Kost">
+    <DefaultLayout title="Cari kost impianmu">
       <Section>
-        <div className="grid h-full grid-cols-12 gap-4">
+        <div className="grid h-full grid-cols-12">
           <div className="hidden col-span-4 lg:grid">
             <div className="relative">
               <div className="flex flex-col w-full shadow p-7 rounded-xl gap-y-6">
@@ -138,12 +138,10 @@ export default function Search() {
               </div>
             </div>
           </div>
-          <div className="grid h-full col-span-12 lg:col-span-8">
+          <div className="grid h-full col-span-12 lg:col-span-8 md:px-4">
             <div className="flex flex-col">
-              <div className="px-6">
-                <SearchBar placeholder="Cari nama kost, alamat, daerah atau kota" />
-              </div>
-              <div className="flex flex-col w-full h-full p-6 gap-y-6">
+              <SearchBar placeholder="Cari nama kost, alamat, daerah atau kota" />
+              <div className="flex flex-col w-full h-full py-6 gap-y-6">
                 <RoomCard />
                 <RoomCard />
                 <RoomCard />

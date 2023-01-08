@@ -3,9 +3,9 @@ import React from "react";
 export default function Footer() {
   return (
     <footer className="p-4 bg-white md:p-4">
-      <div className="mx-auto max-w-screen-xl text-center">
+      <div className="max-w-screen-xl mx-auto text-center">
         <div className="py-4 sm:flex sm:items-center sm:justify-center">
-          <div className="flex mt-4 space-x-6 justify-center sm:mt-0">
+          <div className="flex justify-center mt-4 space-x-6 sm:mt-0">
             <a href="#" className="text-gray-500 hover:text-gray-900">
               <svg
                 className="w-5 h-5"
@@ -78,7 +78,7 @@ export default function Footer() {
         <span className="text-sm text-gray-500 sm:text-center">
           © 2022{" "}
           <a href="#" className="hover:underline">
-            Sainseni
+            KostHub
           </a>
           . All Rights Reserved.
         </span>
