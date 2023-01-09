@@ -16,7 +16,7 @@ export default function DefaultLayout({
       <Head>
         <title>{title}</title>
       </Head>
-      <div className="flex flex-col min-h-screen bg-white">
+      <div className="flex flex-col flex-wrap min-h-screen bg-white">
         <Navbar isAuthenticated={isAuthenticated} />
         {custom ? children : <main className="flex-1">{children}</main>}
         <Footer />

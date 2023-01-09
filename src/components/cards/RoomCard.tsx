@@ -3,11 +3,11 @@ import React from "react";
 
 export default function RoomCard() {
   return (
-    <div className="grid grid-cols-12 shadow rounded-xl">
+    <div className="grid grid-cols-1 shadow lg:grid-cols-12 rounded-xl">
       <div className="grid col-span-4">
         <div className="flex justify-center object-cover w-full h-64 overflow-hidden">
           <img
-            className="object-cover w-full rounded-l-xl"
+            className="object-cover w-full rounded-t-xl lg:rounded-l-xl lg:rounded-r-none"
             src="/images/hero-image.jpg"
             alt="Test"
           />

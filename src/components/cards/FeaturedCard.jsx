@@ -1,10 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import React from "react";
-import { v4 as uuid } from "uuid";
 
 const defaultData = {
-  id: uuid(),
+  id: 1,
   title:
     "Room 1 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.",
   description: "Room 1 description amet consectetur adipisicing",
@@ -13,7 +12,7 @@ const defaultData = {
 export default function FeaturedCard({ data = defaultData }) {
   return (
     <div className="flex-1 rounded-b-lg shadow-lg">
-      <Link href={`/rooms/${data.id}`}>
+      <Link href={`/details/${data.id}`}>
         <div className="relative flex justify-center object-cover w-full h-64 overflow-hidden">
           <img
             className=" object-cover w-full rounded-t-lg"
