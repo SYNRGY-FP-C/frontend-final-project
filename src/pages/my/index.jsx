@@ -1,24 +1,30 @@
 /* eslint-disable @next/next/no-img-element */
 import InputWithLabel from "@/components/forms/InputWithLabel";
+import LoadingScreen from "@/components/LoadingScreen";
 import { useAuth } from "@/contexts/AuthContext";
 import Defaultlayout from "@/layouts/DefaultLayout";
 import Section from "@/layouts/Section";
+import { useRouter } from "next/router";
 import { useState } from "react";
 
 export default function MyProfile() {
+  const router = useRouter();
   const { user, isAuthenticated, isLoading } = useAuth();
 
   const [form, setForm] = useState({
-    name: user.fullname ?? "",
-    birthdate: user.birthdate ?? "",
-    email: user.email ?? "",
-    phone_number: user.phone_number ?? "",
-    gender: user.gender ?? "",
-    occupation: user.occupation ?? "",
+    name: user?.fullname ?? "",
+    birthdate: user?.birthdate ?? "",
+    email: user?.email ?? "",
+    phone_number: user?.phone_number ?? "",
+    gender: user?.gender ?? "",
+    occupation: user?.occupation ?? "",
   });
 
-  if (isLoading || !isAuthenticated) {
-    return <>Loading...</>;
+  if (isLoading) return <LoadingScreen />;
+
+  if (!isAuthenticated) {
+    setTimeout(() => router.push("/login/pencari"), 3000);
+    return <LoadingScreen redirect page="login" />;
   }
 
   const handleSubmit = (e) => {
@@ -99,7 +105,7 @@ export default function MyProfile() {
               />
               <InputWithLabel
                 labelName="Jenis Kelamin"
-                type="text"
+                type="checkbox"
                 value={form.gender}
                 onChange={(e) =>
                   setForm({

@@ -2,35 +2,72 @@
 import OTPCard from "@/components/cards/OTPCard";
 import InputOTP from "@/components/forms/InputOTP";
 import LoadingScreen from "@/components/LoadingScreen";
+import { useAuth } from "@/contexts/AuthContext";
 import DefaultLayout from "@/layouts/DefaultLayout";
 import Section from "@/layouts/Section";
+import verifyService from "@/services/verify.service";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 
 export default function OTP() {
-  const [isLoading, setIsLoading] = React.useState(true);
+  const { user, isLoading, isAuthenticated } = useAuth();
+  const [response, setResponse] = React.useState({
+    isLoading: false,
+    isError: false,
+  });
   const router = useRouter();
   const { target, method } = router.query;
   const [otp, setOtp] = React.useState("");
   const onChange = (value: string) => setOtp(value);
 
-  useEffect(() => {
-    if (
-      !target ||
-      !method ||
-      target === "undefined" ||
-      method === "undefined"
-    ) {
-      router.push("/verify");
-      setIsLoading(true);
-    } else {
-      setIsLoading(false);
+  const requestVerify = async () => {
+    setResponse({ isLoading: true, isError: false });
+    try {
+      await verifyService.requestVerify({
+        ...(method === "email" && { email: user.email }),
+        ...(method === "whatsapp" && { phone_number: user.phone_number }),
+      });
+      setResponse({ isLoading: false, isError: false });
+    } catch (error) {
+      setResponse({ isLoading: false, isError: true });
     }
-  }, [router, method, target]);
+  };
 
-  if (isLoading) {
-    return <LoadingScreen />;
+  const verifyOTP = async () => {
+    setResponse({ isLoading: true, isError: false });
+    try {
+      await verifyService.verify({
+        ...(method === "email" && { email: user.email }),
+        ...(method === "whatsapp" && { phone_number: user.phone_number }),
+        code: otp,
+      });
+      setResponse({ isLoading: false, isError: false });
+    } catch (error) {
+      setResponse({ isLoading: false, isError: true });
+    }
+  };
+
+  useEffect(() => {
+    if (router.isReady) {
+      if (
+        !target ||
+        !method ||
+        target === "undefined" ||
+        method === "undefined"
+      ) {
+        router.push("/verify");
+      } else {
+        requestVerify();
+      }
+    }
+  }, [router.isReady]);
+
+  if (isLoading) return <LoadingScreen />;
+
+  if (!isAuthenticated) {
+    setTimeout(() => router.push("/login/pencari"), 3000);
+    return <LoadingScreen redirect page="login" />;
   }
 
   return (
@@ -57,12 +94,21 @@ export default function OTP() {
                 <div className="flex justify-center text-center">
                   <a className="flex items-center space-x-1">
                     <span className="text-blind">Belum muncul?</span>
-                    <span className="text-blind">Kirim ulang OTP</span>
+                    <span
+                      className="font-semibold cursor-pointer text-blind"
+                      onClick={() => requestVerify()}
+                    >
+                      Kirim ulang OTP
+                    </span>
                   </a>
                 </div>
                 <div className="flex flex-col gap-y-4">
-                  <button className="px-4 py-3 text-white rounded-lg bg-blind">
-                    Verifikasi
+                  <button
+                    className="px-4 py-3 text-white rounded-lg bg-blind"
+                    onClick={() => verifyOTP()}
+                    disabled={response.isLoading}
+                  >
+                    {response.isLoading ? "Loading..." : "Verifikasi"}
                   </button>
                   <Link
                     href="/verify"

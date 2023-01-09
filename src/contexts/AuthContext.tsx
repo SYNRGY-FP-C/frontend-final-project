@@ -11,7 +11,17 @@ type AuthProviderType = {
 
 export const AuthProvider = ({ children }: AuthProviderType) => {
   const router = useRouter();
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({
+    id: "1",
+    fullname: "Khoironi",
+    birthdate: "21-07-2000",
+    gender: "Male",
+    occupation: "Software Developer",
+    email: "zekhoi.learn@gmail.com",
+    phone_number: "08986393031",
+    role: "customer",
+    iat: 1672224171,
+  });
   const [isLoading, setIsLoading] = useState(true);
 
   const getUser = async () => {
@@ -21,7 +31,7 @@ export const AuthProvider = ({ children }: AuthProviderType) => {
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
-      router.push("/login");
+      // router.push("/");
     }
   };
 

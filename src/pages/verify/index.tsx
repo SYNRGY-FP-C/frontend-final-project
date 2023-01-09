@@ -1,31 +1,21 @@
 /* eslint-disable @next/next/no-img-element */
 import LoadingScreen from "@/components/LoadingScreen";
+import { useAuth } from "@/contexts/AuthContext";
 import DefaultLayout from "@/layouts/DefaultLayout";
 import Section from "@/layouts/Section";
+import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React from "react";
 
 export default function Verify() {
-  const [isLoading, setIsLoading] = React.useState(true);
+  const { user, isLoading, isAuthenticated } = useAuth();
   const router = useRouter();
-  const { phone_number, email } = router.query;
 
-  useEffect(() => {
-    if (
-      !phone_number ||
-      !email ||
-      phone_number === "undefined" ||
-      email === "undefined"
-    ) {
-      router.push("/");
-      setIsLoading(true);
-    } else {
-      setIsLoading(false);
-    }
-  }, [router, phone_number, email]);
+  if (isLoading) return <LoadingScreen />;
 
-  if (isLoading) {
-    return <LoadingScreen />;
+  if (!isAuthenticated) {
+    setTimeout(() => router.push("/login/pencari"), 3000);
+    return <LoadingScreen redirect page="login" />;
   }
 
   return (
@@ -37,24 +27,18 @@ export default function Verify() {
           </h5>
           <div className="flex flex-col items-center justify-center gap-y-4">
             <div className="block space-y-4">
-              <button
+              <Link
+                href={`/verify/otp?method=whatsapp&target=${user.phone_number}`}
                 className="flex items-center justify-center w-48 px-5 py-3 space-x-2 bg-white border rounded-lg text-blind boder-blind"
-                onClick={() =>
-                  router.push(
-                    `/verify/otp?method=$whatsapp&target=${phone_number}`
-                  )
-                }
               >
                 Whatsapp
-              </button>
-              <button
+              </Link>
+              <Link
+                href={`/verify/otp?method=email&target=${user.email}`}
                 className="flex items-center justify-center w-48 px-5 py-3 space-x-2 bg-white border rounded-lg text-blind boder-blind"
-                onClick={() =>
-                  router.push(`/verify/otp?method=email&target=${email}`)
-                }
               >
                 Email
-              </button>
+              </Link>
             </div>
           </div>
         </div>

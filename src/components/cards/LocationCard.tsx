@@ -1,10 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import React from "react";
-import { v4 as uuid } from "uuid";
 
 const defaultData = {
-  id: uuid(),
+  id: 1,
   location: "Jakarta, Indonesia",
   description: "Hehehehe Haha",
 };
