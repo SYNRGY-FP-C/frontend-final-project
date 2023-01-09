@@ -28,13 +28,13 @@ export default function Verify() {
           <div className="flex flex-col items-center justify-center gap-y-4">
             <div className="block space-y-4">
               <Link
-                href={`/verify/otp?method=whatsapp&target=${user.phone_number}`}
+                href="/verify/otp?method=whatsapp"
                 className="flex items-center justify-center w-48 px-5 py-3 space-x-2 bg-white border rounded-lg text-blind boder-blind"
               >
                 Whatsapp
               </Link>
               <Link
-                href={`/verify/otp?method=email&target=${user.email}`}
+                href="/verify/otp?method=email"
                 className="flex items-center justify-center w-48 px-5 py-3 space-x-2 bg-white border rounded-lg text-blind boder-blind"
               >
                 Email

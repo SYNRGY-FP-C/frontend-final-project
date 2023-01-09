@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import Alert from "@/components/Alert";
 import OTPCard from "@/components/cards/OTPCard";
 import InputOTP from "@/components/forms/InputOTP";
 import LoadingScreen from "@/components/LoadingScreen";
@@ -15,6 +16,7 @@ export default function OTP() {
   const [response, setResponse] = React.useState({
     isLoading: false,
     isError: false,
+    message: "",
   });
   const router = useRouter();
   const { target, method } = router.query;
@@ -22,40 +24,52 @@ export default function OTP() {
   const onChange = (value: string) => setOtp(value);
 
   const requestVerify = async () => {
-    setResponse({ isLoading: true, isError: false });
+    setResponse({ isLoading: true, isError: false, message: "" });
     try {
       await verifyService.requestVerify({
         ...(method === "email" && { email: user.email }),
         ...(method === "whatsapp" && { phone_number: user.phone_number }),
       });
-      setResponse({ isLoading: false, isError: false });
+      setResponse({
+        isLoading: false,
+        isError: false,
+        message: "Kode OTP berhasil dikirim",
+      });
     } catch (error) {
-      setResponse({ isLoading: false, isError: true });
+      setResponse({
+        isLoading: false,
+        isError: true,
+        message: "Kode OTP gagal dikirim",
+      });
     }
   };
 
   const verifyOTP = async () => {
-    setResponse({ isLoading: true, isError: false });
+    setResponse({ isLoading: true, isError: false, message: "" });
     try {
       await verifyService.verify({
         ...(method === "email" && { email: user.email }),
         ...(method === "whatsapp" && { phone_number: user.phone_number }),
         code: otp,
       });
-      setResponse({ isLoading: false, isError: false });
+      setResponse({
+        isLoading: false,
+        isError: false,
+        message: "Kode OTP berhasil diverifikasi",
+      });
+      setTimeout(() => router.push("/login/pencari"), 3000);
     } catch (error) {
-      setResponse({ isLoading: false, isError: true });
+      setResponse({
+        isLoading: false,
+        isError: true,
+        message: "Kode OTP gagal diverifikasi",
+      });
     }
   };
 
   useEffect(() => {
     if (router.isReady) {
-      if (
-        !target ||
-        !method ||
-        target === "undefined" ||
-        method === "undefined"
-      ) {
+      if (!method || method === "undefined") {
         router.push("/verify");
       } else {
         requestVerify();
@@ -85,12 +99,16 @@ export default function OTP() {
               </div>
             </div>
             <div className="grid col-span-12 lg:col-span-6 place-content-center lg:place-content-start">
+              {response.message && (
+                <Alert type={response.isError ? "error" : "success"}>
+                  {response.message}
+                </Alert>
+              )}
               <OTPCard
                 method={method as "email" | "whatsapp"}
-                target={target as string}
+                target={method === "email" ? user.email : user.phone_number}
               >
                 <InputOTP value={otp} valueLength={4} onChange={onChange} />
-
                 <div className="flex justify-center text-center">
                   <a className="flex items-center space-x-1">
                     <span className="text-blind">Belum muncul?</span>
