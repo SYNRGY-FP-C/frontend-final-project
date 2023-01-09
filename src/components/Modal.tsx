@@ -1,11 +1,7 @@
 import clsx from "clsx";
 import React from "react";
 
-export default function Modal({
-  children = "children",
-  isOpen = false,
-  setIsOpen,
-}) {
+export default function Modal({ isOpen = false, setIsOpen }) {
   return (
     <div
       className={clsx("relative z-10", {
