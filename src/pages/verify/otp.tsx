@@ -19,7 +19,7 @@ export default function OTP() {
     message: "",
   });
   const router = useRouter();
-  const { target, method } = router.query;
+  const { method } = router.query;
   const [otp, setOtp] = React.useState("");
   const onChange = (value: string) => setOtp(value);
 
