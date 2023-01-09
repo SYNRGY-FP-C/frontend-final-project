@@ -1,21 +1,31 @@
 import axios from "../utils/axios";
 
-const register = async (data) => {
-  return await axios.post("/api/users/register", data);
+const registerPencari = async (data) => {
+  return await axios.post("/v1/auth/register/pencari", data);
 };
 
-const login = async (data) => {
-  return await axios.post("/api/users/login", data);
+const registerPenyedia = async (data) => {
+  return await axios.post("/v1/auth/register/penyedia", data);
+};
+
+const loginPencari = async (data) => {
+  return await axios.post("/v1/auth/login/pencari", data);
+};
+
+const loginPenyedia = async (data) => {
+  return await axios.post("/v1/auth/login/penyedia", data);
 };
 
 const me = async () => {
-  return await axios.get("/api/users/me");
+  return await axios.get("/v1/auth/currentuser");
 };
 
 const userService = {
-  register,
-  login,
-  me,
+  registerPencari,
+  registerPenyedia,
+  loginPencari,
+  loginPenyedia,
+  me
 };
 
 export default userService;

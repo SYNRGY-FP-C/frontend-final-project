@@ -1,53 +1,40 @@
-<<<<<<< HEAD
-import { useState } from "react";
-import { useAuth } from "../contexts/AuthContext";
-
-export default function Register() {
-  const { registerUser, isLoading } = useAuth();
-  const [response, setResponse] = useState({
-    isLoading: false,
-    isError: false,
-  })
-  const [form, setForm] = useState({
-    fullname: "",
-    email: "",
-    password: "",
-  })
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setResponse({ isLoading: true, isError: false });
-    try {
-      await registerUser(form);
-      setResponse({ isLoading: false, isError: false });
-    } catch (error) {
-      setResponse({ isLoading: false, isError: true });
-    }
-    console.log(form);
-  };
-
-  return (
-    <div >
-      <form title="Register" className="flex flex-col" onSubmit={handleSubmit}>
-      {response.isError && (
-            <alert>Something went wrong. Please try again.</alert>
-          )}
-        <input type="text" placeholder="Nama" label="FullName" value={form.fullname} onChange={(e) => setForm({ ...form, fullname: e.target.value })}/>
-        <input type="email" placeholder="email" label="Email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
-        <input type="password" placeholder="password" label="password" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} />
-        <button type="submit">Register</button>
-      </form>
-    </div>
-=======
 /* eslint-disable @next/next/no-img-element */
 import Checkbox from "@/components/forms/Checkbox";
 import InputWithLabel from "@/components/forms/InputWithLabel";
 import DefaultLayout from "@/layouts/DefaultLayout";
 import Section from "@/layouts/Section";
 import Link from "next/link";
-import React from "react";
+import {useState} from "react";
+import {useAuth} from "@/contexts/AuthContext"
+import  { useRouter } from "next/router";
 
 export default function RegisterPencari() {
+  const router = useRouter()
+  const { registerPencari, isLoading } = useAuth();
+  const [response, setResponse] = useState({
+    isLoading: false,
+    isError: false,
+  })
+  const [form, setForm] = useState({
+    email: "",
+    phone: "",
+    password: "",
+    repassword: "",
+  })
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setResponse({ isLoading: true, isError: false });
+    try {
+      await registerPencari(form);
+      setResponse({ isLoading: false, isError: true });
+      router.push("/my")
+    } catch (error) {
+      setResponse({ isLoading: false, isError: true });
+    }
+    console.log(form);
+  };
+
   return (
     <DefaultLayout title="Buat akun - Pencari">
       <Section>
@@ -58,17 +45,18 @@ export default function RegisterPencari() {
           <div className="flex flex-col gap-y-4">
             <div className="grid grid-cols-12">
               <div className="grid col-span-12 lg:col-span-4">
-                <div className="flex flex-col gap-y-3">
-                  <InputWithLabel labelName="Email" />
-                  <InputWithLabel labelName="Nomor telepon" />
-                  <InputWithLabel labelName="Password" />
-                  <InputWithLabel labelName="Konfirmasi password" />
+                <form className="flex flex-col gap-y-3" onSubmit={handleSubmit}>
+                  {!response.isError ? "Tidak  error" : "Ada error"}
+                  <InputWithLabel labelName="Email"value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
+                  <InputWithLabel labelName="Nomor telepon" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
+                  <InputWithLabel labelName="Password" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })}/>
+                  <InputWithLabel labelName="Konfirmasi password" value={form.repassword} onChange={(e) => setForm({ ...form, repassword: e.target.value })}/>
                   <Checkbox>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     Donec at felis id odio tristique maximus.
                   </Checkbox>
-                  <button className="px-4 py-3 text-white rounded-lg bg-blind">
-                    Daftar
+                  <button type="submit" className="px-4 py-3 text-white rounded-lg bg-blind" disabled={response.isLoading}>
+                    {!response.isLoading ? "Daftar" : "Loading..."}
                   </button>
                   <div className="relative">
                     <hr className="relative h-0.5 my-4 bg-gray-200 border-0" />
@@ -85,7 +73,7 @@ export default function RegisterPencari() {
                   >
                     Saya sudah memiliki akun{" "}
                   </Link>
-                </div>
+                </form>
               </div>
               <div className="hidden lg:grid md:col-span-8 place-content-center">
                 <div className="flex justify-center object-cover w-full h-full max-w-lg overflow-hidden">
@@ -101,6 +89,5 @@ export default function RegisterPencari() {
         </div>
       </Section>
     </DefaultLayout>
->>>>>>> 2d960bb600dbee7b1ef7e76d4ab490deaf260522
   );
 }

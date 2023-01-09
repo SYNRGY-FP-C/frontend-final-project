@@ -34,10 +34,10 @@ export const AuthProvider = ({ children }: AuthProviderType) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const registerUser = async (data) => {
+  const registerPencari = async (data) => {
     const {
       data: { token },
-    } = await userService.register(data);
+    } = await userService.registerPencari(data);
     localStorage.setItem("accessToken", token);
     const response = await userService.me();
     setUser(response.data);
@@ -46,10 +46,32 @@ export const AuthProvider = ({ children }: AuthProviderType) => {
     // if (response.data.role === "superadmin") router.push("/superadmin");
   };
 
-  const loginUser = async (data) => {
+  const registerPenyedia = async (data) => {
     const {
       data: { token },
-    } = await userService.login(data);
+    } = await userService.registerPenyedia(data);
+    localStorage.setItem("accessToken", token);
+    const response = await userService.me();
+    setUser(response.data);
+    // router.push("/");
+    // if (response.data.role === "admin") router.push("/admin");
+    // if (response.data.role === "superadmin") router.push("/superadmin");
+  };
+
+  const loginPencari = async (data) => {
+    const {
+      data: { token },
+    } = await userService.loginPencari(data);
+    localStorage.setItem("accessToken", token);
+    const response = await userService.me();
+    setUser(response.data);
+    // router.push("/");
+  };
+
+  const loginPenyedia = async (data) => {
+    const {
+      data: { token },
+    } = await userService.loginPenyedia(data);
     localStorage.setItem("accessToken", token);
     const response = await userService.me();
     setUser(response.data);
@@ -67,8 +89,10 @@ export const AuthProvider = ({ children }: AuthProviderType) => {
     isSuperAdmin: user?.role === "superadmin",
     isLoading,
     user,
-    registerUser,
-    loginUser,
+    registerPencari,
+    registerPenyedia,
+    loginPencari,
+    loginPenyedia,
     logoutUser,
   };
 
