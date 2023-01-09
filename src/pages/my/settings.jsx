@@ -8,7 +8,7 @@ export default function Settings() {
   return (
     <Defaultlayout title="Pengaturan">
       <Section>
-        <div className="my-4 text-5xl font-bold text-blind">Pengaturan</div>
+        <div className="my-4 text-4xl font-bold text-blind">Pengaturan</div>
         <div className="grid grid-cols-1 gap-3 lg:grid-cols-12">
           <div className="grid lg:col-span-4 place-items-center gap-y-6"></div>
           <form className="grid lg:col-span-8 gap-y-3">

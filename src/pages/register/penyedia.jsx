@@ -38,10 +38,7 @@ export default function RegisterPenyedia() {
                   <button className="px-4 py-3 bg-white border rounded-lg text-blind border-blind">
                     Daftar dengan Google
                   </button>
-                  <Link
-                    href="/register/pencari"
-                    className="text-xs text-center"
-                  >
+                  <Link href="/login/pencari" className="text-xs text-center">
                     Saya sudah memiliki akun{" "}
                   </Link>
                 </div>

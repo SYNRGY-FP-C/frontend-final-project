@@ -1,15 +1,43 @@
 /* eslint-disable @next/next/no-img-element */
 import Defaultlayout from "@/layouts/DefaultLayout";
 import Section from "@/layouts/Section";
+import Link from "next/link";
 import React from "react";
 
-export default function History() {
+export default function Dashboard() {
   return (
-    <Defaultlayout title="Wishlist">
+    <Defaultlayout title="Dashboard">
       <Section>
-        <div className="my-4 text-4xl font-bold text-blind">Wishlist</div>
-        <div className="grid grid-cols-1 gap-3 lg:grid-cols-12 gap-x-12">
-          <div className="grid w-full lg:col-span-3 place-items-start"></div>
+        <div className="my-4 text-4xl font-semibold text-blind">Dashboard</div>
+        <div className="grid grid-cols-1 gap-3 my-4 lg:grid-cols-12">
+          <div className="grid w-full rounded-lg shadow lg:col-span-3 place-items-start">
+            <div className="flex flex-col w-full px-4 py-5 gap-y-3">
+              <Link
+                href="/dashboard"
+                className="w-full px-4 py-2 bg-white rounded-lg hover:bg-gray-100 text-blind"
+              >
+                Home
+              </Link>
+              <Link
+                href="/dashboard/transactions"
+                className="w-full px-4 py-2 bg-white rounded-lg hover:bg-gray-100 text-blind"
+              >
+                Transaksi
+              </Link>
+              <Link
+                href="/dashboard/history"
+                className="w-full px-4 py-2 bg-white rounded-lg hover:bg-gray-100 text-blind"
+              >
+                Riwayat
+              </Link>
+              <Link
+                href="/dashboard/settings"
+                className="w-full px-4 py-2 bg-white rounded-lg hover:bg-gray-100 text-blind"
+              >
+                Pengaturan
+              </Link>
+            </div>
+          </div>
           <div className="grid lg:col-span-9">
             <div className="flex flex-col w-full gap-y-3">
               <div className="grid grid-cols-1 shadow lg:grid-cols-12 rounded-xl">

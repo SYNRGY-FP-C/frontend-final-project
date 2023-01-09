@@ -11,6 +11,7 @@ import DefaultLayout from "@/layouts/DefaultLayout";
 import RoomDescription from "@/layouts/RoomDescription";
 import RoomDetail from "@/layouts/RoomDetail";
 import Section from "@/layouts/Section";
+import Link from "next/link";
 import React from "react";
 
 export default function Details() {
@@ -175,9 +176,12 @@ export default function Details() {
                     <p className="font-bold text-blind">Total Biaya</p>
                     <p className="font-bold text-blind">Rp2.222.222</p>
                   </div>
-                  <button className="px-4 py-3 text-white rounded-lg bg-blind">
+                  <Link
+                    href="/details/1/submission"
+                    className="px-4 py-3 text-center text-white rounded-lg bg-blind"
+                  >
                     Registrasi
-                  </button>
+                  </Link>
                 </div>
               </div>
             </div>

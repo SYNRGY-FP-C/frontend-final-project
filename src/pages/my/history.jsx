@@ -7,7 +7,7 @@ export default function History() {
   return (
     <Defaultlayout title="Riwayat">
       <Section>
-        <div className="my-4 text-5xl font-bold text-blind">Riwayat</div>
+        <div className="my-4 text-4xl font-bold text-blind">Riwayat</div>
         <div className="grid grid-cols-1 gap-3 lg:grid-cols-12 gap-x-12">
           <div className="grid w-full lg:col-span-3 place-items-start">
             <div className="flex flex-col w-full gap-y-3">

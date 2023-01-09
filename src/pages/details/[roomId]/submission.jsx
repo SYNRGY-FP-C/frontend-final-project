@@ -18,7 +18,10 @@ export default function Submission() {
       <Section>
         <div className="flex flex-col gap-y-6">
           <div className="block">
-            <Link href="/" className="inline-flex items-center py-2 gap-x-1">
+            <Link
+              href="/details/1"
+              className="inline-flex items-center py-2 gap-x-1"
+            >
               <MdChevronLeft className="w-7 h-7" />
               <p className="text-sm text-blind">Kembali</p>
             </Link>
