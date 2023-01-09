@@ -17,7 +17,7 @@ const loginPenyedia = async (data) => {
 };
 
 const me = async () => {
-  return await axios.get("/api/users/me");
+  return await axios.get("/v1/auth/currentuser");
 };
 
 const userService = {
