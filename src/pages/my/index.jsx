@@ -2,9 +2,29 @@
 import InputWithLabel from "@/components/forms/InputWithLabel";
 import Defaultlayout from "@/layouts/DefaultLayout";
 import Section from "@/layouts/Section";
-import React from "react";
+import { useState } from "react";
+import { useAuth} from "@/contexts/AuthContext"
 
 export default function MyProfile() {
+  const { user, isAuthenticated, isLoading } = useAuth();
+
+  if(isLoading || !isAuthenticated){
+    return <>Loading...</>
+  }
+
+  const [form, setForm] = useState({
+    name: user.fullname ?? "",
+    birthdate: user.birthdate ?? "",
+    email: user.email ?? "",
+    phone_number: user.phone_number ?? "",
+    gender: user.gender ?? "",
+    occupation: user.occupation ?? "",
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(form);
+  };
   return (
     <Defaultlayout title="Profil Saya">
       <Section>
@@ -32,13 +52,67 @@ export default function MyProfile() {
             </div>
           </div>
           <div className="grid lg:col-span-8 gap-y-3">
-            <form className="grid grid-cols-2 gap-4">
-              <InputWithLabel labelName="Nama Lengkap" />
-              <InputWithLabel labelName="Tanggal Lahir" type="date" />
-              <InputWithLabel labelName="Email" />
-              <InputWithLabel labelName="Nomor Telepon" />
-              <InputWithLabel labelName="Jenis Kelamin" />
-              <InputWithLabel labelName="Pekerjaan" />
+            <form className="grid grid-cols-2 gap-4" onSubmit={handleSubmit}>
+              <InputWithLabel labelName="Nama Lengkap" 
+                              type="text"
+                              value={form.name}
+                              onChange={(e) =>
+                                setForm({
+                                  ...form,
+                                name: e.target.value,
+                                })
+                              }
+              />
+              <InputWithLabel labelName="Tanggal Lahir" 
+                              type="date" 
+                              value={form.birthdate}
+                              onChange={(e) =>
+                                setForm({
+                                  ...form,
+                                birthdate: e.target.value,
+                                })
+                              }
+              />
+              <InputWithLabel labelName="Email" 
+                              type="email"
+                              value={form.email}
+                              onChange={(e) =>
+                                setForm({
+                                  ...form,
+                                email: e.target.value,
+                                })
+                              }
+              />
+              <InputWithLabel labelName="Nomor Telepon" 
+                              type="number"
+                              value={form.phone_number}
+                              onChange={(e) =>
+                                setForm({
+                                  ...form,
+                                phone_number: e.target.value,
+                                })
+                              }
+              />
+              <InputWithLabel labelName="Jenis Kelamin" 
+                              type="text"
+                              value={form.gender}
+                              onChange={(e) =>
+                                setForm({
+                                  ...form,
+                                gender: e.target.value,
+                                })
+                              }
+              />
+              <InputWithLabel labelName="Pekerjaan" 
+                              type="text"
+                              value={form.occupation}
+                              onChange={(e) =>
+                                setForm({
+                                  ...form,
+                                occupation: e.target.value,
+                                })
+                              }
+              />
 
               <div className="grid col-span-2">
                 <InputWithLabel labelName="Upload scan KTP" type="file" />
