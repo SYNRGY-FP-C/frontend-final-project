@@ -15,7 +15,6 @@ export default function MyProfile() {
     message: "",
   });
 
-
   const [form, setForm] = useState({
     name: user.fullname ?? "",
     birthdate: user.birthdate ?? "",
@@ -25,7 +24,7 @@ export default function MyProfile() {
     occupation: user.occupation ?? "",
   });
 
-  const handleReset= ()=>{
+  const handleReset = () => {
     setForm({
       name: user.fullname,
       birthdate: user.birthdate,
@@ -33,17 +32,25 @@ export default function MyProfile() {
       phone_number: user.phone_number,
       gender: user.gender,
       occupation: user.occupation,
-    })
-  }
+    });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setResponse({ isLoading: true, isError: false, message:"" });
+    setResponse({ isLoading: true, isError: false, message: "" });
     try {
       // await MyProfile(form);
-      setResponse({isLoading: false, isError: false, message:"Data tersimpan"});
-    } catch (error){
-      setResponse({isLoading: false, isError: true, message:"Data tidak tersimpan"})
+      setResponse({
+        isLoading: false,
+        isError: false,
+        message: "Data tersimpan",
+      });
+    } catch (error) {
+      setResponse({
+        isLoading: false,
+        isError: true,
+        message: "Data tidak tersimpan",
+      });
     }
     console.log(form);
   };
@@ -80,11 +87,11 @@ export default function MyProfile() {
           </div>
           <div className="grid lg:col-span-8 gap-y-3">
             {response.message && (
-                <Alert type={response.isError ? "error" : "success"}>
-                  {response.message}
-                </Alert>
-              )}
-              <form className="grid grid-cols-2 gap-4" onSubmit={handleSubmit}>
+              <Alert type={response.isError ? "error" : "success"}>
+                {response.message}
+              </Alert>
+            )}
+            <form className="grid grid-cols-2 gap-4" onSubmit={handleSubmit}>
               <InputWithLabel
                 labelName="Nama Lengkap"
                 type="text"
@@ -158,12 +165,19 @@ export default function MyProfile() {
               <div className="grid col-span-2 place-content-end">
                 <div className="flex flex-row gap-x-4">
                   <div className="block">
-                    <button type="submit" className="px-4 py-2 text-white rounded-lg bg-blind">
+                    <button
+                      type="submit"
+                      className="px-4 py-2 text-white rounded-lg bg-blind"
+                    >
                       Simpan
                     </button>
                   </div>
                   <div className="block">
-                    <button type="button" onClick={handleReset} className="px-4 py-2 bg-white border rounded-lg text-blind border-blind">
+                    <button
+                      type="button"
+                      onClick={handleReset}
+                      className="px-4 py-2 bg-white border rounded-lg text-blind border-blind"
+                    >
                       Reset
                     </button>
                   </div>

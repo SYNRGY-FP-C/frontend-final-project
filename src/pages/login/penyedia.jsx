@@ -1,10 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 import InputWithLabel from "@/components/forms/InputWithLabel";
+import { useAuth } from "@/contexts/AuthContext";
 import DefaultLayout from "@/layouts/DefaultLayout";
 import Section from "@/layouts/Section";
 import Link from "next/link";
 import React, { useState } from "react";
-import { useAuth } from "@/contexts/AuthContext";
 
 // Tambahan
 export default function LoginPenyedia() {
@@ -21,7 +21,6 @@ export default function LoginPenyedia() {
     try {
       await loginPenyedia({ email, password });
       setResponse({ isLoading: false, isError: true });
-      router.push("/my");
     } catch (error) {
       setResponse({ isLoading: false, isError: true });
     }
