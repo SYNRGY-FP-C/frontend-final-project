@@ -28,7 +28,7 @@ export default function AuthButton({ variant = "light", menu = [], children }) {
           block: open,
         })}
       >
-        <div className="flex flex-col w-full">
+        <div className="flex flex-col w-full rounded-lg shadow">
           {menu.map((item, index) => (
             <div key={uuid()}>
               <Link
@@ -39,9 +39,8 @@ export default function AuthButton({ variant = "light", menu = [], children }) {
                   variants["gray"].bg,
                   variants[variant].border,
                   {
-                    "rounded-t-lg border": index === 0,
-                    "border-b border-x": index > 0 && index < menu.length - 1,
-                    "rounded-b-lg border-x border-b": index === menu.length - 1,
+                    "rounded-t-lg": index === 0,
+                    "rounded-b-lg": index === menu.length - 1,
                   }
                 )}
               >
