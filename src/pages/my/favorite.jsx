@@ -3,11 +3,11 @@ import Defaultlayout from "@/layouts/DefaultLayout";
 import Section from "@/layouts/Section";
 import React from "react";
 
-export default function History() {
+export default function Favorite() {
   return (
-    <Defaultlayout title="Wishlist">
+    <Defaultlayout title="Favorit">
       <Section>
-        <div className="my-4 text-5xl font-bold text-blind">Wishlist</div>
+        <div className="my-4 text-5xl font-bold text-blind">Favorit</div>
         <div className="grid grid-cols-1 gap-3 lg:grid-cols-12 gap-x-12">
           <div className="grid w-full lg:col-span-3 place-items-start"></div>
           <div className="grid lg:col-span-9">
