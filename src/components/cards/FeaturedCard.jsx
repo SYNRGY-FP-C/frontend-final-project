@@ -20,12 +20,11 @@ export default function FeaturedCard({ data = defaultData }) {
             alt={data.title}
           />
           <div className="absolute w-full flex flex-row items-center gap-x-3 justify-between p-5">
-          <span className="w-24 text-center py-0.5 border bg-white text-blind rounded-lg">
+            <span className="w-24 text-center py-0.5 border bg-white text-blind rounded-lg">
               Campur
             </span>
-          <div className="w-8 h-8 rounded-lg bg-blind ml-auto"></div>
+            <div className="w-8 h-8 rounded-lg bg-blind ml-auto"></div>
           </div>
-
         </div>
         <div className="mx-4 my-3">
           <h4 className="overflow-hidden text-xl font-semibold text-ellipsis whitespace-nowrap">
@@ -39,7 +38,8 @@ export default function FeaturedCard({ data = defaultData }) {
           </div>
           <div className="flex pb-4 items-center">
             <h5 className="text-base">Rp. 222222222</h5>
-            <div className="w-5 h-5 rounded-lg bg-blind ml-auto"></div> <p className="mx-1">5</p>
+            <div className="w-5 h-5 rounded-lg bg-blind ml-auto"></div>{" "}
+            <p className="mx-1">5</p>
           </div>
         </div>
       </Link>
