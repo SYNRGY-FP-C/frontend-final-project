@@ -11,7 +11,10 @@ export default function LoginPenyedia() {
   const { loginPenyedia, isLoading } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const [response, setResponse] = useState({
+    isLoading: false,
+    isError: false,
+  });
   const handleSubmit = async (e) => {
     e.preventDefault();
     setResponse({ isLoading: true, isError: false });
