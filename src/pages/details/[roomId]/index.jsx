@@ -4,6 +4,7 @@ import MapCard from "@/components/cards/MapCard";
 import OtherRoomCard from "@/components/cards/OtherRoomCard";
 import RoomImagesCard from "@/components/cards/RoomImagesCard";
 import Checkbox from "@/components/forms/Checkbox";
+import InputTimeRent from "@/components/forms/InputTimeRent"
 import InputWithLabel from "@/components/forms/InputWithLabel";
 import DescriptionItem from "@/components/items/DescriptionItem";
 import Modal from "@/components/Modal";
@@ -48,7 +49,7 @@ export default function Details() {
   const router = useRouter();
   const [data, setData] = useState([]);
   const [date, setDate] = useState('');
-  const [paymentScheme, setPaymentScheme] = useState('');
+  const [timeRent, setTimeRent] = useState('');
   const [checkedOrder, setCheckedOrder] = useState(
     new Array(itemChecked.length).fill(false)
   );
@@ -60,9 +61,9 @@ export default function Details() {
         setDate(value)
   } 
 
-  const handlePaymentScheme = (e) => {
+  const handleTimeRent = (e) => {
     const value = e.target.value
-    setPaymentScheme(value)
+    setTimeRent(value)
   }
 
   const handleOnChange = (position) => {
@@ -91,10 +92,10 @@ export default function Details() {
 
     if (!date)  {
       return false
-    } else if (!paymentScheme){
+    } else if (!timeRent){
       return false
     } else {
-      router.push(`/details/1/submission?date=${date}&payment_scheme=${paymentScheme}`)
+      router.push(`/details/1/submission?date=${date}&payment_scheme=${timeRent}`)
     }
   }
 
@@ -264,13 +265,12 @@ export default function Details() {
                   />
 
                   {/* Input Pembayaran */}
-                  <InputWithLabel
+                  <InputTimeRent
                     labelName="Skema Pembayaran"
-                    type="text"
-                    placeholder="Pembayaran"
+                    placeholder="Per Bulan"
                     required
-                    value={paymentScheme}
-                    onChange={(e)=> handlePaymentScheme(e)}
+                    value={timeRent}
+                    onChange={(e)=> handleTimeRent(e)}
                   />
 
                   {/* CheckBox Tambahan fasilitas */}
