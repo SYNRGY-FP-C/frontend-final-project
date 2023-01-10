@@ -5,7 +5,7 @@ export default function Section({ children, odd = false }) {
   return (
     <section
       className={clsx(
-        "flex w-full px-4 py-2 mx-auto md:min-w-[360px] lg:min-w-[720px]",
+        "flex w-full px-4 py-2 mx-auto",
         odd && "bg-gray-100",
         !odd && "bg-white"
       )}

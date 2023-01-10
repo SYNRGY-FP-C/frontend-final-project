@@ -13,7 +13,7 @@ const variants = {
   },
   gray: {
     text: "text-gray-600",
-    bg: "bg-white hover:bg-gray-300",
+    bg: "bg-white hover:bg-gray-100",
     border: "border-gray-700",
     focus: "focus:ring-gray-500",
   },

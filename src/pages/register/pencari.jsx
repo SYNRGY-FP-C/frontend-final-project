@@ -1,26 +1,26 @@
 /* eslint-disable @next/next/no-img-element */
 import Checkbox from "@/components/forms/Checkbox";
 import InputWithLabel from "@/components/forms/InputWithLabel";
+import { useAuth } from "@/contexts/AuthContext";
 import DefaultLayout from "@/layouts/DefaultLayout";
 import Section from "@/layouts/Section";
 import Link from "next/link";
-import {useState} from "react";
-import {useAuth} from "@/contexts/AuthContext"
-import  { useRouter } from "next/router";
+import { useRouter } from "next/router";
+import { useState } from "react";
 
 export default function RegisterPencari() {
-  const router = useRouter()
+  const router = useRouter();
   const { registerPencari, isLoading } = useAuth();
   const [response, setResponse] = useState({
     isLoading: false,
     isError: false,
-  })
+  });
   const [form, setForm] = useState({
     email: "",
     phone: "",
     password: "",
     repassword: "",
-  })
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,7 +28,7 @@ export default function RegisterPencari() {
     try {
       await registerPencari(form);
       setResponse({ isLoading: false, isError: true });
-      router.push("/my")
+      router.push("/my");
     } catch (error) {
       setResponse({ isLoading: false, isError: true });
     }
@@ -47,15 +47,43 @@ export default function RegisterPencari() {
               <div className="grid col-span-12 lg:col-span-4">
                 <form className="flex flex-col gap-y-3" onSubmit={handleSubmit}>
                   {!response.isError ? "Tidak  error" : "Ada error"}
-                  <InputWithLabel labelName="Email"value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
-                  <InputWithLabel labelName="Nomor telepon" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
-                  <InputWithLabel labelName="Password" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })}/>
-                  <InputWithLabel labelName="Konfirmasi password" value={form.repassword} onChange={(e) => setForm({ ...form, repassword: e.target.value })}/>
+                  <InputWithLabel
+                    labelName="Email"
+                    value={form.email}
+                    onChange={(e) =>
+                      setForm({ ...form, email: e.target.value })
+                    }
+                  />
+                  <InputWithLabel
+                    labelName="Nomor telepon"
+                    value={form.phone}
+                    onChange={(e) =>
+                      setForm({ ...form, phone: e.target.value })
+                    }
+                  />
+                  <InputWithLabel
+                    labelName="Password"
+                    value={form.password}
+                    onChange={(e) =>
+                      setForm({ ...form, password: e.target.value })
+                    }
+                  />
+                  <InputWithLabel
+                    labelName="Konfirmasi password"
+                    value={form.repassword}
+                    onChange={(e) =>
+                      setForm({ ...form, repassword: e.target.value })
+                    }
+                  />
                   <Checkbox>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     Donec at felis id odio tristique maximus.
                   </Checkbox>
-                  <button type="submit" className="px-4 py-3 text-white rounded-lg bg-blind" disabled={response.isLoading}>
+                  <button
+                    type="submit"
+                    className="px-4 py-3 text-white rounded-lg bg-blind"
+                    disabled={response.isLoading}
+                  >
                     {!response.isLoading ? "Daftar" : "Loading..."}
                   </button>
                   <div className="relative">
