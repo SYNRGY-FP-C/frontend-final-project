@@ -3,7 +3,10 @@ import InputWithLabel from "@/components/forms/InputWithLabel";
 import Defaultlayout from "@/layouts/DefaultLayout";
 import Section from "@/layouts/Section";
 import React from "react";
+import React from "react";
 import { useState } from "react";
+import { useAuth } from "@/contexts/AuthContext";
+import Alert from "@/components/Alert";
 import { useAuth } from "@/contexts/AuthContext";
 import Alert from "@/components/Alert";
 
@@ -15,7 +18,14 @@ export default function MyProfile() {
     message: "",
   });
 
+
   const [form, setForm] = useState({
+    name: user.fullname ?? "",
+    birthdate: user.birthdate ?? "",
+    email: user.email ?? "",
+    phone_number: user.phone_number ?? "",
+    gender: user.gender ?? "",
+    occupation: user.occupation ?? "",
     name: user.fullname ?? "",
     birthdate: user.birthdate ?? "",
     email: user.email ?? "",
@@ -24,18 +34,14 @@ export default function MyProfile() {
     occupation: user.occupation ?? "",
   });
 
-  const handleReset = () => {
-    setForm({
-      name: user.fullname,
-      birthdate: user.birthdate,
-      email: user.email,
-      phone_number: user.phone_number,
-      gender: user.gender,
-      occupation: user.occupation,
-    });
-  };
+  if (isLoading) return <LoadingScreen />;
 
-  const handleSubmit = async (e) => {
+  if (!isAuthenticated) {
+    setTimeout(() => router.push("/login/pencari"), 3000);
+    return <LoadingScreen redirect page="login" />;
+  }
+
+  const handleSubmit = (e) => {
     e.preventDefault();
     setResponse({ isLoading: true, isError: false, message: "" });
     try {
@@ -173,11 +179,7 @@ export default function MyProfile() {
                     </button>
                   </div>
                   <div className="block">
-                    <button
-                      type="button"
-                      onClick={handleReset}
-                      className="px-4 py-2 bg-white border rounded-lg text-blind border-blind"
-                    >
+                    <button className="px-4 py-2 bg-white border rounded-lg text-blind border-blind">
                       Reset
                     </button>
                   </div>
