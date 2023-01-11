@@ -28,22 +28,35 @@ export default function RegisterPencari() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setResponse({ isLoading: true, isError: false });
+    if (!form.email){
+      setResponse({ isLoading: false, isError: true, message: "Email harus diisi" });
+      return;
+    } if(!form.phone){
+      setResponse({ isLoading: false, isError: true, message: "No hp harus diisi" });
+      return;
+    } if(!form.password){
+      setResponse({ isLoading: false, isError: true, message: "Password harus diisi" });
+      return;
+    }
+    if (form.password != form.repassword){
+      setResponse({ isLoading: false, isError: true, message: "Password Tidak Sama" });
+      return;
+    } 
     try {
       // await registerPencari(form);
-      setResponse({ isLoading: false, isError: false, message: "success" });
+      setResponse({ isLoading: true, isError: false, message: "Register Berhasil" });
       router.push("/verify");
     } catch (error) {
-      setResponse({ isLoading: false, isError: true, message: "error" });
+      setResponse({ isLoading: false, isError: true, message: "Register Gagal" });
     }
-    console.log(form);
   };
-  
+
   return (
     <DefaultLayout title="Buat akun - Pencari">
       <Section>
         <div className="flex flex-col flex-1 gap-y-6">
           <h5 className="text-3xl font-semibold md:text-5xl text-blind">
-            Buat akun
+            Buat akun - Pencari
           </h5>
           <div className="flex flex-col gap-y-4">
             <div className="grid grid-cols-12">
@@ -76,7 +89,7 @@ export default function RegisterPencari() {
                     onChange={(e) =>
                       setForm({ ...form, password: e.target.value })
                     }
-                  />   
+                  />
                   <InputWithLabel
                     labelName="Konfirmasi password"
                     type="password"
@@ -104,10 +117,7 @@ export default function RegisterPencari() {
                   <button className="px-4 py-3 bg-white border rounded-lg text-blind border-blind">
                     Daftar dengan Google
                   </button>
-                  <Link
-                    href="/login/pencari"
-                    className="text-xs text-center"
-                  >
+                  <Link href="/login/pencari" className="text-xs text-center">
                     Saya sudah memiliki akun{" "}
                   </Link>
                 </form>

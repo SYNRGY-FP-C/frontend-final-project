@@ -28,14 +28,27 @@ export default function RegisterPenyedia() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setResponse({ isLoading: true, isError: false });
+    if (!form.email){
+      setResponse({ isLoading: false, isError: true, message: "Email harus diisi" });
+      return;
+    } if(!form.phone){
+      setResponse({ isLoading: false, isError: true, message: "No hp harus diisi" });
+      return;
+    } if(!form.password){
+      setResponse({ isLoading: false, isError: true, message: "Password harus diisi" });
+      return;
+    }
+    if (form.password != form.repassword){
+      setResponse({ isLoading: false, isError: true, message: "Password Tidak Sama" });
+      return;
+    } 
     try {
-      // await registerPenyedia(form);
-      setResponse({ isLoading: false, isError: false, message: "success" });
+      // await registerPencari(form);
+      setResponse({ isLoading: true, isError: false, message: "Register Berhasil" });
       router.push("/verify");
     } catch (error) {
-      setResponse({ isLoading: false, isError: true, message: "error" });
+      setResponse({ isLoading: false, isError: true, message: "Register Gagal" });
     }
-    console.log(form);
   };
 
   return (
@@ -43,13 +56,13 @@ export default function RegisterPenyedia() {
       <Section>
         <div className="flex flex-col flex-1 gap-y-6">
           <h5 className="text-3xl font-semibold md:text-5xl text-blind">
-            Buat akun
+            Buat akun - Penyedia
           </h5>
           <div className="flex flex-col gap-y-4">
             <div className="grid grid-cols-12">
               <div className="grid col-span-12 lg:col-span-4">
                 <form className="flex flex-col gap-y-3" onSubmit={handleSubmit}>
-                {response.message && (
+                  {response.message && (
                     <Alert type={response.isError ? "error" : "success"}>
                       {response.message}
                     </Alert>
@@ -104,10 +117,7 @@ export default function RegisterPenyedia() {
                   <button className="px-4 py-3 bg-white border rounded-lg text-blind border-blind">
                     Daftar dengan Google
                   </button>
-                  <Link
-                    href="/login/penyedia"
-                    className="text-xs text-center"
-                  >
+                  <Link href="/login/penyedia" className="text-xs text-center">
                     Saya sudah memiliki akun{" "}
                   </Link>
                 </form>
