@@ -3,7 +3,10 @@ import InputWithLabel from "@/components/forms/InputWithLabel";
 import Defaultlayout from "@/layouts/DefaultLayout";
 import Section from "@/layouts/Section";
 import React from "react";
+import React from "react";
 import { useState } from "react";
+import { useAuth } from "@/contexts/AuthContext";
+import Alert from "@/components/Alert";
 import { useAuth } from "@/contexts/AuthContext";
 import Alert from "@/components/Alert";
 
@@ -23,27 +26,37 @@ export default function MyProfile() {
     phone_number: user.phone_number ?? "",
     gender: user.gender ?? "",
     occupation: user.occupation ?? "",
+    name: user.fullname ?? "",
+    birthdate: user.birthdate ?? "",
+    email: user.email ?? "",
+    phone_number: user.phone_number ?? "",
+    gender: user.gender ?? "",
+    occupation: user.occupation ?? "",
   });
 
-  const handleReset= ()=>{
-    setForm({
-      name: user.fullname,
-      birthdate: user.birthdate,
-      email: user.email,
-      phone_number: user.phone_number,
-      gender: user.gender,
-      occupation: user.occupation,
-    })
+  if (isLoading) return <LoadingScreen />;
+
+  if (!isAuthenticated) {
+    setTimeout(() => router.push("/login/pencari"), 3000);
+    return <LoadingScreen redirect page="login" />;
   }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setResponse({ isLoading: true, isError: false, message:"" });
+    setResponse({ isLoading: true, isError: false, message: "" });
     try {
       // await MyProfile(form);
-      setResponse({isLoading: false, isError: false, message:"Data tersimpan"});
-    } catch (error){
-      setResponse({isLoading: false, isError: true, message:"Data tidak tersimpan"})
+      setResponse({
+        isLoading: false,
+        isError: false,
+        message: "Data tersimpan",
+      });
+    } catch (error) {
+      setResponse({
+        isLoading: false,
+        isError: true,
+        message: "Data tidak tersimpan",
+      });
     }
     console.log(form);
   };
@@ -80,11 +93,11 @@ export default function MyProfile() {
           </div>
           <div className="grid lg:col-span-8 gap-y-3">
             {response.message && (
-                <Alert type={response.isError ? "error" : "success"}>
-                  {response.message}
-                </Alert>
-              )}
-              <form className="grid grid-cols-2 gap-4" onSubmit={handleSubmit}>
+              <Alert type={response.isError ? "error" : "success"}>
+                {response.message}
+              </Alert>
+            )}
+            <form className="grid grid-cols-2 gap-4" onSubmit={handleSubmit}>
               <InputWithLabel
                 labelName="Nama Lengkap"
                 type="text"
@@ -158,12 +171,15 @@ export default function MyProfile() {
               <div className="grid col-span-2 place-content-end">
                 <div className="flex flex-row gap-x-4">
                   <div className="block">
-                    <button type="submit" className="px-4 py-2 text-white rounded-lg bg-blind">
+                    <button
+                      type="submit"
+                      className="px-4 py-2 text-white rounded-lg bg-blind"
+                    >
                       Simpan
                     </button>
                   </div>
                   <div className="block">
-                    <button type="button" onClick={handleReset} className="px-4 py-2 bg-white border rounded-lg text-blind border-blind">
+                    <button className="px-4 py-2 bg-white border rounded-lg text-blind border-blind">
                       Reset
                     </button>
                   </div>
