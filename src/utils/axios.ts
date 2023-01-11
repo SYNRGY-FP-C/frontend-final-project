@@ -1,10 +1,10 @@
 import axios from "axios";
 
-const axiosInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL,
+const backendJava = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_API_URL_JAVA,
 });
 
-axiosInstance.interceptors.request.use(
+backendJava.interceptors.request.use(
   (config) => {
     const accessToken = localStorage.getItem("accessToken");
     if (accessToken) {
@@ -15,9 +15,16 @@ axiosInstance.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-axiosInstance.interceptors.response.use(
+backendJava.interceptors.response.use(
   (response) => response.data,
   (error) => Promise.reject(error)
 );
 
-export default axiosInstance;
+const backendFSW = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_API_URL_FSW,
+});
+
+export {
+  backendFSW,
+  backendJava,
+};

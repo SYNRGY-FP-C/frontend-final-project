@@ -1,4 +1,6 @@
+import Modal from "@/components/Modal";
 import variants from "@/constants/variants";
+import { useAuth } from "@/contexts/AuthContext";
 import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,20 +12,38 @@ export default function ProfileButton({
   menu = [],
   image = "/images/hero-image.jpg",
 }) {
+  const { logoutUser } = useAuth();
   const [open, setOpen] = React.useState(false);
+  const [opexExit, setOpenExit] = React.useState(false);
 
   return (
     <>
+      <Modal isOpen={opexExit} setIsOpen={setOpenExit}>
+        <p className="text-xl text-center text-blind">
+          Apakah Anda yakin ingin keluar?
+        </p>
+        <button
+          className="inline-flex justify-center w-full px-4 py-3 text-white rounded-lg bg-blind"
+          onClick={() => setOpenExit(false)}
+        >
+          Batal
+        </button>
+        <button
+          className="inline-flex justify-center w-full px-4 py-3 bg-white border rounded-lg text-blind border-blind"
+          onClick={() => logoutUser()}
+        >
+          Keluar
+        </button>
+      </Modal>
       <button
         className={clsx(
-          "inline-flex relative items-center py-1.5 font-medium text-center px-5 rounded-full border gap-x-3",
+          "inline-flex relative items-center font-medium text-center rounded-full",
           variants[variant].text,
           variants[variant].bg,
           variants[variant].border
         )}
         onClick={() => setOpen(!open)}
       >
-        Profile
         <Image
           src={image}
           width={40}
@@ -42,20 +62,18 @@ export default function ProfileButton({
           block: open,
         })}
       >
-        <div className="flex flex-col">
+        <div className="flex flex-col rounded-lg shadow">
           {menu.map((item, index) => (
             <div key={uuid()}>
               <Link
                 href={item.link}
                 className={clsx(
-                  "block px-9 md:px-9 py-2 text-center",
+                  "block px-7 py-2 text-center",
                   variants[variant].text,
                   variants["gray"].bg,
                   variants[variant].border,
                   {
-                    "rounded-t-lg border": index === 0,
-                    "border-b border-x": index > 0 && index < menu.length - 1,
-                    "rounded-b-lg border-x border-b": index === menu.length - 1,
+                    "rounded-t-lg ": index === 0,
                   }
                 )}
               >
@@ -63,6 +81,21 @@ export default function ProfileButton({
               </Link>
             </div>
           ))}
+          <button
+            className={clsx(
+              "block px-9 md:px-9 py-2 text-center",
+              "rounded-b-lg",
+              variants[variant].text,
+              variants["gray"].bg,
+              variants[variant].border
+            )}
+            onClick={() => {
+              setOpenExit(true);
+              setOpen(false);
+            }}
+          >
+            Keluar
+          </button>
         </div>
       </div>
     </>

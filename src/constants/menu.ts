@@ -22,11 +22,23 @@ export const signupMenu = [
 
 export const profileMenu = [
   {
-    name: "Edit Profile",
+    name: "Profile",
     link: "/my",
   },
   {
-    name: "Settings",
+    name: "Riwayat",
+    link: "/my/history",
+  },
+  {
+    name: "Promo",
+    link: "/my",
+  },
+  {
+    name: "Favorit",
+    link: "/my/favorite",
+  },
+  {
+    name: "Pengaturan",
     link: "/my/settings",
   },
 ];

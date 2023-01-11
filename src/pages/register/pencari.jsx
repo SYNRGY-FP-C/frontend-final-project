@@ -1,40 +1,43 @@
 /* eslint-disable @next/next/no-img-element */
 import Checkbox from "@/components/forms/Checkbox";
 import InputWithLabel from "@/components/forms/InputWithLabel";
+import { useAuth } from "@/contexts/AuthContext";
 import DefaultLayout from "@/layouts/DefaultLayout";
 import Section from "@/layouts/Section";
+import Alert from "@/components/Alert";
 import Link from "next/link";
-import {useState} from "react";
-import {useAuth} from "@/contexts/AuthContext"
-import  { useRouter } from "next/router";
+import { useRouter } from "next/router";
+import { useState } from "react";
 
 export default function RegisterPencari() {
-  const router = useRouter()
+  const router = useRouter();
   const { registerPencari, isLoading } = useAuth();
   const [response, setResponse] = useState({
     isLoading: false,
     isError: false,
-  })
+    message: "",
+  });
+
   const [form, setForm] = useState({
     email: "",
     phone: "",
     password: "",
     repassword: "",
-  })
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setResponse({ isLoading: true, isError: false });
     try {
-      await registerPencari(form);
-      setResponse({ isLoading: false, isError: true });
-      router.push("/my")
+      // await registerPencari(form);
+      setResponse({ isLoading: false, isError: false, message: "success" });
+      router.push("/verify");
     } catch (error) {
-      setResponse({ isLoading: false, isError: true });
+      setResponse({ isLoading: false, isError: true, message: "error" });
     }
     console.log(form);
   };
-
+  
   return (
     <DefaultLayout title="Buat akun - Pencari">
       <Section>
@@ -46,16 +49,50 @@ export default function RegisterPencari() {
             <div className="grid grid-cols-12">
               <div className="grid col-span-12 lg:col-span-4">
                 <form className="flex flex-col gap-y-3" onSubmit={handleSubmit}>
-                  {!response.isError ? "Tidak  error" : "Ada error"}
-                  <InputWithLabel labelName="Email"value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
-                  <InputWithLabel labelName="Nomor telepon" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
-                  <InputWithLabel labelName="Password" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })}/>
-                  <InputWithLabel labelName="Konfirmasi password" value={form.repassword} onChange={(e) => setForm({ ...form, repassword: e.target.value })}/>
+                  {response.message && (
+                    <Alert type={response.isError ? "error" : "success"}>
+                      {response.message}
+                    </Alert>
+                  )}
+                  <InputWithLabel
+                    labelName="Email"
+                    type="email"
+                    value={form.email}
+                    onChange={(e) =>
+                      setForm({ ...form, email: e.target.value })
+                    }
+                  />
+                  <InputWithLabel
+                    labelName="Nomor telepon"
+                    value={form.phone}
+                    onChange={(e) =>
+                      setForm({ ...form, phone: e.target.value })
+                    }
+                  />
+                  <InputWithLabel
+                    labelName="Password"
+                    type="password"
+                    value={form.password}
+                    onChange={(e) =>
+                      setForm({ ...form, password: e.target.value })
+                    }
+                  />   
+                  <InputWithLabel
+                    labelName="Konfirmasi password"
+                    type="password"
+                    value={form.repassword}
+                    onChange={(e) =>
+                      setForm({ ...form, repassword: e.target.value })
+                    }
+                  />
                   <Checkbox>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     Donec at felis id odio tristique maximus.
                   </Checkbox>
-                  <button type="submit" className="px-4 py-3 text-white rounded-lg bg-blind" disabled={response.isLoading}>
+                  <button
+                    type="submit"
+                    className="px-4 py-3 text-white rounded-lg bg-blind"
+                  >
                     {!response.isLoading ? "Daftar" : "Loading..."}
                   </button>
                   <div className="relative">
@@ -68,7 +105,7 @@ export default function RegisterPencari() {
                     Daftar dengan Google
                   </button>
                   <Link
-                    href="/register/pencari"
+                    href="/login/pencari"
                     className="text-xs text-center"
                   >
                     Saya sudah memiliki akun{" "}

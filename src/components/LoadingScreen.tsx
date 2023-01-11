@@ -6,7 +6,7 @@ export default function LoadingScreen({ redirect = false, page = "login" }) {
           <h1 className="py-4 text-4xl font-bold text-center text-gray-700">
             KostHub
           </h1>
-          <div className="balls">
+          <div className="space-y-2 balls">
             <div className="one"></div>
             <div className="two"></div>
             <div className="three"></div>

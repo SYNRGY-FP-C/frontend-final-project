@@ -1,23 +1,23 @@
-import axios from "../utils/axios";
+import { backendJava } from "../utils/axios";
 
 const registerPencari = async (data) => {
-  return await axios.post("/v1/auth/register/pencari", data);
+  return await backendJava.post("/v1/auth/register/pencari", data);
 };
 
 const registerPenyedia = async (data) => {
-  return await axios.post("/v1/auth/register/penyedia", data);
+  return await backendJava.post("/v1/auth/register/penyedia", data);
 };
 
 const loginPencari = async (data) => {
-  return await axios.post("/v1/auth/login/pencari", data);
+  return await backendJava.post("/v1/auth/login/pencari", data);
 };
 
 const loginPenyedia = async (data) => {
-  return await axios.post("/v1/auth/login/penyedia", data);
+  return await backendJava.post("/v1/auth/login/penyedia", data);
 };
 
 const me = async () => {
-  return await axios.get("/v1/auth/currentuser");
+  return await backendJava.get("/v1/auth/currentuser");
 };
 
 const userService = {
@@ -25,7 +25,7 @@ const userService = {
   registerPenyedia,
   loginPencari,
   loginPenyedia,
-  me
+  me,
 };
 
 export default userService;
