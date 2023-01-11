@@ -24,7 +24,4 @@ const backendFSW = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL_FSW,
 });
 
-export {
-  backendFSW,
-  backendJava,
-};
+export { backendFSW, backendJava };
