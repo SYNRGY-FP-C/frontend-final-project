@@ -28,26 +28,52 @@ export default function RegisterPenyedia() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setResponse({ isLoading: true, isError: false });
-    if (!form.email){
-      setResponse({ isLoading: false, isError: true, message: "Email harus diisi" });
-      return;
-    } if(!form.phone){
-      setResponse({ isLoading: false, isError: true, message: "No hp harus diisi" });
-      return;
-    } if(!form.password){
-      setResponse({ isLoading: false, isError: true, message: "Password harus diisi" });
+    if (!form.email) {
+      setResponse({
+        isLoading: false,
+        isError: true,
+        message: "Email harus diisi",
+      });
       return;
     }
-    if (form.password != form.repassword){
-      setResponse({ isLoading: false, isError: true, message: "Password Tidak Sama" });
+    if (!form.phone) {
+      setResponse({
+        isLoading: false,
+        isError: true,
+        message: "No hp harus diisi",
+      });
       return;
-    } 
+    }
+    if (!form.password) {
+      setResponse({
+        isLoading: false,
+        isError: true,
+        message: "Password harus diisi",
+      });
+      return;
+    }
+    if (form.password != form.repassword) {
+      setResponse({
+        isLoading: false,
+        isError: true,
+        message: "Password Tidak Sama",
+      });
+      return;
+    }
     try {
       // await registerPencari(form);
-      setResponse({ isLoading: true, isError: false, message: "Register Berhasil" });
+      setResponse({
+        isLoading: true,
+        isError: false,
+        message: "Register Berhasil",
+      });
       router.push("/verify");
     } catch (error) {
-      setResponse({ isLoading: false, isError: true, message: "Register Gagal" });
+      setResponse({
+        isLoading: false,
+        isError: true,
+        message: "Register Gagal",
+      });
     }
   };
 

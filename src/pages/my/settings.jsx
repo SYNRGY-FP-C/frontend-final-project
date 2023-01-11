@@ -21,21 +21,33 @@ export default function Settings() {
     message: "",
   });
 
-const handleSubmit = (e) => {
-  e.preventDefault();
-  setResponse({ isLoading: true, isError: false, message:"" });
-  if(form.newPass !== form.confirmnewPass){
-    setResponse({ isLoading: true, isError: true, message:"Konfirmasi Password tidak sama" });
-    return;
-  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setResponse({ isLoading: true, isError: false, message: "" });
+    if (form.newPass !== form.confirmnewPass) {
+      setResponse({
+        isLoading: true,
+        isError: true,
+        message: "Konfirmasi Password tidak sama",
+      });
+      return;
+    }
     try {
       // await MyProfile(form);
-      setResponse({isLoading: false, isError: false, message:"Password berhasil diubah"});
-    } catch (error){
-      setResponse({isLoading: false, isError: true, message:"Password gagal diubah"})
+      setResponse({
+        isLoading: false,
+        isError: false,
+        message: "Password berhasil diubah",
+      });
+    } catch (error) {
+      setResponse({
+        isLoading: false,
+        isError: true,
+        message: "Password gagal diubah",
+      });
     }
-  console.log(form);
-}
+    console.log(form);
+  };
 
   return (
     <Defaultlayout title="Pengaturan">
@@ -44,13 +56,13 @@ const handleSubmit = (e) => {
         <div className="grid grid-cols-1 gap-3 lg:grid-cols-12">
           <div className="grid lg:col-span-4 place-items-center gap-y-6"></div>
           {response.message && (
-                <Alert type={response.isError ? "error" : "success"}>
-                  {response.message}
-                </Alert>
-              )}
+            <Alert type={response.isError ? "error" : "success"}>
+              {response.message}
+            </Alert>
+          )}
           <form className="grid lg:col-span-8 gap-y-3" onSubmit={handleSubmit}>
-            <InputWithLabel 
-              labelName="Password lama" 
+            <InputWithLabel
+              labelName="Password lama"
               type="password"
               value={form.lastPass}
               onChange={(e) =>
@@ -60,19 +72,19 @@ const handleSubmit = (e) => {
                 })
               }
             />
-            <InputWithLabel 
-              labelName="Password baru" 
+            <InputWithLabel
+              labelName="Password baru"
               type="password"
-                value={form.newPass}
-                onChange={(e) =>
-                  setForm({
-                    ...form,
-                    newPass: e.target.value,
-                  })
-                }
+              value={form.newPass}
+              onChange={(e) =>
+                setForm({
+                  ...form,
+                  newPass: e.target.value,
+                })
+              }
             />
-            <InputWithLabel 
-              labelName="Konfirmasi password baru" 
+            <InputWithLabel
+              labelName="Konfirmasi password baru"
               type="password"
               value={form.confirmnewPass}
               onChange={(e) =>
@@ -84,7 +96,10 @@ const handleSubmit = (e) => {
             />
 
             <div className="block">
-              <button type="submit" className="px-4 py-2 text-white rounded-lg bg-blind">
+              <button
+                type="submit"
+                className="px-4 py-2 text-white rounded-lg bg-blind"
+              >
                 Simpan
               </button>
             </div>

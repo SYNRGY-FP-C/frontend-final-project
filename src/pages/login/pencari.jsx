@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import InputWithLabel from "@/components/forms/InputWithLabel";
-import LoadingScreen from "@/components/LoadingScreen"
+import LoadingScreen from "@/components/LoadingScreen";
 import { useAuth } from "@/contexts/AuthContext";
 import DefaultLayout from "@/layouts/DefaultLayout";
 import Section from "@/layouts/Section";
@@ -11,7 +11,7 @@ import { useState } from "react";
 
 export default function LoginPencari() {
   const router = useRouter();
-  const {LoginPencari, isLoading, isAuthenticated} = useAuth();
+  const { LoginPencari, isLoading, isAuthenticated } = useAuth();
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -26,15 +26,22 @@ export default function LoginPencari() {
     e.preventDefault();
     setForm({ ...form, isLoading: true });
     try {
-        await LoginPencari(form);
-        setResponse({ ...response, isLoading: false, isError: false, message: "Berhasil Log In"});
-        setForm('');
-        router.push("/");
+      await LoginPencari(form);
+      setResponse({
+        ...response,
+        isLoading: false,
+        isError: false,
+        message: "Berhasil Log In",
+      });
+      setForm("");
+      router.push("/");
     } catch (err) {
-        setResponse({...response,
-          isLoading: false,
-          isError: true,
-          message: "Gagal Log In", })
+      setResponse({
+        ...response,
+        isLoading: false,
+        isError: true,
+        message: "Gagal Log In",
+      });
     }
   };
 
@@ -56,30 +63,35 @@ export default function LoginPencari() {
             <div className="grid grid-cols-12">
               <div className="grid col-span-12 lg:col-span-4">
                 <div className="flex flex-col gap-y-3">
-                  <form 
+                  <form
                     className="flex flex-col gap-y-3"
                     onSubmit={handleSubmit}
                   >
-                      <InputWithLabel 
-                        labelName="Email"
-                        value={form.email}
-                        onChange={(e) => setForm({ ...form, email: e.target.value })}
-                        required
-                      />
-                      <InputWithLabel  
-                        labelName="Password"
-                        value={form.password}
-                        onChange={(e) => setForm({ ...form, password: e.target.value })}
-                        required 
-                      />
-                      <Link href="/" className="text-xs text-center">
-                        Lupa password
-                      </Link>
-                      <button 
-                        type="submit"
-                        className="px-4 py-3 text-white rounded-lg bg-blind">
-                        Masuk
-                      </button>
+                    <InputWithLabel
+                      labelName="Email"
+                      value={form.email}
+                      onChange={(e) =>
+                        setForm({ ...form, email: e.target.value })
+                      }
+                      required
+                    />
+                    <InputWithLabel
+                      labelName="Password"
+                      value={form.password}
+                      onChange={(e) =>
+                        setForm({ ...form, password: e.target.value })
+                      }
+                      required
+                    />
+                    <Link href="/" className="text-xs text-center">
+                      Lupa password
+                    </Link>
+                    <button
+                      type="submit"
+                      className="px-4 py-3 text-white rounded-lg bg-blind"
+                    >
+                      Masuk
+                    </button>
                   </form>
                   <div className="relative">
                     <hr className="relative h-0.5 my-4 bg-gray-200 border-0" />

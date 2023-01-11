@@ -1,16 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
+import Alert from "@/components/Alert";
 import InputWithLabel from "@/components/forms/InputWithLabel";
+import LoadingScreen from "@/components/LoadingScreen";
+import { useAuth } from "@/contexts/AuthContext";
 import Defaultlayout from "@/layouts/DefaultLayout";
 import Section from "@/layouts/Section";
-import React from "react";
+import { useRouter } from "next/router";
 import React from "react";
 import { useState } from "react";
-import { useAuth } from "@/contexts/AuthContext";
-import Alert from "@/components/Alert";
-import { useAuth } from "@/contexts/AuthContext";
-import Alert from "@/components/Alert";
 
 export default function MyProfile() {
+  const router = useRouter();
   const { user, isAuthenticated, isLoading } = useAuth();
   const [response, setResponse] = React.useState({
     isLoading: false,
@@ -18,14 +18,7 @@ export default function MyProfile() {
     message: "",
   });
 
-
   const [form, setForm] = useState({
-    name: user.fullname ?? "",
-    birthdate: user.birthdate ?? "",
-    email: user.email ?? "",
-    phone_number: user.phone_number ?? "",
-    gender: user.gender ?? "",
-    occupation: user.occupation ?? "",
     name: user.fullname ?? "",
     birthdate: user.birthdate ?? "",
     email: user.email ?? "",
