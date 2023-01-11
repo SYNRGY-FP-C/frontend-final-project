@@ -37,7 +37,7 @@ export default function RoomCard() {
             </div>
           </div>
           <div className="flex items-stretch justify-end h-full">
-            <p className="inline-flex h-8 items-center px-4 text-center bg-gray-200 rounded mt-auto" >
+            <p className="inline-flex h-8 items-center px-4 text-center bg-gray-200 rounded mt-auto">
               Selesai September 2022
             </p>
           </div>
