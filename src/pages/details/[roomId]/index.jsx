@@ -4,7 +4,7 @@ import MapCard from "@/components/cards/MapCard";
 import OtherRoomCard from "@/components/cards/OtherRoomCard";
 import RoomImagesCard from "@/components/cards/RoomImagesCard";
 import Checkbox from "@/components/forms/Checkbox";
-import InputTimeRent from "@/components/forms/InputTimeRent";
+// import InputTimeRent from "@/components/forms/InputTimeRent";
 import InputWithLabel from "@/components/forms/InputWithLabel";
 import DescriptionItem from "@/components/items/DescriptionItem";
 import Modal from "@/components/Modal";
@@ -265,13 +265,13 @@ export default function Details() {
                   />
 
                   {/* Input Pembayaran */}
-                  <InputTimeRent
+                  {/* <InputTimeRent
                     labelName="Skema Pembayaran"
                     placeholder="Per Bulan"
                     required
                     value={timeRent}
                     onChange={(e) => handleTimeRent(e)}
-                  />
+                  /> */}
 
                   {/* CheckBox Tambahan fasilitas */}
                   <div className="flex flex-col gap-y-2">
