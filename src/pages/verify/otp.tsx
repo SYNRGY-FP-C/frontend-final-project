@@ -82,7 +82,12 @@ export default function OTP() {
     }
   }, [isAuthenticated, isVerified, method, requestVerify, router.isReady]);
 
-  if (isLoading || !isAuthenticated) return <LoadingScreen />;
+  if (isLoading) return <LoadingScreen />;
+
+  if (!isAuthenticated) {
+    setTimeout(() => router.push("/"), 2500);
+    return <LoadingScreen redirect page="home" />;
+  }
 
   if (isVerified) {
     setTimeout(() => router.push("/"), 2500);
