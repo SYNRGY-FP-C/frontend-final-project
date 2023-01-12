@@ -31,7 +31,7 @@ export const profileMenu = [
   },
   {
     name: "Promo",
-    link: "/my",
+    link: "/my/promo",
   },
   {
     name: "Favorit",

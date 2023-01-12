@@ -8,14 +8,14 @@ import { useRouter } from "next/router";
 import React from "react";
 
 export default function Verify() {
-  const { user, isLoading, isAuthenticated } = useAuth();
+  const { isVerified, isLoading, isAuthenticated } = useAuth();
   const router = useRouter();
 
-  if (isLoading) return <LoadingScreen />;
+  if (isLoading || !isAuthenticated) return <LoadingScreen />;
 
-  if (!isAuthenticated) {
-    setTimeout(() => router.push("/login/pencari"), 3000);
-    return <LoadingScreen redirect page="login" />;
+  if (isVerified) {
+    setTimeout(() => router.push("/"), 2500);
+    return <LoadingScreen redirect page="home" />;
   }
 
   return (

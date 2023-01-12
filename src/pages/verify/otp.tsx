@@ -9,10 +9,10 @@ import Section from "@/layouts/Section";
 import verifyService from "@/services/verify.service";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 
 export default function OTP() {
-  const { user, isLoading, isAuthenticated } = useAuth();
+  const { user, isLoading, isAuthenticated, isVerified } = useAuth();
   const [response, setResponse] = React.useState({
     isLoading: false,
     isError: false,
@@ -23,7 +23,7 @@ export default function OTP() {
   const [otp, setOtp] = React.useState("");
   const onChange = (value: string) => setOtp(value);
 
-  const requestVerify = async () => {
+  const requestVerify = useCallback(async () => {
     setResponse({ isLoading: true, isError: false, message: "" });
     try {
       await verifyService.requestVerify({
@@ -42,7 +42,8 @@ export default function OTP() {
         message: "Kode OTP gagal dikirim",
       });
     }
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [method]);
 
   const verifyOTP = async () => {
     setResponse({ isLoading: true, isError: false, message: "" });
@@ -57,7 +58,8 @@ export default function OTP() {
         isError: false,
         message: "Kode OTP berhasil diverifikasi",
       });
-      setTimeout(() => router.push("/login/pencari"), 3000);
+
+      setTimeout(() => router.push("/"), 2500);
     } catch (error) {
       setResponse({
         isLoading: false,
@@ -68,20 +70,28 @@ export default function OTP() {
   };
 
   useEffect(() => {
-    if (router.isReady) {
-      if (!method || method === "undefined") {
-        router.push("/verify");
-      } else {
-        requestVerify();
-      }
+    if (
+      router.isReady &&
+      isAuthenticated &&
+      !isVerified &&
+      method &&
+      method !== "undefined"
+    ) {
+      requestVerify();
+      return;
     }
-  }, [router.isReady]);
+  }, [isAuthenticated, isVerified, method, requestVerify, router.isReady]);
 
-  if (isLoading) return <LoadingScreen />;
+  if (isLoading || !isAuthenticated) return <LoadingScreen />;
 
-  if (!isAuthenticated) {
-    setTimeout(() => router.push("/login/pencari"), 3000);
-    return <LoadingScreen redirect page="login" />;
+  if (isVerified) {
+    setTimeout(() => router.push("/"), 2500);
+    return <LoadingScreen redirect page="home" />;
+  }
+
+  if (!method || method === "undefined") {
+    setTimeout(() => router.push("/verify"), 2500);
+    return <LoadingScreen redirect page="verification method" />;
   }
 
   return (

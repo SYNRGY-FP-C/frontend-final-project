@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 import userService from "../services/user.service";
@@ -10,18 +9,7 @@ type AuthProviderType = {
 };
 
 export const AuthProvider = ({ children }: AuthProviderType) => {
-  const router = useRouter();
-  const [user, setUser] = useState({
-    id: "1",
-    fullname: "Khoironi",
-    birthdate: "21-07-2000",
-    gender: "Male",
-    occupation: "Software Developer",
-    email: "zekhoi.learn@gmail.com",
-    phone_number: "08986393031",
-    role: "customer",
-    iat: 1672224171,
-  });
+  const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   const getUser = async () => {
@@ -98,6 +86,7 @@ export const AuthProvider = ({ children }: AuthProviderType) => {
     isAdmin: user?.role === "admin",
     isSuperAdmin: user?.role === "superadmin",
     isLoading,
+    isVerified: false,
     user,
     registerPencari,
     registerPenyedia,

@@ -57,7 +57,7 @@ export default function ProfileButton({
       </button>
       {/* Dropdown menu */}
       <div
-        className={clsx("pt-2 absolute z-10", {
+        className={clsx("pt-2 absolute z-10 -ml-28", {
           hidden: !open,
           block: open,
         })}

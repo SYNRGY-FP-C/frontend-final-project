@@ -1,6 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
+import Alert from "@/components/Alert";
 import Checkbox from "@/components/forms/Checkbox";
 import InputWithLabel from "@/components/forms/InputWithLabel";
+import LoadingScreen from "@/components/LoadingScreen";
 import { useAuth } from "@/contexts/AuthContext";
 import DefaultLayout from "@/layouts/DefaultLayout";
 import Section from "@/layouts/Section";
@@ -10,11 +12,13 @@ import { useState } from "react";
 
 export default function RegisterPencari() {
   const router = useRouter();
-  const { registerPencari, isLoading } = useAuth();
+  const { registerPencari, isLoading, isAuthenticated } = useAuth();
   const [response, setResponse] = useState({
     isLoading: false,
     isError: false,
+    message: "",
   });
+
   const [form, setForm] = useState({
     email: "",
     phone: "",
@@ -22,17 +26,39 @@ export default function RegisterPencari() {
     repassword: "",
   });
 
+  if (isLoading) return <LoadingScreen />;
+
+  if (isAuthenticated) {
+    setTimeout(() => router.push("/verify"), 2500);
+    return <LoadingScreen redirect page="verification" />;
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setResponse({ isLoading: true, isError: false });
+    if (form.password !== form.repassword) {
+      setResponse({
+        isLoading: false,
+        isError: true,
+        message: "Konfirmasi password tidak sama",
+      });
+      return;
+    }
     try {
       await registerPencari(form);
-      setResponse({ isLoading: false, isError: true });
-      router.push("/my");
+      setResponse({
+        isLoading: false,
+        isError: false,
+        message: "Pendaftaran berhasil",
+      });
+      router.push("/verify");
     } catch (error) {
-      setResponse({ isLoading: false, isError: true });
+      setResponse({
+        isLoading: false,
+        isError: true,
+        message: "Pendaftaran gagal",
+      });
     }
-    console.log(form);
   };
 
   return (
@@ -40,19 +66,25 @@ export default function RegisterPencari() {
       <Section>
         <div className="flex flex-col flex-1 gap-y-6">
           <h5 className="text-3xl font-semibold md:text-5xl text-blind">
-            Buat akun
+            Buat akun - Pencari
           </h5>
           <div className="flex flex-col gap-y-4">
             <div className="grid grid-cols-12">
               <div className="grid col-span-12 lg:col-span-4">
                 <form className="flex flex-col gap-y-3" onSubmit={handleSubmit}>
-                  {!response.isError ? "Tidak  error" : "Ada error"}
+                  {response.message && (
+                    <Alert type={response.isError ? "error" : "success"}>
+                      {response.message}
+                    </Alert>
+                  )}
                   <InputWithLabel
                     labelName="Email"
+                    type="email"
                     value={form.email}
                     onChange={(e) =>
                       setForm({ ...form, email: e.target.value })
                     }
+                    required
                   />
                   <InputWithLabel
                     labelName="Nomor telepon"
@@ -60,29 +92,33 @@ export default function RegisterPencari() {
                     onChange={(e) =>
                       setForm({ ...form, phone: e.target.value })
                     }
+                    required
                   />
                   <InputWithLabel
                     labelName="Password"
+                    type="password"
                     value={form.password}
                     onChange={(e) =>
                       setForm({ ...form, password: e.target.value })
                     }
+                    required
                   />
                   <InputWithLabel
                     labelName="Konfirmasi password"
+                    type="password"
                     value={form.repassword}
                     onChange={(e) =>
                       setForm({ ...form, repassword: e.target.value })
                     }
+                    required
                   />
-                  <Checkbox>
+                  <Checkbox required>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     Donec at felis id odio tristique maximus.
                   </Checkbox>
                   <button
                     type="submit"
                     className="px-4 py-3 text-white rounded-lg bg-blind"
-                    disabled={response.isLoading}
                   >
                     {!response.isLoading ? "Daftar" : "Loading..."}
                   </button>
@@ -95,10 +131,7 @@ export default function RegisterPencari() {
                   <button className="px-4 py-3 bg-white border rounded-lg text-blind border-blind">
                     Daftar dengan Google
                   </button>
-                  <Link
-                    href="/register/pencari"
-                    className="text-xs text-center"
-                  >
+                  <Link href="/login/pencari" className="text-xs text-center">
                     Saya sudah memiliki akun{" "}
                   </Link>
                 </form>
