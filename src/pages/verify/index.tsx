@@ -8,10 +8,10 @@ import { useRouter } from "next/router";
 import React from "react";
 
 export default function Verify() {
-  const { isVerified, isLoading, isAuthenticated } = useAuth();
+  const { isVerified, isLoading } = useAuth();
   const router = useRouter();
 
-  if (isLoading || !isAuthenticated) return <LoadingScreen />;
+  if (isLoading) return <LoadingScreen />;
 
   if (isVerified) {
     setTimeout(() => router.push("/"), 2500);

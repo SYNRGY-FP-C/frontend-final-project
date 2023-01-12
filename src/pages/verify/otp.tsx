@@ -45,7 +45,8 @@ export default function OTP() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [method]);
 
-  const verifyOTP = async () => {
+  const verifyOTP = async (e) => {
+    e.preventDefault();
     setResponse({ isLoading: true, isError: false, message: "" });
     try {
       await verifyService.verify({
@@ -82,7 +83,7 @@ export default function OTP() {
     }
   }, [isAuthenticated, isVerified, method, requestVerify, router.isReady]);
 
-  if (isLoading || !isAuthenticated) return <LoadingScreen />;
+  if (isLoading) return <LoadingScreen />;
 
   if (isVerified) {
     setTimeout(() => router.push("/"), 2500);
@@ -108,7 +109,10 @@ export default function OTP() {
                 />
               </div>
             </div>
-            <div className="grid col-span-12 lg:col-span-6 place-content-center lg:place-content-start">
+            <form
+              className="grid col-span-12 lg:col-span-6 place-content-center lg:place-content-start"
+              onSubmit={verifyOTP}
+            >
               {response.message && (
                 <Alert type={response.isError ? "error" : "success"}>
                   {response.message}
@@ -133,7 +137,6 @@ export default function OTP() {
                 <div className="flex flex-col gap-y-4">
                   <button
                     className="px-4 py-3 text-white rounded-lg bg-blind"
-                    onClick={() => verifyOTP()}
                     disabled={response.isLoading}
                   >
                     {response.isLoading ? "Loading..." : "Verifikasi"}
@@ -146,7 +149,7 @@ export default function OTP() {
                   </Link>
                 </div>
               </OTPCard>
-            </div>
+            </form>
           </div>
         </div>
       </Section>
