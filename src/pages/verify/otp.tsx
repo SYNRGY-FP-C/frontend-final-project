@@ -58,7 +58,8 @@ export default function OTP() {
         isError: false,
         message: "Kode OTP berhasil diverifikasi",
       });
-      router.push("/");
+
+      setTimeout(() => router.push("/"), 2500);
     } catch (error) {
       setResponse({
         isLoading: false,
@@ -89,7 +90,7 @@ export default function OTP() {
   }
 
   if (!method || method === "undefined") {
-    router.push("/verify");
+    setTimeout(() => router.push("/verify"), 2500);
     return <LoadingScreen redirect page="verification method" />;
   }
 
