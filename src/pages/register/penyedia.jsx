@@ -84,6 +84,7 @@ export default function RegisterPenyedia() {
                     onChange={(e) =>
                       setForm({ ...form, email: e.target.value })
                     }
+                    required
                   />
                   <InputWithLabel
                     labelName="Nomor telepon"
@@ -91,6 +92,7 @@ export default function RegisterPenyedia() {
                     onChange={(e) =>
                       setForm({ ...form, phone: e.target.value })
                     }
+                    required
                   />
                   <InputWithLabel
                     labelName="Password"
@@ -99,6 +101,7 @@ export default function RegisterPenyedia() {
                     onChange={(e) =>
                       setForm({ ...form, password: e.target.value })
                     }
+                    required
                   />
                   <InputWithLabel
                     labelName="Konfirmasi password"
@@ -107,8 +110,9 @@ export default function RegisterPenyedia() {
                     onChange={(e) =>
                       setForm({ ...form, repassword: e.target.value })
                     }
+                    required
                   />
-                  <Checkbox>
+                  <Checkbox required>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     Donec at felis id odio tristique maximus.
                   </Checkbox>
