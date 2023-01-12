@@ -11,13 +11,16 @@ type AuthProviderType = {
 export const AuthProvider = ({ children }: AuthProviderType) => {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const getUser = async () => {
     try {
       const response = await userService.me();
+      setIsAuthenticated(true);
       setUser(response.data);
       setIsLoading(false);
     } catch (error) {
+      setIsAuthenticated(false);
       setIsLoading(false);
       // router.push("/");
     }
@@ -82,7 +85,7 @@ export const AuthProvider = ({ children }: AuthProviderType) => {
   };
 
   const value = {
-    isAuthenticated: !!user,
+    isAuthenticated,
     isAdmin: user?.role === "admin",
     isSuperAdmin: user?.role === "superadmin",
     isLoading,
