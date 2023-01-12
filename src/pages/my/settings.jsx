@@ -1,18 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
+import Alert from "@/components/Alert";
 import InputWithLabel from "@/components/forms/InputWithLabel";
 import Defaultlayout from "@/layouts/DefaultLayout";
 import Section from "@/layouts/Section";
 import React from "react";
 import { useState } from "react";
-import { useAuth } from "@/contexts/AuthContext";
-import Alert from "@/components/Alert";
 
 export default function Settings() {
-  const { user } = useAuth();
   const [form, setForm] = useState({
-    lastPass: user.lastPass ?? "",
-    newPass: user.newPass ?? "",
-    confirmnewPass: user.confirmnewPass ?? "",
+    lastPass: "",
+    newPass: "",
+    confirmnewPass: "",
   });
 
   const [response, setResponse] = React.useState({
@@ -46,7 +44,6 @@ export default function Settings() {
         message: "Password gagal diubah",
       });
     }
-    console.log(form);
   };
 
   return (

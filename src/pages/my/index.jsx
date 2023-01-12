@@ -19,18 +19,18 @@ export default function MyProfile() {
   });
 
   const [form, setForm] = useState({
-    name: user.fullname ?? "",
-    birthdate: user.birthdate ?? "",
-    email: user.email ?? "",
-    phone_number: user.phone_number ?? "",
-    gender: user.gender ?? "",
-    occupation: user.occupation ?? "",
+    name: user?.fullname || "",
+    birthdate: user?.birthdate || "",
+    email: user?.email || "",
+    phone_number: user?.phone_number || "",
+    gender: user?.gender || "",
+    occupation: user?.occupation || "",
   });
 
   if (isLoading) return <LoadingScreen />;
 
   if (!isAuthenticated) {
-    setTimeout(() => router.push("/login/pencari"), 3000);
+    setTimeout(() => router.push("/login/pencari"), 1500);
     return <LoadingScreen redirect page="login" />;
   }
 
@@ -51,12 +51,7 @@ export default function MyProfile() {
         message: "Data tidak tersimpan",
       });
     }
-    console.log(form);
   };
-
-  if (isLoading || !isAuthenticated) {
-    return <>Loading...</>;
-  }
 
   return (
     <Defaultlayout title="Profil Saya">

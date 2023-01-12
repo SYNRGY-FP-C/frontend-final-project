@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import Alert from "@/components/Alert";
 import InputWithLabel from "@/components/forms/InputWithLabel";
 import LoadingScreen from "@/components/LoadingScreen";
 import { useAuth } from "@/contexts/AuthContext";
@@ -11,7 +12,7 @@ import { useState } from "react";
 
 export default function LoginPencari() {
   const router = useRouter();
-  const { LoginPencari, isLoading, isAuthenticated } = useAuth();
+  const { loginPencari, isLoading, isAuthenticated } = useAuth();
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -22,22 +23,25 @@ export default function LoginPencari() {
     message: "",
   });
 
+  if (isLoading) return <LoadingScreen />;
+
+  if (isAuthenticated) {
+    setTimeout(() => router.push("/verify"), 2500);
+    return <LoadingScreen redirect page="verification" />;
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setForm({ ...form, isLoading: true });
+    setResponse({ isLoading: true, isError: false });
     try {
-      await LoginPencari(form);
+      await loginPencari(form);
       setResponse({
-        ...response,
         isLoading: false,
         isError: false,
         message: "Berhasil Log In",
       });
-      setForm("");
-      router.push("/");
     } catch (err) {
       setResponse({
-        ...response,
         isLoading: false,
         isError: true,
         message: "Gagal Log In",
@@ -45,19 +49,12 @@ export default function LoginPencari() {
     }
   };
 
-  if (isLoading) return <LoadingScreen />;
-
-  if (isAuthenticated) {
-    setTimeout(() => router.push("/"), 3000);
-    return <LoadingScreen redirect page="home" />;
-  }
-
   return (
     <DefaultLayout title="Masuk - Pencari">
       <Section>
         <div className="flex flex-col flex-1 gap-y-6">
           <h5 className="text-3xl font-semibold md:text-5xl text-blind">
-            Masuk
+            Masuk - Pencari
           </h5>
           <div className="flex flex-col gap-y-4">
             <div className="grid grid-cols-12">
@@ -67,6 +64,11 @@ export default function LoginPencari() {
                     className="flex flex-col gap-y-3"
                     onSubmit={handleSubmit}
                   >
+                    {response.message && (
+                      <Alert type={response.isError ? "error" : "success"}>
+                        {response.message}
+                      </Alert>
+                    )}
                     <InputWithLabel
                       labelName="Email"
                       value={form.email}
@@ -77,6 +79,7 @@ export default function LoginPencari() {
                     />
                     <InputWithLabel
                       labelName="Password"
+                      type="password"
                       value={form.password}
                       onChange={(e) =>
                         setForm({ ...form, password: e.target.value })
@@ -90,7 +93,7 @@ export default function LoginPencari() {
                       type="submit"
                       className="px-4 py-3 text-white rounded-lg bg-blind"
                     >
-                      Masuk
+                      {!response.isLoading ? "Masuk" : "Loading..."}
                     </button>
                   </form>
                   <div className="relative">

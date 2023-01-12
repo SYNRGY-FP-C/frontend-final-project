@@ -1,17 +1,18 @@
 /* eslint-disable @next/next/no-img-element */
+import Alert from "@/components/Alert";
 import Checkbox from "@/components/forms/Checkbox";
 import InputWithLabel from "@/components/forms/InputWithLabel";
+import LoadingScreen from "@/components/LoadingScreen";
 import { useAuth } from "@/contexts/AuthContext";
 import DefaultLayout from "@/layouts/DefaultLayout";
 import Section from "@/layouts/Section";
-import Alert from "@/components/Alert";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
 export default function RegisterPencari() {
   const router = useRouter();
-  const { registerPencari, isLoading } = useAuth();
+  const { registerPencari, isLoading, isAuthenticated } = useAuth();
   const [response, setResponse] = useState({
     isLoading: false,
     isError: false,
@@ -25,54 +26,37 @@ export default function RegisterPencari() {
     repassword: "",
   });
 
+  if (isLoading) return <LoadingScreen />;
+
+  if (isAuthenticated) {
+    setTimeout(() => router.push("/verify"), 2500);
+    return <LoadingScreen redirect page="verification" />;
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setResponse({ isLoading: true, isError: false });
-    if (!form.email) {
+    if (form.password !== form.repassword) {
       setResponse({
         isLoading: false,
         isError: true,
-        message: "Email harus diisi",
-      });
-      return;
-    }
-    if (!form.phone) {
-      setResponse({
-        isLoading: false,
-        isError: true,
-        message: "No hp harus diisi",
-      });
-      return;
-    }
-    if (!form.password) {
-      setResponse({
-        isLoading: false,
-        isError: true,
-        message: "Password harus diisi",
-      });
-      return;
-    }
-    if (form.password != form.repassword) {
-      setResponse({
-        isLoading: false,
-        isError: true,
-        message: "Password Tidak Sama",
+        message: "Konfirmasi password tidak sama",
       });
       return;
     }
     try {
-      // await registerPencari(form);
+      await registerPencari(form);
       setResponse({
-        isLoading: true,
+        isLoading: false,
         isError: false,
-        message: "Register Berhasil",
+        message: "Pendaftaran berhasil",
       });
       router.push("/verify");
     } catch (error) {
       setResponse({
         isLoading: false,
         isError: true,
-        message: "Register Gagal",
+        message: "Pendaftaran gagal",
       });
     }
   };
@@ -100,6 +84,7 @@ export default function RegisterPencari() {
                     onChange={(e) =>
                       setForm({ ...form, email: e.target.value })
                     }
+                    required
                   />
                   <InputWithLabel
                     labelName="Nomor telepon"
@@ -107,6 +92,7 @@ export default function RegisterPencari() {
                     onChange={(e) =>
                       setForm({ ...form, phone: e.target.value })
                     }
+                    required
                   />
                   <InputWithLabel
                     labelName="Password"
@@ -115,6 +101,7 @@ export default function RegisterPencari() {
                     onChange={(e) =>
                       setForm({ ...form, password: e.target.value })
                     }
+                    required
                   />
                   <InputWithLabel
                     labelName="Konfirmasi password"
@@ -123,8 +110,9 @@ export default function RegisterPencari() {
                     onChange={(e) =>
                       setForm({ ...form, repassword: e.target.value })
                     }
+                    required
                   />
-                  <Checkbox>
+                  <Checkbox required>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     Donec at felis id odio tristique maximus.
                   </Checkbox>
