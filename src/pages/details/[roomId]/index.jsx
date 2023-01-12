@@ -4,7 +4,7 @@ import MapCard from "@/components/cards/MapCard";
 import OtherRoomCard from "@/components/cards/OtherRoomCard";
 import RoomImagesCard from "@/components/cards/RoomImagesCard";
 import Checkbox from "@/components/forms/Checkbox";
-// import InputTimeRent from "@/components/forms/InputTimeRent";
+import InputSchemePaymenByTime from "@/components/forms/InputSchemePaymenByTime"
 import InputWithLabel from "@/components/forms/InputWithLabel";
 import DescriptionItem from "@/components/items/DescriptionItem";
 import Modal from "@/components/Modal";
@@ -12,59 +12,59 @@ import DefaultLayout from "@/layouts/DefaultLayout";
 import RoomDescription from "@/layouts/RoomDescription";
 import RoomDetail from "@/layouts/RoomDetail";
 import Section from "@/layouts/Section";
-import { useRouter } from "next/router";
-import React, { useState } from "react";
+import {useRouter} from "next/router"
+import React, {useState} from "react";
 
 export default function Details() {
   const rooms = {
-    name: "cakra 1",
-    price: 1000,
-  };
+    name : "cakra 1",
+    price : 1000
+  }
   const itemChecked = [
     {
       item: "kursi",
-      price: 100,
+      price: 100
     },
     {
       item: "meja",
-      price: 100,
+      price: 100
     },
     {
       item: "kipas",
-      price: 100,
+      price: 100
     },
     {
       item: "lemari",
-      price: 100,
+      price: 100
     },
     {
       item: "kasur",
-      price: 100,
+      price: 100
     },
     {
       item: "laundry",
-      price: 100,
+      price: 100
     },
-  ];
+  ]
   const router = useRouter();
   const [data, setData] = useState([]);
-  const [date, setDate] = useState("");
-  const [timeRent, setTimeRent] = useState("");
+  const [date, setDate] = useState('');
+  const [timeRent, setTimeRent] = useState('');
   const [checkedOrder, setCheckedOrder] = useState(
     new Array(itemChecked.length).fill(false)
   );
-  const [totalExtra, setTotalExtra] = useState(0);
+  const [totalExtra, setTotalExtra] = useState(0)
   const [totalCost, setTotalCost] = useState(0);
 
   const handleDate = (e) => {
-    const value = e.target.value;
-    setDate(value);
-  };
+    const value = e.target.value
+        setDate(value)
+  } 
 
   const handleTimeRent = (e) => {
-    const value = e.target.value;
-    setTimeRent(value);
-  };
+    const value = e.target.value
+    setTimeRent(value)
+  }
 
   const handleOnChange = (position) => {
     const updatedCheckedState = checkedOrder.map((item, index) =>
@@ -101,11 +101,13 @@ export default function Details() {
     }
   };
 
+
   return (
     <DefaultLayout title="Kos itu">
       <Modal />
       <Section>
         <div className="flex flex-col gap-y-6">
+
           {/* BreadCrumb Navigasi */}
           <BreadCrumb />
 
@@ -244,6 +246,7 @@ export default function Details() {
             <div className="col-span-12 lg:col-span-4">
               <div className="relative w-full">
                 <div className="flex flex-col p-8 rounded-lg shadow gap-y-4">
+
                   {/* Harga Kamar */}
                   <p className="text-blind">Mulai dari</p>
                   <p className="text-blind">
@@ -261,17 +264,19 @@ export default function Details() {
                     placeholder="Tanggal Sewa"
                     required
                     value={date}
-                    onChange={(e) => handleDate(e)}
+
+                    onChange={(e)=> handleDate(e)}
                   />
 
                   {/* Input Pembayaran */}
-                  {/* <InputTimeRent
+                   <InputSchemePaymenByTime
+
                     labelName="Skema Pembayaran"
                     placeholder="Per Bulan"
                     required
                     value={timeRent}
-                    onChange={(e) => handleTimeRent(e)}
-                  /> */}
+                    onChange={(e)=> handleTimeRent(e)}
+                  />
 
                   {/* CheckBox Tambahan fasilitas */}
                   <div className="flex flex-col gap-y-2">
