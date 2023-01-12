@@ -86,7 +86,7 @@ export const AuthProvider = ({ children }: AuthProviderType) => {
     isAdmin: user?.role === "admin",
     isSuperAdmin: user?.role === "superadmin",
     isLoading,
-    isVerified: true,
+    isVerified: false,
     user,
     registerPencari,
     registerPenyedia,

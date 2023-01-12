@@ -58,6 +58,7 @@ export default function OTP() {
         isError: false,
         message: "Kode OTP berhasil diverifikasi",
       });
+      router.push("/");
     } catch (error) {
       setResponse({
         isLoading: false,
