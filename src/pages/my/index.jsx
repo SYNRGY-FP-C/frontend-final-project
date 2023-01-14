@@ -22,7 +22,7 @@ export default function MyProfile() {
     name: user?.fullname || "",
     birthdate: user?.birthdate || "",
     email: user?.email || "",
-    phone_number: user?.phone_number || "",
+    phone: user?.phone || "",
     gender: user?.gender || "",
     occupation: user?.occupation || "",
   });
@@ -122,11 +122,11 @@ export default function MyProfile() {
               <InputWithLabel
                 labelName="Nomor Telepon"
                 type="number"
-                value={form.phone_number}
+                value={form.phone}
                 onChange={(e) =>
                   setForm({
                     ...form,
-                    phone_number: e.target.value,
+                    phone: e.target.value,
                   })
                 }
               />

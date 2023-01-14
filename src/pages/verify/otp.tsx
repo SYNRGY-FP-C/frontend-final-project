@@ -28,7 +28,7 @@ export default function OTP() {
     try {
       await verifyService.requestVerify({
         ...(method === "email" && { email: user.email }),
-        ...(method === "whatsapp" && { phone_number: user.phone_number }),
+        ...(method === "whatsapp" && { phone: user.phone }),
       });
       setResponse({
         isLoading: false,
@@ -51,7 +51,7 @@ export default function OTP() {
     try {
       await verifyService.verify({
         ...(method === "email" && { email: user.email }),
-        ...(method === "whatsapp" && { phone_number: user.phone_number }),
+        ...(method === "whatsapp" && { phone: user.phone }),
         code: otp,
       });
       setResponse({
@@ -120,7 +120,7 @@ export default function OTP() {
               )}
               <OTPCard
                 method={method as "email" | "whatsapp"}
-                target={method === "email" ? user.email : user.phone_number}
+                target={method === "email" ? user.email : user.phone}
               >
                 <InputOTP value={otp} valueLength={4} onChange={onChange} />
                 <div className="flex justify-center text-center">
