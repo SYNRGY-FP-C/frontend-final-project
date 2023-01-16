@@ -1,17 +1,21 @@
 import React from "react";
 
-export default function InputSchemePaymenByTime({ labelName = "input",value , ...rest }) {
+export default function InputSchemePaymenByTime({
+  labelName = "input",
+  value,
+  ...rest
+}) {
   return (
     <div className="w-full space-y-2">
-      <label htmlFor={labelName} className="block text-lg text-blind">
+      <label htmlFor={labelName} className="block text-lg text-primary-1">
         {labelName}
       </label>
-      <select 
+      <select
         id={labelName}
         label={labelName}
         {...rest}
-        className="bg-gray-100 text-blind sm:text-sm border-0 w-full rounded-lg block p-2.5"
-      >  
+        className="bg-gray-100 text-primary-1 sm:text-sm border-0 w-full rounded-lg block p-2.5"
+      >
         <option value="">Please Choose</option>
         <option value="1 bulan">1 Bulan</option>
         <option value="2 bulan">2 Bulan</option>

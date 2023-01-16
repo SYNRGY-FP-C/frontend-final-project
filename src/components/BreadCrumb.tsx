@@ -6,19 +6,19 @@ export default function BreadCrumb() {
   return (
     <ol className="inline-flex items-center space-x-1 md:space-x-3">
       <li className="inline-flex items-center">
-        <Link href="/" className="ml-1 text-sm text-blind">
+        <Link href="/" className="ml-1 text-sm text-primary-1">
           Home
         </Link>
       </li>
       <li className="inline-flex items-center">
-        <MdChevronRight className="w-5 h-5 text-blind-100" />
-        <Link href="/search" className="ml-1 text-sm text-blind">
+        <MdChevronRight className="w-5 h-5 text-primary-1" />
+        <Link href="/search" className="ml-1 text-sm text-primary-1">
           Search
         </Link>
       </li>
       <li className="inline-flex items-center">
-        <MdChevronRight className="w-5 h-5 text-blind-100" />
-        <span className="ml-1 text-sm font-semibold text-blind-100">Title</span>
+        <MdChevronRight className="w-5 h-5 text-primary-1" />
+        <span className="ml-1 text-sm font-semibold text-primary-1">Title</span>
       </li>
     </ol>
   );

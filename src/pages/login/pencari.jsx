@@ -25,10 +25,10 @@ export default function LoginPencari() {
 
   if (isLoading) return <LoadingScreen />;
 
-  if (isAuthenticated) {
-    setTimeout(() => router.push("/verify"), 2500);
-    return <LoadingScreen redirect page="verification" />;
-  }
+  // if (isAuthenticated) {
+  //   setTimeout(() => router.push("/verify"), 2500);
+  //   return <LoadingScreen redirect page="verification" />;
+  // }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,6 +40,7 @@ export default function LoginPencari() {
         isError: false,
         message: "Berhasil Log In",
       });
+      router.push("/");
     } catch (err) {
       setResponse({
         isLoading: false,
@@ -52,14 +53,14 @@ export default function LoginPencari() {
   return (
     <DefaultLayout title="Masuk - Pencari">
       <Section>
-        <div className="flex flex-col flex-1 gap-y-6">
-          <h5 className="text-3xl font-semibold md:text-5xl text-blind">
-            Masuk - Pencari
-          </h5>
+        <div className="flex flex-col flex-1 pt-8 md:pt-12 gap-y-6">
           <div className="flex flex-col gap-y-4">
-            <div className="grid grid-cols-12">
-              <div className="grid col-span-12 lg:col-span-4">
+            <div className="grid grid-cols-12 my-6">
+              <div className="grid col-span-12 lg:col-span-4 place-content-center">
                 <div className="flex flex-col gap-y-3">
+                  <h5 className="text-xl leading-none my-6 font-bold md:text-[28px] text-primary-1">
+                    Selamat Datang Kembali!
+                  </h5>
                   <form
                     className="flex flex-col gap-y-3"
                     onSubmit={handleSubmit}
@@ -91,26 +92,26 @@ export default function LoginPencari() {
                     </Link>
                     <button
                       type="submit"
-                      className="px-4 py-3 text-white rounded-lg bg-blind"
+                      className="px-4 py-3 text-white rounded-lg bg-primary-1"
                     >
                       {!response.isLoading ? "Masuk" : "Loading..."}
                     </button>
+                    <div className="relative">
+                      <hr className="relative h-0.5 my-4 bg-gray-200 border-0" />
+                      <p className="absolute px-4 py-3 text-center transform -translate-x-1/2 -translate-y-1/2 bg-white top-1/2 left-1/2">
+                        atau
+                      </p>
+                    </div>
+                    <button className="px-4 py-3 bg-white border rounded-lg text-primary-1 border-primary-1">
+                      Masuk dengan Google
+                    </button>
+                    <Link
+                      href="/register/pencari"
+                      className="text-xs text-center"
+                    >
+                      Saya belum memiliki akun{" "}
+                    </Link>
                   </form>
-                  <div className="relative">
-                    <hr className="relative h-0.5 my-4 bg-gray-200 border-0" />
-                    <p className="absolute px-4 py-3 text-center transform -translate-x-1/2 -translate-y-1/2 bg-white top-1/2 left-1/2">
-                      atau
-                    </p>
-                  </div>
-                  <button className="px-4 py-3 bg-white border rounded-lg text-blind border-blind">
-                    Masuk dengan Google
-                  </button>
-                  <Link
-                    href="/register/pencari"
-                    className="text-xs text-center"
-                  >
-                    Saya belum memiliki akun{" "}
-                  </Link>
                 </div>
               </div>
               <div className="hidden lg:grid md:col-span-8 place-content-center">

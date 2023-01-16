@@ -16,7 +16,7 @@ export default function Featured({
       <div
         className={clsx(
           "flex items-center justify-between",
-          variants["gray"].text
+          variants["outline"].text
         )}
       >
         <div

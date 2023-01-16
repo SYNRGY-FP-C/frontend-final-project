@@ -17,7 +17,7 @@ export default function Checkbox({
       />
       <label
         htmlFor={id}
-        className="inline-flex ml-2 text-sm font-medium gap-x-2 text-blind"
+        className="inline-flex ml-2 text-sm font-medium gap-x-2 text-primary-1"
       >
         {children}
       </label>

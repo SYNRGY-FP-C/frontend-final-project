@@ -1,21 +1,18 @@
 import React from "react";
 
 type ButtonProps = {
-  isLoading: boolean;
+  isLoading?: boolean;
   children: React.ReactNode;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 export default function Button({
   isLoading = false,
+  className = "w-full px-4 py-3 text-center text-white rounded-lg bg-primary-1 hover:bg-primary-1",
   children,
   ...rest
 }: ButtonProps) {
   return (
-    <button
-      className="w-full text-white bg-blind hover:bg-blind-100 focus:ring-4 focus:outline-none focus:ring-blind-300 font-xl rounded-lg text-xl px-10 py-3 text-center"
-      {...rest}
-      disabled={isLoading}
-    >
+    <button className={className} {...rest} disabled={isLoading}>
       {isLoading ? "Loading..." : children}
     </button>
   );

@@ -10,10 +10,38 @@ module.exports = {
   theme: {
     colors: {
       ...colors,
-      blind: {
-        DEFAULT: "#454848",
-        100: "#303030",
-        200: "#D9D9D9",
+      primary: {
+        1: "#23372B",
+        2: "#335346",
+        3: "#437167",
+      },
+      secondary: {
+        1: "#538F8D",
+        2: "#65B0B6",
+        3: "#7BD1E2",
+      },
+      base: {
+        100: "#171717",
+        200: "#454848",
+        300: "#808080",
+        400: "#9F9F9F",
+        500: "#BFBFBF",
+        600: "#DFDFDF",
+        700: "#EBE9EC",
+        800: "#F0F0F0",
+        900: "#FAFAFB",
+      },
+      error: {
+        DEFAULT: "#F76C64",
+      },
+      warning: {
+        DEFAULT: "#FA962D",
+      },
+      success: {
+        DEFAULT: "#007360",
+      },
+      info: {
+        DEFAULT: "#265C91",
       },
     },
     fontFamily: {

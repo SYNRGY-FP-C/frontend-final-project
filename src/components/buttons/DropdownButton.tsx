@@ -5,14 +5,17 @@ import React from "react";
 import { MdArrowDropDown } from "react-icons/md";
 import { v4 as uuid } from "uuid";
 
-export default function AuthButton({ variant = "light", menu = [], children }) {
+export default function DropdownButton({
+  variant = "primary",
+  menu = [],
+  children,
+}) {
   const [open, setOpen] = React.useState(false);
-
   return (
     <div className="relative">
       <button
         className={clsx(
-          "inline-flex relative items-center py-2 font-medium text-center px-4 rounded-lg border",
+          "inline-flex relative items-center py-2 font-medium text-center px-4 rounded-lg border-2",
           variants[variant].text,
           variants[variant].bg,
           variants[variant].border
@@ -35,8 +38,8 @@ export default function AuthButton({ variant = "light", menu = [], children }) {
                 href={item.link}
                 className={clsx(
                   "block px-3 py-2 text-center",
-                  variants["gray"].text,
-                  variants["gray"].bg,
+                  variants["outline"].text,
+                  variants["outline"].bg,
                   variants[variant].border,
                   {
                     "rounded-t-lg": index === 0,
