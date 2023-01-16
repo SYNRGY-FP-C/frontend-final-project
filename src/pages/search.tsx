@@ -16,25 +16,25 @@ export default function Search() {
           <div className="hidden col-span-4 lg:grid">
             <div className="relative">
               <div className="flex flex-col w-full shadow p-7 rounded-xl gap-y-6">
-                <h5 className="text-xl font-bold text-blind">
+                <h5 className="text-xl font-bold text-primary-1">
                   Filter Pencarianmu
                 </h5>
                 <div className="flex flex-col gap-y-3">
-                  <h5 className="font-semibold text-blind-100">Tipe</h5>
+                  <h5 className="font-semibold text-primary-1">Tipe</h5>
                   <div className="flex flex-row gap-x-2">
-                    <span className="w-24 text-center py-0.5 border border-gray-300 text-blind rounded-lg">
+                    <span className="w-24 text-center py-0.5 border border-gray-300 text-primary-1 rounded-lg">
                       Campur
                     </span>
-                    <span className="w-24 text-center py-0.5 border border-gray-300 text-blind rounded-lg">
+                    <span className="w-24 text-center py-0.5 border border-gray-300 text-primary-1 rounded-lg">
                       Pria
                     </span>
-                    <span className="w-24 text-center py-0.5 border border-gray-300 text-blind rounded-lg">
+                    <span className="w-24 text-center py-0.5 border border-gray-300 text-primary-1 rounded-lg">
                       Wanita
                     </span>
                   </div>
                 </div>
                 <div className="flex flex-col gap-y-3">
-                  <h5 className="font-semibold text-blind-100">
+                  <h5 className="font-semibold text-primary-1">
                     Rentang Harga
                   </h5>
                   <div className="flex flex-col gap-y-3">
@@ -44,7 +44,7 @@ export default function Search() {
                   </div>
                 </div>
                 <div className="flex flex-col gap-y-3">
-                  <h5 className="font-semibold text-blind-100">Rating</h5>
+                  <h5 className="font-semibold text-primary-1">Rating</h5>
                   <div className="flex flex-col gap-y-3">
                     <Checkbox>
                       <MdStarRate className="w-5 h-5 text-yellow-300" />
@@ -75,7 +75,7 @@ export default function Search() {
                   </div>
                 </div>
                 <div className="flex flex-col gap-y-3">
-                  <h5 className="font-semibold text-blind-100">Promo</h5>
+                  <h5 className="font-semibold text-primary-1">Promo</h5>
                   <div className="flex flex-col gap-y-3">
                     <Checkbox>Diskon 25%</Checkbox>
                     <Checkbox>Diskon 50%</Checkbox>
@@ -83,7 +83,7 @@ export default function Search() {
                   </div>
                 </div>
                 <div className="flex flex-col gap-y-3">
-                  <h5 className="font-semibold text-blind-100">Fasilitas</h5>
+                  <h5 className="font-semibold text-primary-1">Fasilitas</h5>
                   <div className="grid grid-cols-2 gap-3">
                     <Checkbox>Kamar Mandi Dalam</Checkbox>
                     <Checkbox>Air Panas</Checkbox>
@@ -102,7 +102,7 @@ export default function Search() {
                   </div>
                 </div>
                 <div className="flex flex-col gap-y-3">
-                  <h5 className="font-semibold text-blind-100">
+                  <h5 className="font-semibold text-primary-1">
                     Skema Pembayaran
                   </h5>
                   <div className="grid grid-cols-2 gap-3">
@@ -116,21 +116,21 @@ export default function Search() {
                 </div>
 
                 <div className="flex flex-row justify-between gap-x-3">
-                  <button className="w-full py-3 text-white rounded-lg bg-blind">
+                  <button className="w-full py-3 text-white rounded-lg bg-primary-1">
                     Filter
                   </button>
-                  <button className="w-full py-3 bg-white border rounded-lg text-blind border-blind">
+                  <button className="w-full py-3 bg-white border rounded-lg text-primary-1 border-primary-1">
                     Reset
                   </button>
                 </div>
                 <div className="flex flex-col gap-y-3">
-                  <h5 className="font-semibold text-blind-100">
+                  <h5 className="font-semibold text-primary-1">
                     Bandingkan Kost
                   </h5>
                   <div className="flex flex-col gap-y-3">
                     <Input type="text" placeholder="Kost 1" />
                     <Input type="text" placeholder="Kost 2" />
-                    <button className="py-3 text-white rounded-lg bg-blind w-44">
+                    <button className="py-3 text-white rounded-lg bg-primary-1 w-44">
                       Bandingkan
                     </button>
                   </div>

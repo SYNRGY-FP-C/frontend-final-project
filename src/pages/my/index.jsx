@@ -1,16 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
+import Alert from "@/components/Alert";
 import InputWithLabel from "@/components/forms/InputWithLabel";
+import LoadingScreen from "@/components/LoadingScreen";
+import { useAuth } from "@/contexts/AuthContext";
 import Defaultlayout from "@/layouts/DefaultLayout";
 import Section from "@/layouts/Section";
-import React from "react";
+import { useRouter } from "next/router";
 import React from "react";
 import { useState } from "react";
-import { useAuth } from "@/contexts/AuthContext";
-import Alert from "@/components/Alert";
-import { useAuth } from "@/contexts/AuthContext";
-import Alert from "@/components/Alert";
 
 export default function MyProfile() {
+  const router = useRouter();
   const { user, isAuthenticated, isLoading } = useAuth();
   const [response, setResponse] = React.useState({
     isLoading: false,
@@ -20,24 +20,18 @@ export default function MyProfile() {
 
 
   const [form, setForm] = useState({
-    name: user.fullname ?? "",
-    birthdate: user.birthdate ?? "",
-    email: user.email ?? "",
-    phone_number: user.phone_number ?? "",
-    gender: user.gender ?? "",
-    occupation: user.occupation ?? "",
-    name: user.fullname ?? "",
-    birthdate: user.birthdate ?? "",
-    email: user.email ?? "",
-    phone_number: user.phone_number ?? "",
-    gender: user.gender ?? "",
-    occupation: user.occupation ?? "",
+    name: user?.fullname || "",
+    birthdate: user?.birthdate || "",
+    email: user?.email || "",
+    phone: user?.phone || "",
+    gender: user?.gender || "",
+    occupation: user?.occupation || "",
   });
 
   if (isLoading) return <LoadingScreen />;
 
   if (!isAuthenticated) {
-    setTimeout(() => router.push("/login/pencari"), 3000);
+    setTimeout(() => router.push("/login/pencari"), 1500);
     return <LoadingScreen redirect page="login" />;
   }
 
@@ -58,17 +52,12 @@ export default function MyProfile() {
         message: "Data tidak tersimpan",
       });
     }
-    console.log(form);
   };
-
-  if (isLoading || !isAuthenticated) {
-    return <>Loading...</>;
-  }
 
   return (
     <Defaultlayout title="Profil Saya">
       <Section>
-        <div className="my-4 text-5xl font-bold text-blind">Profil</div>
+        <div className="my-4 text-5xl font-bold text-primary-1">Profil</div>
         <div className="grid grid-cols-1 gap-3 lg:grid-cols-12">
           <div className="grid lg:col-span-4 place-items-center gap-y-6">
             <div className="text-xl font-medium">
@@ -80,12 +69,12 @@ export default function MyProfile() {
             </div>
             <div className="flex flex-row gap-3 lg:flex-col">
               <div className="block">
-                <button className="px-4 py-2 text-white rounded-lg bg-blind">
+                <button className="px-4 py-2 text-white rounded-lg bg-primary-1">
                   Unggah
                 </button>
               </div>
               <div className="block">
-                <button className="px-4 py-2 bg-white rounded-lg text-blind">
+                <button className="px-4 py-2 bg-white rounded-lg text-primary-1">
                   Hapus
                 </button>
               </div>
@@ -134,11 +123,11 @@ export default function MyProfile() {
               <InputWithLabel
                 labelName="Nomor Telepon"
                 type="number"
-                value={form.phone_number}
+                value={form.phone}
                 onChange={(e) =>
                   setForm({
                     ...form,
-                    phone_number: e.target.value,
+                    phone: e.target.value,
                   })
                 }
               />
@@ -173,13 +162,13 @@ export default function MyProfile() {
                   <div className="block">
                     <button
                       type="submit"
-                      className="px-4 py-2 text-white rounded-lg bg-blind"
+                      className="px-4 py-2 text-white rounded-lg bg-primary-1"
                     >
                       Simpan
                     </button>
                   </div>
                   <div className="block">
-                    <button className="px-4 py-2 bg-white border rounded-lg text-blind border-blind">
+                    <button className="px-4 py-2 bg-white border rounded-lg text-primary-1 border-primary-1">
                       Reset
                     </button>
                   </div>

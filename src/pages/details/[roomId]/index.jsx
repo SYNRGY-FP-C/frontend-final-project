@@ -4,7 +4,7 @@ import MapCard from "@/components/cards/MapCard";
 import OtherRoomCard from "@/components/cards/OtherRoomCard";
 import RoomImagesCard from "@/components/cards/RoomImagesCard";
 import Checkbox from "@/components/forms/Checkbox";
-import InputTimeRent from "@/components/forms/InputTimeRent"
+import InputSchemePaymenByTime from "@/components/forms/InputSchemePaymenByTime";
 import InputWithLabel from "@/components/forms/InputWithLabel";
 import DescriptionItem from "@/components/items/DescriptionItem";
 import Modal from "@/components/Modal";
@@ -12,59 +12,59 @@ import DefaultLayout from "@/layouts/DefaultLayout";
 import RoomDescription from "@/layouts/RoomDescription";
 import RoomDetail from "@/layouts/RoomDetail";
 import Section from "@/layouts/Section";
-import {useRouter} from "next/router"
-import React, {useState} from "react";
+import { useRouter } from "next/router";
+import React, { useState } from "react";
 
 export default function Details() {
   const rooms = {
-    name : "cakra 1",
-    price : 1000
-  }
+    name: "cakra 1",
+    price: 1000,
+  };
   const itemChecked = [
     {
       item: "kursi",
-      price: 100
+      price: 100,
     },
     {
       item: "meja",
-      price: 100
+      price: 100,
     },
     {
       item: "kipas",
-      price: 100
+      price: 100,
     },
     {
       item: "lemari",
-      price: 100
+      price: 100,
     },
     {
       item: "kasur",
-      price: 100
+      price: 100,
     },
     {
       item: "laundry",
-      price: 100
+      price: 100,
     },
-  ]
+  ];
   const router = useRouter();
   const [data, setData] = useState([]);
-  const [date, setDate] = useState('');
-  const [timeRent, setTimeRent] = useState('');
+  const [date, setDate] = useState("");
+  const [timeRent, setTimeRent] = useState("");
   const [checkedOrder, setCheckedOrder] = useState(
     new Array(itemChecked.length).fill(false)
   );
-  const [totalExtra, setTotalExtra] = useState(0)
+  const [totalExtra, setTotalExtra] = useState(0);
   const [totalCost, setTotalCost] = useState(0);
 
   const handleDate = (e) => {
-    const value = e.target.value
-        setDate(value)
-  } 
+    const value = e.target.value;
+    setDate(value);
+  };
 
   const handleTimeRent = (e) => {
-    const value = e.target.value
-    setTimeRent(value)
-  }
+    const value = e.target.value;
+    setTimeRent(value);
+  };
 
   const handleOnChange = (position) => {
     const updatedCheckedState = checkedOrder.map((item, index) =>
@@ -84,27 +84,28 @@ export default function Details() {
     );
 
     setTotalExtra(totalPrice);
-    setTotalCost(rooms.price + totalPrice)
+    setTotalCost(rooms.price + totalPrice);
   };
 
   const handleSubmitRegistrasi = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    if (!date)  {
-      return false
-    } else if (!timeRent){
-      return false
+    if (!date) {
+      return false;
+    } else if (!timeRent) {
+      return false;
     } else {
-      router.push(`/details/1/submission?date=${date}&payment_scheme=${timeRent}`)
+      router.push(
+        `/details/1/submission?date=${date}&payment_scheme=${timeRent}`
+      );
     }
-  }
+  };
 
   return (
     <DefaultLayout title="Kos itu">
       <Modal />
       <Section>
         <div className="flex flex-col gap-y-6">
-          
           {/* BreadCrumb Navigasi */}
           <BreadCrumb />
 
@@ -114,7 +115,7 @@ export default function Details() {
           {/* Tittle */}
           <div className="flex flex-col md:justify-between md:flex-row">
             <div className="inline-flex items-center gap-x-3">
-              <h3 className="font-bold text-blind text-3xl md:text-[40px]">
+              <h3 className="font-bold text-primary-1 text-3xl md:text-[40px]">
                 {rooms.name}
               </h3>
               <p className="text-sm italic md:text-xl">Sisa 1 kamar</p>
@@ -122,12 +123,12 @@ export default function Details() {
             <div className="inline-flex items-center gap-x-6">
               <div className="inline-flex items-center gap-x-2">
                 {/* Icon Share */}
-                <div className="w-5 h-5 rounded-lg bg-blind-200"></div>
+                <div className="w-5 h-5 rounded-lg bg-primary-1-200"></div>
                 Sebarkan
               </div>
               <div className="inline-flex items-center gap-x-2">
                 {/* Icon Save To Wishlisht*/}
-                <div className="w-5 h-5 rounded-lg bg-blind-200"></div>
+                <div className="w-5 h-5 rounded-lg bg-primary-1-200"></div>
                 Simpan
               </div>
             </div>
@@ -150,7 +151,7 @@ export default function Details() {
                   <DescriptionItem />
                   <DescriptionItem />
                 </div>
-                <p className="underline decoration-blind-200 decoration-2">
+                <p className="underline decoration-primary-1-200 decoration-2">
                   Lihat semua
                 </p>
               </RoomDetail>
@@ -167,7 +168,7 @@ export default function Details() {
                   <DescriptionItem />
                   <DescriptionItem />
                 </div>
-                <p className="underline decoration-blind-200 decoration-2">
+                <p className="underline decoration-primary-1-200 decoration-2">
                   Lihat semua
                 </p>
               </RoomDetail>
@@ -186,7 +187,7 @@ export default function Details() {
               <RoomDetail title="Lokasi">
                 <div className="flex flex-col gap-y-3">
                   <div className="inline-flex flex-col gap-2 lg:items-center lg:flex-row">
-                    <div className="w-5 h-5 rounded-lg bg-blind-200"></div>
+                    <div className="w-5 h-5 rounded-lg bg-primary-1-200"></div>
                     <p>
                       Jl. Lorem ipsum dolor sit amet No. 2, Kec. Lorem, Kel.
                       Ipsum, Kota Bandung, Jawa Barat, 40276
@@ -217,21 +218,21 @@ export default function Details() {
                       />
                     </div>
                     <div className="flex flex-col justify-center ml-4">
-                      <h3 className="text-xl font-medium text-blind">
+                      <h3 className="text-xl font-medium text-primary-1">
                         Lorem Ipsum
                       </h3>
-                      <p className="text-blind">
+                      <p className="text-primary-1">
                         Bergabung pada September 2020
                       </p>
                     </div>
                   </div>
                   <div className="flex flex-col w-56 gap-y-3">
-                    <button className="inline-flex items-center px-4 py-3 rounded-lg text-blind bg-blind-200 gap-x-3">
-                      <div className="w-5 h-5 rounded-lg bg-blind"></div>
+                    <button className="inline-flex items-center px-4 py-3 rounded-lg text-primary-1 bg-primary-1-200 gap-x-3">
+                      <div className="w-5 h-5 rounded-lg bg-primary-1"></div>
                       <p> Hubungi pemilik</p>
                     </button>
-                    <button className="inline-flex items-center px-4 py-3 rounded-lg text-blind bg-blind-200 gap-x-3">
-                      <div className="w-5 h-5 rounded-lg bg-blind"></div>
+                    <button className="inline-flex items-center px-4 py-3 rounded-lg text-primary-1 bg-primary-1-200 gap-x-3">
+                      <div className="w-5 h-5 rounded-lg bg-primary-1"></div>
                       <p>Jadwalkan survey</p>
                     </button>
                   </div>
@@ -243,17 +244,16 @@ export default function Details() {
             <div className="col-span-12 lg:col-span-4">
               <div className="relative w-full">
                 <div className="flex flex-col p-8 rounded-lg shadow gap-y-4">
-
                   {/* Harga Kamar */}
-                  <p className="text-blind">Mulai dari</p>
-                  <p className="text-blind">
+                  <p className="text-primary-1">Mulai dari</p>
+                  <p className="text-primary-1">
                     {" "}
                     <span className="text-2xl font-semibold">
                       Rp. {rooms.price}
                     </span>{" "}
                     / bulan
                   </p>
-                  
+
                   {/* Input Tanggal */}
                   <InputWithLabel
                     labelName="Tanggal mulai sewa"
@@ -261,30 +261,30 @@ export default function Details() {
                     placeholder="Tanggal Sewa"
                     required
                     value={date}
-                    onChange={(e)=> handleDate(e)}
+                    onChange={(e) => handleDate(e)}
                   />
 
                   {/* Input Pembayaran */}
-                  <InputTimeRent
+                  <InputSchemePaymenByTime
                     labelName="Skema Pembayaran"
                     placeholder="Per Bulan"
                     required
                     value={timeRent}
-                    onChange={(e)=> handleTimeRent(e)}
+                    onChange={(e) => handleTimeRent(e)}
                   />
 
                   {/* CheckBox Tambahan fasilitas */}
                   <div className="flex flex-col gap-y-2">
-                    <p className="block text-lg text-blind">
+                    <p className="block text-lg text-primary-1">
                       Tambahan Layanan & Fasilitas
                     </p>
                     <div className="grid grid-cols-2 mb-8 gap-y-3">
-                      {itemChecked.map(({item, price}, index) => (
+                      {itemChecked.map(({ item, price }, index) => (
                         <Checkbox
                           name={item}
                           key={index}
                           value={price}
-                          onChange={()=>handleOnChange(index)}
+                          onChange={() => handleOnChange(index)}
                         >
                           {item}
                         </Checkbox>
@@ -308,13 +308,13 @@ export default function Details() {
 
                   {/* Total Pembayaran */}
                   <div className="inline-flex justify-between">
-                    <p className="font-bold text-blind">Total Biaya</p>
-                    <p className="font-bold text-blind">Rp. {totalCost}</p>
+                    <p className="font-bold text-primary-1">Total Biaya</p>
+                    <p className="font-bold text-primary-1">Rp. {totalCost}</p>
                   </div>
 
                   {/* Button Submit */}
-                  <button 
-                    className="px-4 py-3 text-white rounded-lg bg-blind hover:bg-sky-700"
+                  <button
+                    className="px-4 py-3 text-white rounded-lg bg-primary-1 hover:bg-sky-700"
                     onClick={(e) => handleSubmitRegistrasi(e)}
                   >
                     Registrasi

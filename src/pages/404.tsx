@@ -11,7 +11,7 @@ export default function NotFoundPage404() {
       </p>
       <Link
         href="/"
-        className="inline-flex text-white bg-blind hover:bg-blind-100 font-medium rounded text-sm px-5 py-2.5 text-center my-4"
+        className="inline-flex text-white bg-primary-1 hover:bg-primary-1 font-medium rounded text-sm px-5 py-2.5 text-center my-4"
       >
         Back to Homepage
       </Link>

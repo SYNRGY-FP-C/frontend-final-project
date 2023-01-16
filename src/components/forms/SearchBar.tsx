@@ -4,36 +4,37 @@ import React from "react";
 import { MdSearch } from "react-icons/md";
 
 type SearchBarProps = {
-  variant?: "light" | "dark";
+  variant?: "primary" | "outline";
 } & React.InputHTMLAttributes<HTMLInputElement>;
 
 export default function SearchBar({
-  variant = "light",
+  variant = "primary",
   ...rest
 }: SearchBarProps) {
   return (
-    <div className="relative flex items-center justify-center w-full max-w-4xl mx-auto">
-      <input
-        type="text"
-        {...rest}
-        className={clsx(
-          "w-full px-6 py-3 rounded-xl bg-gray-100 border-0 focus:border-0",
-          variants[variant].text,
-          variants[variant].bg,
-          variants[variant].border,
-          variants[variant].focus
-        )}
-      />
-      <button
-        type="submit"
-        className={clsx(
-          "absolute px-1.5 py-1.5 rounded-lg right-2.5 bg-blind",
-          variants["dark"].text,
-          variants[variant].border
-        )}
-      >
-        <MdSearch className="w-5 h-5" />
-      </button>
+    <div className="flex flex-col gap-y-3">
+      <div className="relative flex items-center justify-center w-full mx-auto">
+        <input
+          type="text"
+          {...rest}
+          className={clsx(
+            "w-full peer px-6 py-3 rounded-xl bg-gray-100 border-0 focus:border-0 focus:ring-0",
+            variants["outline"].bg,
+            variants[variant].border
+          )}
+        />
+        <button
+          type="submit"
+          className={clsx(
+            "absolute px-1.5 py-1.5 rounded-lg right-2.5 bg-primary-1",
+            variants[variant].text,
+            variants[variant].border
+          )}
+        >
+          <MdSearch className="w-5 h-5" />
+        </button>
+      </div>
+      <div className="hidden peer-focus:flex">oke</div>
     </div>
   );
 }

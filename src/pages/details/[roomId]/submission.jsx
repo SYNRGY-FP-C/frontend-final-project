@@ -20,21 +20,21 @@ export default function Submission() {
           <div className="block">
             <Link href="/" className="inline-flex items-center py-2 gap-x-1">
               <MdChevronLeft className="w-7 h-7" />
-              <p className="text-sm text-blind">Kembali</p>
+              <p className="text-sm text-primary-1">Kembali</p>
             </Link>
           </div>
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-12">
             <div className="h-full col-span-12 lg:col-span-8">
-              <h3 className="font-bold text-blind text-3xl md:text-[40px] my-4">
+              <h3 className="font-bold text-primary-1 text-3xl md:text-[40px] my-4">
                 Pengajuan Sewa
               </h3>
               <hr className="h-0.5 bg-gray-200 border-0 my-8" />
               <div className="flex flex-col my-8 gap-y-3">
-                <h3 className="font-bold text-blind text-[32px]">
+                <h3 className="font-bold text-primary-1 text-[32px]">
                   Identitas Pencari
                 </h3>
                 <SubmissionDetail title="Profil Pencari">
-                  <div className="flex flex-col gap-y-5 text-blind">
+                  <div className="flex flex-col gap-y-5 text-primary-1">
                     <div className="grid grid-cols-1 lg:grid-cols-2">
                       <p className="font-semibold">Nama lengkap</p>
                       <p>Lorem Ipsum Dolor</p>
@@ -61,37 +61,37 @@ export default function Submission() {
                 <SubmissionDetail title="Jumlah Penghuni">
                   <div className="inline-flex items-center gap-x-2">
                     <div className="inline-flex items-center gap-x-2">
-                      <div className="w-10 h-10 rounded-lg bg-blind-200"></div>
+                      <div className="w-10 h-10 rounded-lg bg-primary-1-200"></div>
                     </div>
                     <input
                       type="number"
-                      className="bg-gray-100 text-center text-blind sm:text-sm border-0 rounded-lg block w-10 h-10 p-2.5 appearance-none"
+                      className="bg-gray-100 text-center text-primary-1 sm:text-sm border-0 rounded-lg block w-10 h-10 p-2.5 appearance-none"
                     />
                     <div className="inline-flex items-center gap-x-2">
-                      <div className="w-10 h-10 rounded-lg bg-blind-200"></div>
+                      <div className="w-10 h-10 rounded-lg bg-primary-1-200"></div>
                     </div>
-                    <p className="text-blind">orang</p>
+                    <p className="text-primary-1">orang</p>
                   </div>
                 </SubmissionDetail>
                 <SubmissionDetail title="Durasi Sewa">
                   <div className="inline-flex items-center gap-x-2">
                     <div className="inline-flex items-center gap-x-2">
-                      <div className="w-10 h-10 rounded-lg bg-blind-200"></div>
+                      <div className="w-10 h-10 rounded-lg bg-primary-1-200"></div>
                     </div>
                     <input
                       type="number"
-                      className="bg-gray-100 text-center text-blind sm:text-sm border-0 rounded-lg block w-10 h-10 p-2.5 appearance-none"
+                      className="bg-gray-100 text-center text-primary-1 sm:text-sm border-0 rounded-lg block w-10 h-10 p-2.5 appearance-none"
                     />
                     <div className="inline-flex items-center gap-x-2">
-                      <div className="w-10 h-10 rounded-lg bg-blind-200"></div>
+                      <div className="w-10 h-10 rounded-lg bg-primary-1-200"></div>
                     </div>
-                    <p className="text-blind">bulan (dapat diperpanjang)</p>
+                    <p className="text-primary-1">bulan (dapat diperpanjang)</p>
                   </div>
                 </SubmissionDetail>
                 <SubmissionDetail title="Dokumen Persyaratan">
                   <div className="flex flex-row items-center justify-center w-full bg-gray-100 rounded-lg gap-x-3 h-36">
                     <div className="inline-flex items-center gap-x-2">
-                      <div className="w-20 h-20 rounded-lg bg-blind-200"></div>
+                      <div className="w-20 h-20 rounded-lg bg-primary-1-200"></div>
                     </div>
                     <p>Unggah scan KTP-mu di sini</p>
                   </div>
@@ -104,7 +104,7 @@ export default function Submission() {
                 </SubmissionDetail>
               </div>
               <div className="flex flex-col my-6 gap-y-3">
-                <h3 className="font-bold text-blind text-[32px]">
+                <h3 className="font-bold text-primary-1 text-[32px]">
                   Konfirmasi Ketentuan Kost{" "}
                 </h3>
                 <RoomDetail title="Fasilitas & Layanan">
@@ -116,7 +116,7 @@ export default function Submission() {
                     <DescriptionItem />
                     <DescriptionItem />
                   </div>
-                  <p className="underline decoration-blind-200 decoration-2">
+                  <p className="underline decoration-primary-1-200 decoration-2">
                     Lihat semua
                   </p>
                 </RoomDetail>
@@ -130,7 +130,7 @@ export default function Submission() {
                     <DescriptionItem />
                     <DescriptionItem />
                   </div>
-                  <p className="underline decoration-blind-200 decoration-2">
+                  <p className="underline decoration-primary-1-200 decoration-2">
                     Lihat semua
                   </p>
                 </RoomDetail>
@@ -156,20 +156,21 @@ export default function Submission() {
                   </div>
                   <div className="inline-flex gap-x-3">
                     <div className="inline-flex items-center gap-x-2">
-                      <div className="w-5 h-5 rounded-lg bg-blind-200"></div> 5
+                      <div className="w-5 h-5 rounded-lg bg-primary-1-200"></div>{" "}
+                      5
                     </div>
                     <div className="inline-flex items-center gap-x-2">
-                      <div className="w-5 h-5 rounded-lg bg-blind-200"></div>{" "}
+                      <div className="w-5 h-5 rounded-lg bg-primary-1-200"></div>{" "}
                       Campur
                     </div>
                   </div>
                   <div className="inline-flex flex-col gap-y-2">
-                    <MdPlace className="w-5 h-5 text-blind" />
+                    <MdPlace className="w-5 h-5 text-primary-1" />
                     Jl. Lorem ipsum dolor sit amet No. 2, Kec. Lorem, Kel.
                     Ipsum, Kota Bandung, Jawa Barat, 40276
                   </div>
                   <div className="flex flex-col gap-y-2">
-                    <p className="block text-xl font-semibold text-blind">
+                    <p className="block text-xl font-semibold text-primary-1">
                       Tambahan Layanan & Fasilitas
                     </p>
                     <div className="grid grid-cols-2 mb-8 gap-y-3">
@@ -181,7 +182,7 @@ export default function Submission() {
                       <Checkbox>lemari</Checkbox>
                     </div>
                   </div>
-                  <p className="block text-xl font-semibold text-blind">
+                  <p className="block text-xl font-semibold text-primary-1">
                     Pembayaran Pertama
                   </p>
                   <div className="inline-flex justify-between">
@@ -194,8 +195,8 @@ export default function Submission() {
                   </div>
                   <hr className="h-0.5 bg-gray-200 border-0" />
                   <div className="inline-flex justify-between">
-                    <p className="font-bold text-blind">Total Biaya</p>
-                    <p className="font-bold text-blind">Rp2.222.222</p>
+                    <p className="font-bold text-primary-1">Total Biaya</p>
+                    <p className="font-bold text-primary-1">Rp2.222.222</p>
                   </div>
                 </div>
               </div>
@@ -209,7 +210,7 @@ export default function Submission() {
               sed suscipit nisl iaculis vel.
             </Checkbox>
             <div className="flex justify-center">
-              <button className="px-4 py-3 text-white rounded-lg w-72 bg-blind">
+              <button className="px-4 py-3 text-white rounded-lg w-72 bg-primary-1">
                 Ajukan Sewa
               </button>
             </div>
