@@ -124,7 +124,7 @@ export default function InputOTP({ value, valueLength, onChange }) {
       {valueItems.map((digit, i) => (
         <input
           key={i}
-          className="w-12 h-12 m-2 text-center bg-gray-100 border-0 rounded form-control"
+          className="w-12 h-12 m-2 text-3xl font-bold text-center bg-gray-100 border-0 rounded text-base-200"
           type="text"
           inputMode="numeric"
           autoComplete="one-time-code"

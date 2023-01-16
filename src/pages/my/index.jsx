@@ -56,7 +56,7 @@ export default function MyProfile() {
   return (
     <Defaultlayout title="Profil Saya">
       <Section>
-        <div className="my-4 text-5xl font-bold text-blind">Profil</div>
+        <div className="my-4 text-5xl font-bold text-primary-1">Profil</div>
         <div className="grid grid-cols-1 gap-3 lg:grid-cols-12">
           <div className="grid lg:col-span-4 place-items-center gap-y-6">
             <div className="text-xl font-medium">
@@ -68,12 +68,12 @@ export default function MyProfile() {
             </div>
             <div className="flex flex-row gap-3 lg:flex-col">
               <div className="block">
-                <button className="px-4 py-2 text-white rounded-lg bg-blind">
+                <button className="px-4 py-2 text-white rounded-lg bg-primary-1">
                   Unggah
                 </button>
               </div>
               <div className="block">
-                <button className="px-4 py-2 bg-white rounded-lg text-blind">
+                <button className="px-4 py-2 bg-white rounded-lg text-primary-1">
                   Hapus
                 </button>
               </div>
@@ -161,13 +161,13 @@ export default function MyProfile() {
                   <div className="block">
                     <button
                       type="submit"
-                      className="px-4 py-2 text-white rounded-lg bg-blind"
+                      className="px-4 py-2 text-white rounded-lg bg-primary-1"
                     >
                       Simpan
                     </button>
                   </div>
                   <div className="block">
-                    <button className="px-4 py-2 bg-white border rounded-lg text-blind border-blind">
+                    <button className="px-4 py-2 bg-white border rounded-lg text-primary-1 border-primary-1">
                       Reset
                     </button>
                   </div>

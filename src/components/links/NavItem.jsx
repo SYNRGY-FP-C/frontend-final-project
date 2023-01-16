@@ -1,24 +1,11 @@
 import clsx from "clsx";
 import Link from "next/link";
 
-const NavItem = ({
-  href = "/",
-  label = "label",
-  isActive = false,
-  variant = "light",
-}) => {
-  const variants = {
-    light: {
-      text: "text-gray-700",
-    },
-    dark: {
-      text: "text-white",
-    },
-  };
+const NavItem = ({ href = "/", label = "label", isActive = false }) => {
   return (
     <Link
       href={href}
-      className={clsx(variants[variant].text, {
+      className={clsx("text-gray-700", {
         "underline decoration-dashed": isActive,
       })}
     >

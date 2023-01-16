@@ -1,21 +1,21 @@
 const variants = {
-  light: {
-    text: "text-gray-800",
-    bg: "bg-white hover:bg-gray-100",
-    border: "border-blind",
-    focus: "focus:ring-gray-500",
-  },
-  dark: {
+  primary: {
     text: "text-white",
-    bg: "bg-black hover:bg-gray-900",
-    border: "border-gray-900",
-    focus: "focus:ring-gray-500",
+    bg: "bg-primary-1 hover:bg-primary-2",
+    border: "border-primary-1",
+    focus: "focus:ring-primary-1",
   },
-  gray: {
-    text: "text-gray-600",
+  secondary: {
+    text: "text-white",
+    bg: "bg-secondary-1 hover:bg-secondary-2",
+    border: "border-secondary-1",
+    focus: "focus:ring-secondary-1",
+  },
+  outline: {
+    text: "text-primary-1",
     bg: "bg-white hover:bg-gray-100",
-    border: "border-gray-700",
-    focus: "focus:ring-gray-500",
+    border: "border-primary-1",
+    focus: "focus:ring-primary-1",
   },
 };
 

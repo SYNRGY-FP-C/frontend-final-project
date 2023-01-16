@@ -49,7 +49,7 @@ export default function Settings() {
   return (
     <Defaultlayout title="Pengaturan">
       <Section>
-        <div className="my-4 text-5xl font-bold text-blind">Pengaturan</div>
+        <div className="my-4 text-5xl font-bold text-primary-1">Pengaturan</div>
         <div className="grid grid-cols-1 gap-3 lg:grid-cols-12">
           <div className="grid lg:col-span-4 place-items-center gap-y-6"></div>
           {response.message && (
@@ -95,7 +95,7 @@ export default function Settings() {
             <div className="block">
               <button
                 type="submit"
-                className="px-4 py-2 text-white rounded-lg bg-blind"
+                className="px-4 py-2 text-white rounded-lg bg-primary-1"
               >
                 Simpan
               </button>

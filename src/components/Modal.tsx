@@ -14,7 +14,7 @@ export default function Modal({ isOpen = false, setIsOpen, children }) {
         <div className="flex items-center justify-center min-h-full p-4 text-center sm:p-0">
           <div className="relative overflow-hidden text-left transition-all transform bg-white rounded-lg shadow-xl sm:my-8 sm:w-full sm:max-w-lg">
             <div className="flex flex-col items-center justify-center px-6 py-12 gap-y-6">
-              <div className="w-24 h-24 rounded-lg bg-blind-200"></div>
+              <div className="w-24 h-24 rounded-lg bg-primary-1-200"></div>
               {children}
             </div>
           </div>

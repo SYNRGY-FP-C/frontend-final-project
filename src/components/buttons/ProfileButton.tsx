@@ -1,3 +1,4 @@
+import Button from "@/components/buttons/Button";
 import Modal from "@/components/Modal";
 import variants from "@/constants/variants";
 import { useAuth } from "@/contexts/AuthContext";
@@ -8,7 +9,7 @@ import React from "react";
 import { v4 as uuid } from "uuid";
 
 export default function ProfileButton({
-  variant = "light",
+  variant = "primary",
   menu = [],
   image = "/images/hero-image.jpg",
 }) {
@@ -19,21 +20,21 @@ export default function ProfileButton({
   return (
     <>
       <Modal isOpen={opexExit} setIsOpen={setOpenExit}>
-        <p className="text-xl text-center text-blind">
+        <p className="text-xl text-center text-primary-1">
           Apakah Anda yakin ingin keluar?
         </p>
-        <button
-          className="inline-flex justify-center w-full px-4 py-3 text-white rounded-lg bg-blind"
+        <Button
+          className="inline-flex justify-center w-full px-4 py-3 text-white rounded-lg bg-primary-1"
           onClick={() => setOpenExit(false)}
         >
           Batal
-        </button>
-        <button
-          className="inline-flex justify-center w-full px-4 py-3 bg-white border rounded-lg text-blind border-blind"
+        </Button>
+        <Button
+          className="inline-flex justify-center w-full px-4 py-3 bg-white border rounded-lg text-primary-1 border-primary-1"
           onClick={() => logoutUser()}
         >
           Keluar
-        </button>
+        </Button>
       </Modal>
       <button
         className={clsx(
@@ -68,10 +69,7 @@ export default function ProfileButton({
               <Link
                 href={item.link}
                 className={clsx(
-                  "block px-7 py-2 text-center",
-                  variants[variant].text,
-                  variants["gray"].bg,
-                  variants[variant].border,
+                  "block px-7 py-2 text-center bg-white hover:bg-gray-100",
                   {
                     "rounded-t-lg ": index === 0,
                   }
@@ -83,11 +81,8 @@ export default function ProfileButton({
           ))}
           <button
             className={clsx(
-              "block px-9 md:px-9 py-2 text-center",
-              "rounded-b-lg",
-              variants[variant].text,
-              variants["gray"].bg,
-              variants[variant].border
+              "block px-9 md:px-9 py-2 text-center bg-white hover:bg-gray-100",
+              "rounded-b-lg"
             )}
             onClick={() => {
               setOpenExit(true);
