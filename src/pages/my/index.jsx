@@ -30,10 +30,10 @@ export default function MyProfile() {
 
   if (isLoading) return <LoadingScreen />;
 
-  if (!isAuthenticated) {
-    setTimeout(() => router.push("/login/pencari"), 1500);
-    return <LoadingScreen redirect page="login" />;
-  }
+  // if (!isAuthenticated) {
+  //   setTimeout(() => router.push("/login/pencari"), 1500);
+  //   return <LoadingScreen redirect page="login" />;
+  // }
 
   const handleSubmit = (e) => {
     e.preventDefault();
