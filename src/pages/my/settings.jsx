@@ -9,6 +9,7 @@ export default function Settings() {
   return (
     <Defaultlayout title="Pengaturan">
       <Section>
+        <div className="pt-8 md:pt-12 gap-y-6">
         <div className="my-4 text-5xl font-bold text-primary-1">Pengaturan</div>
         <div className="grid grid-cols-1 gap-3 lg:grid-cols-12">
           <div className="grid lg:col-span-4 place-items-center gap-y-6"></div>
@@ -23,6 +24,7 @@ export default function Settings() {
               </button>
             </div>
           </form>
+        </div>
         </div>
       </Section>
     </Defaultlayout>
