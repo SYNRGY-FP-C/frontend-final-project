@@ -107,11 +107,11 @@ export default function OTP() {
             <div className="flex flex-col items-center justify-center flex-1">
               <div className="grid h-full grid-cols-12 lg:gap-x-24">
                 <div className="hidden lg:grid md:col-span-6 place-content-end">
-                  <div className="flex justify-center object-cover overflow-hidden w-96 h-96">
+                  <div className="flex justify-center object-cover overflow-hidden w-96">
                     <img
                       className="object-cover w-full rounded-xl"
-                      src="/images/hero-image.jpg"
-                      alt="Test"
+                      src="/images/otp-image.png"
+                      alt="OTP Image"
                     />
                   </div>
                 </div>
