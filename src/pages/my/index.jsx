@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import { useState } from "react";
 import RadioButton from "@/components/forms/RadioButton";
+import VerifIdentitasButton from "../../components/forms/VerifIdentitasButton";
 
 export default function MyProfile() {
   const router = useRouter();
@@ -169,7 +170,9 @@ export default function MyProfile() {
                   })
                 }
               />
-              <InputWithLabel labelName="Verifikasi Identitas"/>
+              <div>Verifikasi Identitas 
+                <VerifIdentitasButton/>
+              </div>
               <div className="grid col-span-2">
                 <InputWithLabel labelName="Unggah Foto Identitas" type="file" />
               </div>
