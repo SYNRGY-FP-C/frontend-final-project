@@ -11,10 +11,9 @@ import DefaultLayout from "@/layouts/DefaultLayout";
 import RoomDescription from "@/layouts/RoomDescription";
 import RoomDetail from "@/layouts/RoomDetail";
 import Section from "@/layouts/Section";
+import roomService from "@/services";
 import Link from "next/link";
 import { useEffect,useState } from "react";
-
-import roomService from "../services/user.service";
 
 export default function Details() {
 
