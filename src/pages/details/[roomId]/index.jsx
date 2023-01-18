@@ -18,7 +18,7 @@ import { useEffect,useState } from "react";
 export default function Details() {
 
   const [data, setData] = useState([]);
-  const [response, setResponse] = ({
+  const [response, setResponse] = useState({
     isLoading : false,
     isError : false,
     message : "",
@@ -39,7 +39,7 @@ export default function Details() {
         setResponse({
           isLoading: false,
           isError: true,
-          message: `${err}, Berhasil Get Data Room`,
+          message: `${err}, Gagal Get Data Room`,
         })
       }
     }
