@@ -55,7 +55,7 @@ export default function LoginPencari() {
       <Section>
         <div className="flex flex-col flex-1 pt-8 md:pt-12 gap-y-6">
           <div className="flex flex-col gap-y-4">
-            <div className="grid grid-cols-12 my-6 md:py-20 md:px-20">
+            <div className="grid grid-cols-12 my-6 md:px-14">
               <div className="grid col-span-12 lg:col-span-4 place-content-center">
                 <div className="flex flex-col gap-y-3">
                   <h5 className="text-xl leading-none mt-6 font-bold md:text-[28px] text-primary-1">

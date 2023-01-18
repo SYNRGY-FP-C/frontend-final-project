@@ -45,12 +45,15 @@ export default function LoginPenyedia() {
       <Section>
         <div className="flex flex-col flex-1 pt-8 md:pt-12 gap-y-6">
           <div className="flex flex-col gap-y-4">
-            <div className="grid grid-cols-12 my-6">
+            <div className="grid grid-cols-12 my-6 md:px-14">
               <div className="grid col-span-12 lg:col-span-4 place-content-center">
                 <div className="flex flex-col gap-y-3">
-                  <h5 className="text-xl leading-none my-6 font-bold md:text-[28px] text-primary-1">
+                  <h5 className="text-xl leading-none mt-6 font-bold md:text-[28px] text-primary-1">
                     Selamat Datang Kembali!
                   </h5>
+                  <p className="text-base text-primary-3 font-bold">
+                    Masuk sebagai Pemilik Kost
+                  </p>
                   <form
                     className="flex flex-col gap-y-3"
                     onSubmit={handleSubmit}
@@ -105,7 +108,7 @@ export default function LoginPenyedia() {
                 <div className="flex justify-center object-cover w-full h-full max-w-lg overflow-hidden">
                   <img
                     className="object-cover w-full rounded-xl"
-                    src="/images/hero-image.jpg"
+                    src="/images/loginpemilikos.png"
                     alt="Test"
                   />
                 </div>
