@@ -8,6 +8,8 @@ import Section from "@/layouts/Section";
 import { useRouter } from "next/router";
 import React from "react";
 import { useState } from "react";
+import RadioButton from "@/components/forms/RadioButton";
+import VerifIdentitasButton from "../../components/forms/VerifIdentitasButton";
 
 export default function MyProfile() {
   const router = useRouter();
@@ -26,6 +28,7 @@ export default function MyProfile() {
     phone: user?.phone || "",
     gender: user?.gender || "",
     occupation: user?.occupation || "",
+    
   });
 
   if (isLoading) return <LoadingScreen />;
@@ -52,6 +55,7 @@ export default function MyProfile() {
         message: "Data tidak tersimpan",
       });
     }
+    console.log(form);
   };
 
   return (
@@ -86,7 +90,8 @@ export default function MyProfile() {
                 {response.message}
               </Alert>
             )}
-            <form className="grid grid-cols-2 gap-4" onSubmit={handleSubmit}>
+            <form className="cols" onSubmit={handleSubmit}>
+              <div className="my-4 text-3xl font-bold text-primary-1">Edit Profil</div>
               <InputWithLabel
                 labelName="Nama Lengkap"
                 type="text"
@@ -109,7 +114,41 @@ export default function MyProfile() {
                   })
                 }
               />
+              {/* <InputWithLabel
+                labelName="Jenis Kelamin"
+                value={form.gender}
+                onChange={(e) =>
+                  setForm({
+                    ...form,
+                    gender: e.target.value,
+                  })
+                }
+              /> */}
+              <div>Jenis Kelamin
+                <RadioButton
+                  type="radio"
+                  value={form.gender}
+                  onChange={(e) =>
+                    setForm({
+                      ...form,
+                      gender: e.target.value,
+                    })
+                }/>
+              </div>
               <InputWithLabel
+                labelName="Pekerjaan"
+                type="text"
+                value={form.occupation}
+                onChange={(e) =>
+                  setForm({
+                    ...form,
+                    occupation: e.target.value,
+                  })
+                }
+              />
+            
+            <div className="my-4 text-3xl font-bold text-primary-1">Verifikasi Akun</div>
+            <InputWithLabel
                 labelName="Email"
                 type="email"
                 value={form.email}
@@ -131,31 +170,11 @@ export default function MyProfile() {
                   })
                 }
               />
-              <InputWithLabel
-                labelName="Jenis Kelamin"
-                type="text"
-                value={form.gender}
-                onChange={(e) =>
-                  setForm({
-                    ...form,
-                    gender: e.target.value,
-                  })
-                }
-              />
-              <InputWithLabel
-                labelName="Pekerjaan"
-                type="text"
-                value={form.occupation}
-                onChange={(e) =>
-                  setForm({
-                    ...form,
-                    occupation: e.target.value,
-                  })
-                }
-              />
-
+              <div>Verifikasi Identitas 
+                <VerifIdentitasButton/>
+              </div>
               <div className="grid col-span-2">
-                <InputWithLabel labelName="Upload scan KTP" type="file" />
+                <InputWithLabel labelName="Unggah Foto Identitas" type="file" />
               </div>
               <div className="grid col-span-2 place-content-end">
                 <div className="flex flex-row gap-x-4">
