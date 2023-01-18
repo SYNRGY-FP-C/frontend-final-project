@@ -1,28 +1,54 @@
 /* eslint-disable @next/next/no-img-element */
+import Alert from "@/components/Alert";
 import BreadCrumb from "@/components/BreadCrumb";
 import MapCard from "@/components/cards/MapCard";
 import OtherRoomCard from "@/components/cards/OtherRoomCard";
 import RoomImagesCard from "@/components/cards/RoomImagesCard";
 import DescriptionItem from "@/components/items/DescriptionItem";
+import LoadingScreen from "@/components/LoadingScreen";
 import Modal from "@/components/Modal";
 import DefaultLayout from "@/layouts/DefaultLayout";
 import RoomDescription from "@/layouts/RoomDescription";
 import RoomDetail from "@/layouts/RoomDetail";
 import Section from "@/layouts/Section";
-import { useRouter } from "next/router";
-import React, { useState } from "react";
+import Link from "next/link";
+import { useEffect,useState } from "react";
+
+import roomService from "../services/user.service";
 
 export default function Details() {
-  const router = useRouter();
+
   const [data, setData] = useState([]);
+  const [response, setResponse] = ({
+    isLoading : false,
+    isError : false,
+    message : "",
+  })
+  
+  useEffect(()=> {
+    const fetchRoom = async () => {
+      setResponse({ isLoading: true, isError: false });
+      try {
+        const response = await roomService.get()
+        setData(response.data)
+        setResponse({
+          isLoading: false,
+          isError: false,
+          message: "Berhasil Get Data Room",
+        });
+      } catch (err) {
+        setResponse({
+          isLoading: false,
+          isError: true,
+          message: `${err}, Berhasil Get Data Room`,
+        })
+      }
+    }
+    fetchRoom()
+  }, [])
+  
+  if (response.isLoading) return <LoadingScreen />;
 
-  const handleSubmitRegistrasi = (e) => {
-    e.preventDefault();
-
-    router.push(
-      `/details/1/submission`
-    );
-  }
 
 
   return (
@@ -32,6 +58,12 @@ export default function Details() {
         <div className="flex flex-col gap-y-6">
           {/* BreadCrumb Navigasi */}
           <BreadCrumb />
+
+          {response.message && (
+            <Alert type={response.isError ? "error" : "success"}>
+              {response.message}
+            </Alert>
+          )}
 
           {/* Image Kos */}
           <RoomImagesCard />
@@ -186,13 +218,10 @@ export default function Details() {
                     <p className="font-bold text-primary-1">Rp. 1.000.000</p>
                   </div>
 
-                  {/* Button Submit */}
-                  <button
-                    className="px-4 py-3 text-white rounded-lg bg-primary-1 hover:bg-sky-700"
-                    onClick={(e) => handleSubmitRegistrasi(e)}
-                  >
-                    Registrasi
-                  </button>
+                  {/* Button Registrasi */}
+                  <Link href="/details/1/submissions" passHref>
+                  <button className="px-4 py-3 text-white rounded-lg bg-primary-1 hover:bg-sky-700"> Registrasi</button>
+                  </Link>
                 </div>
               </div>
             </div>
