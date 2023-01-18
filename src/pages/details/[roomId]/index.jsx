@@ -258,7 +258,8 @@ export default function Details() {
                   </div>
 
                   {/* Button Registrasi */}
-                  <Link href="/details/1/submission" passHref>
+
+                  <Link href="/details/1/submissions" passHref>
                   <button className="px-4 py-3 text-white rounded-lg bg-primary-1 hover:bg-sky-700"> Registrasi</button>
                   </Link>
                 </div>
