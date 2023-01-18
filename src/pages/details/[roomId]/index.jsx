@@ -3,7 +3,6 @@ import Alert from "@/components/Alert";
 import BreadCrumb from "@/components/BreadCrumb";
 import MapCard from "@/components/cards/MapCard";
 import OtherRoomCard from "@/components/cards/OtherRoomCard";
-import RoomImagesCard from "@/components/cards/RoomImagesCard";
 import DescriptionItem from "@/components/items/DescriptionItem";
 import LoadingScreen from "@/components/LoadingScreen";
 import Modal from "@/components/Modal";
@@ -16,8 +15,28 @@ import Link from "next/link";
 import { useEffect,useState } from "react";
 
 export default function Details() {
+  const img = [
+    {
+      id: 0,
+      url: "https://img.iproperty.com.my/angel/750x1000-fit/wp-content/uploads/sites/5/2022/09/Alt-Text-2.-Desain-Rumah-Kost-2-Lantai-Lahan-Sempit-Minimalis.png"
+    },
+    {
+      id: 1,
+      url: "https://img.iproperty.com.my/angel/750x1000-fit/wp-content/uploads/sites/5/2022/09/Alt-Text-1.-Desain-Rumah-Kost-2-Lantai-Lahan-Sempit-Letter-U.png"
+    },
+    {
+      id: 2,
+      url: "https://www.kibrispdr.org/data/63/desain-kamar-kost-dengan-kamar-mandi-dalam-9.jpg"
+    },
+    {
+      id: 3,
+      url: "https://cdn-cms.pgimgs.com/static/2021/02/3.4-Desain-Kamar-Kost-Kamar-Mandi-Dalam.png"
+    }
+]
 
   const [data, setData] = useState([]);
+  const [images] = useState(img)
+  const [tab, setTab] = useState(0)
   const [response, setResponse] = useState({
     isLoading : false,
     isError : false,
@@ -65,7 +84,33 @@ export default function Details() {
           )}
 
           {/* Image Kos */}
-          <RoomImagesCard />
+          {/* <RoomImagesCard/> */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-2 lg:gap-y-0 lg:gap-x-2 rounded-2xl">
+            <div className="flex w-full col-span-6 max-h-[392px]">
+              <div className="flex justify-center object-cover w-full overflow-hidden max-h-48 sm:max-h-72 md:max-h-full">
+                <img
+                  className="object-cover w-full rounded-t-xl lg:rounded-l-xl lg:rounded-r-none"
+                  src={images[tab].url}
+                  alt="Test"
+                />
+              </div>
+            </div>
+            <div className="lg:col-span-6">
+              <div className="flex flex-row gap-2 lg:grid lg:grid-cols-2">
+                {images.map((image, index)=> (
+                <div key={index} className="flex justify-center object-cover w-full overflow-hidden max-h-24 lg:max-h-48">
+                  <img
+                    key={index}
+                    className="object-cover w-full"
+                    src={image.url}
+                    alt={image.url}
+                    onClick={() => setTab(index)}
+                  />
+                </div>
+                ))}
+              </div>
+            </div>
+          </div>
 
           {/* Tittle */}
           <div className="flex flex-col md:justify-between md:flex-row">
@@ -77,13 +122,8 @@ export default function Details() {
             </div>
             <div className="inline-flex items-center gap-x-6">
               <div className="inline-flex items-center gap-x-2">
-                {/* Icon Share */}
-                <div className="w-5 h-5 rounded-lg bg-primary-1-200"></div>
-                Sebarkan
-              </div>
-              <div className="inline-flex items-center gap-x-2">
                 {/* Icon Save To Wishlisht*/}
-                <div className="w-5 h-5 rounded-lg bg-primary-1-200"></div>
+                <button className="w-5 h-5 rounded-lg bg-gray-300"></button>
                 Simpan
               </div>
             </div>
@@ -218,7 +258,7 @@ export default function Details() {
                   </div>
 
                   {/* Button Registrasi */}
-                  <Link href="/details/1/submissions" passHref>
+                  <Link href="/details/1/submission" passHref>
                   <button className="px-4 py-3 text-white rounded-lg bg-primary-1 hover:bg-sky-700"> Registrasi</button>
                   </Link>
                 </div>

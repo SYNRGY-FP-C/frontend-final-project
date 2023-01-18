@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 import Checkbox from "@/components/forms/Checkbox";
-import Input from "@/components/forms/Input";
 import DescriptionItem from "@/components/items/DescriptionItem";
 import Modal from "@/components/Modal";
 import DefaultLayout from "@/layouts/DefaultLayout";
@@ -96,12 +95,12 @@ export default function Submission() {
                     <p>Unggah scan KTP-mu di sini</p>
                   </div>
                 </SubmissionDetail>
-                <SubmissionDetail title="Promo">
+                {/* <SubmissionDetail title="Promo">
                   <Input />
-                </SubmissionDetail>
-                <SubmissionDetail title="Kode Referal">
+                </SubmissionDetail> */}
+                {/* <SubmissionDetail title="Kode Referal">
                   <Input />
-                </SubmissionDetail>
+                </SubmissionDetail> */}
               </div>
               <div className="flex flex-col my-6 gap-y-3">
                 <h3 className="font-bold text-primary-1 text-[32px]">
