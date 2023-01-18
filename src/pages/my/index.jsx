@@ -13,8 +13,6 @@ import { useState } from "react";
 import RadioButton from "@/components/forms/RadioButton";
 import VerifIdentitasButton from "../../components/forms/VerifIdentitasButton";
 
-import VerifIdentitasButton from "../../components/forms/VerifIdentitasButton";
-
 export default function MyProfile() {
   const router = useRouter();
   const { user, isAuthenticated, isLoading } = useAuth();
