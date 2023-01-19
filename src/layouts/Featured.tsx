@@ -7,7 +7,7 @@ export default function Featured({
   title = "Judul",
   description = "Deskripsi",
   children,
-  href = "/rooms",
+  href = "/search",
   center = false,
   three = false,
 }) {
@@ -15,20 +15,18 @@ export default function Featured({
     <>
       <div
         className={clsx(
-          "flex items-center justify-between",
+          "flex items-center justify-between mt-8",
           variants["outline"].text
         )}
       >
         <div
           className={clsx(
-            "flex flex-row items-end gap-x-4 mt-8",
+            "flex flex-row items-center gap-x-4",
             center ? "justify-center w-full" : "justify-start w-auto"
           )}
         >
-          <h2 className="text-[40px] leading-10 font-semibold">{title}</h2>
-          {center ? null : (
-            <h5 className="text-xl text-primary-700">{description}</h5>
-          )}
+          <h2 className="text-[32px] text-base-100 font-bold">{title}</h2>
+          {center ? null : <p>{description}</p>}
         </div>
         {center ? null : (
           <div className="w-auto">

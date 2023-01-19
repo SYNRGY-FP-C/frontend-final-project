@@ -1,7 +1,7 @@
 export default function LoadingScreen({ redirect = false, page = "login" }) {
   return (
     <>
-      <div className="items-center justify-center w-full h-screen bg-white">
+      <div className="items-center justify-center w-full h-screen bg-base-900">
         <div className="loading">
           <h1 className="py-4 text-4xl font-bold text-center text-gray-700">
             KostHub

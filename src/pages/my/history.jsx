@@ -14,13 +14,13 @@ export default function History() {
               <a className="w-full px-4 py-2 bg-gray-100 rounded-lg text-primary-1">
                 Diajukan
               </a>
-              <a className="w-full px-4 py-2 bg-white rounded-lg text-primary-1">
+              <a className="w-full px-4 py-2 bg-base-900 rounded-lg text-primary-1">
                 Sebelumnya
               </a>
-              <a className="w-full px-4 py-2 bg-white rounded-lg text-primary-1">
+              <a className="w-full px-4 py-2 bg-base-900 rounded-lg text-primary-1">
                 Disetujui
               </a>
-              <a className="w-full px-4 py-2 bg-white rounded-lg text-primary-1">
+              <a className="w-full px-4 py-2 bg-base-900 rounded-lg text-primary-1">
                 Sedang jalan
               </a>
             </div>

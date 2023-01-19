@@ -1,30 +1,28 @@
 /* eslint-disable @next/next/no-img-element */
+import Person from "@/components/icons/Person";
+import Quote from "@/components/icons/Quote";
 import React from "react";
 
-export default function TestimoniCard({ name = "Nama" }) {
+export default function TestimoniCard({
+  name = "Nama",
+  occupation = "Mahasiswa",
+  children,
+}) {
   return (
-    <div className="p-6 bg-white rounded-2xl">
-      <div className="flex flex-row items-end gap-x-6">
-        <figure className="float-left rounded">
-          <div className="flex justify-center object-cover w-24 h-24 overflow-hidden">
-            <img
-              className="object-cover w-full rounded-2xl"
-              src="/images/hero-image.jpg"
-              alt={name}
-            />
+    <div className="p-8 bg-base-900 rounded-2xl">
+      <div className="flex flex-col gap-y-3">
+        <Quote clasName="h-7 w-7" />
+        <p className="mt-3 text-justify">{children}</p>
+        <div className="flex flex-row space-x-3">
+          <div className="flex items-center justify-center float-left w-16 h-16 bg-gray-100 rounded-full">
+            <Person className="w-8 h-8" />
           </div>
-        </figure>
-        <div>
-          <h5 className="text-xl font-bold">{name}</h5>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+          <div className="flex flex-col text-left">
+            <h5 className="space-y-3 text-xl font-bold">{name}</h5>
+            <p>{occupation}</p>
+          </div>
         </div>
       </div>
-      <p className="mt-3 text-justify">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt
-        provident quas aut esse eaque iusto impedit ab aliquam omnis excepturi,
-        tempora libero dolores adipisci asperiores doloribus minima dolore
-        accusantium quasi.
-      </p>
     </div>
   );
 }
