@@ -33,7 +33,7 @@ export default function Drawer({
       >
         <div className="container h-full px-4 my-4">
           <div className="flex justify-between mb-6">
-            <Logo />
+            <Logo className="w-8 h-8 mr-3" />
             <CloseButton setIsOpen={() => setIsOpen(!isOpen)} />
           </div>
           <div className="flex flex-col justify-between gap-y-12">

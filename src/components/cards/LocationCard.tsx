@@ -20,8 +20,10 @@ export default function LocationCard({ data = defaultData }) {
         </div>
 
         <div className="absolute top-0 left-0 w-full h-full bg-black rounded-lg opacity-50" />
-        <div className="absolute z-10 p-1 text-gray-100 left-5 bottom-3">
-          <h4 className="text-[28px] font-bold">{data.location}</h4>
+        <div className="absolute p-1 left-5 bottom-3">
+          <h4 className="text-[28px] font-bold text-gray-100 ">
+            {data.location}
+          </h4>
         </div>
       </Link>
     </div>
