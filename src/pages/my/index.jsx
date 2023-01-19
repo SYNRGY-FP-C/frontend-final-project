@@ -10,7 +10,6 @@ import Section from "@/layouts/Section";
 import { useRouter } from "next/router";
 import React from "react";
 import { useState } from "react";
-import RadioButton from "@/components/forms/RadioButton";
 import VerifIdentitasButton from "../../components/forms/VerifIdentitasButton";
 
 export default function MyProfile() {
@@ -145,21 +144,6 @@ export default function MyProfile() {
                   })
                 }
               />
-
-              <div className="my-4 text-3xl font-bold text-primary-1">
-                Verifikasi Akun
-              </div>
-              <InputWithLabel
-                labelName="Pekerjaan"
-                type="text"
-                value={form.occupation}
-                onChange={(e) =>
-                  setForm({
-                    ...form,
-                    occupation: e.target.value,
-                  })
-                }
-              />
             
             <div className="my-4 text-3xl font-bold text-primary-1">Verifikasi Akun</div>
             <InputWithLabel
@@ -196,8 +180,7 @@ export default function MyProfile() {
                   <div className="block">
                     <Button
                       type="submit"
-                      className="px-4 py-2 text-white rounded-lg bg-primary-1"
-                    >
+                      className="px-4 py-2 text-white rounded-lg bg-primary-1">
                       Simpan
                     </Button>
                   </div>
