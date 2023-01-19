@@ -1,31 +1,72 @@
 /* eslint-disable @next/next/no-img-element */
 import Defaultlayout from "@/layouts/DefaultLayout";
 import Section from "@/layouts/Section";
-import React from "react";
+import React, { useEffect } from "react";
+import { useState } from "react";
+import Button from "@/components/buttons/Button";
 
 export default function History() {
+  // gambaran buat response handle
+  // const [select, setSelect] = useState("")
+  const [response, setReponse] = useState({
+    isLoading: false, isError: false, data: []
+  });
+
+  //  useEffect(()=>{
+    
+  //   setReponse({isLoading:true, isError:false, data :[]})
+  //   try {
+  //   const data =  historyService.getAll()
+  //   setReponse({isLoading:false, isError:false, data:data})
+  //   } catch (error) {
+      
+  //   setReponse({isLoading:false, isError:error, data:[]})
+  //   }
+  // },[])
   return (
     <Defaultlayout title="Riwayat">
       <Section>
+        <div className="pt-12 gap-y-6">
         <div className="my-4 text-5xl font-bold text-primary-1">Riwayat</div>
         <div className="grid grid-cols-1 gap-3 lg:grid-cols-12 gap-x-12">
           <div className="grid w-full lg:col-span-3 place-items-start">
             <div className="flex flex-col w-full gap-y-3">
-              <a className="w-full px-4 py-2 bg-gray-100 rounded-lg text-primary-1">
-                Diajukan
-              </a>
-              <a className="w-full px-4 py-2 bg-white rounded-lg text-primary-1">
-                Sebelumnya
-              </a>
-              <a className="w-full px-4 py-2 bg-white rounded-lg text-primary-1">
-                Disetujui
-              </a>
-              <a className="w-full px-4 py-2 bg-white rounded-lg text-primary-1">
-                Sedang jalan
-              </a>
+              <Button className="w-full px-4 py-2 bg-gray-100 rounded-lg text-primary-1 text-left">
+                  Diajukan
+              </Button>
+              <Button className="w-full px-4 py-2 bg-white rounded-lg text-primary-1 text-left">
+                  Sebelumnya
+              </Button>
+              <Button className="w-full px-4 py-2 bg-white rounded-lg text-primary-1 text-left">
+                  Disetujui
+              </Button>
+              <Button className="w-full px-4 py-2 bg-white rounded-lg text-primary-1 text-left">
+                  Sedang jalan
+              </Button>
             </div>
           </div>
           <div className="grid lg:col-span-9">
+            <div className="grid grid-col-span-2 place-content-start">
+              <div className="flex flex-row mt-3 gap-x-4 mb-3">
+                <Button className="px-4 py-2 text-white rounded-lg bg-primary-1 ">Dalam Proses</Button>
+                <Button className="px-4 py-2 text-black rounded-lg bg-primary-1 bg-gray-300">Ditolak</Button>
+              </div>
+            </div>
+            {/* 
+            // contoh looping
+            {
+              response.data.map((transaksi)=>{
+                return (<div className="grid col-span-4">
+                <div className="flex justify-center object-cover w-full h-64 overflow-hidden">
+                  <img
+                    className="object-cover w-full rounded-t-xl lg:rounded-l-xl lg:rounded-r-none"
+                    src={transaksi.image_url}
+                    alt="Test"
+                  />
+                </div>
+              </div>)
+              })
+            } */}
             <div className="flex flex-col w-full gap-y-3">
               <div className="grid grid-cols-1 shadow lg:grid-cols-12 rounded-xl">
                 <div className="grid col-span-4">
@@ -71,6 +112,8 @@ export default function History() {
                   </div>
                 </div>
               </div>
+
+              
               <div className="grid grid-cols-1 shadow lg:grid-cols-12 rounded-xl">
                 <div className="grid col-span-4">
                   <div className="flex justify-center object-cover w-full h-64 overflow-hidden">
@@ -117,6 +160,7 @@ export default function History() {
               </div>
             </div>
           </div>
+        </div>
         </div>
       </Section>
     </Defaultlayout>
