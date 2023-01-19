@@ -9,7 +9,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 
-// Tambahan
 export default function LoginPenyedia() {
   const router = useRouter();
   const { loginPenyedia, isLoading, isAuthenticated } = useAuth();
@@ -39,18 +38,20 @@ export default function LoginPenyedia() {
     }
   };
 
-  // Akhir Tambahan
   return (
     <DefaultLayout title="Masuk - Penyedia">
       <Section>
         <div className="flex flex-col flex-1 pt-8 md:pt-12 gap-y-6">
           <div className="flex flex-col gap-y-4">
-            <div className="grid grid-cols-12 my-6">
+            <div className="grid grid-cols-12 my-6 md:py-20 md:px-20">
               <div className="grid col-span-12 lg:col-span-4 place-content-center">
                 <div className="flex flex-col gap-y-3">
-                  <h5 className="text-xl leading-none my-6 font-bold md:text-[28px] text-primary-1">
+                  <h5 className="text-xl leading-none mt-6 font-bold md:text-[28px] text-primary-1">
                     Selamat Datang Kembali!
                   </h5>
+                  <p className="text-base text-primary-3 font-bold">
+                    Masuk sebagai Pemilik Kost
+                  </p>
                   <form
                     className="flex flex-col gap-y-3"
                     onSubmit={handleSubmit}
@@ -102,10 +103,10 @@ export default function LoginPenyedia() {
                 </div>
               </div>
               <div className="hidden lg:grid md:col-span-8 place-content-center">
-                <div className="flex justify-center object-cover w-full h-full max-w-lg overflow-hidden">
+                <div className="flex justify-center object-cover w-full h-full max-w-lg overflow-hidden md:pl-32">
                   <img
                     className="object-cover w-full rounded-xl"
-                    src="/images/hero-image.jpg"
+                    src="/images/login-pemilik.png"
                     alt="Test"
                   />
                 </div>
