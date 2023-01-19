@@ -44,10 +44,10 @@ export const AuthProvider = ({ children }: AuthProviderType) => {
     // if (response.data.role === "superadmin") router.push("/superadmin");
   };
 
-  const registerPenyedia = async (data) => {
+  const registerPemilik = async (data) => {
     const {
       data: { token },
-    } = await userService.registerPenyedia(data);
+    } = await userService.registerPemilik(data);
     localStorage.setItem("accessToken", token);
     const response = await userService.me();
     setUser(response.data);
@@ -66,10 +66,10 @@ export const AuthProvider = ({ children }: AuthProviderType) => {
     // router.push("/");
   };
 
-  const loginPenyedia = async (data) => {
+  const loginPemilik = async (data) => {
     const {
       data: { token },
-    } = await userService.loginPenyedia(data);
+    } = await userService.loginPemilik(data);
     localStorage.setItem("accessToken", token);
     const response = await userService.me();
     setUser(response.data);
@@ -89,9 +89,9 @@ export const AuthProvider = ({ children }: AuthProviderType) => {
     isVerified: false,
     user,
     registerPencari,
-    registerPenyedia,
+    registerPemilik,
     loginPencari,
-    loginPenyedia,
+    loginPemilik,
     logoutUser,
   };
 

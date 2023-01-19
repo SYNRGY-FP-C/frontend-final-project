@@ -10,9 +10,9 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
-export default function RegisterPenyedia() {
+export default function RegisterPemilik() {
   const router = useRouter();
-  const { registerPenyedia, isLoading, isAuthenticated } = useAuth();
+  const { registerPemilik, isLoading, isAuthenticated } = useAuth();
   const [response, setResponse] = useState({
     isLoading: false,
     isError: false,
@@ -45,7 +45,7 @@ export default function RegisterPenyedia() {
       return;
     }
     try {
-      await registerPenyedia(form);
+      await registerPemilik(form);
       setResponse({
         isLoading: false,
         isError: false,
@@ -62,7 +62,7 @@ export default function RegisterPenyedia() {
   };
 
   return (
-    <DefaultLayout title="Buat akun - Penyedia">
+    <DefaultLayout title="Buat akun - Pemilik">
       <Section>
         <div className="flex flex-col flex-1 pt-8 md:pt-12 gap-y-6">
           <div className="flex flex-col gap-y-4">
@@ -72,11 +72,11 @@ export default function RegisterPenyedia() {
                   <h5 className="text-xl leading-none mt-6 font-bold md:text-[28px] text-primary-1">
                     Buat Akun
                   </h5>
-                  <p className="text-base text-primary-3 font-bold">
-                    sebagai Penyedia Kost
+                  <p className="text-base font-bold text-primary-3">
+                    sebagai Pemilik Kost
                   </p>
                   <form
-                    className="flex flex-col gap-y-3  mt-7"
+                    className="flex flex-col gap-y-3 mt-7"
                     onSubmit={handleSubmit}
                   >
                     {response.message && (
@@ -134,13 +134,10 @@ export default function RegisterPenyedia() {
                         atau
                       </p>
                     </div>
-                    <button className="px-4 py-3 bg-base-900 border rounded-lg text-primary-1 border-primary-1">
+                    <button className="px-4 py-3 border rounded-lg bg-base-900 text-primary-1 border-primary-1">
                       Daftar dengan Google
                     </button>
-                    <Link
-                      href="/login/penyedia"
-                      className="text-xs text-center"
-                    >
+                    <Link href="/login/pemilik" className="text-xs text-center">
                       Saya sudah memiliki akun{" "}
                     </Link>
                   </form>
@@ -150,7 +147,7 @@ export default function RegisterPenyedia() {
                 <div className="flex justify-center object-cover w-full h-full max-w-lg overflow-hidden">
                   <img
                     className="object-cover w-full rounded-xl"
-                    src="/images/register-penyedia.png"
+                    src="/images/register-pemilik.png"
                     alt="Test"
                   />
                 </div>

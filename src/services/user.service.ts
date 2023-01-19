@@ -4,7 +4,7 @@ const registerPencari = async (data) => {
   return await backendJava.post("/v1/auth/pencari/register", data);
 };
 
-const registerPenyedia = async (data) => {
+const registerPemilik = async (data) => {
   return await backendJava.post("/v1/auth/pemilik/register", data);
 };
 
@@ -12,7 +12,7 @@ const loginPencari = async (data) => {
   return await backendJava.post("/v1/auth/login", data);
 };
 
-const loginPenyedia = async (data) => {
+const loginPemilik = async (data) => {
   return await backendJava.post("/v1/auth/login", data);
 };
 
@@ -22,9 +22,9 @@ const me = async () => {
 
 const userService = {
   registerPencari,
-  registerPenyedia,
+  registerPemilik,
   loginPencari,
-  loginPenyedia,
+  loginPemilik,
   me,
 };
 

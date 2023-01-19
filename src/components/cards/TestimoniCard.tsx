@@ -11,7 +11,7 @@ export default function TestimoniCard({
   return (
     <div className="p-8 bg-base-900 rounded-2xl">
       <div className="flex flex-col gap-y-3">
-        <Quote clasName="h-7 w-7" />
+        <Quote className="w-10 h-10" />
         <p className="mt-3 text-justify">{children}</p>
         <div className="flex flex-row space-x-3">
           <div className="flex items-center justify-center float-left w-16 h-16 bg-gray-100 rounded-full">
