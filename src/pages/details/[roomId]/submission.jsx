@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import Alert from "@/components/Alert";
 import Button from "@/components/buttons/Button";
 import Checkbox from "@/components/forms/Checkbox";
 import InputTypePayment from "@/components/forms/InputTypePayment";
@@ -135,7 +136,6 @@ export default function Submission() {
 
   return (
     <DefaultLayout title="Ajukan Penyewaan">
-      <Modal />
       <Section>
         <div className="flex flex-col gap-y-6">
           <div className="block">
@@ -144,6 +144,11 @@ export default function Submission() {
               <p className="text-sm text-primary-1">Kembali</p>
             </Link>
           </div>
+          {response.message && (
+            <Alert type={response.isError ? "error" : "success"}>
+              {response.message}
+            </Alert>
+          )}
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-12">
             <div className="h-full col-span-12 lg:col-span-8">
               <h3 className="font-bold text-primary-1 text-3xl md:text-[40px] my-4">
