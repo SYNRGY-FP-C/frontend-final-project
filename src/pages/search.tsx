@@ -119,7 +119,7 @@ export default function Search() {
                   <button className="w-full py-3 text-white rounded-lg bg-primary-1">
                     Filter
                   </button>
-                  <button className="w-full py-3 bg-white border rounded-lg text-primary-1 border-primary-1">
+                  <button className="w-full py-3 bg-base-900 border rounded-lg text-primary-1 border-primary-1">
                     Reset
                   </button>
                 </div>

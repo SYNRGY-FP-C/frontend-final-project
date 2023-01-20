@@ -9,9 +9,9 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 
-export default function LoginPenyedia() {
+export default function LoginPemilik() {
   const router = useRouter();
-  const { loginPenyedia, isLoading, isAuthenticated } = useAuth();
+  const { loginPemilik, isLoading, isAuthenticated } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [response, setResponse] = useState({
@@ -30,16 +30,16 @@ export default function LoginPenyedia() {
     e.preventDefault();
     setResponse({ isLoading: true, isError: false });
     try {
-      await loginPenyedia({ email, password });
+      await loginPemilik({ email, password });
       setResponse({ isLoading: false, isError: true });
-      router.push("/");
+      router.push("/dashboard");
     } catch (error) {
       setResponse({ isLoading: false, isError: true });
     }
   };
 
   return (
-    <DefaultLayout title="Masuk - Penyedia">
+    <DefaultLayout title="Masuk - Pemilik">
       <Section>
         <div className="flex flex-col flex-1 pt-8 md:pt-12 gap-y-6">
           <div className="flex flex-col gap-y-4">
@@ -49,7 +49,7 @@ export default function LoginPenyedia() {
                   <h5 className="text-xl leading-none mt-6 font-bold md:text-[28px] text-primary-1">
                     Selamat Datang Kembali!
                   </h5>
-                  <p className="text-base text-primary-3 font-bold">
+                  <p className="text-base font-bold text-primary-3">
                     Masuk sebagai Pemilik Kost
                   </p>
                   <form
@@ -86,15 +86,15 @@ export default function LoginPenyedia() {
 
                     <div className="relative">
                       <hr className="relative h-0.5 my-4 bg-gray-200 border-0" />
-                      <p className="absolute px-4 py-3 text-center transform -translate-x-1/2 -translate-y-1/2 bg-white top-1/2 left-1/2">
+                      <p className="absolute px-4 py-3 text-center transform -translate-x-1/2 -translate-y-1/2 bg-base-900 top-1/2 left-1/2">
                         atau
                       </p>
                     </div>
-                    <button className="px-4 py-3 bg-white border rounded-lg text-primary-1 border-primary-1">
+                    <button className="px-4 py-3 border rounded-lg bg-base-900 text-primary-1 border-primary-1">
                       Masuk dengan Google
                     </button>
                     <Link
-                      href="/register/penyedia"
+                      href="/register/pemilik"
                       className="text-xs text-center"
                     >
                       Saya belum memiliki akun{" "}

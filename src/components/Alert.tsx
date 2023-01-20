@@ -8,12 +8,12 @@ type AlertProps = {
 
 export default function Alert({ type = "error", children }: AlertProps) {
   const alertTypes = {
-    error: "bg-red-100 border-red-400 text-red-700",
+    error: "bg-red-100 border-red-400 text-error",
     success: "bg-green-100 border-green-400 text-green-700",
   };
   return (
     <div
-      className={clsx("px-4 py-3 rounded relative", alertTypes[type])}
+      className={clsx("px-4 py-3 rounded-lg relative", alertTypes[type])}
       role="alert"
     >
       {children}
