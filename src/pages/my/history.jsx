@@ -6,6 +6,20 @@ import React from "react";
 import { useState, useEffect } from "react";
 
 export default function History() {
+  let kos = [
+    {
+      nama: "kos 1",
+      alamat: "Bandung",
+      tipe: "campur",
+      harga: 15000,
+    },
+    {
+      nama: "kos 2",
+      alamat: "Bandung",
+      tipe: "campur",
+      harga: 15000,
+    },
+  ];
   // gambaran buat response handle
   // const [select, setSelect] = useState("")
   const [response, setReponse] = useState({
@@ -70,14 +84,14 @@ export default function History() {
                 </div>
               </div>
               <div>
-                {response.data.map((transaksi) => {
+                {kos.map((data) => {
                   return (
                     <div className="grid grid-cols-1 shadow lg:grid-cols-12 rounded-xl">
                       <div className="grid col-span-4">
                         <div className="flex justify-center object-cover w-full h-64 overflow-hidden">
                           <img
                             className="object-cover w-full rounded-t-xl lg:rounded-l-xl lg:rounded-r-none"
-                            src={transaksi.image_url}
+                            src="{kos.image_url}"
                             alt="Test"
                           />
                         </div>
@@ -86,7 +100,7 @@ export default function History() {
                         <div className="relative flex flex-col h-full gap-y-3">
                           <div className="flex flex-row justify-between">
                             <h5 className="text-2xl font-bold text-primary-1">
-                              {transaksi.data_nama}
+                              {kos.nama}
                             </h5>
                             <div className="flex flex-row gap-x-3">
                               <span className="inline-flex items-center px-4 text-xs text-center bg-gray-200 rounded-lg">
@@ -97,11 +111,11 @@ export default function History() {
                           </div>
                           <div className="flex flex-row items-center gap-x-3">
                             <div className="w-5 h-5 rounded-lg bg-primary-1"></div>
-                            <p>{transaksi.data_alamat}</p>
+                            <p>{kos.alamat}</p>
                           </div>
                           <div className="flex flex-row items-center gap-x-3">
                             <span className="w-24 text-center py-0.5 border border-gray-300 text-primary-1 rounded-lg">
-                              {transaksi.data_tipe}
+                              {kos.tipe}
                             </span>
                             <div className="inline-flex items-center gap-x-1">
                               <div className="w-5 h-5 rounded-lg bg-primary-1"></div>{" "}
@@ -110,7 +124,7 @@ export default function History() {
                           </div>
                           <div className="flex items-stretch justify-end h-full">
                             <p className="self-end text-xl font-bold text-primary-1">
-                              {transaksi.data_harga}
+                              {kos.harga}
                             </p>
                           </div>
                         </div>
@@ -122,14 +136,14 @@ export default function History() {
 
               <div className="flex flex-col w-full gap-y-3">
                 <div>
-                  {response.data.map((transaksi) => {
+                  {kos.map((data) => {
                     return (
                       <div className="grid grid-cols-1 shadow lg:grid-cols-12 rounded-xl">
                         <div className="grid col-span-4">
                           <div className="flex justify-center object-cover w-full h-64 overflow-hidden">
                             <img
                               className="object-cover w-full rounded-t-xl lg:rounded-l-xl lg:rounded-r-none"
-                              src={transaksi.image_url}
+                              src="{transaksi.image_url}"
                               alt="Test"
                             />
                           </div>
@@ -138,7 +152,7 @@ export default function History() {
                           <div className="relative flex flex-col h-full gap-y-3">
                             <div className="flex flex-row justify-between">
                               <h5 className="text-2xl font-bold text-primary-1">
-                                {transaksi.data_nama}
+                                {kos.nama}
                               </h5>
                               <div className="flex flex-row gap-x-3">
                                 <span className="inline-flex items-center px-4 text-xs text-center bg-gray-200 rounded-lg">
@@ -149,11 +163,11 @@ export default function History() {
                             </div>
                             <div className="flex flex-row items-center gap-x-3">
                               <div className="w-5 h-5 rounded-lg bg-primary-1"></div>
-                              <p>{transaksi.data_alamat}</p>
+                              <p>{kos.alamat}</p>
                             </div>
                             <div className="flex flex-row items-center gap-x-3">
                               <span className="w-24 text-center py-0.5 border border-gray-300 text-primary-1 rounded-lg">
-                                {transaksi.data_tipe}
+                                {kos.tipe}
                               </span>
                               <div className="inline-flex items-center gap-x-1">
                                 <div className="w-5 h-5 rounded-lg bg-primary-1"></div>{" "}
@@ -162,7 +176,7 @@ export default function History() {
                             </div>
                             <div className="flex items-stretch justify-end h-full">
                               <p className="self-end text-xl font-bold text-primary-1">
-                                {transaksi.data_harga}
+                                {kos.harga}
                               </p>
                             </div>
                           </div>
