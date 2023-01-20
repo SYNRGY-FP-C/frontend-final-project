@@ -12,17 +12,17 @@ export default function History() {
     isLoading: false, isError: false, data: []
   });
 
-  //  useEffect(()=>{
-    
-  //   setReponse({isLoading:true, isError:false, data :[]})
-  //   try {
-  //   const data =  historyService.getAll()
-  //   setReponse({isLoading:false, isError:false, data:data})
-  //   } catch (error) {
+   useEffect(()=>{
+    const data = historyService.getAll()
+    setReponse({isLoading:true, isError:false, data :[]})
+    try {
+    setReponse({isLoading:false, isError:false, data:data})
+    } catch (error) {
       
-  //   setReponse({isLoading:false, isError:error, data:[]})
-  //   }
-  // },[])
+    setReponse({isLoading:false, isError:error, data:[]})
+    }
+  },[]);
+
   return (
     <Defaultlayout title="Riwayat">
       <Section>
