@@ -101,7 +101,7 @@ export default function OTP() {
       <Head>
         <title>Pilih Metode Verifikasi</title>
       </Head>
-      <div className="flex flex-col flex-wrap min-h-screen bg-white">
+      <div className="flex flex-col flex-wrap min-h-screen bg-base-900">
         <main className="flex items-center justify-center flex-1">
           <Section>
             <div className="flex flex-col items-center justify-center flex-1">
@@ -146,7 +146,7 @@ export default function OTP() {
                       </Button>
                       <Link
                         href="/verify"
-                        className="px-10 py-3 bg-white border-2 rounded-lg border-primary-1 text-primary-1"
+                        className="px-10 py-3 bg-base-900 border-2 rounded-lg border-primary-1 text-primary-1"
                       >
                         Ganti Metode
                       </Link>

@@ -25,7 +25,7 @@ export default function Verify() {
       <Head>
         <title>Pilih Metode Verifikasi</title>
       </Head>
-      <div className="flex flex-col flex-wrap min-h-screen bg-white">
+      <div className="flex flex-col flex-wrap min-h-screen bg-base-900">
         <main className="flex items-center justify-center flex-1">
           <Section>
             <div className="flex flex-col items-center justify-center flex-1 gap-6 text-center lg:flex-row lg:justify-around md:text-start">

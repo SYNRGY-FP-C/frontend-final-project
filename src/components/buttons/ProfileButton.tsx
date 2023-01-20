@@ -1,18 +1,14 @@
+/* eslint-disable @next/next/no-img-element */
 import Button from "@/components/buttons/Button";
+import Person from "@/components/icons/Person";
 import Modal from "@/components/Modal";
-import variants from "@/constants/variants";
 import { useAuth } from "@/contexts/AuthContext";
 import clsx from "clsx";
-import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { v4 as uuid } from "uuid";
 
-export default function ProfileButton({
-  variant = "primary",
-  menu = [],
-  image = "/images/hero-image.jpg",
-}) {
+export default function ProfileButton({ menu = [] }) {
   const { logoutUser } = useAuth();
   const [open, setOpen] = React.useState(false);
   const [opexExit, setOpenExit] = React.useState(false);
@@ -20,6 +16,7 @@ export default function ProfileButton({
   return (
     <>
       <Modal isOpen={opexExit} setIsOpen={setOpenExit}>
+        <img src="/images/cancel.png" alt="Cancel" className="w-24 h-24" />
         <p className="text-xl text-center text-primary-1">
           Apakah Anda yakin ingin keluar?
         </p>
@@ -30,31 +27,17 @@ export default function ProfileButton({
           Batal
         </Button>
         <Button
-          className="inline-flex justify-center w-full px-4 py-3 bg-white border rounded-lg text-primary-1 border-primary-1"
+          className="inline-flex justify-center w-full px-4 py-3 bg-base-900 border rounded-lg text-primary-1 border-primary-1"
           onClick={() => logoutUser()}
         >
           Keluar
         </Button>
       </Modal>
       <button
-        className={clsx(
-          "inline-flex relative items-center font-medium text-center rounded-full",
-          variants[variant].text,
-          variants[variant].bg,
-          variants[variant].border
-        )}
+        className="relative inline-flex items-center justify-center w-10 h-10 font-medium text-center border border-gray-200 rounded-lg shadow"
         onClick={() => setOpen(!open)}
       >
-        <Image
-          src={image}
-          width={40}
-          height={40}
-          className={clsx(
-            "w-10 h-10 border-2 rounded-full bg-gray-500",
-            variants[variant].border
-          )}
-          alt="Profile"
-        />
+        <Person className="w-5 h-5" />
       </button>
       {/* Dropdown menu */}
       <div
@@ -69,7 +52,7 @@ export default function ProfileButton({
               <Link
                 href={item.link}
                 className={clsx(
-                  "block px-7 py-2 text-center bg-white hover:bg-gray-100",
+                  "block px-7 py-2 text-center bg-base-900 hover:bg-gray-100",
                   {
                     "rounded-t-lg ": index === 0,
                   }
@@ -81,7 +64,7 @@ export default function ProfileButton({
           ))}
           <button
             className={clsx(
-              "block px-9 md:px-9 py-2 text-center bg-white hover:bg-gray-100",
+              "block px-9 md:px-9 py-2 text-center bg-base-900 hover:bg-gray-100",
               "rounded-b-lg"
             )}
             onClick={() => {

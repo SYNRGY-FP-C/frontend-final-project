@@ -13,7 +13,7 @@ const variants = {
   },
   outline: {
     text: "text-primary-1",
-    bg: "bg-white hover:bg-gray-100",
+    bg: "bg-base-900 hover:bg-gray-100",
     border: "border-primary-1",
     focus: "focus:ring-primary-1",
   },
