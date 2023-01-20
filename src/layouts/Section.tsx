@@ -6,8 +6,8 @@ export default function Section({ children, odd = false }) {
     <section
       className={clsx(
         "flex w-full px-4 py-2 mx-auto",
-        odd && "bg-gray-100",
-        !odd && "bg-white"
+        odd && "bg-primary-1",
+        !odd && "bg-base-900"
       )}
     >
       <div className="w-full h-full max-w-screen-xl mx-auto">{children}</div>

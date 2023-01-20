@@ -10,7 +10,6 @@ import Section from "@/layouts/Section";
 import { useRouter } from "next/router";
 import React from "react";
 import { useState } from "react";
-
 import VerifIdentitasButton from "../../components/forms/VerifIdentitasButton";
 
 export default function MyProfile() {
@@ -29,6 +28,7 @@ export default function MyProfile() {
     phone: user?.phone || "",
     gender: user?.gender || "",
     occupation: user?.occupation || "",
+    
   });
 
   if (isLoading) return <LoadingScreen />;
@@ -81,7 +81,7 @@ export default function MyProfile() {
                   </Button>
                 </div>
                 <div className="block">
-                  <button className="px-4 py-2 bg-white rounded-lg text-error">
+                  <button className="px-4 py-2 bg-base-900 rounded-lg text-error">
                     Hapus
                   </button>
                 </div>
@@ -144,11 +144,9 @@ export default function MyProfile() {
                   })
                 }
               />
-
-              <div className="my-4 text-3xl font-bold text-primary-1">
-                Verifikasi Akun
-              </div>
-              <InputWithLabel
+            
+            <div className="my-4 text-3xl font-bold text-primary-1">Verifikasi Akun</div>
+            <InputWithLabel
                 labelName="Email"
                 type="email"
                 value={form.email}
@@ -182,13 +180,12 @@ export default function MyProfile() {
                   <div className="block">
                     <Button
                       type="submit"
-                      className="px-4 py-2 text-white rounded-lg bg-primary-1"
-                    >
+                      className="px-4 py-2 text-white rounded-lg bg-primary-1">
                       Simpan
                     </Button>
                   </div>
                   <div className="block">
-                    <Button className="px-4 py-2 bg-white border rounded-lg text-primary-1 border-primary-1">
+                    <Button className="px-4 py-2 bg-base-900 border rounded-lg text-primary-1 border-primary-1">
                       Reset
                     </Button>
                   </div>

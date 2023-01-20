@@ -4,8 +4,8 @@ export const loginMenu = [
     link: "/login/pencari",
   },
   {
-    name: "Penyedia",
-    link: "/login/penyedia",
+    name: "Pemilik",
+    link: "/login/pemilik",
   },
 ];
 
@@ -15,8 +15,8 @@ export const signupMenu = [
     link: "/register/pencari",
   },
   {
-    name: "Penyedia",
-    link: "/register/penyedia",
+    name: "Pemilik",
+    link: "/register/pemilik",
   },
 ];
 
