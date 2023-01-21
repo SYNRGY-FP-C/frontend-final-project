@@ -1,8 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 import Location from "@/components/icons/Location";
-import LoveOutline from "@/components/icons/LoveOutline";
+import More from "@/components/icons/More";
 import Star from "@/components/icons/Star";
-import { formatRupiah } from "@/utils/helper";
+import clsx from "clsx";
 import React from "react";
 
 const defaultData = {
@@ -15,15 +15,22 @@ const defaultData = {
   type: "campur",
   label: "SuperKost",
   rate: 5,
+  status: "ended",
 };
 
-export default function RoomCard({ data = defaultData }) {
+const statuses = {
+  onprocess: "Dalam Proses",
+  rejected: "Ditolak",
+  ended: "Selesai",
+};
+
+export default function HistoryCard({ data = defaultData }) {
   return (
-    <div className="grid grid-cols-1 border border-gray-200 hover:shadow lg:grid-cols-12 rounded-2xl">
+    <div className="grid grid-cols-1 border border-gray-200 hover:shadow lg:grid-cols-12 rounded-xl">
       <div className="grid col-span-4">
-        <div className="flex justify-center object-cover w-full h-56 overflow-hidden">
+        <div className="flex justify-center object-cover w-full h-60 overflow-hidden">
           <img
-            className="object-cover w-full rounded-t-xl lg:rounded-l-2xl lg:rounded-r-none"
+            className="object-cover w-full rounded-t-xl lg:rounded-l-xl lg:rounded-r-none"
             src={data.image}
             alt={data.name}
           />
@@ -35,32 +42,45 @@ export default function RoomCard({ data = defaultData }) {
             <h5 className="max-w-xs overflow-hidden text-[20px] font-bold text-base-100 text-ellipsis whitespace-nowrap">
               {data.name}
             </h5>
-            <div className="flex flex-row items-center gap-3">
+            <div className="flex flex-row gap-x-3">
               <span className="inline-flex items-center px-4 py-1.5 text-xs font-bold text-center text-white rounded-2xl bg-secondary-1">
                 {data.label}
               </span>
-              <LoveOutline className="w-5 h-5" color="dark" />
             </div>
           </div>
-          <div className="flex flex-row items-center gap-x-2">
+          <div className="inline-flex flex-row items-center gap-x-3">
             <Location className="w-5 h-5" />
             <p className="max-w-lg overflow-hidden text-base-200 text-ellipsis whitespace-nowrap">
               {data.address}
             </p>
           </div>
           <div className="flex flex-row items-center gap-x-3">
+            <span className="w-24 py-1.5 text-xs text-center border border-base-100 text-base-100 rounded-2xl">
+              {data.type}
+            </span>
             <div className="inline-flex items-center gap-x-1">
               <Star className="w-5 h-5" />{" "}
               <span className="font-bold">{data.rate}</span>
             </div>
-            <span className="w-24 py-1.5 text-xs text-center border border-base-100 text-base-100 rounded-2xl">
-              {data.type}
-            </span>
           </div>
           <div className="flex items-stretch justify-end h-full">
-            <p className="self-end text-xl font-bold text-secondary-1">
-              {formatRupiah(data.price)} / bulan
-            </p>
+            <div className="self-end inline-flex space-x-3">
+              {Object.hasOwn(statuses, data.status) ? (
+                <span
+                  className={clsx("px-4 py-1.5 rounded-2xl text-xs", {
+                    "bg-gray-200 text-base-100": data.status !== "rejected",
+                    "bg-error text-white": data.status === "rejected",
+                  })}
+                >
+                  {statuses[data.status]}
+                </span>
+              ) : data.status === "approved" ? (
+                "Button and Button"
+              ) : (
+                ""
+              )}
+              <More />
+            </div>
           </div>
         </div>
       </div>
