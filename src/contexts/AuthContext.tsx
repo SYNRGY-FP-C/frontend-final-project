@@ -42,6 +42,7 @@ export const AuthProvider = ({ children }: AuthProviderType) => {
   }, []);
 
   const registerPencari = async (data) => {
+    logoutUser();
     const {
       data: { access_token, user_details },
     } = await userService.registerPencari(data);
@@ -52,6 +53,7 @@ export const AuthProvider = ({ children }: AuthProviderType) => {
   };
 
   const registerPemilik = async (data) => {
+    logoutUser();
     const {
       data: { access_token, user_details },
     } = await userService.registerPemilik(data);
@@ -62,6 +64,7 @@ export const AuthProvider = ({ children }: AuthProviderType) => {
   };
 
   const loginPencari = async (data) => {
+    logoutUser();
     const {
       data: { access_token, user_details },
     } = await userService.loginPencari(data);
@@ -72,6 +75,7 @@ export const AuthProvider = ({ children }: AuthProviderType) => {
   };
 
   const loginPemilik = async (data) => {
+    logoutUser();
     const {
       data: { access_token, user_details },
     } = await userService.loginPemilik(data);
