@@ -1,3 +1,4 @@
+import { verifyAccessToken } from "@/utils/jwt";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 import userService from "../services/user.service";
@@ -19,61 +20,65 @@ export const AuthProvider = ({ children }: AuthProviderType) => {
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
-      // router.push("/");
     }
   };
 
   useEffect(() => {
-    const accessToken = localStorage.getItem("accessToken");
-    if (accessToken) {
-      getUser();
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      if (accessToken) {
+        const valid = verifyAccessToken(accessToken);
+        if (!valid) {
+          logoutUser();
+          return;
+        }
+        // getUser();
+      }
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
     }
-    setIsLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const registerPencari = async (data) => {
     const {
-      data: { token },
+      data: { access_token, user_details },
     } = await userService.registerPencari(data);
-    localStorage.setItem("accessToken", token);
-    const response = await userService.me();
-    setUser(response.data);
-    // router.push("/");
-    // if (response.data.role === "admin") router.push("/admin");
-    // if (response.data.role === "superadmin") router.push("/superadmin");
+    localStorage.setItem("accessToken", access_token);
+    // const response = await userService.me();
+    // setUser(response.data);
+    setUser(user_details);
   };
 
   const registerPemilik = async (data) => {
     const {
-      data: { token },
+      data: { access_token, user_details },
     } = await userService.registerPemilik(data);
-    localStorage.setItem("accessToken", token);
-    const response = await userService.me();
-    setUser(response.data);
-    // router.push("/");
-    // if (response.data.role === "admin") router.push("/admin");
-    // if (response.data.role === "superadmin") router.push("/superadmin");
+    localStorage.setItem("accessToken", access_token);
+    // const response = await userService.me();
+    // setUser(response.data);
+    setUser(user_details);
   };
 
   const loginPencari = async (data) => {
     const {
-      data: { token },
+      data: { access_token, user_details },
     } = await userService.loginPencari(data);
-    localStorage.setItem("accessToken", token);
-    const response = await userService.me();
-    setUser(response.data);
-    // router.push("/");
+    localStorage.setItem("accessToken", access_token);
+    // const response = await userService.me();
+    // setUser(response.data);
+    setUser(user_details);
   };
 
   const loginPemilik = async (data) => {
     const {
-      data: { token },
+      data: { access_token, user_details },
     } = await userService.loginPemilik(data);
-    localStorage.setItem("accessToken", token);
-    const response = await userService.me();
-    setUser(response.data);
-    // router.push("/");
+    localStorage.setItem("accessToken", access_token);
+    // const response = await userService.me();
+    // setUser(response.data);
+    setUser(user_details);
   };
 
   const logoutUser = async () => {
@@ -83,8 +88,8 @@ export const AuthProvider = ({ children }: AuthProviderType) => {
 
   const value = {
     isAuthenticated: !!user,
-    isAdmin: user?.role === "admin",
-    isSuperAdmin: user?.role === "superadmin",
+    isAdmin: user?.role?.name === "ROLE_USER_PENCARI",
+    isSuperAdmin: user?.role?.name === "ROLE_SUPERUSER",
     isLoading,
     isVerified: false,
     user,

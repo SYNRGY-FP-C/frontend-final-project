@@ -5,6 +5,7 @@ import OTPCard from "@/components/cards/OTPCard";
 import InputOTP from "@/components/forms/InputOTP";
 import LoadingScreen from "@/components/LoadingScreen";
 import { useAuth } from "@/contexts/AuthContext";
+import AuthPage from "@/layouts/AuthPage";
 import Section from "@/layouts/Section";
 import verifyService from "@/services/verify.service";
 import Head from "next/head";
@@ -13,7 +14,7 @@ import { useRouter } from "next/router";
 import React, { useCallback, useEffect } from "react";
 
 export default function OTP() {
-  const { user, isLoading, isAuthenticated, isVerified } = useAuth();
+  const { user } = useAuth();
   const [response, setResponse] = React.useState({
     isLoading: false,
     isError: false,
@@ -60,8 +61,6 @@ export default function OTP() {
         isError: false,
         message: "Kode OTP berhasil diverifikasi",
       });
-
-      setTimeout(() => router.push("/"), 2500);
     } catch (error) {
       setResponse({
         isLoading: false,
@@ -72,25 +71,11 @@ export default function OTP() {
   };
 
   useEffect(() => {
-    if (
-      router.isReady &&
-      isAuthenticated &&
-      !isVerified &&
-      method &&
-      method !== "undefined"
-    ) {
+    if (router.isReady && method && method !== "undefined") {
       requestVerify();
       return;
     }
-  }, [isAuthenticated, isVerified, method, requestVerify, router.isReady]);
-
-  if (isLoading) return <LoadingScreen />;
-
-  // if (isVerified) {
-  //   setTimeout(() => router.push("/"), 2500);
-  //   return <LoadingScreen redirect page="home" />;
-  // }
-
+  }, [method, requestVerify, router.isReady]);
   if (!method || method === "undefined") {
     setTimeout(() => router.push("/verify"), 2500);
     return <LoadingScreen redirect page="verification method" />;
@@ -98,66 +83,72 @@ export default function OTP() {
 
   return (
     <>
-      <Head>
-        <title>Pilih Metode Verifikasi</title>
-      </Head>
-      <div className="flex flex-col flex-wrap min-h-screen bg-base-900">
-        <main className="flex items-center justify-center flex-1">
-          <Section>
-            <div className="flex flex-col items-center justify-center flex-1">
-              <div className="grid h-full grid-cols-12 lg:gap-x-24">
-                <div className="hidden lg:grid md:col-span-6 place-content-end">
-                  <div className="flex justify-center object-cover overflow-hidden w-96">
-                    <img
-                      className="object-cover w-full rounded-xl"
-                      src="/images/otp-image.png"
-                      alt="OTP Image"
-                    />
+      <AuthPage otp>
+        <Head>
+          <title>Verifikasi OTP</title>
+        </Head>
+        <div className="flex flex-col flex-wrap min-h-screen bg-base-900">
+          <main className="flex items-center justify-center flex-1">
+            <Section>
+              <div className="flex flex-col items-center justify-center flex-1">
+                <div className="grid h-full grid-cols-12 lg:gap-x-24">
+                  <div className="hidden lg:grid md:col-span-6 place-content-end">
+                    <div className="flex justify-center object-cover overflow-hidden w-96">
+                      <img
+                        className="object-cover w-full rounded-xl"
+                        src="/images/otp-image.png"
+                        alt="OTP Image"
+                      />
+                    </div>
                   </div>
-                </div>
-                <form
-                  className="grid col-span-12 lg:col-span-6 place-content-center lg:place-content-start"
-                  onSubmit={verifyOTP}
-                >
-                  {response.message && (
-                    <Alert type={response.isError ? "error" : "success"}>
-                      {response.message}
-                    </Alert>
-                  )}
-                  <OTPCard
-                    method={method as "email" | "whatsapp"}
-                    target={method === "email" ? user?.email : user?.phone}
+                  <form
+                    className="grid col-span-12 lg:col-span-6 place-content-center lg:place-content-start"
+                    onSubmit={verifyOTP}
                   >
-                    <InputOTP value={otp} valueLength={4} onChange={onChange} />
-                    <div className="flex justify-center text-center">
-                      <a className="flex items-center space-x-1">
-                        <span className="text-primary-1">Belum muncul?</span>
-                        <span
-                          className="font-semibold cursor-pointer text-primary-1"
-                          onClick={() => requestVerify()}
+                    {response.message && (
+                      <Alert type={response.isError ? "error" : "success"}>
+                        {response.message}
+                      </Alert>
+                    )}
+                    <OTPCard
+                      method={method as "email" | "whatsapp"}
+                      target={method === "email" ? user?.email : user?.phone}
+                    >
+                      <InputOTP
+                        value={otp}
+                        valueLength={4}
+                        onChange={onChange}
+                      />
+                      <div className="flex justify-center text-center">
+                        <a className="flex items-center space-x-1">
+                          <span className="text-primary-1">Belum muncul?</span>
+                          <span
+                            className="font-semibold cursor-pointer text-primary-1"
+                            onClick={() => requestVerify()}
+                          >
+                            Kirim ulang OTP
+                          </span>
+                        </a>
+                      </div>
+                      <div className="flex flex-col gap-y-4">
+                        <Button isLoading={response.isLoading}>
+                          {response.isLoading ? "Loading..." : "Verifikasi"}
+                        </Button>
+                        <Link
+                          href="/verify"
+                          className="px-10 py-3 border-2 rounded-lg bg-base-900 border-primary-1 text-primary-1"
                         >
-                          Kirim ulang OTP
-                        </span>
-                      </a>
-                    </div>
-                    <div className="flex flex-col gap-y-4">
-                      <Button isLoading={response.isLoading}>
-                        {response.isLoading ? "Loading..." : "Verifikasi"}
-                      </Button>
-                      <Link
-                        href="/verify"
-                        className="px-10 py-3 bg-base-900 border-2 rounded-lg border-primary-1 text-primary-1"
-                      >
-                        Ganti Metode
-                      </Link>
-                    </div>
-                  </OTPCard>
-                </form>
+                          Ganti Metode
+                        </Link>
+                      </div>
+                    </OTPCard>
+                  </form>
+                </div>
               </div>
-            </div>
-          </Section>
-        </main>
-      </div>
+            </Section>
+          </main>
+        </div>
+      </AuthPage>
     </>
   );
 }
