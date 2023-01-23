@@ -14,14 +14,14 @@ const ProtectedPage = ({
   if (!skip) {
     if (isLoading) return <LoadingScreen />;
 
-    if (!allowed.includes(user?.role)) {
-      setTimeout(() => router.push(redirect), 2500);
-      return <LoadingScreen />;
-    }
-
     if (!isAuthenticated) {
       setTimeout(() => router.push("/"), 2500);
       return <LoadingScreen redirect page="home" />;
+    }
+
+    if (!allowed.includes(user?.role)) {
+      setTimeout(() => router.push(redirect), 2500);
+      return <LoadingScreen />;
     }
   }
 
