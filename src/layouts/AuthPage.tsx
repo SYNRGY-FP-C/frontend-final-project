@@ -14,13 +14,10 @@ const AuthPage = ({
   if (!skip) {
     if (isLoading) return <LoadingScreen />;
     if (!isAuthenticated && otp) {
-      router.push("/");
+      setTimeout(() => router.push("/"), 2500);
       return <LoadingScreen redirect page="home" />;
     }
-    if (isAuthenticated && !user?.verified && !otp) {
-      setTimeout(() => router.push("/verify"), 2500);
-      return <LoadingScreen redirect page="verification" />;
-    }
+
     if (user?.verified) {
       if (user?.role === ROLE_USER) setTimeout(() => router.push("/"), 2500);
       if (user?.role === ROLE_ADMIN)
@@ -28,6 +25,11 @@ const AuthPage = ({
       if (user?.role === ROLE_SUPERADMIN)
         setTimeout(() => router.push("/cms"), 2500);
       return <LoadingScreen />;
+    }
+
+    if (isAuthenticated && !user?.verified && !otp) {
+      setTimeout(() => router.push("/verify"), 2500);
+      return <LoadingScreen redirect page="verification" />;
     }
   }
 
