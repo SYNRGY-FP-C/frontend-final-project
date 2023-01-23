@@ -8,13 +8,14 @@ import React from "react";
 
 const defaultData = {
   id: 1,
-  title:
-    "Room 1 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.",
+  name: "Room 1 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.",
   image: "/images/hero-image.jpg",
   description: "Room 1 description amet consectetur adipisicing",
   price: 1200000,
   address: "Kecamatan Lorem, Bandung",
   type: "campur",
+  label: "SuperKost",
+  rate: 5,
 };
 
 export default function FeaturedCard({ data = defaultData }) {
@@ -36,7 +37,7 @@ export default function FeaturedCard({ data = defaultData }) {
         </div>
         <div className="mx-4 my-3">
           <h4 className="overflow-hidden text-xl font-semibold text-ellipsis whitespace-nowrap">
-            {data.title}
+            {data.name}
           </h4>
           <div className="inline-flex items-center mt-2 mb-4 gap-x-1">
             <Location className="w-5 h-5 mr-1" />

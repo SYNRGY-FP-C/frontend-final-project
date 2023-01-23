@@ -7,11 +7,7 @@ type OTPCardProps = {
   children: React.ReactNode;
 };
 
-export default function OTPCard({
-  target = "0888888888888",
-  method = "whatsapp",
-  children,
-}: OTPCardProps) {
+export default function OTPCard({ target, method, children }: OTPCardProps) {
   return (
     <div className="flex items-center justify-center h-full">
       <div className="max-w-sm mx-auto md:max-w-lg">
