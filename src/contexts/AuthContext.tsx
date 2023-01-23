@@ -1,6 +1,8 @@
+import { ROLE_ADMIN, ROLE_SUPERADMIN } from "@/constants/roles";
+import userService from "@/services/user.service";
+import otpService from "@/services/verify.service";
+import { verifyAccessToken } from "@/utils/jwt";
 import React, { createContext, useContext, useEffect, useState } from "react";
-
-import userService from "../services/user.service";
 
 const AuthContext = createContext(null);
 
@@ -13,67 +15,67 @@ export const AuthProvider = ({ children }: AuthProviderType) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const getUser = async () => {
+    setIsLoading(true);
     try {
-      const response = await userService.me();
-      setUser(response.data);
-      setIsLoading(false);
+      const accessToken = localStorage.getItem("accessToken");
+      if (accessToken) {
+        const valid = verifyAccessToken(accessToken);
+        if (!valid) {
+          logoutUser();
+          return;
+        }
+        const response = await userService.me();
+        setUser(response.data);
+      }
     } catch (error) {
-      setIsLoading(false);
-      // router.push("/");
+      logoutUser();
     }
+    setIsLoading(false);
   };
 
   useEffect(() => {
-    const accessToken = localStorage.getItem("accessToken");
-    if (accessToken) {
-      getUser();
-    }
-    setIsLoading(false);
+    getUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const registerPencari = async (data) => {
+    logoutUser();
     const {
-      data: { token },
+      data: { access_token },
     } = await userService.registerPencari(data);
-    localStorage.setItem("accessToken", token);
+    localStorage.setItem("accessToken", access_token);
     const response = await userService.me();
     setUser(response.data);
-    // router.push("/");
-    // if (response.data.role === "admin") router.push("/admin");
-    // if (response.data.role === "superadmin") router.push("/superadmin");
   };
 
   const registerPemilik = async (data) => {
+    logoutUser();
     const {
-      data: { token },
+      data: { access_token },
     } = await userService.registerPemilik(data);
-    localStorage.setItem("accessToken", token);
+    localStorage.setItem("accessToken", access_token);
     const response = await userService.me();
     setUser(response.data);
-    // router.push("/");
-    // if (response.data.role === "admin") router.push("/admin");
-    // if (response.data.role === "superadmin") router.push("/superadmin");
   };
 
   const loginPencari = async (data) => {
+    logoutUser();
     const {
-      data: { token },
+      data: { access_token },
     } = await userService.loginPencari(data);
-    localStorage.setItem("accessToken", token);
+    localStorage.setItem("accessToken", access_token);
     const response = await userService.me();
     setUser(response.data);
-    // router.push("/");
   };
 
   const loginPemilik = async (data) => {
+    logoutUser();
     const {
-      data: { token },
+      data: { access_token },
     } = await userService.loginPemilik(data);
-    localStorage.setItem("accessToken", token);
+    localStorage.setItem("accessToken", access_token);
     const response = await userService.me();
     setUser(response.data);
-    // router.push("/");
   };
 
   const logoutUser = async () => {
@@ -81,10 +83,20 @@ export const AuthProvider = ({ children }: AuthProviderType) => {
     setUser(null);
   };
 
+  const requestOTP = async (data) => {
+    await otpService.requestVerify(data);
+  };
+
+  const verifyOTP = async (data) => {
+    await otpService.verify(data);
+    const response = await userService.me();
+    setUser(response.data);
+  };
+
   const value = {
     isAuthenticated: !!user,
-    isAdmin: user?.role === "admin",
-    isSuperAdmin: user?.role === "superadmin",
+    isAdmin: user?.role === ROLE_ADMIN,
+    isSuperAdmin: user?.role === ROLE_SUPERADMIN,
     isLoading,
     isVerified: false,
     user,
@@ -93,6 +105,8 @@ export const AuthProvider = ({ children }: AuthProviderType) => {
     loginPencari,
     loginPemilik,
     logoutUser,
+    requestOTP,
+    verifyOTP,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
