@@ -1,7 +1,6 @@
+import userService from "@/services/user.service";
 import { verifyAccessToken } from "@/utils/jwt";
 import React, { createContext, useContext, useEffect, useState } from "react";
-
-import userService from "../services/user.service";
 
 const AuthContext = createContext(null);
 
@@ -19,6 +18,7 @@ export const AuthProvider = ({ children }: AuthProviderType) => {
       setUser(response.data);
       setIsLoading(false);
     } catch (error) {
+      logoutUser();
       setIsLoading(false);
     }
   };
@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }: AuthProviderType) => {
           logoutUser();
           return;
         }
-        // getUser();
+        getUser();
       }
       setIsLoading(false);
     } catch (error) {
