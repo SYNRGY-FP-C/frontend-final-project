@@ -7,14 +7,13 @@ import LoadingScreen from "@/components/LoadingScreen";
 import { useAuth } from "@/contexts/AuthContext";
 import AuthPage from "@/layouts/AuthPage";
 import Section from "@/layouts/Section";
-import verifyService from "@/services/verify.service";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useCallback, useEffect } from "react";
 
 export default function OTP() {
-  const { user } = useAuth();
+  const { user, requestOTP, verifyOTP } = useAuth();
   const [response, setResponse] = React.useState({
     isLoading: false,
     isError: false,
@@ -28,7 +27,7 @@ export default function OTP() {
   const requestVerify = useCallback(async () => {
     setResponse({ isLoading: true, isError: false, message: "" });
     try {
-      await verifyService.requestVerify({
+      await requestOTP({
         ...(method === "email" && { email: user?.email }),
         ...(method === "whatsapp" && { phone: user?.phone }),
       });
@@ -47,11 +46,11 @@ export default function OTP() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [method]);
 
-  const verifyOTP = async (e) => {
+  const verifyOTPHandle = async (e) => {
     e.preventDefault();
     setResponse({ isLoading: true, isError: false, message: "" });
     try {
-      await verifyService.verify({
+      await verifyOTP({
         ...(method === "email" && { email: user?.email }),
         ...(method === "whatsapp" && { phone: user?.phone }),
         code: otp,
@@ -103,7 +102,7 @@ export default function OTP() {
                   </div>
                   <form
                     className="grid col-span-12 lg:col-span-6 place-content-center lg:place-content-start"
-                    onSubmit={verifyOTP}
+                    onSubmit={verifyOTPHandle}
                   >
                     {response.message && (
                       <Alert type={response.isError ? "error" : "success"}>
