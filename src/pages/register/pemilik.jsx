@@ -7,11 +7,9 @@ import AuthPage from "@/layouts/AuthPage";
 import DefaultLayout from "@/layouts/DefaultLayout";
 import Section from "@/layouts/Section";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { useState } from "react";
 
 export default function RegisterPemilik() {
-  const router = useRouter();
   const { registerPemilik } = useAuth();
   const [response, setResponse] = useState({
     isLoading: false,

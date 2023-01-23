@@ -70,8 +70,7 @@ export default function OTP() {
   };
 
   const checkPoint = async () => {
-    if (!method || method === "undefined") {
-      console.log(method);
+    if (router.isReady && (!method || method === "undefined")) {
       setTimeout(() => router.push("/verify"), 2500);
       return;
     }
@@ -88,12 +87,12 @@ export default function OTP() {
   };
 
   useEffect(() => {
-    if (!isLoading || !router.isReady) return;
+    // if (!isLoading || !router.isReady) return;
     checkPoint();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (!method || method === "undefined") {
+  if (isLoading || !method || method === "undefined") {
     return <LoadingScreen />;
   }
 
