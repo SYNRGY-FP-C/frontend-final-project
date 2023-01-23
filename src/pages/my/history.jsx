@@ -6,20 +6,19 @@ import ProtectedPage from "@/layouts/ProtectedPage";
 import Section from "@/layouts/Section";
 import React from "react";
 import { useState, useEffect } from "react";
+import HistoryCard from "@/components/cards/HistoryCard";
 
 export default function History() {
   let kos = [
     {
-      nama: "kos 1",
-      alamat: "Bandung",
-      tipe: "campur",
-      harga: 15000,
-    },
-    {
-      nama: "kos 2",
-      alamat: "Bandung",
-      tipe: "campur",
-      harga: 15000,
+      id: 1,
+      name: "A",
+      status: "onprocess",
+      label: "string",
+      thumbnail: "string",
+      address: "string",
+      type: "campur",
+      rating: 5,
     },
   ];
   // gambaran buat response handle
@@ -88,21 +87,14 @@ export default function History() {
                     </Button>
                   </div>
                 </div>
-                {/* 
-            // contoh looping
-            {
-              response.data.map((transaksi)=>{
-                return (<div className="grid col-span-4">
-                <div className="flex justify-center object-cover w-full h-64 overflow-hidden">
-                  <img
-                    className="object-cover w-full rounded-t-xl lg:rounded-l-xl lg:rounded-r-none"
-                    src={transaksi.image_url}
-                    alt="Test"
-                  />
-                </div>
-              </div>)
-              })
-            } */}
+
+                {response.data.map((transaksi) => {
+                  return (
+                    <>
+                      <HistoryCard />
+                    </>
+                  );
+                })}
                 <div className="flex flex-col w-full gap-y-3">
                   <div className="grid grid-cols-1 shadow lg:grid-cols-12 rounded-xl">
                     <div className="grid col-span-4">
