@@ -15,14 +15,8 @@ export const AuthProvider = ({ children }: AuthProviderType) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const getUser = async () => {
-    try {
-      const response = await userService.me();
-      setUser(response.data);
-      setIsLoading(false);
-    } catch (error) {
-      logoutUser();
-      setIsLoading(false);
-    }
+    const response = await userService.me();
+    setUser(response.data);
   };
 
   useEffect(() => {
@@ -30,6 +24,7 @@ export const AuthProvider = ({ children }: AuthProviderType) => {
       const accessToken = localStorage.getItem("accessToken");
       if (accessToken) {
         const valid = verifyAccessToken(accessToken);
+        console.log(valid);
         if (!valid) {
           logoutUser();
           return;
@@ -38,6 +33,7 @@ export const AuthProvider = ({ children }: AuthProviderType) => {
       }
       setIsLoading(false);
     } catch (error) {
+      logoutUser();
       setIsLoading(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
