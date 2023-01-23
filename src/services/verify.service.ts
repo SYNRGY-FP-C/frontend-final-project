@@ -1,11 +1,11 @@
 import { backendFSW } from "../utils/axios";
 
 const requestVerify = async (data) => {
-  return await backendFSW.post("/api/verify/request", data);
+  return await backendFSW.post("/v1/verify/request", data);
 };
 
 const verify = async (data) => {
-  return await backendFSW.post("/api/verify", data);
+  return await backendFSW.post("/v1/verify", data);
 };
 
 const verifyService = {
