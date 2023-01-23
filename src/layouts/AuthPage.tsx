@@ -14,16 +14,19 @@ const AuthPage = ({
   if (!skip) {
     if (isLoading) return <LoadingScreen />;
     if (!isAuthenticated && otp) {
+      console.log("one");
       setTimeout(() => router.push("/"), 2500);
       return <LoadingScreen redirect page="home" />;
     }
 
     if (isAuthenticated && !user?.verified && !otp) {
+      console.log("two");
       setTimeout(() => router.push("/verify"), 2500);
       return <LoadingScreen redirect page="verification" />;
     }
 
     if (user?.verified) {
+      console.log("three");
       if (user?.role === ROLE_USER) setTimeout(() => router.push("/"), 2500);
       if (user?.role === ROLE_ADMIN)
         setTimeout(() => router.push("/dashboard"), 2500);

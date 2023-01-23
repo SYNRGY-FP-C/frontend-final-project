@@ -13,7 +13,7 @@ import { useRouter } from "next/router";
 import React, { useCallback, useEffect } from "react";
 
 export default function OTP() {
-  const { user, requestOTP, verifyOTP } = useAuth();
+  const { user, requestOTP, verifyOTP, isAuthenticated } = useAuth();
   const [response, setResponse] = React.useState({
     isLoading: false,
     isError: false,
@@ -70,11 +70,11 @@ export default function OTP() {
   };
 
   useEffect(() => {
-    if (router.isReady && method && method !== "undefined") {
+    if (isAuthenticated && router.isReady && method && method !== "undefined") {
       requestVerify();
       return;
     }
-  }, [method, requestVerify, router.isReady]);
+  }, [isAuthenticated, method, requestVerify, router.isReady]);
   if (!method || method === "undefined") {
     setTimeout(() => router.push("/verify"), 2500);
     return <LoadingScreen redirect page="verification method" />;
