@@ -100,8 +100,8 @@ export const AuthProvider = ({ children }: AuthProviderType) => {
 
   const value = {
     isAuthenticated: !!user,
-    isAdmin: user?.role?.name === ROLE_ADMIN,
-    isSuperAdmin: user?.role?.name === ROLE_SUPERADMIN,
+    isAdmin: user?.role === ROLE_ADMIN,
+    isSuperAdmin: user?.role === ROLE_SUPERADMIN,
     isLoading,
     isVerified: false,
     user,

@@ -22,11 +22,10 @@ const AuthPage = ({
       return <LoadingScreen redirect page="verification" />;
     }
     if (user?.verified) {
-      if (user?.role?.name === ROLE_USER)
-        setTimeout(() => router.push("/"), 2500);
-      if (user?.role?.name === ROLE_ADMIN)
+      if (user?.role === ROLE_USER) setTimeout(() => router.push("/"), 2500);
+      if (user?.role === ROLE_ADMIN)
         setTimeout(() => router.push("/dashboard"), 2500);
-      if (user?.role?.name === ROLE_SUPERADMIN)
+      if (user?.role === ROLE_SUPERADMIN)
         setTimeout(() => router.push("/cms"), 2500);
       return <LoadingScreen />;
     }
