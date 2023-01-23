@@ -6,7 +6,7 @@ const ProtectedPage = ({
   children,
   allowed = [],
   redirect = "/",
-  skip = process.env.NODE_ENV === "production" ? false : false,
+  skip = process.env.NODE_ENV === "production" ? false : true,
 }) => {
   const router = useRouter();
   const { isLoading, isAuthenticated, user } = useAuth();

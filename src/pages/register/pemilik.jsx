@@ -43,7 +43,6 @@ export default function RegisterPemilik() {
         isError: false,
         message: "Pendaftaran berhasil",
       });
-      router.push("/verify");
     } catch (error) {
       setResponse({
         isLoading: false,

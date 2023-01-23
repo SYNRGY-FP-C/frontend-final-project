@@ -44,7 +44,6 @@ export default function RegisterPencari() {
         isError: false,
         message: "Pendaftaran berhasil",
       });
-      router.push("/verify");
     } catch (error) {
       setResponse({
         isLoading: false,
