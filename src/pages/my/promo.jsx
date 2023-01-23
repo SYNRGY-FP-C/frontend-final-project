@@ -1,10 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
+import { ROLE_USER } from "@/constants/roles";
 import Defaultlayout from "@/layouts/DefaultLayout";
+import ProtectedPage from "@/layouts/ProtectedPage";
 import Section from "@/layouts/Section";
 import React from "react";
 
 export default function Promo() {
   return (
+    <ProtectedPage allowed={[ROLE_USER]} redirect="/401">
     <Defaultlayout title="Promo">
       <Section>
         <div className="my-4 text-5xl font-bold text-primary-1">Promo</div>
@@ -104,6 +107,6 @@ export default function Promo() {
           </div>
         </div>
       </Section>
-    </Defaultlayout>
+    </Defaultlayout></ProtectedPage>
   );
 }
