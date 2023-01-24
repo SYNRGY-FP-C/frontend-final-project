@@ -12,7 +12,7 @@ export default function OTPCard({ target, method, children }: OTPCardProps) {
     <div className="flex items-center justify-center h-full">
       <div className="max-w-sm mx-auto md:max-w-lg">
         <div className="w-full">
-          <div className="py-3 space-y-4 text-center bg-base-900 rounded">
+          <div className="py-3 space-y-4 text-center bg-base-9 rounded">
             <h1 className="text-[40px] font-bold text-primary-1">
               OTP Verifikasi
             </h1>

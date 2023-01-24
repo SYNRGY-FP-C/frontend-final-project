@@ -32,7 +32,7 @@ export default function Navbar({ isAuthenticated = false }) {
         )}
       </Drawer>
       <header className="fixed z-10 w-full">
-        <nav className="px-4 py-3 bg-base-900 lg:px-6">
+        <nav className="px-4 py-3 bg-base-10 lg:px-6">
           <div className="flex flex-wrap items-center justify-between max-w-screen-xl mx-auto">
             <MenuButton setIsOpen={setIsOpen} />
             <Logo className="w-8 h-8 mr-3" />

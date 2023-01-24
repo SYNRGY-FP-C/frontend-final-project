@@ -75,7 +75,7 @@ export default function MyProfile() {
                     </Button>
                   </div>
                   <div className="block">
-                    <button className="px-4 py-2 rounded-lg bg-base-900 text-error">
+                    <button className="px-4 py-2 rounded-lg bg-base-9 text-error">
                       Hapus
                     </button>
                   </div>
@@ -185,7 +185,7 @@ export default function MyProfile() {
                       </Button>
                     </div>
                     <div className="block">
-                      <Button className="px-4 py-2 border rounded-lg bg-base-900 text-primary-1 border-primary-1">
+                      <Button className="px-4 py-2 border rounded-lg bg-base-9 text-primary-1 border-primary-1">
                         Reset
                       </Button>
                     </div>

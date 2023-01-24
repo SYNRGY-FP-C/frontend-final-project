@@ -95,11 +95,11 @@ export default function LoginPencari() {
                       </button>
                       <div className="relative">
                         <hr className="relative h-0.5 my-4 bg-gray-200 border-0" />
-                        <p className="absolute px-4 py-3 text-center transform -translate-x-1/2 -translate-y-1/2 bg-base-900 top-1/2 left-1/2">
+                        <p className="absolute px-4 py-3 text-center transform -translate-x-1/2 -translate-y-1/2 bg-base-9 top-1/2 left-1/2">
                           atau
                         </p>
                       </div>
-                      <button className="px-4 py-3 border rounded-lg bg-base-900 text-primary-1 border-primary-1">
+                      <button className="px-4 py-3 border rounded-lg bg-base-9 text-primary-1 border-primary-1">
                         Masuk dengan Google
                       </button>
                       <Link

@@ -39,7 +39,7 @@ export default function HistoryCard({ data = defaultData }) {
       <div className="grid col-span-8 p-6">
         <div className="relative flex flex-col h-full gap-y-3">
           <div className="flex flex-col justify-between md:flex-row">
-            <h5 className="max-w-xs overflow-hidden text-[20px] font-bold text-base-100 text-ellipsis whitespace-nowrap">
+            <h5 className="max-w-xs overflow-hidden text-[20px] font-bold text-base-1 text-ellipsis whitespace-nowrap">
               {data.name}
             </h5>
             <div className="flex flex-row gap-x-3">
@@ -55,7 +55,7 @@ export default function HistoryCard({ data = defaultData }) {
             </p>
           </div>
           <div className="flex flex-row items-center gap-x-3">
-            <span className="w-24 py-1.5 text-xs text-center border border-base-100 text-base-100 rounded-2xl">
+            <span className="w-24 py-1.5 text-xs text-center border border-base-1 text-base-1 rounded-2xl">
               {data.type}
             </span>
             <div className="inline-flex items-center gap-x-1">
@@ -68,7 +68,7 @@ export default function HistoryCard({ data = defaultData }) {
               {Object.hasOwn(statuses, data.status) ? (
                 <span
                   className={clsx("px-4 py-1.5 rounded-2xl text-xs", {
-                    "bg-gray-200 text-base-100": data.status !== "rejected",
+                    "bg-gray-200 text-base-1": data.status !== "rejected",
                     "bg-error text-white": data.status === "rejected",
                   })}
                 >

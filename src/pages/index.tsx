@@ -16,7 +16,7 @@ export default function Home() {
     <DefaultLayout title="KostHub - Cari kost dengan mudah">
       <Hero scroll={scrollReff} />
       <div className="relative flex justify-center px-4 -mt-24">
-        <div className="flex flex-col w-full p-8 bg-base-900 border shadow md:w-3/5 lg:p-12 gap-y-3 rounded-xl">
+        <div className="flex flex-col w-full p-8 bg-base-9 border shadow md:w-3/5 lg:p-12 gap-y-3 rounded-xl">
           <h2 className="text-3xl font-bold leading-none lg:text-4xl">
             Sewa sekarang!
           </h2>
@@ -60,7 +60,7 @@ export default function Home() {
       </Section>
       <Section>
         <div className="flex flex-col items-center justify-center py-12 text-center gap-y-3">
-          <h3 className="text-base-100 text-[40px] font-bold">
+          <h3 className="text-base-1 text-[40px] font-bold">
             Mengapa KostHub?
           </h3>
           <div className="grid grid-cols-1 gap-6 my-3 lg:grid-cols-3">
