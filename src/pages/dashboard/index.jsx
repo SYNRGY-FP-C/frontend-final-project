@@ -1,16 +1,18 @@
 import Carrousel from "@/components/Carrousel";
+import ProtectedPage from "@/layouts/ProtectedPage";
 import Sidebar from "@/layouts/SidebarDashboard";
 import Link from "next/link";
 import { AiFillStar } from "react-icons/Ai";
 import { CiLocationOn } from "react-icons/Ci";
 
+
 export default function index() {
   return (
-    <>
+    <ProtectedPage allowed={["ROLE_USER_PEMILIK"]} redirect="/401">
       <div className="flex flex-col flex-wrap ">
         <div class="flex">
-          <Sidebar>
-            <div className="w-full max-w-screen-xl h-full">
+          <Sidebar />
+            <div className="w-full max-w-screen-xl h-full ml-80">
               <div className="w-4/5 mx-auto my-10">
                 <Carrousel />
                 <div className="my-12">
@@ -53,8 +55,7 @@ export default function index() {
                       <img
                         src="/images/hero.png"
                         alt=""
-                        className="rounded-t-lg w-full h-32"
-                      />
+                        className="rounded-t-lg w-full h-32"/>
                       <div className="m-4">
                         <div className="flex place-content-between items-center">
                           <h1 className="font-bold">Kos Binar</h1>
@@ -90,9 +91,9 @@ export default function index() {
                 </div>
               </div>
             </div>
-          </Sidebar>
         </div>
       </div>
-    </>
+
+    </ProtectedPage>
   );
 }
