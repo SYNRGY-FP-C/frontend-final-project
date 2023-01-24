@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import Button from "@/components/buttons/Button";
 import InputWithLabel from "@/components/forms/InputWithLabel";
-import { ROLE_USER } from "@/constants/roles";
+import { ROLE_ADMIN, ROLE_USER } from "@/constants/roles";
 import Defaultlayout from "@/layouts/DefaultLayout";
 import ProtectedPage from "@/layouts/ProtectedPage";
 import Section from "@/layouts/Section";
@@ -9,7 +9,7 @@ import React from "react";
 
 export default function Settings() {
   return (
-    <ProtectedPage allowed={[ROLE_USER]} redirect="/401">
+    <ProtectedPage allowed={[ROLE_USER, ROLE_ADMIN]} redirect="/403">
       <Defaultlayout title="Pengaturan">
         <Section>
           <div className="pt-12 gap-y-6">

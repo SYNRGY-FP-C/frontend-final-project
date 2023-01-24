@@ -8,7 +8,7 @@ import React from "react";
 
 export default function History() {
   return (
-    <ProtectedPage allowed={["ROLE_USER_PEMILIK"]} redirect="/401">
+    <ProtectedPage allowed={["ROLE_USER_PEMILIK"]} redirect="/403">
       <Defaultlayout title="Riwayat">
         <Section>
           <div className="pt-12 gap-y-6">

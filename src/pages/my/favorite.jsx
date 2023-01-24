@@ -8,7 +8,7 @@ import React from "react";
 
 export default function Favorite() {
   return (
-    <ProtectedPage allowed={[ROLE_USER]} redirect="/401">
+    <ProtectedPage allowed={[ROLE_USER]} redirect="/403">
       <Defaultlayout title="Favorit">
         <Section>
           <div className="flex flex-col py-16 lg:py-24">

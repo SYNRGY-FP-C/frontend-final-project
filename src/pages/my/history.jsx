@@ -36,7 +36,7 @@ export default function History() {
   //   }
   // },[])
   return (
-    <ProtectedPage allowed={[ROLE_USER]} redirect="/401">
+    <ProtectedPage allowed={[ROLE_USER]} redirect="/403">
       <Defaultlayout title="Riwayat">
         <Section>
           <div className="pt-12 gap-y-6">

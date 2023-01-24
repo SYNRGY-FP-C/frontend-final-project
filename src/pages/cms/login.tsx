@@ -3,7 +3,7 @@ import React from "react";
 
 export default function index() {
   return (
-    <ProtectedPage allowed={["ROLE_USER_SUPERUSER"]} redirect="/401">
+    <ProtectedPage allowed={["ROLE_USER_SUPERUSER"]} redirect="/403">
       <>login</>
     </ProtectedPage>
   );

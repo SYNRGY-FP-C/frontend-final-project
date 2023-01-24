@@ -4,7 +4,7 @@ import Button from "@/components/buttons/Button";
 import InputWithLabel from "@/components/forms/InputWithLabel";
 import RadioButton from "@/components/forms/RadioButton";
 import VerifIdentitasButton from "@/components/forms/VerifIdentitasButton";
-import { ROLE_USER } from "@/constants/roles";
+import { ROLE_ADMIN, ROLE_USER } from "@/constants/roles";
 import { useAuth } from "@/contexts/AuthContext";
 import Defaultlayout from "@/layouts/DefaultLayout";
 import ProtectedPage from "@/layouts/ProtectedPage";
@@ -52,7 +52,7 @@ export default function MyProfile() {
   };
 
   return (
-    <ProtectedPage allowed={[ROLE_USER]} redirect="/401">
+    <ProtectedPage allowed={[ROLE_USER, ROLE_ADMIN]} redirect="/403">
       <Defaultlayout title="Profil Saya">
         <Section>
           <div className="pt-12 my-4 text-5xl font-bold text-primary-1">

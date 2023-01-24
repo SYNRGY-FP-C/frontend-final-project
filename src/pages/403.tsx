@@ -2,9 +2,9 @@ import ErrorPage from "@/components/ErrorPage";
 import Link from "next/link";
 import React from "react";
 
-export default function UnAuthorized404() {
+export default function Forbidden403() {
   return (
-    <ErrorPage title="Unauthorized" code={401}>
+    <ErrorPage title="Forbidden" code={403}>
       <p className="mb-4 text-lg font-light text-gray-500">
         Sorry, you can&apos;t access that page. You&apos;ll find lots to explore
         on the homepage.{" "}
