@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import Button from "@/components/buttons/Button";
-import HistoryCard from "@/components/cars/HistoryCard";
+import HistoryCard from "@/components/cards/HistoryCard";
 import { ROLE_USER } from "@/constants/roles";
 import Defaultlayout from "@/layouts/DefaultLayout";
 import ProtectedPage from "@/layouts/ProtectedPage";
