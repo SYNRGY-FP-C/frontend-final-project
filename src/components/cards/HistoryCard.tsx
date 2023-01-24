@@ -19,9 +19,11 @@ const defaultData = {
 };
 
 const statuses = {
-  onprocess: "Dalam Proses",
+  onproccess: "Dalam Proses",
   rejected: "Ditolak",
   ended: "Selesai",
+  approved: "Disetujui",
+  ongoing: "Sedang jalan",
 };
 
 export default function HistoryCard({ data = defaultData }) {
