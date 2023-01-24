@@ -16,24 +16,26 @@ export default function Home() {
     <DefaultLayout title="KostHub - Cari kost dengan mudah">
       <Hero scroll={scrollReff} />
       <div className="relative flex justify-center px-4 -mt-24">
-        <div className="flex flex-col w-full p-8 bg-base-9 border shadow md:w-3/5 lg:p-12 gap-y-3 rounded-xl">
+        <div className="flex flex-col w-full p-8 border shadow bg-base-9 md:w-3/5 lg:p-12 gap-y-3 rounded-xl">
           <h2 className="text-3xl font-bold leading-none lg:text-4xl">
             Sewa sekarang!
           </h2>
           <SearchBar placeholder="Cari nama kost, alamat, daerah atau kota" />
         </div>
       </div>
-      <Section>
-        <Featured
-          title="Kost Hits"
-          description="Kost-kostan terpopuler bulan ini!"
-        >
-          <FeaturedCard />
-          <FeaturedCard />
-          <FeaturedCard />
-          <FeaturedCard />
-        </Featured>
-      </Section>
+      <div ref={scrollReff}>
+        <Section>
+          <Featured
+            title="Kost Hits"
+            description="Kost-kostan terpopuler bulan ini!"
+          >
+            <FeaturedCard />
+            <FeaturedCard />
+            <FeaturedCard />
+            <FeaturedCard />
+          </Featured>
+        </Section>
+      </div>
       <Section>
         <Featured
           title="Kost Terbaru"
@@ -45,7 +47,6 @@ export default function Home() {
           <FeaturedCard />
         </Featured>
       </Section>
-      <div ref={scrollReff}></div>
       <Section>
         <Featured center title="Area Kost Populer">
           <LocationCard />
