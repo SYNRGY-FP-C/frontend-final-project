@@ -51,6 +51,8 @@ export default function OTP() {
   }, [method]);
 
   const verifyOTPHandle = async (e) => {
+    console.log(otp);
+    console.log(otp.length);
     e.preventDefault();
     setResponse({ isLoading: true, isError: false, message: "" });
     try {
@@ -111,7 +113,6 @@ export default function OTP() {
         }
       }
     }, 1000);
-
     return () => {
       clearInterval(interval);
     };
@@ -163,13 +164,13 @@ export default function OTP() {
                         <a className="flex items-center space-x-1">
                           <span className="text-primary-1">Belum muncul?</span>
                           {seconds > 0 || minutes > 0 ? (
-                            <span className="font-semibold text-primary-1">
+                            <span className="font-semibold text-secondary-1">
                               {minutes < 10 ? `0${minutes}` : minutes}:
                               {seconds < 10 ? `0${seconds}` : seconds}
                             </span>
                           ) : (
                             <span
-                              className="font-semibold cursor-pointer text-primary-1"
+                              className="font-semibold cursor-pointer text-secondary-1"
                               onClick={() => requestVerify()}
                             >
                               Kirim ulang OTP
@@ -178,7 +179,10 @@ export default function OTP() {
                         </a>
                       </div>
                       <div className="flex flex-col gap-y-4">
-                        <Button isLoading={response.isLoading}>
+                        <Button
+                          isLoading={response.isLoading}
+                          disabled={response.isLoading || otp.length < 4}
+                        >
                           {response.isLoading ? "Loading..." : "Verifikasi"}
                         </Button>
                         <Link
