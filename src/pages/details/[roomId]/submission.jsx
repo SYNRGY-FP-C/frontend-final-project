@@ -343,10 +343,11 @@ export default function Submission() {
 
                 <SubmissionDetail title="Dokumen Persyaratan">
                   <div className="flex flex-row items-center justify-center w-full bg-gray-100 rounded-lg gap-x-3 h-52">
-                    
-                      <img src={`${user.verification.photo}`} alt={user.verification.type} className="w-full h-52 rounded-lg"/>
-                    
-                    {/* <p>Unggah scan KTP-mu di sini</p> */}
+                  <div className="inline-flex items-center gap-x-2">
+                      <div className="w-20 h-20 rounded-lg bg-primary-1-200"></div>
+                    </div>
+                      {/* <img src={`${user.verification.photo}`} alt={user.verification.type} className="w-full h-52 rounded-lg"/> */}
+                      <p>Unggah scan KTP-mu di sini</p>
                   </div>
                 </SubmissionDetail>
 
