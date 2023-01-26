@@ -2,7 +2,7 @@
 import BackButton from "@/components/buttons/BackButton";
 import Button from "@/components/buttons/Button";
 import InputPassword from "@/components/forms/InputPassword";
-import { ROLE_ADMIN, ROLE_USER } from "@/constants/roles";
+import { ROLE_ADMIN, ROlE_SUPERADMIN, ROLE_USER } from "@/constants/roles";
 import { useAuth } from "@/contexts/AuthContext";
 import useCheckPassword from "@/hooks/useCheckPassword";
 import Defaultlayout from "@/layouts/DefaultLayout";
@@ -76,7 +76,10 @@ export default function Settings() {
     }
   };
   return (
-    <ProtectedPage allowed={[ROLE_USER, ROLE_ADMIN]} redirect="/403">
+    <ProtectedPage
+      allowed={[ROLE_USER, ROLE_ADMIN, ROlE_SUPERADMIN]}
+      redirect="/403"
+    >
       <Defaultlayout title="Pengaturan">
         <Section>
           <div className="flex flex-col pt-16 lg:pt-24">

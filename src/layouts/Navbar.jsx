@@ -1,5 +1,11 @@
-import { adminMenu, loginMenu, signupMenu, userMenu } from "@/constants/menu";
-import { ROLE_USER } from "@/constants/roles";
+import {
+  adminMenu,
+  loginMenu,
+  signupMenu,
+  superadminMenu,
+  userMenu,
+} from "@/constants/menu";
+import { ROLE_ADMIN, ROLE_USER } from "@/constants/roles";
 import { useAuth } from "@/contexts/AuthContext";
 import React from "react";
 
@@ -61,8 +67,10 @@ export default function Navbar({ isAuthenticated = false }) {
               <div className="block">
                 {user.role === ROLE_USER ? (
                   <ProfileButton menu={userMenu} />
-                ) : (
+                ) : user.role === ROLE_ADMIN ? (
                   <ProfileButton menu={adminMenu} />
+                ) : (
+                  <ProfileButton menu={superadminMenu} />
                 )}
               </div>
             )}

@@ -54,6 +54,21 @@ export const adminMenu = [
   },
 ];
 
+export const superadminMenu = [
+  {
+    name: "Dashboard",
+    link: "/cms",
+  },
+  {
+    name: "Profile",
+    link: "/my",
+  },
+  {
+    name: "Pengaturan",
+    link: "/my/settings",
+  },
+];
+
 export const guestMenu = [
   {
     name: "Cari Kost",
