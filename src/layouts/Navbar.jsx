@@ -1,4 +1,6 @@
-import { loginMenu, profileMenu, signupMenu } from "@/constants/menu";
+import { adminMenu, loginMenu, signupMenu, userMenu } from "@/constants/menu";
+import { ROLE_USER } from "@/constants/roles";
+import { useAuth } from "@/contexts/AuthContext";
 import React from "react";
 
 import DropdownButton from "../components/buttons/DropdownButton";
@@ -8,6 +10,7 @@ import Drawer from "../components/Drawer";
 import Logo from "../components/Logo";
 
 export default function Navbar({ isAuthenticated = false }) {
+  const { user } = useAuth();
   const [isOpen, setIsOpen] = React.useState(false);
   return (
     <>
@@ -27,7 +30,11 @@ export default function Navbar({ isAuthenticated = false }) {
           </div>
         ) : (
           <div className="hidden">
-            <ProfileButton menu={profileMenu} />
+            {user.role === ROLE_USER ? (
+              <ProfileButton menu={userMenu} />
+            ) : (
+              <ProfileButton menu={adminMenu} />
+            )}
           </div>
         )}
       </Drawer>
@@ -52,7 +59,11 @@ export default function Navbar({ isAuthenticated = false }) {
               </div>
             ) : (
               <div className="block">
-                <ProfileButton menu={profileMenu} />
+                {user.role === ROLE_USER ? (
+                  <ProfileButton menu={userMenu} />
+                ) : (
+                  <ProfileButton menu={adminMenu} />
+                )}
               </div>
             )}
           </div>
