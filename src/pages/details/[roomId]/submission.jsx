@@ -270,7 +270,7 @@ export default function Submission() {
     <DefaultLayout title="Ajukan Penyewaan">
       <Section>
         <div className="flex flex-col gap-y-6">
-          <div className="block">
+          <div className="block mt-14">
             <Link href="/" className="inline-flex items-center py-2 gap-x-1">
               <MdChevronLeft className="w-7 h-7" />
               <p className="text-sm text-primary-1">Kembali</p>
