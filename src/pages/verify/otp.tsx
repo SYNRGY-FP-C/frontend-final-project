@@ -51,8 +51,6 @@ export default function OTP() {
   }, [method]);
 
   const verifyOTPHandle = async (e) => {
-    console.log(otp);
-    console.log(otp.length);
     e.preventDefault();
     setResponse({ isLoading: true, isError: false, message: "" });
     try {

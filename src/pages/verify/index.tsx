@@ -25,22 +25,14 @@ export default function Verify() {
                   <div className="block space-y-4">
                     <Link
                       href="/verify/otp?method=whatsapp"
-<<<<<<< HEAD
                       className="flex items-center justify-center px-5 py-3 space-x-2 text-xl border-2 rounded-lg w-60 bg-base-9 text-primary-1 border-primary-1"
-=======
-                      className="flex items-center justify-center px-5 py-3 space-x-2 text-xl border-2 rounded-lg w-60 bg-base-900 text-primary-1 border-primary-1"
->>>>>>> 19119df51d0cebb1bad81ddd29eb86386bea3e43
                     >
                       <Whatsapp className="mr-2 w-7 h-7" />
                       Whatsapp
                     </Link>
                     <Link
                       href="/verify/otp?method=email"
-<<<<<<< HEAD
                       className="flex items-center justify-center px-5 py-3 space-x-2 text-xl border-2 rounded-lg w-60 bg-base-9 text-primary-1 border-primary-1"
-=======
-                      className="flex items-center justify-center px-5 py-3 space-x-2 text-xl border-2 rounded-lg w-60 bg-base-900 text-primary-1 border-primary-1"
->>>>>>> 19119df51d0cebb1bad81ddd29eb86386bea3e43
                     >
                       <Email className="mr-2 w-7 h-7" />
                       Email

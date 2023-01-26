@@ -9,12 +9,10 @@ import { useAuth } from "@/contexts/AuthContext";
 import Defaultlayout from "@/layouts/DefaultLayout";
 import ProtectedPage from "@/layouts/ProtectedPage";
 import Section from "@/layouts/Section";
-import { useRouter } from "next/router";
 import React from "react";
 import { useState } from "react";
 
 export default function MyProfile() {
-  const router = useRouter();
   const { user } = useAuth();
   const [response, setResponse] = React.useState({
     isLoading: false,
@@ -48,7 +46,6 @@ export default function MyProfile() {
         message: "Data tidak tersimpan",
       });
     }
-    console.log(form);
   };
 
   return (

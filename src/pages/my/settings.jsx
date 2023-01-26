@@ -1,15 +1,10 @@
 /* eslint-disable @next/next/no-img-element */ import Alert from "@/components/Alert";
 import BackButton from "@/components/buttons/BackButton";
 import Button from "@/components/buttons/Button";
-<<<<<<< HEAD
 import InputPassword from "@/components/forms/InputPassword";
 import { ROLE_ADMIN, ROLE_USER } from "@/constants/roles";
 import { useAuth } from "@/contexts/AuthContext";
 import useCheckPassword from "@/hooks/useCheckPassword";
-=======
-import InputWithLabel from "@/components/forms/InputWithLabel";
-import { ROLE_USER } from "@/constants/roles";
->>>>>>> 19119df51d0cebb1bad81ddd29eb86386bea3e43
 import Defaultlayout from "@/layouts/DefaultLayout";
 import ProtectedPage from "@/layouts/ProtectedPage";
 import Section from "@/layouts/Section";
