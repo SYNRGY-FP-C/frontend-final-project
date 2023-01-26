@@ -9,6 +9,7 @@ import Star from "@/components/icons/Star";
 import DescriptionItem from "@/components/items/DescriptionItem";
 import LoadingScreen from "@/components/LoadingScreen";
 import Modal from "@/components/Modal";
+import { useAuth} from "@/contexts/AuthContext"
 import DefaultLayout from "@/layouts/DefaultLayout";
 import RoomDetail from "@/layouts/RoomDetail";
 import Section from "@/layouts/Section";
@@ -132,29 +133,8 @@ const mockDataRoom =
     },
 }
 
-const mockDataUser = {
-    id: 1,
-    fullname: "Yusuf",
-    birthdate: "2000-02-23",
-    gender: "Laki-Laki",
-    occupation: "Mahasiswa",
-    email: "yusuf@gmail.com",
-    phone: "081234567890",
-    role: "penyewa",
-    verified: true,
-    photo: "/images/hero-image.jpg",
-    verification: {
-      type: "ktp",
-      photo: "https://i0.wp.com/tutorian21.com/wp-content/uploads/2021/12/E-KTP-CDR-1.jpg?resize=768%2C491&ssl=1"
-    },
-    bank: {
-      bank_name: "bca",
-      account_number: "1234567890",
-      account_name: "yusuf"
-    }
-}
-
 export default function Submission() {
+  
   const itemChecked = [
     {
       item: "Kursi",
@@ -181,10 +161,9 @@ export default function Submission() {
       price: 140000,
     },
   ];
-  
-  const [user, setUser] = useState(mockDataUser)
-  const [room, setRoom] = useState(mockDataRoom)
-  const [transaction, setTransaction] = useState([])
+  const { user,isLoading } = useAuth();
+  const [room, setRoom] = useState(mockDataRoom);
+  const [transaction, setTransaction] = useState([]);
   const [response, setResponse] = useState({
     isLoading: false,
     isError : false,
@@ -259,7 +238,7 @@ export default function Submission() {
     setTotalCost(room.price + totalPrice);
   };
 
-  if (response.isLoading) return <LoadingScreen />;
+  if (isLoading) return <LoadingScreen />;
 
   const handleAjukanSewa = () => {
     setOpen(true)
@@ -338,7 +317,7 @@ export default function Submission() {
                 </SubmissionDetail>
 
                 <SubmissionDetail title="Jenis Dokumen">
-                 <VerifIdentitasButton/>
+                 <VerifIdentitasButton value/>
                 </SubmissionDetail>
 
                 <SubmissionDetail title="Dokumen Persyaratan">
