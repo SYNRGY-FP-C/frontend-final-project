@@ -441,13 +441,13 @@ export default function Submission() {
                   />
                 </div>
                 <div className="flex flex-col p-5 gap-y-4">
-                  <div className="inline-flex items-center gap-x-3">
-                    <h5 className="text-[32px] font-bold">Kost Lorem</h5>
-                    <div className="inline-block">
+                  <div className="inline-block items-center gap-x-4">
+                    <div className="block mb-5">
                       <span className="inline-flex items-center h-7 px-4 py-1 text-xs text-center text-white bg-primary-3 rounded-full">
                         Superkost
                       </span>
                     </div>
+                    <h5 className="text-[32px] font-bold">{room.name}</h5>
                   </div>
                   <div className="inline-flex gap-x-8">
                     <div className="inline-flex items-center gap-x-2">
