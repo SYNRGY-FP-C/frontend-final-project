@@ -14,6 +14,8 @@ import React, { useCallback, useEffect } from "react";
 
 export default function OTP() {
   const { user, requestOTP, verifyOTP, isAuthenticated, isLoading } = useAuth();
+  const [minutes, setMinutes] = React.useState(0);
+  const [seconds, setSeconds] = React.useState(0);
   const [response, setResponse] = React.useState({
     isLoading: false,
     isError: false,
@@ -25,6 +27,8 @@ export default function OTP() {
   const onChange = (value: string) => setOtp(value);
 
   const requestVerify = useCallback(async () => {
+    setMinutes(1);
+    setSeconds(30);
     setResponse({ isLoading: true, isError: false, message: "" });
     try {
       await requestOTP({
@@ -92,17 +96,37 @@ export default function OTP() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (seconds > 0) {
+        setSeconds(seconds - 1);
+      }
+
+      if (seconds === 0) {
+        if (minutes === 0) {
+          clearInterval(interval);
+        } else {
+          setSeconds(59);
+          setMinutes(minutes - 1);
+        }
+      }
+    }, 1000);
+    return () => {
+      clearInterval(interval);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [seconds]);
+
   if (isLoading || !method || method === "undefined") {
     return <LoadingScreen />;
   }
-
   return (
     <>
       <AuthPage otp>
         <Head>
           <title>Verifikasi OTP</title>
         </Head>
-        <div className="flex flex-col flex-wrap min-h-screen bg-base-900">
+        <div className="flex flex-col flex-wrap min-h-screen bg-base-9">
           <main className="flex items-center justify-center flex-1">
             <Section>
               <div className="flex flex-col items-center justify-center flex-1">
@@ -137,21 +161,31 @@ export default function OTP() {
                       <div className="flex justify-center text-center">
                         <a className="flex items-center space-x-1">
                           <span className="text-primary-1">Belum muncul?</span>
-                          <span
-                            className="font-semibold cursor-pointer text-primary-1"
-                            onClick={() => requestVerify()}
-                          >
-                            Kirim ulang OTP
-                          </span>
+                          {seconds > 0 || minutes > 0 ? (
+                            <span className="font-semibold text-secondary-1">
+                              {minutes < 10 ? `0${minutes}` : minutes}:
+                              {seconds < 10 ? `0${seconds}` : seconds}
+                            </span>
+                          ) : (
+                            <span
+                              className="font-semibold cursor-pointer text-secondary-1"
+                              onClick={() => requestVerify()}
+                            >
+                              Kirim ulang OTP
+                            </span>
+                          )}
                         </a>
                       </div>
                       <div className="flex flex-col gap-y-4">
-                        <Button isLoading={response.isLoading}>
+                        <Button
+                          isLoading={response.isLoading}
+                          disabled={response.isLoading || otp.length < 4}
+                        >
                           {response.isLoading ? "Loading..." : "Verifikasi"}
                         </Button>
                         <Link
                           href="/verify"
-                          className="px-10 py-3 border-2 rounded-lg bg-base-900 border-primary-1 text-primary-1"
+                          className="px-10 py-3 border-2 rounded-lg bg-base-9 border-primary-1 text-primary-1"
                         >
                           Ganti Metode
                         </Link>

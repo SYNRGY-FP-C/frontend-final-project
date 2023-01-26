@@ -22,7 +22,7 @@ export default function Drawer({
       ></div>
       <div
         className={clsxm(
-          "fixed z-20 h-screen w-72 overflow-y-auto border-r border-gray-400 bg-base-900 duration-300 md:hidden",
+          "fixed z-20 h-screen w-72 overflow-y-auto border-r border-gray-400 bg-base-9 duration-300 md:hidden",
           {
             // ["translate-x-0 transition-all"]: isOpen,
             // ["-translate-x-full transition-all"]: !isOpen,

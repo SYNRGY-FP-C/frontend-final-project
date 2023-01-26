@@ -23,15 +23,8 @@ export default function SearchBar({
             variants[variant].border
           )}
         />
-        <button
-          type="submit"
-          className={clsx(
-            "absolute px-1.5 py-1.5 rounded-lg right-2.5 bg-primary-1",
-            variants[variant].text,
-            variants[variant].border
-          )}
-        >
-          <MdSearch className="w-5 h-5" />
+        <button type="submit" className="absolute px-1.5 py-1.5 right-2.5">
+          <MdSearch className="w-5 h-5 text-[#BFBFBF]" />
         </button>
       </div>
       <div className="hidden peer-focus:flex">oke</div>

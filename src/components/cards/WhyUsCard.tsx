@@ -6,7 +6,7 @@ export default function WhyUsCard({ image = "", title = "", children }) {
       <div className="h-64">
         <img src={image} alt={title} className="max-w-52" />
       </div>
-      <h5 className="text-[20px] text-base-100 font-semibold">{title}</h5>
+      <h5 className="text-[20px] text-base-1 font-semibold">{title}</h5>
       <p className="text-[#454848]">{children}</p>
     </div>
   );

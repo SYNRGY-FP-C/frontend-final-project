@@ -20,16 +20,16 @@ const defaultData = {
 
 export default function FeaturedCard({ data = defaultData }) {
   return (
-    <div className="flex-1 border border-gray-200 rounded-b-lg rounded-t-xl hover:shadow-lg">
+    <div className="flex-1 border border-gray-200 shadow rounded-2xl hover:shadow-lg">
       <Link href={`/details/${data.id}`}>
         <div className="relative flex justify-center object-cover w-full h-64 overflow-hidden">
           <img
-            className="object-cover w-full rounded-t-lg "
+            className="object-cover w-full rounded-t-2xl "
             src={data.image}
             alt={data.title}
           />
           <div className="absolute flex flex-row items-center justify-between w-full p-5 gap-x-3">
-            <span className="w-24 text-center py-0.5 border bg-base-900 text-primary-1 rounded-lg">
+            <span className="w-24 text-center py-0.5 border bg-base-9 text-primary-1 rounded-lg">
               {data.type}
             </span>
             <LoveOutline className="w-5 h-5" />

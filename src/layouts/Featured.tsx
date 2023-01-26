@@ -25,7 +25,7 @@ export default function Featured({
             center ? "justify-center w-full" : "justify-start w-auto"
           )}
         >
-          <h2 className="text-2xl md:text-[32px] text-base-100 font-bold">
+          <h2 className="text-2xl md:text-[32px] text-base-1 font-bold">
             {title}
           </h2>
           {center ? null : <p className="hidden md:block">{description}</p>}
