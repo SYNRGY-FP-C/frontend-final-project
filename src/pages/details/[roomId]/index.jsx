@@ -145,6 +145,7 @@ export default function Details() {
     isError : false,
     message : "",
   })
+  const [index, setIndex] = useState(0);
   
   useEffect(()=> {
     const fetchRoom = async () => {

@@ -130,7 +130,7 @@ const mockDataRoom =
       district: "Kec. Lorem",
       note: "40276"
     },
-  }
+}
 
 const mockDataUser = {
     id: 1,
