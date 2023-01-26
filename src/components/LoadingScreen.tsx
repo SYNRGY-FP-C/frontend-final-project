@@ -6,7 +6,7 @@ export default function LoadingScreen({ redirect = false, page = "login" }) {
       <Head>
         <title>Loading...</title>
       </Head>
-      <div className="items-center justify-center w-full h-screen bg-base-900">
+      <div className="items-center justify-center w-full h-screen bg-base-9">
         <div className="loading">
           <h1 className="py-4 text-4xl font-bold text-center text-gray-700">
             KostHub

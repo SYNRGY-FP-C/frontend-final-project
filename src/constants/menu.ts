@@ -20,7 +20,7 @@ export const signupMenu = [
   },
 ];
 
-export const profileMenu = [
+export const userMenu = [
   {
     name: "Profile",
     link: "/my",
@@ -30,12 +30,38 @@ export const profileMenu = [
     link: "/my/history",
   },
   {
-    name: "Promo",
-    link: "/my/promo",
-  },
-  {
     name: "Favorit",
     link: "/my/favorite",
+  },
+  {
+    name: "Pengaturan",
+    link: "/my/settings",
+  },
+];
+
+export const adminMenu = [
+  {
+    name: "Dashboard",
+    link: "/dashboard",
+  },
+  {
+    name: "Profile",
+    link: "/my",
+  },
+  {
+    name: "Pengaturan",
+    link: "/my/settings",
+  },
+];
+
+export const superadminMenu = [
+  {
+    name: "Dashboard",
+    link: "/cms",
+  },
+  {
+    name: "Profile",
+    link: "/my",
   },
   {
     name: "Pengaturan",

@@ -1,20 +1,28 @@
 /* eslint-disable @next/next/no-img-element */
 import Button from "@/components/buttons/Button";
+import HistoryCard from "@/components/cards/HistoryCard";
 import { ROLE_USER } from "@/constants/roles";
 import Defaultlayout from "@/layouts/DefaultLayout";
 import ProtectedPage from "@/layouts/ProtectedPage";
 import Section from "@/layouts/Section";
 import React from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function History() {
   // gambaran buat response handle
-  // const [select, setSelect] = useState("")
+  const [select, setSelect] = useState("");
+  const [show, setShow] = useState([]);
   const [response, setReponse] = useState({
     isLoading: false,
     isError: false,
     data: [],
   });
+
+  useEffect(() => {
+    const data = response.data.filter((item) => item.role === select);
+    setShow(data);
+    // ketika nilai select berubah bakal jalan
+  }, [select]);
 
   //  useEffect(()=>{
 
@@ -28,7 +36,7 @@ export default function History() {
   //   }
   // },[])
   return (
-    <ProtectedPage allowed={[ROLE_USER]} redirect="/401">
+    <ProtectedPage allowed={[ROLE_USER]} redirect="/403">
       <Defaultlayout title="Riwayat">
         <Section>
           <div className="pt-12 gap-y-6">
@@ -38,16 +46,28 @@ export default function History() {
             <div className="grid grid-cols-1 gap-3 lg:grid-cols-12 gap-x-12">
               <div className="grid w-full lg:col-span-3 place-items-start">
                 <div className="flex flex-col w-full gap-y-3">
-                  <Button className="w-full px-4 py-2 text-left bg-gray-100 rounded-lg text-primary-1">
+                  <Button
+                    className="w-full px-4 py-2 text-left bg-gray-100 rounded-lg text-primary-1"
+                    onClick={() => setSelect("")}
+                  >
                     Diajukan
                   </Button>
-                  <Button className="w-full px-4 py-2 text-left bg-white rounded-lg text-primary-1">
+                  <Button
+                    className="w-full px-4 py-2 text-left bg-white rounded-lg text-primary-1"
+                    onClick={() => setSelect("")}
+                  >
                     Sebelumnya
                   </Button>
-                  <Button className="w-full px-4 py-2 text-left bg-white rounded-lg text-primary-1">
+                  <Button
+                    className="w-full px-4 py-2 text-left bg-white rounded-lg text-primary-1"
+                    onClick={() => setSelect("")}
+                  >
                     Disetujui
                   </Button>
-                  <Button className="w-full px-4 py-2 text-left bg-white rounded-lg text-primary-1">
+                  <Button
+                    className="w-full px-4 py-2 text-left bg-white rounded-lg text-primary-1"
+                    onClick={() => setSelect("")}
+                  >
                     Sedang jalan
                   </Button>
                 </div>
@@ -55,29 +75,24 @@ export default function History() {
               <div className="grid lg:col-span-9">
                 <div className="grid grid-col-span-2 place-content-start">
                   <div className="flex flex-row mt-3 mb-3 gap-x-4">
-                    <Button className="px-4 py-2 text-white rounded-lg bg-primary-1 ">
+                    <Button
+                      className="px-4 py-2 text-white rounded-lg bg-primary-1 "
+                      onClick={() => setSelect("")}
+                    >
                       Dalam Proses
                     </Button>
-                    <Button className="px-4 py-2 text-black bg-gray-300 rounded-lg bg-primary-1">
+                    <Button
+                      className="px-4 py-2 text-black rounded-lg bg-primary-1"
+                      onClick={() => setSelect("")}
+                    >
                       Ditolak
                     </Button>
                   </div>
                 </div>
-                {/* 
-            // contoh looping
-            {
-              response.data.map((transaksi)=>{
-                return (<div className="grid col-span-4">
-                <div className="flex justify-center object-cover w-full h-64 overflow-hidden">
-                  <img
-                    className="object-cover w-full rounded-t-xl lg:rounded-l-xl lg:rounded-r-none"
-                    src={transaksi.image_url}
-                    alt="Test"
-                  />
-                </div>
-              </div>)
-              })
-            } */}
+
+                {response.data.map((transaksi) => {
+                  return <HistoryCard key={transaksi.id} />;
+                })}
                 <div className="flex flex-col w-full gap-y-3">
                   <div className="grid grid-cols-1 shadow lg:grid-cols-12 rounded-xl">
                     <div className="grid col-span-4">

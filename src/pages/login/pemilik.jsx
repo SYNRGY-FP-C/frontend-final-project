@@ -1,19 +1,19 @@
 /* eslint-disable @next/next/no-img-element */
 import Alert from "@/components/Alert";
+import InputPassword from "@/components/forms/InputPassword";
 import InputWithLabel from "@/components/forms/InputWithLabel";
 import { useAuth } from "@/contexts/AuthContext";
 import AuthPage from "@/layouts/AuthPage";
 import DefaultLayout from "@/layouts/DefaultLayout";
 import Section from "@/layouts/Section";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import React, { useState } from "react";
 
 export default function LoginPemilik() {
-  const router = useRouter();
   const { loginPemilik } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [response, setResponse] = useState({
     isLoading: false,
     isError: false,
@@ -60,14 +60,16 @@ export default function LoginPemilik() {
                       )}
                       <InputWithLabel
                         labelName="Email"
+                        type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
                       />
-                      <InputWithLabel
+                      <InputPassword
                         labelName="Password"
                         value={password}
-                        type="password"
+                        show={showPassword}
+                        setShow={() => setShowPassword(!showPassword)}
                         onChange={(e) => setPassword(e.target.value)}
                         required
                       />
@@ -84,11 +86,14 @@ export default function LoginPemilik() {
 
                       <div className="relative">
                         <hr className="relative h-0.5 my-4 bg-gray-200 border-0" />
-                        <p className="absolute px-4 py-3 text-center transform -translate-x-1/2 -translate-y-1/2 bg-base-900 top-1/2 left-1/2">
+                        <p className="absolute px-4 py-3 text-center transform -translate-x-1/2 -translate-y-1/2 bg-base-9 top-1/2 left-1/2">
                           atau
                         </p>
                       </div>
-                      <button className="px-4 py-3 border rounded-lg bg-base-900 text-primary-1 border-primary-1">
+                      <button
+                        disabled
+                        className="px-4 py-3 border rounded-lg bg-base-9 text-primary-1 border-primary-1 disabled:bg-base-8"
+                      >
                         Masuk dengan Google
                       </button>
                       <Link

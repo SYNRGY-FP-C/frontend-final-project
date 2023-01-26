@@ -78,6 +78,10 @@ export const AuthProvider = ({ children }: AuthProviderType) => {
     setUser(response.data);
   };
 
+  const changePassword = async (data) => {
+    await userService.changePassword(data);
+  };
+
   const logoutUser = async () => {
     localStorage.removeItem("accessToken");
     setUser(null);
@@ -104,6 +108,7 @@ export const AuthProvider = ({ children }: AuthProviderType) => {
     registerPemilik,
     loginPencari,
     loginPemilik,
+    changePassword,
     logoutUser,
     requestOTP,
     verifyOTP,
