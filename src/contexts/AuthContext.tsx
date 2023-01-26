@@ -80,8 +80,6 @@ export const AuthProvider = ({ children }: AuthProviderType) => {
 
   const changePassword = async (data) => {
     await userService.changePassword(data);
-    const response = await userService.me();
-    setUser(response.data);
   };
 
   const logoutUser = async () => {
