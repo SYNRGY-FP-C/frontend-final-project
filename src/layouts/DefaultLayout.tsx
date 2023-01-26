@@ -3,8 +3,6 @@ import Navbar from "@/layouts/Navbar";
 import Head from "next/head";
 import React from "react";
 
-import Footer from "./Footer";
-
 export default function DefaultLayout({
   title = "Bapakos",
   custom = false,
@@ -19,7 +17,6 @@ export default function DefaultLayout({
       <div className="flex flex-col flex-wrap min-h-screen bg-base-9">
         <Navbar isAuthenticated={isAuthenticated} />
         {custom ? children : <main className="flex-1">{children}</main>}
-        <Footer />
       </div>
     </>
   );

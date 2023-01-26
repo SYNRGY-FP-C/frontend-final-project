@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import Call from "@/components/icons/Call";
+import GooglePlay from "@/components/icons/GooglePlay";
 import KostHub from "@/components/icons/KostHub";
 import Mail from "@/components/icons/Mail";
 import Link from "next/link";
@@ -20,11 +21,7 @@ export default function Footer() {
             <p className="text-white ">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit.
             </p>
-            <img
-              src="/images/googleplay.png"
-              alt="Google Play"
-              className="w-36"
-            />
+            <GooglePlay className="cursor-pointer" />
           </div>
           <div className="flex flex-col gap-y-3">
             <h5 className="font-bold text-white">KostHub</h5>

@@ -29,10 +29,10 @@ export const profileMenu = [
     name: "Riwayat",
     link: "/my/history",
   },
-  {
-    name: "Promo",
-    link: "/my/promo",
-  },
+  // {
+  //   name: "Promo",
+  //   link: "/my/promo",
+  // },
   {
     name: "Favorit",
     link: "/my/favorite",

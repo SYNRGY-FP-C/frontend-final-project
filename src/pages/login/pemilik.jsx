@@ -1,19 +1,19 @@
 /* eslint-disable @next/next/no-img-element */
 import Alert from "@/components/Alert";
+import InputPassword from "@/components/forms/InputPassword";
 import InputWithLabel from "@/components/forms/InputWithLabel";
 import { useAuth } from "@/contexts/AuthContext";
 import AuthPage from "@/layouts/AuthPage";
 import DefaultLayout from "@/layouts/DefaultLayout";
 import Section from "@/layouts/Section";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import React, { useState } from "react";
 
 export default function LoginPemilik() {
-  const router = useRouter();
   const { loginPemilik } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [response, setResponse] = useState({
     isLoading: false,
     isError: false,
@@ -64,10 +64,11 @@ export default function LoginPemilik() {
                         onChange={(e) => setEmail(e.target.value)}
                         required
                       />
-                      <InputWithLabel
+                      <InputPassword
                         labelName="Password"
                         value={password}
-                        type="password"
+                        show={showPassword}
+                        setShow={() => setShowPassword(!showPassword)}
                         onChange={(e) => setPassword(e.target.value)}
                         required
                       />
@@ -88,7 +89,10 @@ export default function LoginPemilik() {
                           atau
                         </p>
                       </div>
-                      <button className="px-4 py-3 border rounded-lg bg-base-9 text-primary-1 border-primary-1">
+                      <button
+                        disabled
+                        className="px-4 py-3 border rounded-lg bg-base-9 text-primary-1 border-primary-1 disabled:bg-base-8"
+                      >
                         Masuk dengan Google
                       </button>
                       <Link

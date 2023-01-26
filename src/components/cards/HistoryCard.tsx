@@ -50,7 +50,7 @@ export default function HistoryCard({ data = defaultData }) {
           </div>
           <div className="inline-flex flex-row items-center gap-x-3">
             <Location className="w-5 h-5" />
-            <p className="max-w-lg overflow-hidden text-base-200 text-ellipsis whitespace-nowrap">
+            <p className="max-w-lg overflow-hidden text-base-2 text-ellipsis whitespace-nowrap">
               {data.address}
             </p>
           </div>

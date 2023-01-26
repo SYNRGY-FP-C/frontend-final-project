@@ -55,7 +55,7 @@ export default function MyProfile() {
     <ProtectedPage allowed={[ROLE_USER, ROLE_ADMIN]} redirect="/403">
       <Defaultlayout title="Profil Saya">
         <Section>
-          <div className="pt-12 my-4 text-5xl font-bold text-primary-1">
+          <div className="pt-16 my-4 text-5xl font-bold text-primary-1">
             Profil
           </div>
           <div className="grid grid-cols-1 gap-3 lg:grid-cols-12">

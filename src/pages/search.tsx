@@ -37,13 +37,13 @@ export default function Search() {
                   <div className="flex flex-col gap-y-3">
                     <h5 className="font-bold text-base-1">Tipe</h5>
                     <div className="flex flex-row gap-x-2">
-                      <span className="w-24 text-center py-0.5 border border-gray-300 text-base-200 rounded-lg">
+                      <span className="w-24 text-center py-0.5 border border-gray-300 text-base-2 rounded-lg">
                         Campur
                       </span>
-                      <span className="w-24 text-center py-0.5 border border-gray-300 text-base-200 rounded-lg">
+                      <span className="w-24 text-center py-0.5 border border-gray-300 text-base-2 rounded-lg">
                         Pria
                       </span>
-                      <span className="w-24 text-center py-0.5 border border-gray-300 text-base-200 rounded-lg">
+                      <span className="w-24 text-center py-0.5 border border-gray-300 text-base-2 rounded-lg">
                         Wanita
                       </span>
                     </div>
@@ -51,8 +51,8 @@ export default function Search() {
                   <div className="flex flex-col gap-y-3">
                     <h5 className="font-bold text-base-1">Rentang Harga</h5>
                     <div className="flex flex-col gap-y-3">
-                      <Input type="text" placeholder="Harga Minimum" />
-                      <Input type="text" placeholder="Harga Maksimum" />
+                      <Input type="number" placeholder="Harga Minimum" />
+                      <Input type="number" placeholder="Harga Maksimum" />
                     </div>
                   </div>
                   <div className="flex flex-col gap-y-3">

@@ -8,6 +8,9 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   plugins: [require("@tailwindcss/forms")],
   theme: {
+    extend: {
+      backgroundColor: ["disabled"],
+    },
     colors: {
       ...colors,
       primary: {

@@ -11,7 +11,7 @@ export default function Hero({ scroll }) {
           Sewa Kost Makin Mudah Dengan KostHub!
         </h1>
         <p className="typo-body-regular text-[#454848]">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          Platform pencarian kost terpercaya dengan pilihan tanpa batas!
         </p>
         <div className="block w-48">
           <Button onClick={scrollToElement}>Coba sekarang</Button>
