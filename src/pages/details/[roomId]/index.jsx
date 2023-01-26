@@ -173,7 +173,7 @@ export default function Details() {
   const handleButtonRegistrasi = () => {
     if(isVerified) {
       router.push(
-        `/details/1/submission`
+        `/details/${room.id}/submission`
       );
     } else {
       setOpen(true)
