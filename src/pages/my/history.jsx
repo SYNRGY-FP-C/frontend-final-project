@@ -82,7 +82,7 @@ export default function History() {
                       Dalam Proses
                     </Button>
                     <Button
-                      className="px-4 py-2 text-black bg-gray-300 rounded-lg bg-primary-1"
+                      className="px-4 py-2 text-black rounded-lg bg-primary-1"
                       onClick={() => setSelect("")}
                     >
                       Ditolak
