@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-import Alert from "@/components/Alert";
 import Button from "@/components/buttons/Button";
 import Checkbox from "@/components/forms/Checkbox";
 import InputTypePayment from "@/components/forms/InputTypePayment";
@@ -15,16 +14,147 @@ import RoomDetail from "@/layouts/RoomDetail";
 import Section from "@/layouts/Section";
 import SubmissionDetail from "@/layouts/SubmissionDetail";
 import roomService from "@/services/room.service";
+import { formatRupiah } from "@/utils/helper";
 import Link from "next/link";
 import { useEffect,useState } from "react";
 import { MdChevronLeft } from "react-icons/md";
 
-export default function Submission() {
-  const max_person = 5
-  const rooms = {
-    name: "cakra 1",
+const mockDataRoom =
+  {
+    id: 1,
+    name: "Kamar Medium Kost Lorem",
+    type: "Medium",
+    rating: "4.8",
+    label: "Superkost",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse euismod, dolor vitae vestibulum varius, sem nisi malesuada tellus, at tempor nibh augue at massa. Aliquam non sem ante. Donec hendrerit orci nec dapibus accumsan. In sollicitudin quis arcu non elementum. Sed congue felis at aliquam pulvinar. Vivamus eu justo vel enim blandit faucibus non mattis sapien. Suspendisse potenti. Aliquam at neque eu mi laoreet aliquet et et erat.",
+    max_person: 3,
     price: 1200000,
-  };
+    images: {
+      kost :[
+        {
+          id: 1,
+          url: "image_kost1.png"
+        },
+        {
+          id: 2,
+          url: "image_kost2.png"
+        },
+      ],
+      room : [
+        {
+          id: 1,
+          url: "image_room1.png"
+        },
+        {
+          id: 2,
+          url: "image_room2.png"
+        }
+      ]
+    },
+    facilities: [
+      {
+        id: 1,
+        name: "Kamar Mandi",
+      },
+      {
+        id: 2,
+        name: "Kasur",
+      },
+      {
+        id: 3,
+        name: "Kipas",
+      },
+      {
+        id: 4,
+        name: "Jendela",
+      },
+      {
+        id: 5,
+        name: "Meja",
+      }
+    ],
+    rules: [
+      {
+        id: 1,
+        name: "Tamu boleh menginap"
+      },
+      {
+        id: 2,
+        name: "Tipe ini bisa diisi maks. 2 orang/ kamar"
+      },
+      {
+        id: 3,
+        name: "Tidak untuk pasutri"
+      },
+      {
+        id: 4,
+        name: "Tamu menginap dikenakan biaya"
+      },
+      {
+        id: 5,
+        name: "Kriteria umum"
+      },
+    ],
+    another_room: [
+      {
+        id: 1,
+        name: "Kamar Large Kost Lorem",
+        price: 1700000,
+        thumbnail: "thumbnail_other_room.png",
+        label: "superkost",
+        type: "campur",
+        location: {
+          city: "Bandung",
+          district: "Kec. Lorem"
+        },
+        rating: "4.5"
+      },
+      {
+        id: 2,
+        name: "Kamar Large Kost Lorem",
+        price: 1700000,
+        thumbnail: "image_room1.png",
+        location: {
+          city: "Bandung",
+          district: "Kec. Lorem"
+        },
+        rating: "4.5"
+      }
+    ],
+    location: {
+      long: "string",
+      lat: "string",
+      address: "Jl. Lorem ipsum dolor sit amet No. 2",
+      province: "Jawa Barat",
+      city: "Bandung",
+      district: "Kec. Lorem",
+      note: "40276"
+    },
+  }
+
+const mockDataUser = {
+    id: 1,
+    fullname: "Yusuf",
+    birthdate: "2000-02-23",
+    gender: "Laki-Laki",
+    occupation: "Mahasiswa",
+    email: "yusuf@gmail.com",
+    phone: "081234567890",
+    role: "penyewa",
+    verified: true,
+    photo: "/images/hero-image.jpg",
+    verification: {
+      type: "ktp",
+      photo: "https://i0.wp.com/tutorian21.com/wp-content/uploads/2021/12/E-KTP-CDR-1.jpg?resize=768%2C491&ssl=1"
+    },
+    bank: {
+      bank_name: "bca",
+      account_number: "1234567890",
+      account_name: "yusuf"
+    }
+}
+
+export default function Submission() {
   const itemChecked = [
     {
       item: "Kursi",
@@ -51,8 +181,9 @@ export default function Submission() {
       price: 140000,
     },
   ];
-
-  const [room, setRoom] = useState([])
+  
+  const [user, setUser] = useState(mockDataUser)
+  const [room, setRoom] = useState(mockDataRoom)
   const [transaction, setTransaction] = useState([])
   const [response, setResponse] = useState({
     isLoading: false,
@@ -61,7 +192,8 @@ export default function Submission() {
   })
   const [count, setCount] = useState(0);
   const [rentDate, setRentDate] = useState("");
-  const [typePayment, setTypePayment] = useState("")
+  const [typeDokumen, setTypeDokumen] = useState("");
+  const [typePayment, setTypePayment] = useState("");
   const [checkedOrder, setCheckedOrder] = useState(new Array(itemChecked.length).fill(false));
   const [totalExtra, setTotalExtra] = useState(0);
   const [totalCost, setTotalCost] = useState(0);
@@ -69,7 +201,7 @@ export default function Submission() {
 
   useEffect(()=> {
     const fetchRoom = async () => {
-      setResponse({ isLoading: true, isError: false });
+      setResponse({ isLoading: true, isError: false, message:"" });
       try {
         const response = await roomService.get()
         setRoom(response.room)
@@ -100,7 +232,7 @@ export default function Submission() {
   };
 
   const increment = () => {
-    if( count < max_person) setCount( count + 1 );
+    if( count < room.max_person) setCount( count + 1 );
   }
 
   const decrement = () => {
@@ -124,14 +256,14 @@ export default function Submission() {
     );
 
     setTotalExtra(totalPrice);
-    setTotalCost(rooms.price + totalPrice);
+    setTotalCost(room.price + totalPrice);
   };
 
   if (response.isLoading) return <LoadingScreen />;
 
   const handleAjukanSewa = () => {
     setOpen(true)
-    // CRUD Enpoint Transaction
+    // Create Transaction
   }
 
   return (
@@ -144,11 +276,6 @@ export default function Submission() {
               <p className="text-sm text-primary-1">Kembali</p>
             </Link>
           </div>
-          {response.message && (
-            <Alert type={response.isError ? "error" : "success"}>
-              {response.message}
-            </Alert>
-          )}
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-12">
             <div className="h-full col-span-12 lg:col-span-8">
               <h3 className="font-bold text-primary-1 text-3xl md:text-[40px] my-4">
@@ -164,23 +291,23 @@ export default function Submission() {
                   <div className="flex flex-col gap-y-5 text-primary-1">
                     <div className="grid grid-cols-1 lg:grid-cols-2">
                       <p className="font-semibold">Nama lengkap</p>
-                      <p>Lorem Ipsum Dolor</p>
+                      <p>{user.fullname}</p>
                     </div>
                     <div className="grid grid-cols-1 lg:grid-cols-2">
                       <p className="font-semibold">Email</p>
-                      <p>lorem.ipsum@gmail.com</p>
+                      <p>{user.email}</p>
                     </div>
                     <div className="grid grid-cols-1 lg:grid-cols-2">
                       <p className="font-semibold">Nomor Telepon</p>
-                      <p>022222222222</p>
+                      <p>{user.phone}</p>
                     </div>
                     <div className="grid grid-cols-1 lg:grid-cols-2">
                       <p className="font-semibold">Jenis Kelamin</p>
-                      <p>Wanita</p>
+                      <p>{user.gender}</p>
                     </div>
                     <div className="grid grid-cols-1 lg:grid-cols-2">
                       <p className="font-semibold">Pekerjaan</p>
-                      <p>Mahasiswa</p>
+                      <p>{user.occupation}</p>
                     </div>
                   </div>
                 </SubmissionDetail>
@@ -189,7 +316,7 @@ export default function Submission() {
                   <div className="inline-flex items-center gap-x-2">
                     <div className="inline-flex items-center gap-x-2">
                       <button 
-                        className="w-10 h-10 rounded-lg bg-primary-1 text-white"
+                        className="w-10 h-10 rounded-lg border border-black text-xl"
                         onClick={() => decrement()}
                         >
                           -
@@ -200,7 +327,7 @@ export default function Submission() {
                     </div>
                     <div className="inline-flex items-center gap-x-2">
                       <button 
-                        className="w-10 h-10 rounded-lg bg-primary-1 text-white"
+                        className="w-10 h-10 rounded-lg border border-black text-xl"
                         onClick={() => increment()}
                         >
                           + 
@@ -211,19 +338,21 @@ export default function Submission() {
                 </SubmissionDetail>
 
                 <SubmissionDetail title="Jenis Dokumen">
-                  <div className="inline-flex items-center gap-x-2">
-                    <VerifIdentitasButton/>
-                  </div>
+                 <VerifIdentitasButton/>
                 </SubmissionDetail>
 
                 <SubmissionDetail title="Dokumen Persyaratan">
-                  <div className="flex flex-row items-center justify-center w-full bg-gray-100 rounded-lg gap-x-3 h-36">
-                    <div className="inline-flex items-center gap-x-2">
-                      <div className="w-20 h-20 rounded-lg bg-primary-1-200"></div>
-                    </div>
-                    <p>Unggah scan KTP-mu di sini</p>
+                  <div className="flex flex-row items-center justify-center w-full bg-gray-100 rounded-lg gap-x-3 h-52">
+                    
+                      <img src={`${user.verification.photo}`} alt={user.verification.type} className="w-full h-52 rounded-lg"/>
+                    
+                    {/* <p>Unggah scan KTP-mu di sini</p> */}
                   </div>
                 </SubmissionDetail>
+
+                <h3 className="font-bold text-primary-1 text-[32px] pt-5">
+                  Detail Sewa
+                </h3>
 
                 <SubmissionDetail title="Tanggal Mulai Sewa">
                   <InputWithLabel
@@ -269,12 +398,14 @@ export default function Submission() {
                 </h3>
                 <RoomDetail title="Fasilitas & Layanan">
                   <div className="grid grid-cols-2 mb-8 gap-y-4">
-                    <DescriptionItem />
-                    <DescriptionItem />
-                    <DescriptionItem />
-                    <DescriptionItem />
-                    <DescriptionItem />
-                    <DescriptionItem />
+                    {room.facilities.map(facility => (
+                      <DescriptionItem 
+                        name={facility.name}
+                        key={facility.id}
+                      >
+                        {facility.name}  
+                      </DescriptionItem>
+                    ))}
                   </div>
                   <p className="underline decoration-primary-1-200 decoration-2">
                     Lihat semua
@@ -283,17 +414,19 @@ export default function Submission() {
                 <hr className="h-0.5 bg-gray-200 border-0 my-8" />
                 <RoomDetail title="Aturan Kost">
                   <div className="grid grid-cols-2 mb-8 gap-y-4">
-                    <DescriptionItem />
-                    <DescriptionItem />
-                    <DescriptionItem />
-                    <DescriptionItem />
-                    <DescriptionItem />
-                    <DescriptionItem />
+                    {room.rules.map(rule => (
+                      <DescriptionItem 
+                        name={rule.name}
+                        key={rule.id}
+                      >
+                        {rule.name}  
+                      </DescriptionItem>
+                    ))}
                   </div>
                   <p className="underline decoration-primary-1-200 decoration-2">
                     Lihat semua
                   </p>
-                </RoomDetail>
+              </RoomDetail>
               </div>
             </div>
 
@@ -303,15 +436,15 @@ export default function Submission() {
                 <div className="flex justify-center object-cover w-full overflow-hidden h-52">
                   <img
                     className="object-cover w-full rounded-t-xl"
-                    src="/images/hero-image.jpg"
-                    alt="Test"
+                    src={`/images/${room.images.room[0].url}`}
+                    alt="room kost"
                   />
                 </div>
                 <div className="flex flex-col p-5 gap-y-4">
                   <div className="inline-flex items-center gap-x-3">
                     <h5 className="text-[32px] font-bold">Kost Lorem</h5>
                     <div className="inline-block">
-                      <span className="inline-flex items-center px-4 py-1 text-xs text-center bg-gray-200 rounded-lg">
+                      <span className="inline-flex items-center h-7 px-4 py-1 text-xs text-center text-white bg-primary-3 rounded-full">
                         Superkost
                       </span>
                     </div>
@@ -322,8 +455,9 @@ export default function Submission() {
                       <span className="text-xl font-semibold">5</span>
                     </div>
                     <div className="inline-flex items-center gap-x-2">
-                      <div className="w-5 h-5 rounded-lg bg-primary-1"></div>{" "}
-                      Campur
+                      <span className="inline-flex items-center px-4 py-1 text-xs text-center border border-black rounded-full">
+                        Campur
+                      </span>
                     </div>
                   </div>
                   <div className="inline-flex gap-y-2">
@@ -338,16 +472,16 @@ export default function Submission() {
                   </p>
                   <div className="inline-flex justify-between">
                     <p>Biaya Kamar</p>
-                    <p>Rp. {rooms.price}</p>
+                    <p>{formatRupiah(room.price)}</p>
                   </div>
                   <div className="inline-flex justify-between">
                     <p>Tambahan</p>
-                    <p>Rp. {totalExtra}</p>
+                    <p>{formatRupiah(totalExtra)}</p>
                   </div>
                   <hr className="h-0.5 bg-gray-200 border-0" />
                   <div className="inline-flex justify-between">
                     <p className="font-bold text-primary-1">Total Biaya</p>
-                    <p className="font-bold text-primary-1">Rp. {totalCost}</p>
+                    <p className="font-bold text-primary-1">{formatRupiah(totalCost)}</p>
                   </div>
                 </div>
               </div>
@@ -361,7 +495,7 @@ export default function Submission() {
               sed suscipit nisl iaculis vel.
             </Checkbox>
             
-            <div className="flex justify-center">
+            <div className="flex justify-center my-5">
               <button 
                 className="px-4 py-3 text-white rounded-lg w-72 bg-primary-1"
                 onClick={() => handleAjukanSewa()}
@@ -371,7 +505,7 @@ export default function Submission() {
             </div>
 
             <Modal isOpen={open} setIsOpen={setOpen}>
-              <img src="/images/cancel.png" alt="Cancel" className="w-24 h-24" />
+              <img src="/images/succes_pengajuan_sewa.png" alt="Cancel" className="w-24 h-40" />
               <p className="text-xl text-center text-primary-1">
                 Pengajuan sewamu sedang diproses!
               </p>

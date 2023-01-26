@@ -9,15 +9,18 @@ export default function RoomDescription() {
         <Star className="w-5 h-5" />
         <p className="mx-1">5</p>    
       </div>
-      <div className="inline-flex items-center gap-x-2">
-        <div className="w-5 h-5 rounded-lg bg-primary-2"></div> Campur
-      </div>
+     
       <div className="inline-flex items-center gap-x-2">
       <Location className="w-5 h-5 mr-1" /> Kecamatan
         Lorem, Bandung
       </div>
       <div className="block">
-        <span className="inline-flex items-center px-4 py-1 text-xs text-center bg-gray-200 rounded-lg">
+        <span className="inline-flex items-center px-4 py-1 text-xs text-center border border-black rounded-full">
+          Campur
+        </span>
+      </div>
+      <div className="block">
+        <span className="inline-flex items-center h-7 px-4 py-1 text-xs text-center text-white bg-primary-3 rounded-full">
           Superkost
         </span>
       </div>
