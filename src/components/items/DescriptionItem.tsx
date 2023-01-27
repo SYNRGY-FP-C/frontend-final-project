@@ -1,10 +1,10 @@
 import React from "react";
 
-export default function DescriptionItem() {
+export default function DescriptionItem({ children, ...rest }) {
   return (
-    <div className="inline-flex items-center gap-x-2">
-      <div className="w-5 h-5 rounded-lg bg-primary-1-200"></div>
-      Lorem Ipsum
+    <div className="inline-flex items-center gap-x-2" {...rest}>
+      <div className="w-4  h-4 rounded-lg bg-primary-1"></div>
+        {children}
     </div>
   );
 }

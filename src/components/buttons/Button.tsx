@@ -7,12 +7,12 @@ type ButtonProps = {
 
 export default function Button({
   isLoading = false,
-  className = "w-full px-4 py-3 text-center text-white rounded-lg bg-primary-1 hover:bg-primary-1",
+  className = "w-full px-4 py-3 text-center text-white rounded-lg bg-primary-1 hover:bg-primary-1 disabled:bg-primary-2",
   children,
   ...rest
 }: ButtonProps) {
   return (
-    <button className={className} {...rest} disabled={isLoading}>
+    <button className={className} {...rest}>
       {isLoading ? "Loading..." : children}
     </button>
   );

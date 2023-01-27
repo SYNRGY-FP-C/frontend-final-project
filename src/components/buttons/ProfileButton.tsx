@@ -27,7 +27,7 @@ export default function ProfileButton({ menu = [] }) {
           Batal
         </Button>
         <Button
-          className="inline-flex justify-center w-full px-4 py-3 bg-base-900 border rounded-lg text-primary-1 border-primary-1"
+          className="inline-flex justify-center w-full px-4 py-3 bg-base-9 border rounded-lg text-primary-1 border-primary-1"
           onClick={() => logoutUser()}
         >
           Keluar
@@ -52,7 +52,7 @@ export default function ProfileButton({ menu = [] }) {
               <Link
                 href={item.link}
                 className={clsx(
-                  "block px-7 py-2 text-center bg-base-900 hover:bg-gray-100",
+                  "block px-7 py-2 text-center bg-base-9 hover:bg-gray-100",
                   {
                     "rounded-t-lg ": index === 0,
                   }
@@ -64,7 +64,7 @@ export default function ProfileButton({ menu = [] }) {
           ))}
           <button
             className={clsx(
-              "block px-9 md:px-9 py-2 text-center bg-base-900 hover:bg-gray-100",
+              "block px-9 md:px-9 py-2 text-center bg-base-9 hover:bg-gray-100",
               "rounded-b-lg"
             )}
             onClick={() => {

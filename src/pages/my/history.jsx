@@ -1,10 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 import Button from "@/components/buttons/Button";
+import HistoryCard from "@/components/cards/HistoryCard";
 import { ROLE_USER } from "@/constants/roles";
 import Defaultlayout from "@/layouts/DefaultLayout";
 import ProtectedPage from "@/layouts/ProtectedPage";
 import Section from "@/layouts/Section";
 import React from "react";
+import { useEffect, useState } from "react";
 import { useState, useEffect } from "react";
 import HistoryCard from "@/components/cards/HistoryCard";
 import { data } from "autoprefixer";
@@ -73,7 +75,7 @@ export default function History() {
   });
 
   useEffect(() => {
-    const data = response.data.filter((item) => item.status === select);
+    const data = response.data.filter((item) => item.role === select);
     setShow(data);
     // ketika nilai select berubah bakal jalan
   }, [select]);
@@ -101,7 +103,7 @@ export default function History() {
   // }, []);
 
   return (
-    <ProtectedPage allowed={[ROLE_USER]} redirect="/401">
+    <ProtectedPage allowed={[ROLE_USER]} redirect="/403">
       <Defaultlayout title="Riwayat">
         <Section>
           <div className="pt-12 gap-y-6 pb-6">
