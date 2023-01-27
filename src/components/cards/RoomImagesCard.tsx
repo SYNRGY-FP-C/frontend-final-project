@@ -40,7 +40,7 @@ export default function RoomImagesCard({images, select, setSelect}) {
           kost.map((value, index) => {
             return <div key={index} className="flex justify-center object-cover w-full overflow-hidden max-h-24 lg:max-h-48">
             <img
-              className="object-cover w-full"
+              className={`object-cover w-full ${index == 1 ? 'lg:rounded-tr-xl' : ''}`}
               src={`/images/${value.url}`}
               alt={`/images/${value.url}`}
               onClick={() => handlePreviewKost(index)}
@@ -55,7 +55,7 @@ export default function RoomImagesCard({images, select, setSelect}) {
           rooms.map((value, index) => {
               return <div key={index} className="flex justify-center object-cover w-full overflow-hidden max-h-24 lg:max-h-48">
                 <img
-                  className="object-cover w-full"
+                  className={`object-cover w-full ${index == 1 ? 'lg:rounded-br-xl' : ''}`}
                   src={`/images/${value.url}`}
                   alt={`/images/${value.url}`}
                   onClick={() => handlePreviewRooms(index)}
