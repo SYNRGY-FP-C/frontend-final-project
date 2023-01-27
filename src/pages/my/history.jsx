@@ -7,7 +7,6 @@ import ProtectedPage from "@/layouts/ProtectedPage";
 import Section from "@/layouts/Section";
 import React from "react";
 import { useState, useEffect } from "react";
-import HistoryCard from "@/components/cards/HistoryCard";
 import { data } from "autoprefixer";
 
 export default function History() {
