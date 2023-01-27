@@ -9,9 +9,11 @@ import DefaultLayout from "@/layouts/DefaultLayout";
 import Featured from "@/layouts/Featured";
 import Footer from "@/layouts/Footer";
 import Section from "@/layouts/Section";
+import { useRouter } from "next/router";
 import React, { useRef } from "react";
 
 export default function Home() {
+  const router = useRouter();
   const scrollReff = useRef();
   return (
     <>
@@ -22,7 +24,10 @@ export default function Home() {
             <h2 className="text-3xl font-bold leading-none lg:text-4xl">
               Sewa sekarang!
             </h2>
-            <SearchBar placeholder="Cari nama kost, alamat, daerah atau kota" />
+            <SearchBar
+              placeholder="Cari nama kost, alamat, daerah atau kota"
+              onClick={() => router.push("/search")}
+            />
           </div>
         </div>
         <div ref={scrollReff}>
