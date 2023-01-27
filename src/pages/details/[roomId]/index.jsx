@@ -145,7 +145,8 @@ export default function Details() {
     isError : false,
     message : "",
   })
-  const [index, setIndex] = useState(0);
+  const imageDefault = room.images.kost[0].url
+  const [select, setSelect] = useState(imageDefault)
   
   useEffect(()=> {
     const fetchRoom = async () => {
@@ -170,6 +171,7 @@ export default function Details() {
   }, [])
   
   if (response.isLoading) return <LoadingScreen />;
+
 
   const handleButtonRegistrasi = () => {
     if(isVerified) {
@@ -210,7 +212,7 @@ export default function Details() {
           <BreadCrumb />
 
           {/* Image Kos */}
-          <RoomImagesCard/>
+          <RoomImagesCard images={room.images} select={select} setSelect={setSelect}/>
 
           {/* Tittle */}
           <div className="flex flex-col md:justify-between md:flex-row">
@@ -276,17 +278,17 @@ export default function Details() {
               {/* Tipe Kamar Lain*/}
               <RoomDetail title="Tipe Kamar Lain dari Pemilik Kost Ini">
                 <div className="flex gap-x-3">
-                  {room.another_room.map(other => (
+                  {room.another_room.map((value, index) => (
                     <OtherRoomCard 
-                      key={other.id}
-                      name={other.name}
-                      price={other.price}
-                      thumbnail={other.thumbnail}
-                      city={other.location.city}
-                      district={other.location.district}
-                      label={other.label}
-                      rating={other.rating}
-                      type={other.type}
+                      key={index}
+                      name={value.name}
+                      price={value.price}
+                      thumbnail={value.thumbnail}
+                      city={value.location.city}
+                      district={value.location.district}
+                      label={value.label}
+                      rating={value.rating}
+                      type={value.type}
                     />
                   ))}
                 </div>

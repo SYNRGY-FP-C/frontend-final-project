@@ -4,9 +4,9 @@ import Star from "@/components/icons/Star";
 import { formatRupiah } from "@/utils/helper";
 import React from "react";
 
-export default function OtherRoomCard({ key, name, price, thumbnail, city, district ,rating }) {
+export default function OtherRoomCard({ name, price, thumbnail, city, district ,rating }) {
   return (
-    <div className="shadow w-72 rounded-2xl" key={key}>
+    <div className="shadow w-72 rounded-2xl" >
       <div className="flex justify-center object-cover h-64 overflow-hidden">
         <img
           className="object-cover w-full rounded-t-2xl"
