@@ -36,7 +36,7 @@ export default function MyProfile() {
     if (user) {
       setForm({
         fullname: user?.fullname || "",
-        birthdate: originalDate(user?.birthdate) || "",
+        birthdate: user?.birthdate ? originalDate(user?.birthdate) : "",
         email: user?.email || "",
         phone: user?.phone || "",
         gender: user?.gender || "",
@@ -78,7 +78,7 @@ export default function MyProfile() {
   const handleReset = () => {
     setForm({
       fullname: user?.fullname || "",
-      birthdate: originalDate(user?.birthdate) || "",
+      birthdate: user?.birthdate ? originalDate(user?.birthdate) : "",
       email: user?.email || "",
       phone: user?.phone || "",
       gender: user?.gender || "",
