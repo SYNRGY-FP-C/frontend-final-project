@@ -273,6 +273,8 @@ export default function MyProfile() {
                       <Button
                         type="submit"
                         className="px-4 py-2.5 text-white rounded-lg w-36 bg-primary-1"
+                        disabled={response.isLoading}
+                        isLoading={response.isLoading}
                       >
                         Simpan
                       </Button>
