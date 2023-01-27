@@ -6,7 +6,6 @@ import Defaultlayout from "@/layouts/DefaultLayout";
 import ProtectedPage from "@/layouts/ProtectedPage";
 import Section from "@/layouts/Section";
 import React from "react";
-import { useEffect, useState } from "react";
 import { useState, useEffect } from "react";
 import HistoryCard from "@/components/cards/HistoryCard";
 import { data } from "autoprefixer";
