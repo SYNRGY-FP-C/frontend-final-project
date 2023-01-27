@@ -5,9 +5,44 @@ import { ROLE_USER } from "@/constants/roles";
 import Defaultlayout from "@/layouts/DefaultLayout";
 import ProtectedPage from "@/layouts/ProtectedPage";
 import Section from "@/layouts/Section";
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 export default function Favorite() {
+  const [response, setReponse] = useState({
+    isLoading: false,
+    isError: false,
+  });
+
+  const [favorites, setfavorites] = useState([
+    {
+      id: 1,
+      title:
+        "Room 1 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.",
+      image: "/images/hero-image.jpg",
+      description: "Room 1 description amet consectetur adipisicing",
+      price: 1200000,
+      address: "Kecamatan Lorem, Bandung",
+      type: "campur",
+    },
+    {
+      id: 1,
+      title:
+        "Room 1 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.",
+      image: "/images/hero-image.jpg",
+      description: "Room 1 description amet consectetur adipisicing",
+      price: 1200000,
+      address: "Kecamatan Lorem, Bandung",
+      type: "campur",
+    },
+  ]);
+
+  useEffect(() => {
+    const tempFavorites = JSON.parse(localStorage.getItem("favorite")) || [];
+    if (tempFavorites.length > 0) {
+      setfavorites(favorites);
+    }
+  }, []);
+
   return (
     <ProtectedPage allowed={[ROLE_USER]} redirect="/403">
       <Defaultlayout title="Favorit">
@@ -23,14 +58,17 @@ export default function Favorite() {
                 </div>
               </div>
               <div className="grid lg:col-span-9">
-                <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-                  <FeaturedCard />
-                  {/* Loop here
-                <FeaturedCard />
-                <FeaturedCard />
-                <FeaturedCard />
-                <FeaturedCard /> */}
-                </div>
+                {favorites.length > 0 ? (
+                  <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+                    {favorites.map((favorite) => (
+                      <FeaturedCard key={favorite.title} favorite={favorite} />
+                    ))}
+                  </div>
+                ) : (
+                  <div className="py-6 text-center">
+                    <p>Tidak Ada Kamar</p>
+                  </div>
+                )}
               </div>
             </div>
           </div>
