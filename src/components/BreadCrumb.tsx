@@ -4,7 +4,7 @@ import { MdChevronRight } from "react-icons/md";
 
 export default function BreadCrumb() {
   return (
-    <ol className="inline-flex items-center space-x-1 md:space-x-3">
+    <ol className="inline-flex items-center space-x-1 md:space-x-3 mt-16">
       <li className="inline-flex items-center">
         <Link href="/" className="ml-1 text-sm text-primary-1">
           Home

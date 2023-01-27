@@ -34,6 +34,7 @@ export default function LoginPemilik() {
     }
   };
 
+  // Akhir Tambahan
   return (
     <AuthPage>
       <DefaultLayout title="Masuk - Pemilik">
