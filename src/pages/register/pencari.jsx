@@ -1,8 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 import Alert from "@/components/Alert";
 import Checkbox from "@/components/forms/Checkbox";
+import InputPassword from "@/components/forms/InputPassword";
 import InputWithLabel from "@/components/forms/InputWithLabel";
 import { useAuth } from "@/contexts/AuthContext";
+import useCheckPassword from "@/hooks/useCheckPassword";
 import AuthPage from "@/layouts/AuthPage";
 import DefaultLayout from "@/layouts/DefaultLayout";
 import Section from "@/layouts/Section";
@@ -11,6 +13,10 @@ import { useState } from "react";
 
 export default function RegisterPencari() {
   const { registerPencari } = useAuth();
+  const [show, setShow] = useState({
+    password: false,
+    repassword: false,
+  });
   const [response, setResponse] = useState({
     isLoading: false,
     isError: false,
@@ -24,9 +30,22 @@ export default function RegisterPencari() {
     repassword: "",
   });
 
+  const [isPasswordValid, passwordMessage] = useCheckPassword(form.password);
+  const [isRepasswordValid, repasswordMessage] = useCheckPassword(
+    form.repassword
+  );
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setResponse({ isLoading: true, isError: false });
+    setResponse({ isLoading: true, isError: false, message: "" });
+    if (!isPasswordValid || !isRepasswordValid) {
+      setResponse({
+        isLoading: false,
+        isError: true,
+        message: "Password tidak aman",
+      });
+      return;
+    }
     if (form.password !== form.repassword) {
       setResponse({
         isLoading: false,
@@ -55,9 +74,9 @@ export default function RegisterPencari() {
     <AuthPage>
       <DefaultLayout title="Buat akun - Pencari">
         <Section>
-          <div className="flex flex-col flex-1 pt-8 md:pt-12 gap-y-6">
+          <div className="flex flex-col flex-1 pt-8 md:pt-16 gap-y-6">
             <div className="flex flex-col gap-y-4">
-              <div className="grid grid-cols-12 my-6">
+              <div className="grid grid-cols-12 my-6 md:px-20">
                 <div className="grid col-span-12 lg:col-span-5 place-content-center">
                   <div className="flex flex-col gap-y-3">
                     <h5 className="text-xl leading-none mt-6 font-bold md:text-[28px] text-primary-1">
@@ -86,25 +105,41 @@ export default function RegisterPencari() {
                       />
                       <InputWithLabel
                         labelName="Nomor telepon"
+                        type="tel"
                         value={form.phone}
                         onChange={(e) =>
                           setForm({ ...form, phone: e.target.value })
                         }
                         required
                       />
-                      <InputWithLabel
+
+                      <InputPassword
                         labelName="Password"
-                        type="password"
                         value={form.password}
+                        show={show.password}
+                        errorMessage={passwordMessage}
+                        setShow={() =>
+                          setShow({
+                            ...show,
+                            password: !show.password,
+                          })
+                        }
                         onChange={(e) =>
                           setForm({ ...form, password: e.target.value })
                         }
                         required
                       />
-                      <InputWithLabel
-                        labelName="Konfirmasi password"
-                        type="password"
+                      <InputPassword
+                        labelName="Konfirmasi Password"
                         value={form.repassword}
+                        show={show.repassword}
+                        errorMessage={repasswordMessage}
+                        setShow={() =>
+                          setShow({
+                            ...show,
+                            repassword: !show.repassword,
+                          })
+                        }
                         onChange={(e) =>
                           setForm({ ...form, repassword: e.target.value })
                         }
@@ -122,11 +157,14 @@ export default function RegisterPencari() {
                       </button>
                       <div className="relative">
                         <hr className="relative h-0.5 my-4 bg-gray-200 border-0" />
-                        <p className="absolute px-4 py-3 text-center transform -translate-x-1/2 -translate-y-1/2 bg-base-900 top-1/2 left-1/2">
+                        <p className="absolute px-4 py-3 text-center transform -translate-x-1/2 -translate-y-1/2 bg-base-9 top-1/2 left-1/2">
                           atau
                         </p>
                       </div>
-                      <button className="px-4 py-3 border rounded-lg bg-base-900 text-primary-1 border-primary-1">
+                      <button
+                        disabled
+                        className="px-4 py-3 border rounded-lg bg-base-9 text-primary-1 border-primary-1 disabled:bg-base-8"
+                      >
                         Daftar dengan Google
                       </button>
                       <Link

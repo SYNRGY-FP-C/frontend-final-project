@@ -18,7 +18,6 @@ const ProtectedPage = ({
       setTimeout(() => router.push("/"), 2500);
       return <LoadingScreen redirect page="home" />;
     }
-
     if (!allowed.includes(user?.role)) {
       setTimeout(() => router.push(redirect), 2500);
       return <LoadingScreen />;

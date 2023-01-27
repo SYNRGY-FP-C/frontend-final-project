@@ -8,6 +8,9 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   plugins: [require("@tailwindcss/forms")],
   theme: {
+    extend: {
+      backgroundColor: ["disabled"],
+    },
     colors: {
       ...colors,
       primary: {
@@ -22,15 +25,16 @@ module.exports = {
         3: "#7BD1E2",
       },
       base: {
-        100: "#171717",
-        200: "#454848",
-        300: "#808080",
-        400: "#9F9F9F",
-        500: "#BFBFBF",
-        600: "#DFDFDF",
-        700: "#EBE9EC",
-        800: "#F0F0F0",
-        900: "#FAFAFB",
+        1: "#171717",
+        2: "#454848",
+        3: "#808080",
+        4: "#9F9F9F",
+        5: "#BFBFBF",
+        6: "#DFDFDF",
+        7: "#EBE9EC",
+        8: "#F0F0F0",
+        9: "#FAFAFB",
+        10: "#FFFFFF",
       },
       error: {
         DEFAULT: "#F76C64",

@@ -9,7 +9,7 @@ export default function TestimoniCard({
   children,
 }) {
   return (
-    <div className="p-8 bg-base-900 rounded-2xl">
+    <div className="p-8 bg-base-9 rounded-2xl">
       <div className="flex flex-col gap-y-3">
         <Quote className="w-10 h-10" />
         <p className="mt-3 text-justify">{children}</p>

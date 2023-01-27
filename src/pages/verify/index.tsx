@@ -14,7 +14,7 @@ export default function Verify() {
         <Head>
           <title>Pilih Metode Verifikasi</title>
         </Head>
-        <div className="flex flex-col flex-wrap min-h-screen bg-base-900">
+        <div className="flex flex-col flex-wrap min-h-screen bg-base-9">
           <main className="flex items-center justify-center flex-1">
             <Section>
               <div className="flex flex-col items-center justify-center flex-1 gap-6 text-center lg:flex-row lg:justify-around md:text-start">
@@ -25,14 +25,14 @@ export default function Verify() {
                   <div className="block space-y-4">
                     <Link
                       href="/verify/otp?method=whatsapp"
-                      className="flex items-center justify-center px-5 py-3 space-x-2 text-xl border-2 rounded-lg w-60 bg-base-900 text-primary-1 border-primary-1"
+                      className="flex items-center justify-center px-5 py-3 space-x-2 text-xl border-2 rounded-lg w-60 bg-base-9 text-primary-1 border-primary-1"
                     >
                       <Whatsapp className="mr-2 w-7 h-7" />
                       Whatsapp
                     </Link>
                     <Link
                       href="/verify/otp?method=email"
-                      className="flex items-center justify-center px-5 py-3 space-x-2 text-xl border-2 rounded-lg w-60 bg-base-900 text-primary-1 border-primary-1"
+                      className="flex items-center justify-center px-5 py-3 space-x-2 text-xl border-2 rounded-lg w-60 bg-base-9 text-primary-1 border-primary-1"
                     >
                       <Email className="mr-2 w-7 h-7" />
                       Email

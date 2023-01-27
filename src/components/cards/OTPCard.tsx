@@ -7,12 +7,16 @@ type OTPCardProps = {
   children: React.ReactNode;
 };
 
-export default function OTPCard({ target, method, children }: OTPCardProps) {
+export default function OTPCard({
+  target = "08888888888",
+  method,
+  children,
+}: OTPCardProps) {
   return (
     <div className="flex items-center justify-center h-full">
       <div className="max-w-sm mx-auto md:max-w-lg">
         <div className="w-full">
-          <div className="py-3 space-y-4 text-center bg-base-900 rounded">
+          <div className="py-3 space-y-4 text-center rounded bg-base-9">
             <h1 className="text-[40px] font-bold text-primary-1">
               OTP Verifikasi
             </h1>

@@ -4,17 +4,15 @@ import Button from "@/components/buttons/Button";
 import InputWithLabel from "@/components/forms/InputWithLabel";
 import RadioButton from "@/components/forms/RadioButton";
 import VerifIdentitasButton from "@/components/forms/VerifIdentitasButton";
-import { ROLE_USER } from "@/constants/roles";
+import { ROLE_ADMIN, ROLE_SUPERADMIN, ROLE_USER } from "@/constants/roles";
 import { useAuth } from "@/contexts/AuthContext";
 import Defaultlayout from "@/layouts/DefaultLayout";
 import ProtectedPage from "@/layouts/ProtectedPage";
 import Section from "@/layouts/Section";
-import { useRouter } from "next/router";
 import React from "react";
 import { useState } from "react";
 
 export default function MyProfile() {
-  const router = useRouter();
   const { user } = useAuth();
   const [response, setResponse] = React.useState({
     isLoading: false,
@@ -48,14 +46,16 @@ export default function MyProfile() {
         message: "Data tidak tersimpan",
       });
     }
-    console.log(form);
   };
 
   return (
-    <ProtectedPage allowed={[ROLE_USER]} redirect="/401">
+    <ProtectedPage
+      allowed={[ROLE_USER, ROLE_ADMIN, ROLE_SUPERADMIN]}
+      redirect="/403"
+    >
       <Defaultlayout title="Profil Saya">
         <Section>
-          <div className="pt-12 my-4 text-5xl font-bold text-primary-1">
+          <div className="pt-16 my-4 text-5xl font-bold text-primary-1">
             Profil
           </div>
           <div className="grid grid-cols-1 gap-3 lg:grid-cols-12">
@@ -75,7 +75,7 @@ export default function MyProfile() {
                     </Button>
                   </div>
                   <div className="block">
-                    <button className="px-4 py-2 rounded-lg bg-base-900 text-error">
+                    <button className="px-4 py-2 rounded-lg bg-base-9 text-error">
                       Hapus
                     </button>
                   </div>
@@ -185,7 +185,7 @@ export default function MyProfile() {
                       </Button>
                     </div>
                     <div className="block">
-                      <Button className="px-4 py-2 border rounded-lg bg-base-900 text-primary-1 border-primary-1">
+                      <Button className="px-4 py-2 border rounded-lg bg-base-9 text-primary-1 border-primary-1">
                         Reset
                       </Button>
                     </div>
