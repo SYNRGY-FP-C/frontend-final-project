@@ -172,7 +172,6 @@ export default function Details() {
   
   if (response.isLoading) return <LoadingScreen />;
 
-
   const handleButtonRegistrasi = () => {
     if(isVerified) {
       router.push(
