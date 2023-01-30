@@ -356,16 +356,16 @@ export default function Details() {
                   
                   <div className="inline-flex items-center gap-x-6">
                     <div className="inline-flex items-center gap-x-2">
-                      <button>
-                        <FiShare2 className="w-5 h-5"/> 
+                      <button className="inline-flex items-center gap-2" >
+                        <FiShare2 className="w-5 h-5"/>
+                        <p>Sebarkan</p>
                       </button>
-                      Sebarkan
                     </div>
                     <div className="inline-flex items-center gap-x-2 ml-8">
-                      <button>
+                      <button className="inline-flex items-center gap-2">
                         <AiOutlineHeart className="w-5 h-5"/>
+                        <p>Simpan</p>
                       </button>
-                      Simpan
                     </div>
                   </div>
                   {/* Label */}
