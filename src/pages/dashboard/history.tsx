@@ -7,7 +7,6 @@ import ProtectedPage from "@/layouts/ProtectedPage";
 import Section from "@/layouts/Section";
 import React from "react";
 import { useEffect, useState } from "react";
-import Sidebar from "@/layouts/SidebarDashboard";
 
 export default function History() {
   // gambaran buat response handle
@@ -39,7 +38,6 @@ export default function History() {
   return (
     <ProtectedPage allowed={[ROLE_SUPERADMIN]} redirect="/403">
       <Defaultlayout title="Riwayat">
-        <Sidebar />
         <Section>
           <div className="pt-12 gap-y-6">
             <div className="my-4 text-5xl font-bold text-primary-1">
