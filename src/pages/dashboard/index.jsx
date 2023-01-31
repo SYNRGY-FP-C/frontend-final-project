@@ -68,7 +68,7 @@ export default function index() {
                         <h1 className="ml-3">Kecamatan Lorem, Bandung</h1>
                       </div>
                       <div className="flex items-center place-content-between my-5">
-                        <div className=" bg-primary-4 rounded-full">
+                        <div className=" bg-secondary-1 rounded-full">
                           <h1 className="py-1 px-3 text-white text-xs">
                             Superkost
                           </h1>
