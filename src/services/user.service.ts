@@ -20,6 +20,10 @@ const changePassword = async (data) => {
   return await backendJava.put("/v1/auth/password", data);
 };
 
+const updateProfile = async (data) => {
+  return await backendJava.post("/v1/account/profile", data);
+};
+
 const me = async () => {
   return await backendJava.get("/v1/account/profile");
 };
@@ -30,6 +34,7 @@ const userService = {
   loginPencari,
   loginPemilik,
   changePassword,
+  updateProfile,
   me,
 };
 

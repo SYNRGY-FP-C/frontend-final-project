@@ -18,4 +18,8 @@ export const phoneNumberFormatter = function (number: string) {
   return formatted;
 };
 
+export const originalDate = (date) => {
+  return date.split("-").reverse().join("-");
+};
+
 export const RE_DIGIT = new RegExp(/^\d+$/);

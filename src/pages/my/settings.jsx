@@ -1,4 +1,5 @@
-/* eslint-disable @next/next/no-img-element */ import Alert from "@/components/Alert";
+/* eslint-disable @next/next/no-img-element */
+import Alert from "@/components/Alert";
 import BackButton from "@/components/buttons/BackButton";
 import Button from "@/components/buttons/Button";
 import InputPassword from "@/components/forms/InputPassword";
