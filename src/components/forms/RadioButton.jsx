@@ -1,12 +1,20 @@
+import clsx from "clsx";
 import React from "react";
 import { v4 as uuid } from "uuid";
 const RadioButton = ({ value, options, labelName, ...rest }) => {
   return (
     <div className="w-full space-y-2" {...rest}>
-      <label htmlFor={labelName} className="block text-lg text-base-1">
+      {/* <label htmlFor={labelName} className="block text-lg text-base-1">
         {labelName}
-      </label>
-      <div className="grid grid-cols-2 gap-8" {...rest}>
+      </label> */}
+      <div
+        className={clsx("grid gap-8", {
+          "grid-cols-2": options.length === 2,
+          "grid-cols-3": options.length === 3,
+          "grid-cols-4": options.length > 4,
+        })}
+        {...rest}
+      >
         {options.map((option) => (
           <div
             key={uuid()}

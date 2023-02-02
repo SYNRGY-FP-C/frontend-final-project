@@ -6,7 +6,7 @@ export default function Checkbox({ label = "checkbox", children, ...rest }) {
       <input
         id={label}
         type="checkbox"
-        className="w-5 h-5 border-2 rounded border-base-2 focus:ring-0 focus:ring-offset-0 text-base-2 accent-base-2"
+        className="w-5 h-5 border rounded-sm border-base-2 focus:ring-0 focus:ring-offset-0 text-base-2 accent-base-2"
         {...rest}
       />
       <label
