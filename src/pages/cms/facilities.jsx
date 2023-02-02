@@ -3,6 +3,7 @@ import DefaultLayout from "@/layouts/DefaultLayout";
 import Section from "@/layouts/Section";
 import React from "react";
 import { useState, useEffect } from "react";
+import { v4 as uuid } from "uuid";
 
 export default function Facilities() {
   const facilities = [
@@ -75,7 +76,7 @@ export default function Facilities() {
             <div className="grid lg:col-span-9">
               <div className="grid grid-col-span-2 place-content-start">
                 <div>
-                  <table class="table-auto">
+                  <table className="table-auto">
                     <thead>
                       <tr>
                         <th>Fasilitas</th>
@@ -84,7 +85,7 @@ export default function Facilities() {
                     <tbody>
                       {facilities.map((facility) => {
                         return (
-                          <tr>
+                          <tr key={uuid()}>
                             <td>{facility.fasilitas}</td>
                           </tr>
                         );

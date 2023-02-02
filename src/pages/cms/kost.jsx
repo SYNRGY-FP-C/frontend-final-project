@@ -73,7 +73,7 @@ export default function Kost() {
             <div className="grid lg:col-span-9">
               <div className="grid grid-col-span-2 place-content-start">
                 <div>
-                  <table class="table-auto">
+                  <table className="table-auto">
                     <thead>
                       <tr>
                         <th>Kost</th>

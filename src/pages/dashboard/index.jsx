@@ -9,7 +9,7 @@ export default function index() {
   return (
     <ProtectedPage allowed={["ROLE_USER_PEMILIK"]} redirect="/401">
       <div className="flex flex-col flex-wrap ">
-        <div class="flex">
+        <div className="flex">
           <Sidebar />
           <div className="w-full max-w-screen-xl h-full ml-80">
             <div className="w-4/5 mx-auto my-10">
