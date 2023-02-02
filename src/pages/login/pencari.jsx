@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import Alert from "@/components/Alert";
+import Button from "@/components/buttons/Button";
 import InputPassword from "@/components/forms/InputPassword";
 import InputWithLabel from "@/components/forms/InputWithLabel";
 import { useAuth } from "@/contexts/AuthContext";
@@ -88,13 +89,14 @@ export default function LoginPencari() {
                       <Link href="/" className="text-xs text-center">
                         Lupa password
                       </Link>
-                      <button
+                      <Button
                         type="submit"
                         className="px-4 py-3 text-white rounded-lg bg-primary-1"
                         disabled={response.isLoading}
+                        isLoading={response.isLoading}
                       >
-                        {!response.isLoading ? "Masuk" : "Loading..."}
-                      </button>
+                        Masuk
+                      </Button>
                       <div className="relative">
                         <hr className="relative h-0.5 my-4 bg-gray-200 border-0" />
                         <p className="absolute px-4 py-3 text-center transform -translate-x-1/2 -translate-y-1/2 bg-base-9 top-1/2 left-1/2">

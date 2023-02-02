@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import Alert from "@/components/Alert";
+import Button from "@/components/buttons/Button";
 import InputPassword from "@/components/forms/InputPassword";
 import InputWithLabel from "@/components/forms/InputWithLabel";
 import { useAuth } from "@/contexts/AuthContext";
@@ -34,6 +35,7 @@ export default function LoginPemilik() {
     }
   };
 
+  // Akhir Tambahan
   return (
     <AuthPage>
       <DefaultLayout title="Masuk - Pemilik">
@@ -76,13 +78,14 @@ export default function LoginPemilik() {
                       <Link href="/" className="text-xs text-center">
                         Lupa password
                       </Link>
-                      <button
+                      <Button
                         className="px-4 py-3 text-white rounded-lg bg-primary-1"
                         type="submit"
                         disabled={response.isLoading}
+                        isLoading={response.isLoading}
                       >
-                        {!response.isLoading ? "Masuk" : "Loading..."}
-                      </button>
+                        Masuk
+                      </Button>
 
                       <div className="relative">
                         <hr className="relative h-0.5 my-4 bg-gray-200 border-0" />

@@ -22,13 +22,15 @@ const statuses = {
   onprocess: "Dalam Proses",
   rejected: "Ditolak",
   ended: "Selesai",
+  approved: "Disetujui",
+  ongoing: "Sedang jalan",
 };
 
 export default function HistoryCard({ data = defaultData }) {
   return (
     <div className="grid grid-cols-1 border border-gray-200 hover:shadow lg:grid-cols-12 rounded-xl">
       <div className="grid col-span-4">
-        <div className="flex justify-center object-cover w-full h-60 overflow-hidden">
+        <div className="flex justify-center object-cover w-full overflow-hidden h-60">
           <img
             className="object-cover w-full rounded-t-xl lg:rounded-l-xl lg:rounded-r-none"
             src={data.image}
@@ -64,7 +66,7 @@ export default function HistoryCard({ data = defaultData }) {
             </div>
           </div>
           <div className="flex items-stretch justify-end h-full">
-            <div className="self-end inline-flex space-x-3">
+            <div className="inline-flex self-end space-x-3">
               {Object.hasOwn(statuses, data.status) ? (
                 <span
                   className={clsx("px-4 py-1.5 rounded-2xl text-xs", {
