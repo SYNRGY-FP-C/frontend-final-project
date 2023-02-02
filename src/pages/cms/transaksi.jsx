@@ -3,19 +3,26 @@ import DefaultLayout from "@/layouts/DefaultLayout";
 import Section from "@/layouts/Section";
 import React from "react";
 import { useState, useEffect } from "react";
+import { v4 as uuid } from "uuid";
 
-export default function Kost() {
-  const kost = [
-    { id: 1, name: "kost A" },
-    { id: 2, name: "kost B" },
+export default function Transaksi() {
+  const transaksi = [
+    {
+      id: 1,
+      name: "Transaksi 1",
+    },
+    {
+      id: 2,
+      name: "Transaksi 2",
+    },
   ];
 
-  const [select, setSelect] = useState("kamar");
+  const [select, setSelect] = useState("transaksi");
   const [show, setShow] = useState([]);
   const [response, setResponse] = useState({
     isLoading: false,
     isError: false,
-    data: [...kost],
+    data: [...transaksi],
   });
 
   useEffect(() => {
@@ -24,40 +31,39 @@ export default function Kost() {
   }, [select]);
 
   return (
-    <DefaultLayout title="Room">
+    <DefaultLayout title="Transaksi">
       <Section>
         <div className="pt-16 gap-y-6 pb-6">
-          <div className="my-4 text-5xl font-bold text-primary-1">Rooms</div>
+          <div className="my-4 text-5xl font-bold text-primary-1">
+            Transaksi
+          </div>
           <div className="grid grid-cols-1 gap-3 lg:grid-cols-12 gap-x-12">
             <div className="grid w-full lg:col-span-3 place-items-start">
               <div className="flex flex-col w-full gap-y-3">
-                <Button
-                  className="w-full px-4 py-2 text-left bg-gray-100 rounded-lg text-primary-1"
-                  onClick={() => setSelect("facilities")}
-                >
+                <Button className="w-full px-4 py-2 text-left bg-gray-100 rounded-lg text-primary-1">
                   Fasilitas
                 </Button>
                 <Button
                   className="w-full px-4 py-2 text-left bg-gray-100 rounded-lg text-primary-1"
-                  onClick={() => setSelect("rules")}
+                  onClick={() => setSelect("")}
                 >
                   Peraturan
                 </Button>
                 <Button
                   className="w-full px-4 py-2 text-left bg-gray-100 rounded-lg text-primary-1"
-                  onClick={() => setSelect("users")}
+                  onClick={() => setSelect("")}
                 >
                   Users
                 </Button>
                 <Button
                   className="w-full px-4 py-2 text-left bg-gray-100 rounded-lg text-primary-1"
-                  onClick={() => setSelect("kost")}
+                  onClick={() => setSelect("users")}
                 >
                   Kost
                 </Button>
                 <Button
                   className="w-full px-4 py-2 text-left bg-gray-100 rounded-lg text-primary-1"
-                  onClick={() => setSelect("room")}
+                  onClick={() => setSelect("kamar")}
                 >
                   Kamar
                 </Button>
@@ -74,10 +80,19 @@ export default function Kost() {
                 <div>
                   <table className="table-auto">
                     <thead>
-                      {kost.map((kos) => {
-                        return <tr key={uuid()}>{kos.id}</tr>;
-                      })}
+                      <tr>
+                        <th>Transaksi</th>
+                      </tr>
                     </thead>
+                    <tbody>
+                      {transaksi.map((order) => {
+                        return (
+                          <tr key={uuid()}>
+                            <td>{order.name}</td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
                   </table>
                 </div>
               </div>

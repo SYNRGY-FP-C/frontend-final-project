@@ -4,7 +4,15 @@ import Star from "@/components/icons/Star";
 import { formatRupiah } from "@/utils/helper";
 import React from "react";
 
-export default function OtherRoomCard({ key, name, price, thumbnail, city, district ,rating }) {
+export default function OtherRoomCard({
+  key,
+  name,
+  price,
+  thumbnail,
+  city,
+  district,
+  rating,
+}) {
   return (
     <div className="shadow w-72 rounded-2xl" key={key}>
       <div className="flex justify-center object-cover h-64 overflow-hidden">
@@ -25,7 +33,9 @@ export default function OtherRoomCard({ key, name, price, thumbnail, city, distr
           </p>
         </div>
         <div className="inline-flex justify-between">
-          <p className="font-bold text-base text-secondary-1">{formatRupiah(price)} / bulan</p>
+          <p className="font-bold text-base text-secondary-1">
+            {formatRupiah(price)} / bulan
+          </p>
           <div className="inline-flex items-center gap-x-2">
             <Star className="w-5 h-5" />
             <span className="text-xl font-semibold">{rating}</span>

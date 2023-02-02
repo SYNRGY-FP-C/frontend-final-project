@@ -6,9 +6,11 @@ import { Autoplay, Navigation, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 export default function App() {
-  const data = [{
-    photo: "aa",
-  } ];
+  const data = [
+    {
+      photo: "aa",
+    },
+  ];
 
   return (
     <>

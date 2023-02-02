@@ -61,19 +61,19 @@ export default function Rooms() {
                 </Button>
                 <Button
                   className="w-full px-4 py-2 text-left bg-gray-100 rounded-lg text-primary-1"
-                  onClick={() => setSelect("")}
+                  onClick={() => setSelect("rules")}
                 >
                   Peraturan
                 </Button>
                 <Button
                   className="w-full px-4 py-2 text-left bg-gray-100 rounded-lg text-primary-1"
-                  onClick={() => setSelect("")}
+                  onClick={() => setSelect("users")}
                 >
                   Users
                 </Button>
                 <Button
                   className="w-full px-4 py-2 text-left bg-gray-100 rounded-lg text-primary-1"
-                  onClick={() => setSelect("")}
+                  onClick={() => setSelect("kost")}
                 >
                   Kost
                 </Button>
@@ -85,7 +85,7 @@ export default function Rooms() {
                 </Button>
                 <Button
                   className="w-full px-4 py-2 text-left bg-gray-100 rounded-lg text-primary-1"
-                  onClick={() => setSelect("")}
+                  onClick={() => setSelect("transaksi")}
                 >
                   Transaksi
                 </Button>

@@ -38,36 +38,39 @@ export default function Facilities() {
           <div className="grid grid-cols-1 gap-3 lg:grid-cols-12 gap-x-12">
             <div className="grid w-full lg:col-span-3 place-items-start">
               <div className="flex flex-col w-full gap-y-3">
-                <Button className="w-full px-4 py-2 text-left bg-gray-100 rounded-lg text-primary-1">
+                <Button
+                  className="w-full px-4 py-2 text-left bg-gray-100 rounded-lg text-primary-1"
+                  onClick={() => setSelect("facilities")}
+                >
                   Fasilitas
                 </Button>
                 <Button
                   className="w-full px-4 py-2 text-left bg-gray-100 rounded-lg text-primary-1"
-                  onClick={() => setSelect("")}
+                  onClick={() => setSelect("rules")}
                 >
                   Peraturan
                 </Button>
                 <Button
                   className="w-full px-4 py-2 text-left bg-gray-100 rounded-lg text-primary-1"
-                  onClick={() => setSelect("")}
+                  onClick={() => setSelect("users")}
                 >
                   Users
                 </Button>
                 <Button
                   className="w-full px-4 py-2 text-left bg-gray-100 rounded-lg text-primary-1"
-                  onClick={() => setSelect("")}
+                  onClick={() => setSelect("kost")}
                 >
                   Kost
                 </Button>
                 <Button
                   className="w-full px-4 py-2 text-left bg-gray-100 rounded-lg text-primary-1"
-                  onClick={() => setSelect("kamar")}
+                  onClick={() => setSelect("room")}
                 >
                   Kamar
                 </Button>
                 <Button
                   className="w-full px-4 py-2 text-left bg-gray-100 rounded-lg text-primary-1"
-                  onClick={() => setSelect("")}
+                  onClick={() => setSelect("transaksi")}
                 >
                   Transaksi
                 </Button>

@@ -3,19 +3,26 @@ import DefaultLayout from "@/layouts/DefaultLayout";
 import Section from "@/layouts/Section";
 import React from "react";
 import { useState, useEffect } from "react";
+import { v4 as uuid } from "uuid";
 
-export default function Kost() {
-  const kost = [
-    { id: 1, name: "kost A" },
-    { id: 2, name: "kost B" },
+export default function Users() {
+  const users = [
+    {
+      id: 1,
+      name: "user A",
+    },
+    {
+      id: 2,
+      name: "user B",
+    },
   ];
 
-  const [select, setSelect] = useState("kamar");
+  const [select, setSelect] = useState("users");
   const [show, setShow] = useState([]);
   const [response, setResponse] = useState({
     isLoading: false,
     isError: false,
-    data: [...kost],
+    data: [...users],
   });
 
   useEffect(() => {
@@ -24,10 +31,10 @@ export default function Kost() {
   }, [select]);
 
   return (
-    <DefaultLayout title="Room">
+    <DefaultLayout title="Users">
       <Section>
         <div className="pt-16 gap-y-6 pb-6">
-          <div className="my-4 text-5xl font-bold text-primary-1">Rooms</div>
+          <div className="my-4 text-5xl font-bold text-primary-1">Users</div>
           <div className="grid grid-cols-1 gap-3 lg:grid-cols-12 gap-x-12">
             <div className="grid w-full lg:col-span-3 place-items-start">
               <div className="flex flex-col w-full gap-y-3">
@@ -51,13 +58,13 @@ export default function Kost() {
                 </Button>
                 <Button
                   className="w-full px-4 py-2 text-left bg-gray-100 rounded-lg text-primary-1"
-                  onClick={() => setSelect("kost")}
+                  onClick={() => setSelect("room")}
                 >
                   Kost
                 </Button>
                 <Button
                   className="w-full px-4 py-2 text-left bg-gray-100 rounded-lg text-primary-1"
-                  onClick={() => setSelect("room")}
+                  onClick={() => setSelect("kamar")}
                 >
                   Kamar
                 </Button>
@@ -74,10 +81,19 @@ export default function Kost() {
                 <div>
                   <table className="table-auto">
                     <thead>
-                      {kost.map((kos) => {
-                        return <tr key={uuid()}>{kos.id}</tr>;
-                      })}
+                      <tr>
+                        <th>Users</th>
+                      </tr>
                     </thead>
+                    <tbody>
+                      {users.map((user) => {
+                        return (
+                          <tr key={uuid()}>
+                            <td>{user.name}</td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
                   </table>
                 </div>
               </div>
