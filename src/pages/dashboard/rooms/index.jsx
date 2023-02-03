@@ -4,6 +4,7 @@ import Section from "@/layouts/Section";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import BackButton from "@/components/buttons/BackButton";
 
 export default function Kost() {
   return (
@@ -12,20 +13,12 @@ export default function Kost() {
         <Section>
           <div className="pt-14 gap-y-6">
             <div className="pt-16">
-              <div className="mb-4">
-                <Link href="/dashboard" className="text-xl text-secondary-1  hover:text-primary-2">
-                  {" "}
-                  Kembali{" "}
-                </Link>
-              </div>
+              <BackButton />
               <div className="grid grid-cols-12">
                 <div className="col-span-3">
                   <h1 className="text-4xl font-bold mb-4">Kost Binar</h1>
-                  <div className="mr-9 mb-9 px-9 py-6 bg-black text-white text-center rounded-lg hover:bg-slate-800">
-                    <Link
-                      href="/dashboard/rooms/add"
-                      className="flex items-center gap-1"
-                    >
+                  <Link href="/dashboard/rooms/add">
+                    <div className="mr-9 mb-9 px-9 py-6 bg-black text-white text-center rounded-lg flex items-center gap-1 hover:bg-slate-800 ">
                       <Image
                         src="/images/add_box.svg"
                         width={24}
@@ -33,8 +26,8 @@ export default function Kost() {
                         alt="default img"
                       />
                       <h1>Tambah Kamar Baru</h1>
-                    </Link>
-                  </div>
+                    </div>
+                  </Link>
                 </div>
                 <div className="col-span-9 items-center">
                   <Image

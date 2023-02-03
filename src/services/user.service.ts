@@ -24,6 +24,10 @@ const updateProfile = async (data) => {
   return await backendJava.post("/v1/account/profile", data);
 };
 
+const updateIdentity = async (data) => {
+  return await backendJava.post("/v1/account/verification", data);
+};
+
 const me = async () => {
   return await backendJava.get("/v1/account/profile");
 };
@@ -35,6 +39,7 @@ const userService = {
   loginPemilik,
   changePassword,
   updateProfile,
+  updateIdentity,
   me,
 };
 

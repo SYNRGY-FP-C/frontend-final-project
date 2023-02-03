@@ -2,9 +2,12 @@
 import Alert from "@/components/Alert";
 import BackButton from "@/components/buttons/BackButton";
 import Button from "@/components/buttons/Button";
+import InputDropzone from "@/components/forms/InputDropzone";
 import InputWithLabel from "@/components/forms/InputWithLabel";
 import RadioButton from "@/components/forms/RadioButton";
+import File from "@/components/icons/File";
 import { GENDER } from "@/constants/gender";
+import { IDENTITIES } from "@/constants/identities";
 import { ROLE_ADMIN, ROLE_SUPERADMIN, ROLE_USER } from "@/constants/roles";
 import { useAuth } from "@/contexts/AuthContext";
 import Defaultlayout from "@/layouts/DefaultLayout";
@@ -16,7 +19,8 @@ import React from "react";
 import { useEffect, useState } from "react";
 
 export default function MyProfile() {
-  const { user, updateProfile } = useAuth();
+  const [preview, setPreview] = React.useState();
+  const { user, updateProfile, updateIdentity } = useAuth();
   const [response, setResponse] = React.useState({
     isLoading: false,
     isError: false,
@@ -26,10 +30,16 @@ export default function MyProfile() {
   const [form, setForm] = useState({
     fullname: user?.fullname || "",
     birthdate: user?.birthdate || "",
-    email: user?.email || "",
     phone: user?.phone || "",
     gender: user?.gender || "",
     occupation: user?.occupation || "",
+  });
+
+  const [identity, setIdentity] = useState({
+    email: user?.email || "",
+    phone: user?.phone || "",
+    type: user?.type || "",
+    photo: user?.photo || null,
   });
 
   useEffect(() => {
@@ -41,6 +51,7 @@ export default function MyProfile() {
         phone: user?.phone || "",
         gender: user?.gender || "",
         occupation: user?.occupation || "",
+        photo: user?.photo || null,
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -56,11 +67,18 @@ export default function MyProfile() {
         "birthdate",
         moment(new Date(form.birthdate)).format("DD-MM-YYYY")
       );
-      formData.append("email", form.email);
       formData.append("phone", form.phone);
       formData.append("gender", form.gender);
       formData.append("occupation", form.occupation);
+
+      const identityData = new FormData();
+      identityData.append("email", identity.email);
+      identityData.append("phone", identity.phone);
+      identityData.append("type", identity.type);
+      identityData.append("photo", identity.photo);
+
       await updateProfile(formData);
+      await updateIdentity(identityData);
       setResponse({
         isLoading: false,
         isError: false,
@@ -76,13 +94,14 @@ export default function MyProfile() {
   };
 
   const handleReset = () => {
+    setPreview(null);
     setForm({
       fullname: user?.fullname || "",
       birthdate: user?.birthdate ? originalDate(user?.birthdate) : "",
-      email: user?.email || "",
       phone: user?.phone || "",
       gender: user?.gender || "",
       occupation: user?.occupation || "",
+      photo: user?.photo || null,
     });
   };
 
@@ -103,7 +122,10 @@ export default function MyProfile() {
                 <div className="flex flex-col items-center gap-y-6">
                   <div className="text-xl font-medium">
                     <img
-                      src="/images/hero-image.jpg"
+                      src={
+                        user?.photo ||
+                        "https://www.pngitem.com/pimgs/m/581-5813504_avatar-dummy-png-transparent-png.png"
+                      }
                       alt="avatar"
                       className="w-64 h-64 rounded-full"
                     />
@@ -211,60 +233,29 @@ export default function MyProfile() {
                     })
                   }
                 />
-                <div className="flex-col w-full space-y-2">
-                  <label
-                    htmlFor="verifikasi"
-                    className="block text-lg text-base-1"
-                  >
-                    Verifikasi Identitas
-                  </label>
-                  <div className="flex flex-row gap-x-2">
-                    <div className="flex items-center mr-4">
-                      <input
-                        id="ktp"
-                        type="radio"
-                        defaultValue
-                        name="ktp"
-                        className="w-4 h-4 focus:ring-0 focus:border-0 text-primary-1"
-                      />
-                      <label htmlFor="ktp" className="ml-2 text-sm font-medium">
-                        e-KTP
-                      </label>
-                    </div>
-                    <div className="flex items-center mr-4">
-                      <input
-                        id="sim"
-                        type="radio"
-                        defaultValue
-                        name="sim"
-                        className="w-4 h-4 focus:ring-0 focus:border-0 text-primary-1"
-                      />
-                      <label htmlFor="sim" className="ml-2 text-sm font-medium">
-                        SIM
-                      </label>
-                    </div>
-                    <div className="flex items-center mr-4">
-                      <input
-                        defaultChecked
-                        id="passport"
-                        type="radio"
-                        defaultValue
-                        name="passport"
-                        className="w-4 h-4 focus:ring-0 focus:border-0 text-primary-1"
-                      />
-                      <label
-                        htmlFor="passport"
-                        className="ml-2 text-sm font-medium"
-                      >
-                        Passport
-                      </label>
-                    </div>
-                  </div>
-                </div>
+                <RadioButton
+                  labelName="Verifikasi Identitas"
+                  options={IDENTITIES}
+                  value={identity.type}
+                  onChange={(e) =>
+                    setIdentity({
+                      ...identity,
+                      type: e.target.value,
+                    })
+                  }
+                  required
+                />
+
                 <div className="grid col-span-2">
-                  <InputWithLabel
+                  <InputDropzone
                     labelName="Unggah Foto Identitas"
-                    type="file"
+                    icon={<File />}
+                    preview={preview}
+                    onChange={(e) => {
+                      setIdentity({ ...identity, photo: e.target.files[0] });
+                      setPreview(URL.createObjectURL(e.target.files[0]));
+                    }}
+                    required
                   />
                 </div>
                 <div className="grid col-span-2 lg:place-content-end">
