@@ -20,8 +20,19 @@ backendJava.interceptors.response.use(
   (error) => Promise.reject(error)
 );
 
+
+const backendJavaPublic = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_API_URL_JAVA,
+});
+
+
+backendJavaPublic.interceptors.response.use(
+  (response) => response.data,
+  (error) => Promise.reject(error)
+);
+
 const backendFSW = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL_FSW,
 });
 
-export { backendFSW, backendJava };
+export { backendFSW, backendJava,backendJavaPublic };

@@ -1,4 +1,4 @@
-import { backendJava } from "../utils/axios";
+import { backendJava,backendJavaPublic } from "../utils/axios";
 
 const create = async (data) => {
   return await backendJava.post("/api/rooms", data);
@@ -9,7 +9,7 @@ const getAll = async () => {
 };
 
 const get = async (id) => {
-  return await backendJava.get(`/api/rooms/${id}`);
+  return await backendJavaPublic.get(`/v1/public/rooms/${id}`);
 };
 
 const update = async (id, data) => {
