@@ -17,7 +17,7 @@ const loginPemilik = async (data) => {
 };
 
 const changePassword = async (data) => {
-  return await backendJava.put("/v1/auth/password", data);
+  return await backendJava.put("/v1/account/password", data);
 };
 
 const updateProfile = async (data) => {
