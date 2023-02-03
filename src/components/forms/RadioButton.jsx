@@ -3,7 +3,7 @@ import React from "react";
 import { v4 as uuid } from "uuid";
 const RadioButton = ({ value, options, labelName, ...rest }) => {
   return (
-    <div className="w-full space-y-2" {...rest}>
+    <div className="w-full space-y-2" {...rest} id={labelName}>
       {/* <label htmlFor={labelName} className="block text-lg text-base-1">
         {labelName}
       </label> */}
@@ -22,13 +22,17 @@ const RadioButton = ({ value, options, labelName, ...rest }) => {
           >
             <input
               type="radio"
+              id={option.label}
               defaultChecked={option.value === value}
               value={option.value}
               name={labelName}
               required
               className="w-4 h-4 focus:ring-0 focus:border-0 text-primary-1"
             />
-            <label className="w-full py-3 ml-2 text-sm font-medium">
+            <label
+              htmlFor={option.label}
+              className="w-full py-3 ml-2 text-sm font-medium"
+            >
               {option.label}
             </label>
           </div>

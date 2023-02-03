@@ -1,35 +1,35 @@
-import { backendJava } from "../utils/axios";
+import { backendJavaPrivate, backendJavaPublic } from "../utils/axios";
 
 const registerPencari = async (data) => {
-  return await backendJava.post("/v1/auth/pencari/register", data);
+  return await backendJavaPublic.post("/v1/auth/pencari/register", data);
 };
 
 const registerPemilik = async (data) => {
-  return await backendJava.post("/v1/auth/pemilik/register", data);
+  return await backendJavaPublic.post("/v1/auth/pemilik/register", data);
 };
 
 const loginPencari = async (data) => {
-  return await backendJava.post("/v1/auth/login", data);
+  return await backendJavaPublic.post("/v1/auth/login", data);
 };
 
 const loginPemilik = async (data) => {
-  return await backendJava.post("/v1/auth/login", data);
+  return await backendJavaPublic.post("/v1/auth/login", data);
 };
 
 const changePassword = async (data) => {
-  return await backendJava.put("/v1/auth/password", data);
+  return await backendJavaPrivate.put("/v1/auth/password", data);
 };
 
 const updateProfile = async (data) => {
-  return await backendJava.post("/v1/account/profile", data);
+  return await backendJavaPrivate.post("/v1/account/profile", data);
 };
 
 const updateIdentity = async (data) => {
-  return await backendJava.post("/v1/account/verification", data);
+  return await backendJavaPrivate.post("/v1/account/verification", data);
 };
 
 const me = async () => {
-  return await backendJava.get("/v1/account/profile");
+  return await backendJavaPrivate.get("/v1/account/profile");
 };
 
 const userService = {
