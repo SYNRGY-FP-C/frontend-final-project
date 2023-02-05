@@ -4,7 +4,7 @@ import Section from "@/layouts/Section";
 import React from "react";
 import { useState, useEffect } from "react";
 
-export default function rules() {
+export default function Peraturan() {
   const rules = [
     { id: 1, name: "Itulah" },
     { id: 2, name: "Inilah" },
@@ -76,7 +76,7 @@ export default function rules() {
                       </tr>
                     </thead>
                     <tbody>
-                      {rules.map((rule) => {
+                      {show.map((rule) => {
                         return (
                           <tr>
                             <td>{rule.name}</td>
