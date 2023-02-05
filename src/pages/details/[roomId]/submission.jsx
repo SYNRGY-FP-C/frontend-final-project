@@ -431,7 +431,7 @@ export default function Submission() {
 
             {/* Panel Total Pembayaran */}
             <div className="col-span-12 lg:col-span-4">
-              <div className="flex flex-col bg-base-900 shadow rounded-xl gap-y-4">
+              <div className="flex flex-col bg-base-9 shadow rounded-xl gap-y-4">
                 <div className="flex justify-center object-cover w-full overflow-hidden h-52">
                   <img
                     className="object-cover w-full rounded-t-xl"
