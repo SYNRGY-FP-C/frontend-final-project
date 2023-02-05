@@ -75,10 +75,19 @@ export default function Kost() {
                 <div>
                   <table className="table-auto">
                     <thead>
-                      {kost.map((kos) => {
-                        return <tr key={uuid()}>{kos.id}</tr>;
-                      })}
+                      <tr>
+                        <th>Fasilitas</th>
+                      </tr>
                     </thead>
+                    <tbody>
+                      {kost.map((kos) => {
+                        return (
+                          <tr key={uuid()}>
+                            <td>{kos.name}</td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
                   </table>
                 </div>
               </div>
