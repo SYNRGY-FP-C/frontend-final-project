@@ -78,7 +78,7 @@ export default function Peraturan() {
                     <tbody>
                       {show.map((rule) => {
                         return (
-                          <tr>
+                          <tr key={uuid()}>
                             <td>{rule.name}</td>
                           </tr>
                         );
