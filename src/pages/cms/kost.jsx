@@ -3,6 +3,7 @@ import DefaultLayout from "@/layouts/DefaultLayout";
 import Section from "@/layouts/Section";
 import React from "react";
 import { useState, useEffect } from "react";
+import { v4 as uuid } from "uuid";
 
 export default function Kost() {
   const kost = [
