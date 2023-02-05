@@ -6,8 +6,8 @@ import { useState, useEffect } from "react";
 
 export default function Peraturan() {
   const rules = [
-    { id: 1, name: "Itulah" },
-    { id: 2, name: "Inilah" },
+    { id: 1, name: "Tamu parkir di luar" },
+    { id: 2, name: "Ikuti aturan 1" },
   ];
 
   const [select, setSelect] = useState("rules");
