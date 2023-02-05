@@ -1,6 +1,6 @@
 export const TYPES = [
   {
-    value: "CAMPUR",
+    value: "CAMPURAN",
     label: "Campur",
   },
   {
