@@ -94,3 +94,18 @@ export const authenticatedMenu = [
     link: "/wishlist",
   },
 ];
+
+export const dashboardMenu = [
+  {
+    href: "/dashboard",
+    title: "Home",
+  },
+  {
+    href: "/dashboard/transaksi",
+    title: "Transaksi",
+  },
+  {
+    href: "/dashboard/history",
+    title: "Riwayat",
+  },
+];
