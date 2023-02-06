@@ -3,7 +3,7 @@ import BreadCrumb from "@/components/BreadCrumb";
 import Button from "@/components/buttons/Button";
 import MapCard from "@/components/cards/MapCard";
 import OtherRoomCard from "@/components/cards/OtherRoomCard";
-import RoomImagesCard from "@/components/cards/RoomImagesCard"
+import RoomImagesCard from "@/components/cards/RoomImagesCard";
 import Location from "@/components/icons/Location";
 import DescriptionItem from "@/components/items/DescriptionItem";
 import Modal from "@/components/Modal";
@@ -15,40 +15,36 @@ import roomService from "@/services/room.service";
 import { formatRupiah } from "@/utils/helper";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import {useState } from "react";
+import { useState } from "react";
 import { AiOutlineHeart } from "react-icons/ai";
 import { BsTelephone } from "react-icons/bs";
 import { FiShare2 } from "react-icons/fi";
 
-
-export default function Details({room}) {
+export default function Details({ room }) {
   const isVerified = true;
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const handleButtonRegistrasi = () => {
-    if(isVerified) {
-      router.push(
-        `/details/${room.id}/submission`
-      );
+    if (isVerified) {
+      router.push(`/details/${room.id}/submission`);
     } else {
-      setOpen(true)
+      setOpen(true);
     }
-  }
+  };
 
   return (
-    <DefaultLayout title="Kos itu">
+    <DefaultLayout title={room.name}>
       <Modal isOpen={open} setIsOpen={setOpen}>
-        <img src="/images/checking_verify_profile.png" alt="Cancel" className="w-24 h-24" />
+        <img
+          src="/images/checking_verify_profile.png"
+          alt="Cancel"
+          className="w-24 h-24"
+        />
         <p className="text-xl text-center text-primary-1">
           Anda harus melengkapi profil untuk melanjutkan registrasi
         </p>
-        <Link
-          href="/my/history"
-          className="w-full"
-        >
-          <Button>
-            Lengkapi profil
-          </Button>
+        <Link href="/my/history" className="w-full">
+          <Button>Lengkapi profil</Button>
         </Link>
         <Button
           className="inline-flex justify-center w-full px-4 py-3 bg-base-900 border rounded-lg text-primary-1 border-primary-1"
@@ -81,7 +77,7 @@ export default function Details({room}) {
               <RoomDescription room={room} />
 
               <hr className="h-0.5 bg-gray-200 border-0 my-8" />
-              
+
               {/* Deskripsi Kamar */}
               <RoomDetail title="Deskripsi">
                 <p>{room.description}</p>
@@ -92,12 +88,9 @@ export default function Details({room}) {
               {/* Fasilitas */}
               <RoomDetail title="Fasilitas & Layanan">
                 <div className="grid grid-cols-2 mb-8 gap-y-4">
-                  {room?.facilities?.map(facility => (
-                    <DescriptionItem 
-                      name={facility.name}
-                      key={facility.id}
-                    >
-                      {facility.name}  
+                  {room?.facilities?.map((facility) => (
+                    <DescriptionItem name={facility.name} key={facility.id}>
+                      {facility.name}
                     </DescriptionItem>
                   ))}
                 </div>
@@ -111,12 +104,9 @@ export default function Details({room}) {
               {/* Aturan Kos */}
               <RoomDetail title="Aturan Kost">
                 <div className="grid grid-cols-2 mb-8 gap-y-4">
-                  {room?.rules?.map(rule => (
-                    <DescriptionItem 
-                      name={rule.name}
-                      key={rule.id}
-                    >
-                      {rule.name}  
+                  {room?.rules?.map((rule) => (
+                    <DescriptionItem name={rule.name} key={rule.id}>
+                      {rule.name}
                     </DescriptionItem>
                   ))}
                 </div>
@@ -130,7 +120,7 @@ export default function Details({room}) {
               <RoomDetail title="Tipe Kamar Lain dari Pemilik Kost Ini">
                 <div className="flex gap-x-3">
                   {room?.another_room?.map((value, index) => (
-                    <OtherRoomCard 
+                    <OtherRoomCard
                       key={index}
                       name={value.name}
                       price={value.price}
@@ -151,10 +141,8 @@ export default function Details({room}) {
               <RoomDetail title="Lokasi">
                 <div className="flex flex-col gap-y-3">
                   <div className="inline-flex flex-col gap-2 lg:items-center lg:flex-row">
-                  <Location className="w-5 h-5 mr-1" />
-                    <p>
-                      {room?.address}
-                    </p>
+                    <Location className="w-5 h-5 mr-1" />
+                    <p>{room?.address}</p>
                   </div>
                   <MapCard />
                 </div>
@@ -191,7 +179,7 @@ export default function Details({room}) {
                   </div>
                   <div className="flex flex-col w-36 gap-y-3 text-center text-white bg-primary-1 rounded-lg">
                     <button className="inline-flex items-center px-4 py-3 rounded-lg text-primary-1 bg-primary-1-200 gap-x-3">
-                      <BsTelephone className="w-5 h-5 text-white"/>
+                      <BsTelephone className="w-5 h-5 text-white" />
                       <p className="text-white">Hubungi</p>
                     </button>
                   </div>
@@ -203,19 +191,18 @@ export default function Details({room}) {
             <div className="col-span-12 lg:col-span-4">
               <div className="relative w-full">
                 <div className="flex flex-col p-8 rounded-lg shadow gap-y-4">
-                
                   {/* Icon Save To Wishlisht*/}
-                  
+
                   <div className="inline-flex items-center gap-x-6">
                     <div className="inline-flex items-center gap-x-2">
-                      <button className="inline-flex items-center gap-2" >
-                        <FiShare2 className="w-5 h-5"/>
+                      <button className="inline-flex items-center gap-2">
+                        <FiShare2 className="w-5 h-5" />
                         <p>Sebarkan</p>
                       </button>
                     </div>
                     <div className="inline-flex items-center gap-x-2 ml-8">
                       <button className="inline-flex items-center gap-2">
-                        <AiOutlineHeart className="w-5 h-5"/>
+                        <AiOutlineHeart className="w-5 h-5" />
                         <p>Simpan</p>
                       </button>
                     </div>
@@ -234,7 +221,7 @@ export default function Details({room}) {
                     <div className="inline-flex flex-col gap-2 lg:items-center lg:flex-row pt-3">
                       <Location className="w-5 h-5 mr-1" />
                       <p className="text-[15px]">
-                      {`${room?.location?.district}, ${room?.location?.city}`}
+                        {`${room?.location?.district}, ${room?.location?.city}`}
                       </p>
                     </div>
                   </div>
@@ -244,15 +231,15 @@ export default function Details({room}) {
                   <p className="text-secondary-1 mb-2">
                     {" "}
                     <span className="text-2xl font-semibold  text-secondary-1">
-                    {formatRupiah(room?.price)}
+                      {formatRupiah(room?.price)}
                     </span>{" "}
                     / bulan
                   </p>
                   {/* Button Registrasi */}
-                  <button 
+                  <button
                     className="px-4 py-3 w-full text-white rounded-lg bg-primary-1 hover:bg-sky-700"
-                    onClick={()=> handleButtonRegistrasi()}
-                  > 
+                    onClick={() => handleButtonRegistrasi()}
+                  >
                     Registrasi
                   </button>
                 </div>
@@ -262,13 +249,14 @@ export default function Details({room}) {
         </div>
       </Section>
     </DefaultLayout>
-  )
-
+  );
 }
 
-export const getServerSideProps = async (ctx)=> {
-  const {data} = await roomService.get(ctx.query.roomId)
-  return {props:{
-    room: data
-  }}
-}
+export const getServerSideProps = async (ctx) => {
+  const { data } = await roomService.get(ctx.query.roomId);
+  return {
+    props: {
+      room: data,
+    },
+  };
+};
