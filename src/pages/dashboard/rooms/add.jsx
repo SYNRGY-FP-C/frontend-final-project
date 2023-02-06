@@ -9,9 +9,21 @@ import { BATHROOMS } from "@/constants/bathrooms";
 import DefaultLayout from "@/layouts/DefaultLayout";
 import ProtectedPage from "@/layouts/ProtectedPage";
 import Section from "@/layouts/Section";
+import roomService from "@/services/room.service";
+import { imageToBase64 } from "@/utils/helper";
 import React from "react";
 
 export default function Kost() {
+  const [preview, setPreview] = React.useState({
+    images: "",
+  });
+
+  const [response, setResponse] = React.useState({
+    isLoading: false,
+    isError: false,
+    message: "",
+  });
+
   const [form, setForm] = React.useState({
     name: "",
     images: "",
@@ -20,11 +32,30 @@ export default function Kost() {
     length: "",
     width: "",
     max_person: "",
-    indoor_bathroom: "",
+    indoor_bathroom: null,
     bathroom_facilities: [],
     bedroom_facilities: [],
     addons_facilities: [],
   });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setResponse({ isLoading: true, isError: false, message: "" });
+    try {
+      await roomService.create(form);
+      setResponse({
+        isLoading: false,
+        isError: false,
+        message: "Kamar ditambahkan",
+      });
+    } catch (error) {
+      setResponse({
+        isLoading: false,
+        isError: true,
+        message: "Kamar gagal ditambahkan",
+      });
+    }
+  };
   return (
     <ProtectedPage allowed={["ROLE_USER_PEMILIK"]} redirect="/403">
       <DefaultLayout title="Tambah Kamar">
@@ -43,9 +74,29 @@ export default function Kost() {
                 </div>
               </div>
               <div className="grid lg:col-span-8">
-                <div className="grid grid-cols-1 gap-3 lg:grid-cols-12 gap-x-12 gap-y-6">
-                  <DataForm formData={form} setFormData={setForm} />
-                </div>
+                <form
+                  className="grid grid-cols-1 gap-3 lg:grid-cols-12 gap-x-12 gap-y-6"
+                  onSubmit={handleSubmit}
+                >
+                  <DataForm
+                    formData={form}
+                    setFormData={setForm}
+                    preview={preview}
+                    setPreview={setPreview}
+                  />
+                  <div className="grid w-full lg:col-span-12">
+                    <div className="flex items-end justify-end">
+                      <div className="block">
+                        <Button
+                          type="submit"
+                          className="w-full px-5 py-2 text-center text-primary-1 rounded-lg bg-white border border-primary-1 hover:bg-slate-200 disabled:bg-primary-2"
+                        >
+                          Simpan
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
@@ -55,9 +106,7 @@ export default function Kost() {
   );
 }
 
-function DataForm({ formData, setFormData, setFormStep }) {
-  const [preview, setPreview] = React.useState();
-
+function DataForm({ formData, setFormData, preview, setPreview }) {
   const handleCheckbox = (id, form, list) => {
     const checkboxes = formData[form];
 
@@ -85,9 +134,16 @@ function DataForm({ formData, setFormData, setFormStep }) {
         <InputDropzone
           labelName="Unggah foto luar di sini"
           icon={<File />}
-          preview={preview}
-          onChange={(e) => {
-            console.log(e);
+          preview={preview.images}
+          onChange={async (e) => {
+            setFormData({
+              ...formData,
+              images: await imageToBase64(e.target.files[0]),
+            });
+            setPreview({
+              ...preview,
+              images: URL.createObjectURL(e.target.files[0]),
+            });
           }}
           required
         />
@@ -104,10 +160,11 @@ function DataForm({ formData, setFormData, setFormStep }) {
           id="Nama Kamar"
           name="Nama Kamar"
           placeholder="Nama Kamar"
+          value={formData.name}
           onChange={(e) =>
             setFormData({
               ...formData,
-              quantity: e.target.value,
+              name: e.target.value,
             })
           }
         />
@@ -124,10 +181,11 @@ function DataForm({ formData, setFormData, setFormStep }) {
           id="Jumlah Kamar"
           name="Jumlah Kamar"
           placeholder="Jumlah Kamar"
+          value={formData.quantity}
           onChange={(e) =>
             setFormData({
               ...formData,
-              name: e.target.value,
+              quantity: e.target.value,
             })
           }
         />
@@ -201,13 +259,13 @@ function DataForm({ formData, setFormData, setFormStep }) {
       </div>
       <div className="grid w-full lg:col-span-9">
         <RadioButton
-          labelName="Jenis Kelamin"
+          labelName="Fasilitas Kamar Mandi"
           options={BATHROOMS}
-          value={"form.gender"}
+          value={formData.indoor_bathroom}
           onChange={(e) =>
             setFormData({
               ...formData,
-              type: e.target.value,
+              indoor_bathroom: e.target.value,
             })
           }
           required
@@ -291,6 +349,7 @@ function DataForm({ formData, setFormData, setFormStep }) {
           id="Harga"
           name="Harga"
           placeholder="Harga"
+          value={formData.price}
           onChange={(e) =>
             setFormData({
               ...formData,
@@ -298,16 +357,6 @@ function DataForm({ formData, setFormData, setFormStep }) {
             })
           }
         />
-      </div>
-
-      <div className="grid w-full lg:col-span-12">
-        <div className="flex items-end justify-end">
-          <div className="block">
-            <Button className="w-full px-5 py-2 text-center text-primary-1 rounded-lg bg-white border border-primary-1 hover:bg-slate-200 disabled:bg-primary-2">
-              Simpan
-            </Button>
-          </div>
-        </div>
       </div>
     </>
   );
