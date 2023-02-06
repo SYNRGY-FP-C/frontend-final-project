@@ -98,10 +98,10 @@ export const authenticatedMenu = [
 export const dashboardMenu = [
   {
     href: "/dashboard",
-    title: "Home",
+    title: "Beranda",
   },
   {
-    href: "/dashboard/transaksi",
+    href: "/dashboard/transaction",
     title: "Transaksi",
   },
   {

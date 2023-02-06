@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Alert from "@/components/Alert";
 import BackButton from "@/components/buttons/BackButton";
 import Button from "@/components/buttons/Button";
@@ -15,10 +16,12 @@ import Section from "@/layouts/Section";
 import kostService from "@/services/kost.service";
 import ruleService from "@/services/rules.service";
 import { imageToBase64 } from "@/utils/helper";
+import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { v4 as uuid } from "uuid";
 
 export default function Add() {
+  const router = useRouter();
   const [preview, setPreview] = React.useState({
     outdoor_photo: "",
     indoor_photo: "",
@@ -51,7 +54,7 @@ export default function Add() {
     e.preventDefault();
     setResponse({ isLoading: true, isError: false, message: "" });
     try {
-      await kostService.create(form);
+      await kostService.update(form);
       setResponse({
         isLoading: false,
         isError: false,
@@ -65,6 +68,14 @@ export default function Add() {
       });
     }
   };
+
+  const getKost = async () => {
+    await kostService.get(router.query.id);
+  };
+
+  useEffect(() => {
+    getKost();
+  }, [router.isReady]);
 
   return (
     <ProtectedPage allowed={[ROLE_ADMIN]} redirect="/403">

@@ -1,67 +1,42 @@
+import SidebarItem from "@/components/links/SidebarItem";
+import { dashboardMenu } from "@/constants/menu";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { v4 as uuid } from "uuid";
 
-export default function Sidebar({ children }) {
-  const router = useRouter();
-
-  const menuItems = [
-    {
-      href: "/dashboard",
-      title: "Home",
-    },
-    {
-      href: "/dashboard/transaksi",
-      title: "Transaksi",
-    },
-    {
-      href: "/dashboard/history",
-      title: "Riwayat",
-    },
-  ];
-
+export default function Sidebar() {
   return (
-    <div className="min-h-screen flex flex-col fixed">
-      <div className="flex flex-col md:flex-row flex-1">
-        <aside className="bg-primary-1 w-80">
+    <div className="flex-col hidden min-h-screen lg:flex">
+      <div className="flex flex-col flex-1 md:flex-row">
+        <aside className="py-6 bg-primary-1 w-80 gap-y-6">
           <Image
             src="/images/Brand.png"
             alt="logo"
-            className="mx-auto mt-20 mb-12"
+            className="mx-auto"
             width={190}
             height={190}
           />
-          <nav className="ml-9">
-            <div className="mr-9 mb-9 px-9 py-6 bg-white text-center rounded-lg hover:bg-slate-300">
-              <Link href="/dashboard/kost" className="flex items-center gap-1">
-                <Image src="/images/add_box.svg" width={24} height={24}></Image>
+          <nav className="my-6 ml-9 gap-y-3">
+            <div className="py-6 text-center bg-white rounded-lg mr-9 mb-9 px-9 hover:bg-slate-300">
+              <Link href="/dashboard/kost/add" className="flex items-center">
+                <Image
+                  src="/images/add_box.svg"
+                  alt="KostHub"
+                  width={24}
+                  height={24}
+                />
                 <h1>Tambah Kos Baru</h1>
               </Link>
             </div>
-            <ul>
-              {menuItems.map(({ href, title }) => (
-                <li className="" key={title}>
-                  <Link
-                    href={href}
-                    className={`flex py-6 pl-9 bg-primary-1 text-white rounded-l-lg hover:bg-white cursor-pointer hover:text-primary-1 ${
-                      router.asPath === href && " text-primary-1 bg-white"
-                    }`}
-                  >
-                    {title}{" "}
-                    {/* <a
-                      className={`flex p-2 bg-fuchsia-200 rounded hover:bg-fuchsia-400 cursor-pointer ${
-                        router.asPath === href && 'bg-fuchsia-600 text-white'
-                      }`}
-                    >
-                      {title}
-                    </a> */}
-                  </Link>
+            <ul className="flex flex-col gap-y-3">
+              {dashboardMenu.map((menu) => (
+                <li className="flex w-full" key={uuid()}>
+                  <SidebarItem href={menu.href} label={menu.title} />
                 </li>
               ))}
             </ul>
           </nav>
         </aside>
-        <main className="flex-1">{children}</main>
       </div>
     </div>
   );
