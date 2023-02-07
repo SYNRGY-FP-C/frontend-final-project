@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import Navbar from "@/layouts/Navbar";
 
 export default function Sidebar({ children }) {
   const router = useRouter();
@@ -47,21 +48,13 @@ export default function Sidebar({ children }) {
                       router.asPath === href && " text-primary-1 bg-white"
                     }`}
                   >
-                    {title}{" "}
-                    {/* <a
-                      className={`flex p-2 bg-fuchsia-200 rounded hover:bg-fuchsia-400 cursor-pointer ${
-                        router.asPath === href && 'bg-fuchsia-600 text-white'
-                      }`}
-                    >
-                      {title}
-                    </a> */}
+                    {title}
                   </Link>
                 </li>
               ))}
             </ul>
           </nav>
         </aside>
-        <main className="flex-1">{children}</main>
       </div>
     </div>
   );

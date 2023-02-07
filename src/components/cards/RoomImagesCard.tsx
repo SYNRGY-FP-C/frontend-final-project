@@ -8,7 +8,7 @@ export default function RoomImagesCard() {
         <div className="flex justify-center object-cover w-full overflow-hidden max-h-48 sm:max-h-72 md:max-h-full">
           <img
             className="object-cover w-full rounded-t-xl lg:rounded-l-xl lg:rounded-r-none"
-            src='/images/hero-image.jpg'
+            src="/images/hero-image.jpg"
             alt="Test"
           />
         </div>
