@@ -20,12 +20,17 @@ const remove = async (id) => {
   return await backendJava.delete(`/api/rooms/${id}`);
 };
 
+const search = async (data) => {
+  return await backendJava.delete("/api/search", data);
+};
+
 const roomService = {
   create,
   getAll,
   get,
   update,
   remove,
+  search,
 };
 
 export default roomService;
