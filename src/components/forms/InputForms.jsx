@@ -3,7 +3,10 @@ import React from "react";
 export default function InputWithLabel({ labelName = "input", ...rest }) {
   return (
     <div className="flex w-full space-y-2 items-center">
-      <label htmlFor={labelName} className="block text-lg leading-8 font-bold text-base-1 w-56">
+      <label
+        htmlFor={labelName}
+        className="block text-lg leading-8 font-bold text-base-1 w-56"
+      >
         {labelName}
       </label>
       <input

@@ -10,7 +10,6 @@ import React from "react";
 import { useState } from "react";
 
 export default function Login() {
-
   const { loginPencari } = useAuth();
   const [form, setForm] = useState({
     email: "",
@@ -42,7 +41,7 @@ export default function Login() {
   };
 
   return (
-      <AuthPage>
+    <AuthPage>
       <DefaultLayout title="Masuk - Pencari">
         <Section>
           <div className="flex flex-col flex-1 pt-8 md:pt-12 gap-y-6">
@@ -107,14 +106,14 @@ export default function Login() {
                       >
                         Saya belum memiliki akun{" "}
                       </Link>
-                      </form>
-                    </div>
+                    </form>
                   </div>
                 </div>
               </div>
             </div>
-          </Section>
+          </div>
+        </Section>
       </DefaultLayout>
-      </AuthPage>
+    </AuthPage>
   );
 }

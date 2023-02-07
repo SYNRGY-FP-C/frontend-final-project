@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const transaksi = () => {
-  return (
-    <div>transaksi</div>
-  )
-}
+  return <div>transaksi</div>;
+};
 
-export default transaksi
+export default transaksi;

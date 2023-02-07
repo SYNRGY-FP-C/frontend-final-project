@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import Navbar from "@/layouts/Navbar"
+import Navbar from "@/layouts/Navbar";
 
 export default function Sidebar({ children }) {
   const router = useRouter();
@@ -55,9 +55,7 @@ export default function Sidebar({ children }) {
             </ul>
           </nav>
         </aside>
-        
       </div>
-
     </div>
   );
 }
