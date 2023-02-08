@@ -4,7 +4,8 @@ import Carrousel from "@/components/Carrousel";
 import { ROLE_ADMIN } from "@/constants/roles";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import ProtectedPage from "@/layouts/ProtectedPage";
-import { useState } from "react";
+import statisticService from "@/services/statistic.service";
+import { useEffect, useState } from "react";
 
 export default function Dashboard() {
   const [statistic, setStatistic] = useState({
@@ -12,6 +13,15 @@ export default function Dashboard() {
     occupants: 0,
     empty_rooms: 0,
   });
+
+  const getStatistic = async () => {
+    const { data } = await statisticService.getAllDash();
+    setStatistic(data);
+  };
+
+  useEffect(() => {
+    getStatistic();
+  }, []);
 
   return (
     <ProtectedPage allowed={[ROLE_ADMIN]} redirect="/403">

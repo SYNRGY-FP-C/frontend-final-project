@@ -1,10 +1,9 @@
 import SidebarItem from "@/components/links/SidebarItem";
-import { dashboardMenu } from "@/constants/menu";
 import Image from "next/image";
 import Link from "next/link";
 import { v4 as uuid } from "uuid";
 
-export default function Sidebar() {
+export default function Sidebar({ menu, cms = false }) {
   return (
     <div className="flex-col hidden min-h-screen lg:flex">
       <div className="flex flex-col flex-1 md:flex-row">
@@ -17,19 +16,21 @@ export default function Sidebar() {
             height={190}
           />
           <nav className="my-6 ml-9 gap-y-3">
-            <div className="py-6 text-center bg-white rounded-lg mr-9 mb-9 px-9 hover:bg-slate-300">
-              <Link href="/dashboard/kost/add" className="flex items-center">
-                <Image
-                  src="/images/add_box.svg"
-                  alt="KostHub"
-                  width={24}
-                  height={24}
-                />
-                <h1>Tambah Kos Baru</h1>
-              </Link>
-            </div>
+            {!cms && (
+              <div className="py-6 text-center bg-white rounded-lg mr-9 mb-9 px-9 hover:bg-slate-300">
+                <Link href="/dashboard/kost/add" className="flex items-center">
+                  <Image
+                    src="/images/add_box.svg"
+                    alt="KostHub"
+                    width={24}
+                    height={24}
+                  />
+                  <h1>Tambah Kos Baru</h1>
+                </Link>
+              </div>
+            )}
             <ul className="flex flex-col gap-y-3">
-              {dashboardMenu.map((menu) => (
+              {menu.map((menu) => (
                 <li className="flex w-full" key={uuid()}>
                   <SidebarItem href={menu.href} label={menu.title} />
                 </li>
