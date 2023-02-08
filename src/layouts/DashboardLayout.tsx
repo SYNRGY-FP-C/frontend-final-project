@@ -18,7 +18,7 @@ export default function DashboardLayout({ children, title = "Dashboard" }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <ProtectedPage allowed={[ROLE_ADMIN]} redirect="/401">
+    <ProtectedPage allowed={[ROLE_ADMIN]} redirect="/403">
       <Head>
         <title>{title}</title>
       </Head>

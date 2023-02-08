@@ -4,7 +4,7 @@ import ProfileButton from "@/components/buttons/ProfileButton";
 import Drawer from "@/components/Drawer";
 import NavItem from "@/components/links/NavItem";
 import { CMSMenu, superadminMenu } from "@/constants/menu";
-import { ROLE_ADMIN } from "@/constants/roles";
+import { ROLE_SUPERADMIN } from "@/constants/roles";
 import ProtectedPage from "@/layouts/ProtectedPage";
 import Sidebar from "@/layouts/SidebarDashboard";
 import Head from "next/head";
@@ -15,7 +15,7 @@ export default function DashboardLayout({ children, title = "Dashboard" }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <ProtectedPage allowed={[ROLE_ADMIN]} redirect="/401">
+    <ProtectedPage allowed={[ROLE_SUPERADMIN]} redirect="/403">
       <Head>
         <title>{title}</title>
       </Head>
