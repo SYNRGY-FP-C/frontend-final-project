@@ -2,13 +2,19 @@ import clsxm from "clsx";
 import React from "react";
 
 import CloseButton from "./buttons/CloseButton";
-import Logo from "../components/Logo";
+import Logo from "./Logo";
+
+type DrawerProps = {
+  children: React.ReactNode;
+  isOpen?: boolean;
+  setIsOpen: (isOpen: boolean) => void;
+};
 
 export default function Drawer({
-  children = "children",
+  children,
   isOpen = false,
   setIsOpen,
-}) {
+}: DrawerProps) {
   return (
     <>
       <div
@@ -36,7 +42,7 @@ export default function Drawer({
             <Logo className="w-8 h-8 mr-3" />
             <CloseButton setIsOpen={() => setIsOpen(!isOpen)} />
           </div>
-          <div className="flex flex-col justify-between gap-y-12">
+          <div className="flex flex-col justify-between gap-y-6">
             {children}
           </div>
         </div>

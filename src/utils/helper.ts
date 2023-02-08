@@ -22,4 +22,19 @@ export const originalDate = (date) => {
   return date.split("-").reverse().join("-");
 };
 
+export const imageToBase64 = (file: File) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+  });
+};
+
+export const urlToObject = async (url) => {
+  const response = await fetch(url);
+  const blob = await response.blob();
+  return new File([blob], url, { type: blob.type });
+};
+
 export const RE_DIGIT = new RegExp(/^\d+$/);

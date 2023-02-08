@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
@@ -6,10 +7,6 @@ import { Autoplay, Navigation, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 export default function App() {
-  const data = [{
-    photo: "aa",
-  } ];
-
   return (
     <>
       <Swiper
@@ -23,22 +20,21 @@ export default function App() {
           clickable: true,
         }}
         modules={[Autoplay, Pagination, Navigation]}
-        className="mySwiper"
       >
-        <SwiperSlide className="w-full h">
-          <img src="/images/tes-banner.png" alt="" className="w-full" />
+        <SwiperSlide>
+          <img src="/images/tes-banner.png" alt="Test" className="w-full" />
         </SwiperSlide>
         <SwiperSlide>
-          <img src="/images/tes-banner.png" alt="" className="w-full" />
+          <img src="/images/tes-banner.png" alt="Test" className="w-full" />
         </SwiperSlide>
         <SwiperSlide>
-          <img src="/images/tes-banner.png" alt="" className="w-full" />
+          <img src="/images/tes-banner.png" alt="Test" className="w-full" />
         </SwiperSlide>
         <SwiperSlide>
-          <img src="/images/tes-banner.png" alt="" className="w-full" />
+          <img src="/images/tes-banner.png" alt="Test" className="w-full" />
         </SwiperSlide>
         <SwiperSlide>
-          <img src="/images/tes-banner.png" alt="" className="w-full" />
+          <img src="/images/tes-banner.png" alt="Test" className="w-full" />
         </SwiperSlide>
       </Swiper>
     </>
