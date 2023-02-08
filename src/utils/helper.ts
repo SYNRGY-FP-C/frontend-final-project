@@ -34,7 +34,8 @@ export const imageToBase64 = (file: File) => {
 export const urlToObject = async (url) => {
   const response = await fetch(url);
   const blob = await response.blob();
-  return new File([blob], url, { type: blob.type });
+  const name = url.split("/").pop();
+  return new File([blob], name, { type: blob.type });
 };
 
 export const RE_DIGIT = new RegExp(/^\d+$/);
