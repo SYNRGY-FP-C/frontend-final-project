@@ -94,6 +94,12 @@ export const AuthProvider = ({ children }: AuthProviderType) => {
     setUser(response.data);
   };
 
+  const updateBank = async (data) => {
+    await userService.updateBank(data);
+    const response = await userService.me();
+    setUser(response.data);
+  };
+
   const logoutUser = async () => {
     localStorage.removeItem("accessToken");
     setUser(null);
@@ -123,6 +129,7 @@ export const AuthProvider = ({ children }: AuthProviderType) => {
     changePassword,
     updateProfile,
     updateIdentity,
+    updateBank,
     logoutUser,
     requestOTP,
     verifyOTP,

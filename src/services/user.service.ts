@@ -32,6 +32,10 @@ const updateIdentity = async (data) => {
   return await backendJavaPrivate.post("/v1/account/verification", data);
 };
 
+const updateBank = async (data) => {
+  return await backendJavaPrivate.post("/v1/account/bank", data);
+};
+
 const me = async () => {
   return await backendJavaPrivate.get("/v1/account/profile");
 };
@@ -45,6 +49,7 @@ const userService = {
   changePassword,
   updateProfile,
   updateIdentity,
+  updateBank,
   me,
 };
 
