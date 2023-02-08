@@ -109,3 +109,26 @@ export const dashboardMenu = [
     title: "Riwayat",
   },
 ];
+
+export const CMSMenu = [
+  {
+    href: "/cms",
+    title: "Beranda",
+  },
+  {
+    href: "/cms/users",
+    title: "Pengguna",
+  },
+  {
+    href: "/cms/kost",
+    title: "Kost",
+  },
+  {
+    href: "/cms/rooms",
+    title: "Kamar",
+  },
+  {
+    href: "/cms/transactions",
+    title: "Transaksi",
+  },
+];

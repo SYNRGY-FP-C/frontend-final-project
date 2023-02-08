@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/exhaustive-deps */
 import Alert from "@/components/Alert";
 import BackButton from "@/components/buttons/BackButton";
@@ -8,6 +9,7 @@ import InputDropzone from "@/components/forms/InputDropzone";
 import RadioButton from "@/components/forms/RadioButton";
 import TextArea from "@/components/forms/TextArea";
 import File from "@/components/icons/File";
+import Modal from "@/components/Modal";
 import { ROLE_ADMIN } from "@/constants/roles";
 import { TYPES } from "@/constants/types";
 import Defaultlayout from "@/layouts/DefaultLayout";
@@ -16,11 +18,13 @@ import Section from "@/layouts/Section";
 import kostService from "@/services/kost.service";
 import ruleService from "@/services/rules.service";
 import { imageToBase64 } from "@/utils/helper";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { v4 as uuid } from "uuid";
 
 export default function Add() {
+  const [openModal, setOpenModal] = React.useState(false);
   const router = useRouter();
   const [preview, setPreview] = React.useState({
     outdoor_photo: "",
@@ -58,13 +62,14 @@ export default function Add() {
       setResponse({
         isLoading: false,
         isError: false,
-        message: "Kost ditambahkan",
+        message: "Kost diperbarui",
       });
+      setOpenModal(true);
     } catch (error) {
       setResponse({
         isLoading: false,
         isError: true,
-        message: "Kost gagal ditambahkan",
+        message: "Kost gagal diperbarui",
       });
     }
   };
@@ -79,7 +84,28 @@ export default function Add() {
 
   return (
     <ProtectedPage allowed={[ROLE_ADMIN]} redirect="/403">
-      <Defaultlayout title="Tambah Kost">
+      <Defaultlayout title="Update Kost">
+        <Modal isOpen={openModal} setIsOpen={setOpenModal}>
+          <img src="/images/sukses.png" alt="Sukses" className="w-24" />
+          <p className="text-xl font-bold text-center text-base-1">
+            Kost berhasil duperbarui!
+          </p>
+          <p className="max-w-xs text-center text-base-1">
+            Yuk lihat kost Anda dan tambahkan kamar lainnya!
+          </p>
+          <Link
+            className="inline-flex justify-center w-full px-4 py-3 text-white rounded-lg bg-primary-1"
+            href="/dashboard/kost"
+          >
+            Lihat kost
+          </Link>
+          <Link
+            className="inline-flex justify-center w-full px-4 py-3 border rounded-lg bg-base-9 text-primary-1 border-primary-1"
+            href="/dashboard"
+          >
+            Beranda
+          </Link>
+        </Modal>
         <Section>
           <div className="flex flex-col py-16 lg:py-24">
             <BackButton />
