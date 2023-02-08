@@ -54,7 +54,7 @@ export default function Submission() {
                     {openBank ? (
                       <BsCaretDownFill className="color-black" />
                     ) : (
-                      <BsCaretUpFill v />
+                      <BsCaretUpFill />
                     )}
                   </IconContext.Provider>
                 </div>
@@ -62,19 +62,19 @@ export default function Submission() {
 
               <Collapse isOpened={openBank}>
                 <div className="bg-white rounded-b-lg border border-gray-300 py-[20px] px-[30px] pb-[20px]">
-                  <div className="bg-base-8 rounded-lg py-[20px] px-[50px] pb-[20px]">
+                  <div className="bg-base-8 rounded-lg py-[20px] px-[50px] pb-[20px] hover:bg-slate-300">
                     <img src="/images/bca.png" alt="bca" />
                   </div>
 
-                  <div className="bg-base-8 rounded-lg mt-4 py-[20px] px-[50px] pb-[20px]">
+                  <div className="bg-base-8 rounded-lg mt-4 py-[20px] px-[50px] pb-[20px] hover:bg-slate-300">
                     <img src="/images/bri.png" alt="bri" />
                   </div>
 
-                  <div className="bg-base-8 rounded-lg mt-4 py-[20px] px-[50px] pb-[20px]">
+                  <div className="bg-base-8 rounded-lg mt-4 py-[20px] px-[50px] pb-[20px] hover:bg-slate-300">
                     <img src="/images/bni.png" alt="bni" />
                   </div>
 
-                  <div className="bg-base-8 rounded-lg mt-4 py-[20px] px-[50px] pb-[20px]">
+                  <div className="bg-base-8 rounded-lg mt-4 py-[20px] px-[50px] pb-[20px] hover:bg-slate-300">
                     <p>Bank Lain</p>
                   </div>
                 </div>
@@ -104,28 +104,28 @@ export default function Submission() {
 
               <Collapse isOpened={openEWallet}>
                 <div className="bg-white rounded-b-lg border border-gray-300 py-[20px] px-[30px] pb-[20px]">
-                  <div className="bg-base-8 rounded-lg py-[20px] px-[50px] pb-[20px]">
+                  <div className="bg-base-8 rounded-lg py-[20px] px-[50px] pb-[20px] hover:bg-slate-300">
                     <div className="inline-flex item-center">
                       <img src="/images/dana.png" alt="dana" />
                       <p className="ml-4 mt-1">DANA</p>
                     </div>
                   </div>
 
-                  <div className="bg-base-8 rounded-lg mt-4 py-[20px] px-[50px] pb-[20px]">
+                  <div className="bg-base-8 rounded-lg mt-4 py-[20px] px-[50px] pb-[20px] hover:bg-slate-300">
                     <div className="inline-flex item-center">
                       <img src="/images/ovo.png" alt="ovo" />
                       <p className="ml-4 mt-1">OVO</p>
                     </div>
                   </div>
 
-                  <div className="bg-base-8 rounded-lg mt-4 py-[20px] px-[50px] pb-[20px]">
+                  <div className="bg-base-8 rounded-lg mt-4 py-[20px] px-[50px] pb-[20px] hover:bg-slate-300">
                     <div className="inline-flex item-center">
                       <img src="/images/gopay.png" alt="gopay" />
                       <p className="ml-4 mt-1">GOPAY</p>
                     </div>
                   </div>
 
-                  <div className="bg-base-8 rounded-lg mt-4 py-[20px] px-[50px] pb-[20px]">
+                  <div className="bg-base-8 rounded-lg mt-4 py-[20px] px-[50px] pb-[20px] hover:bg-slate-300">
                     <div className="inline-flex item-center">
                       <img src="/images/shoopepay.png" alt="shoopepay" />
                       <p className="ml-4 mt-1">ShopeePay</p>
