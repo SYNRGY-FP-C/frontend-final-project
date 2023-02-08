@@ -62,9 +62,7 @@ export default function MyProfile() {
   };
 
   useEffect(() => {
-    if (user) {
-      getUser();
-    }
+    getUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 

@@ -11,7 +11,7 @@ import React from "react";
 const defaultData = {
   id: 1,
   name: "Room 1 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.",
-  image: "/images/hero-image.jpg",
+  thumbnail: "/images/hero-image.jpg",
   description: "Room 1 description amet consectetur adipisicing",
   price: 1200000,
   address: "Kecamatan Lorem, Bandung",
@@ -27,11 +27,11 @@ export default function FeaturedCard({ data = defaultData }) {
       <div className="relative flex justify-center object-cover w-full h-64 overflow-hidden">
         <img
           className="object-cover w-full rounded-t-2xl "
-          src={data.image}
+          src={data.thumbnail}
           alt={data.title}
         />
         <div className="absolute flex flex-row items-center justify-between w-full p-5 gap-x-3">
-          <span className="w-24 text-center py-0.5 border bg-base-9 text-primary-1 rounded-lg">
+          <span className="w-24 text-center py-0.5 border text-sm bg-base-9 text-primary-1 rounded-lg">
             {data.type}
           </span>
           {isFavorite ? (
@@ -51,7 +51,7 @@ export default function FeaturedCard({ data = defaultData }) {
             {data.name}
           </h4>
         </Link>
-        <div className="inline-flex items-center mt-2 mb-4 gap-x-1">
+        <div className="flex items-center mt-2 mb-4 gap-x-1">
           <Location className="w-5 h-5 mr-1" />
           <p className="overflow-hidden text-xs text-ellipsis whitespace-nowrap">
             {data.address}
@@ -63,7 +63,7 @@ export default function FeaturedCard({ data = defaultData }) {
           </h5>
           <div className="inline-flex items-center justify-center">
             <Star className="w-5 h-5" />
-            <p className="mx-1">5</p>
+            <p className="mx-1">{data.rating}</p>
           </div>
         </div>
       </div>

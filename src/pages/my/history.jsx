@@ -6,8 +6,7 @@ import Defaultlayout from "@/layouts/DefaultLayout";
 import ProtectedPage from "@/layouts/ProtectedPage";
 import Section from "@/layouts/Section";
 import React from "react";
-import { useState, useEffect } from "react";
-import { data } from "autoprefixer";
+import { useEffect, useState } from "react";
 
 export default function History() {
   const kos = [
@@ -104,7 +103,7 @@ export default function History() {
     <ProtectedPage allowed={[ROLE_USER]} redirect="/403">
       <Defaultlayout title="Riwayat">
         <Section>
-          <div className="pt-12 gap-y-6 pb-6">
+          <div className="pt-12 pb-6 gap-y-6">
             <div className="my-4 text-5xl font-bold text-primary-1">
               Riwayat
             </div>
@@ -147,7 +146,7 @@ export default function History() {
                       Dalam Proses
                     </Button>
                     <Button
-                      className="px-4 py-2 text-black bg-gray-300 rounded-lg bg-primary-1"
+                      className="px-4 py-2 text-black rounded-lg bg-primary-1"
                       onClick={() => setSelect("rejected")}
                     >
                       Ditolak

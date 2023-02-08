@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+/* eslint-disable react-hooks/exhaustive-deps */
 import Alert from "@/components/Alert";
 import BackButton from "@/components/buttons/BackButton";
 import Button from "@/components/buttons/Button";
@@ -18,11 +19,13 @@ import kostService from "@/services/kost.service";
 import ruleService from "@/services/rules.service";
 import { imageToBase64 } from "@/utils/helper";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { v4 as uuid } from "uuid";
 
 export default function Add() {
   const [openModal, setOpenModal] = React.useState(false);
+  const router = useRouter();
   const [preview, setPreview] = React.useState({
     outdoor_photo: "",
     indoor_photo: "",
@@ -55,32 +58,40 @@ export default function Add() {
     e.preventDefault();
     setResponse({ isLoading: true, isError: false, message: "" });
     try {
-      await kostService.create(form);
+      await kostService.update(form);
       setResponse({
         isLoading: false,
         isError: false,
-        message: "Kost ditambahkan",
+        message: "Kost diperbarui",
       });
       setOpenModal(true);
     } catch (error) {
       setResponse({
         isLoading: false,
         isError: true,
-        message: "Kost gagal ditambahkan",
+        message: "Kost gagal diperbarui",
       });
     }
   };
 
+  const getKost = async () => {
+    await kostService.get(router.query.id);
+  };
+
+  useEffect(() => {
+    getKost();
+  }, [router.isReady]);
+
   return (
     <ProtectedPage allowed={[ROLE_ADMIN]} redirect="/403">
-      <Defaultlayout title="Tambah Kost">
+      <Defaultlayout title="Update Kost">
         <Modal isOpen={openModal} setIsOpen={setOpenModal}>
           <img src="/images/sukses.png" alt="Sukses" className="w-24" />
           <p className="text-xl font-bold text-center text-base-1">
-            Kost berhasil ditambahkan!
+            Kost berhasil duperbarui!
           </p>
           <p className="max-w-xs text-center text-base-1">
-            Yuk lihat kost Anda dan tambahkan kamar pertama!
+            Yuk lihat kost Anda dan tambahkan kamar lainnya!
           </p>
           <Link
             className="inline-flex justify-center w-full px-4 py-3 text-white rounded-lg bg-primary-1"

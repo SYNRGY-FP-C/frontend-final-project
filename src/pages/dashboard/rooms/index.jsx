@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import BackButton from "@/components/buttons/BackButton";
+import RoomCard from "@/components/cards/RoomCard"
 
 export default function Kost() {
   return (
@@ -30,6 +31,9 @@ export default function Kost() {
                   </Link>
                 </div>
                 <div className="col-span-9 items-center">
+                <RoomCard />
+                {false && (
+                  <>
                   <Image
                     src="/images/register-pemilik.png"
                     width={291}
@@ -43,6 +47,8 @@ export default function Kost() {
                       pertamamu!
                     </p>
                   </div>
+                  </>
+                 )}
                 </div>
               </div>
             </div>

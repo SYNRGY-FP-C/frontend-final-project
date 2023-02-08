@@ -16,6 +16,10 @@ const loginPemilik = async (data) => {
   return await backendJavaPublic.post("/v1/auth/login", data);
 };
 
+const login = async (data) => {
+  return await backendJavaPublic.post("/v1/auth/login", data);
+};
+
 const changePassword = async (data) => {
   return await backendJavaPrivate.put("/v1/account/password", data);
 };
@@ -37,6 +41,7 @@ const userService = {
   registerPemilik,
   loginPencari,
   loginPemilik,
+  login,
   changePassword,
   updateProfile,
   updateIdentity,
