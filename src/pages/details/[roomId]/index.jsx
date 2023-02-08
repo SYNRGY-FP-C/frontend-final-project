@@ -145,8 +145,6 @@ export default function Details() {
     isError: false,
     message: "",
   });
-  const imageDefault = room.images.kost[0].url;
-  const [select, setSelect] = useState(imageDefault);
 
   useEffect(() => {
     const fetchRoom = async () => {
@@ -207,11 +205,7 @@ export default function Details() {
           <BreadCrumb />
 
           {/* Image Kos */}
-          <RoomImagesCard
-            images={room.images}
-            select={select}
-            setSelect={setSelect}
-          />
+          <RoomImagesCard />
 
           {/* Tittle */}
           <div className="flex flex-col md:justify-between md:flex-row">

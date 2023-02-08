@@ -17,7 +17,7 @@ export default function OtherRoomCard({
       <div className="flex justify-center object-cover h-64 overflow-hidden">
         <img
           className="object-cover w-full rounded-t-2xl"
-          src={`/images/${thumbnail}`}
+          src={thumbnail}
           alt={name}
         />
       </div>
