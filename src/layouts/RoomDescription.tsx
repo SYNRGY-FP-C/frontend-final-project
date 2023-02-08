@@ -19,11 +19,6 @@ export default function RoomDescription({ room }) {
           {room?.type}
         </span>
       </div>
-      <div className="block">
-        <span className="inline-flex items-center h-7 px-4 py-1 text-xs text-center text-white bg-primary-3 rounded-full">
-          {room?.label}
-        </span>
-      </div>
     </div>
   );
 }

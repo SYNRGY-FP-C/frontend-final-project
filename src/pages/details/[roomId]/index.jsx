@@ -5,8 +5,11 @@ import MapCard from "@/components/cards/MapCard";
 import OtherRoomCard from "@/components/cards/OtherRoomCard";
 import RoomImagesCard from "@/components/cards/RoomImagesCard";
 import Location from "@/components/icons/Location";
+import Love from "@/components/icons/Love";
+import LoveOutline from "@/components/icons/LoveOutline";
 import DescriptionItem from "@/components/items/DescriptionItem";
 import Modal from "@/components/Modal";
+import useFavorive from "@/hooks/useFavorite";
 import DefaultLayout from "@/layouts/DefaultLayout";
 import RoomDescription from "@/layouts/RoomDescription";
 import RoomDetail from "@/layouts/RoomDetail";
@@ -16,25 +19,26 @@ import { formatRupiah } from "@/utils/helper";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { AiOutlineHeart } from "react-icons/ai";
 import { BsTelephone } from "react-icons/bs";
 import { FiShare2 } from "react-icons/fi";
 
 export default function Details({ room }) {
   const isVerified = true;
   const router = useRouter();
-  const [open, setOpen] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+  const [isFavorite, addFavorite, removeFavorite] = useFavorive(room);
+
   const handleButtonRegistrasi = () => {
     if (isVerified) {
       router.push(`/details/${room.id}/submission`);
     } else {
-      setOpen(true);
+      setOpenModal(true);
     }
   };
 
   return (
     <DefaultLayout title={room.name}>
-      <Modal isOpen={open} setIsOpen={setOpen}>
+      <Modal isOpen={openModal} setIsOpen={setOpenModal}>
         <img
           src="/images/checking_verify_profile.png"
           alt="Cancel"
@@ -48,7 +52,7 @@ export default function Details({ room }) {
         </Link>
         <Button
           className="inline-flex justify-center w-full px-4 py-3 bg-base-900 border rounded-lg text-primary-1 border-primary-1"
-          onClick={() => setOpen(false)}
+          onClick={() => setOpenModal(false)}
         >
           Batal
         </Button>
@@ -120,17 +124,7 @@ export default function Details({ room }) {
               <RoomDetail title="Tipe Kamar Lain dari Pemilik Kost Ini">
                 <div className="flex gap-x-3">
                   {room?.another_room?.map((value, index) => (
-                    <OtherRoomCard
-                      key={index}
-                      name={value.name}
-                      price={value.price}
-                      thumbnail={value.thumbnail}
-                      city={value.location.city}
-                      district={value.location.district}
-                      label={value.label}
-                      rating={value.rating}
-                      type={value.type}
-                    />
+                    <OtherRoomCard key={index} room={value} />
                   ))}
                 </div>
               </RoomDetail>
@@ -148,12 +142,12 @@ export default function Details({ room }) {
                 </div>
               </RoomDetail>
 
-              <hr className="h-0.5 bg-gray-200 border-0 my-8" />
+              {/* <hr className="h-0.5 bg-gray-200 border-0 my-8" /> */}
 
               {/* Ulasan */}
-              <RoomDetail title="Ulasan">
+              {/* <RoomDetail title="Ulasan">
                 <div className="flex flex-col gap-y-3"></div>
-              </RoomDetail>
+              </RoomDetail> */}
 
               <hr className="h-0.5 bg-gray-200 border-0 my-8" />
 
@@ -201,16 +195,29 @@ export default function Details({ room }) {
                       </button>
                     </div>
                     <div className="inline-flex items-center gap-x-2 ml-8">
-                      <button className="inline-flex items-center gap-2">
-                        <AiOutlineHeart className="w-5 h-5" />
-                        <p>Simpan</p>
-                      </button>
+                      {isFavorite ? (
+                        <button
+                          className="inline-flex items-center gap-2"
+                          onClick={() => removeFavorite(room)}
+                        >
+                          <Love className="w-5 h-5" />
+                          <p>Simpan</p>
+                        </button>
+                      ) : (
+                        <button
+                          className="inline-flex items-center gap-2"
+                          onClick={() => addFavorite(room)}
+                        >
+                          <LoveOutline className="w-5 h-5" color="dark" />
+                          <p>Simpan</p>
+                        </button>
+                      )}
                     </div>
                   </div>
                   {/* Label */}
-                  <div className="block">
-                    <span className="inline-flex items-center h-7 px-4 py-1 text-xs text-center text-white bg-primary-3 rounded-full">
-                      {room.label}
+                  <div className="block lg:mt-8">
+                    <span className="inline-flex items-center px-4 py-1 text-xs text-center border border-black rounded-full">
+                      {room?.type}
                     </span>
                   </div>
                   {/* title room panel */}
@@ -252,8 +259,8 @@ export default function Details({ room }) {
   );
 }
 
-export const getServerSideProps = async (ctx) => {
-  const { data } = await roomService.get(ctx.query.roomId);
+export const getServerSideProps = async (contex) => {
+  const { data } = await roomService.get(contex.query.roomId);
   return {
     props: {
       room: data,

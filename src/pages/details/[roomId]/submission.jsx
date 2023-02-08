@@ -69,7 +69,7 @@ export default function Submission({ roomSubmission }) {
   ];
 
   const [user, setUser] = useState(mockDataUser);
-  const [count, setCount] = useState(0);
+  const [capacity, setCapacity] = useState(0);
   const [rentDate, setRentDate] = useState("");
   const [paymentScheme, setPaymentScheme] = useState("");
   const [checkedOrder, setCheckedOrder] = useState(
@@ -77,7 +77,12 @@ export default function Submission({ roomSubmission }) {
   );
   const [totalExtra, setTotalExtra] = useState(0);
   const [totalCost, setTotalCost] = useState(0);
-  const [open, setOpen] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+  const [response, setResponse] = useState({
+    isError: false,
+    message: "",
+  });
+  const [radio, setRadio] = useState(mockDataUser.verification.type || "");
 
   const handleRentDate = (e) => {
     const value = e.target.value;
@@ -90,12 +95,13 @@ export default function Submission({ roomSubmission }) {
   };
 
   const increment = () => {
-    if (count < roomSubmission.max_person) setCount(count + 1);
+    if (capacity < roomSubmission.max_person) setCapacity(capacity + 1);
   };
 
   const decrement = () => {
-    if (count > 0) setCount(count - 1);
+    if (capacity > 0) setCapacity(capacity - 1);
   };
+
   const handleOnChange = (position) => {
     const updatedCheckedState = checkedOrder.map((item, index) =>
       index === position ? !item : item
@@ -117,18 +123,39 @@ export default function Submission({ roomSubmission }) {
     setTotalCost(roomSubmission.price + totalPrice);
   };
 
-  const handleAjukanSewa = () => {
-    setOpen(true);
+  const handleAjukanSewa = async () => {
+    // const dataTransaction = {
+    //   kost_id,
+    //   user_id,
+    //   capacity,
+    //   start_date: rentDate,
+    //   payment_scheme: paymentScheme,
+    //   addons_facilities
+    // }
+    // setResponse({ isError: false, message: "" });
+    // try {
+    //   await transactionService.create(dataTransaction)
+    //   setResponse({
+    //     isError: false,
+    //     message: "Transaksi Berhasil",
+    //   });
+    setOpenModal(true);
+    // } catch (error) {
+    //   setResponse({
+    //     isError: true,
+    //     message: error,
+    //   });
+    // }
   };
 
   return (
     <DefaultLayout title="Ajukan Penyewaan">
       <Section>
         <div className="flex flex-col gap-y-6">
-          <div className="block mt-14">
+          <div className="block mt-24">
             <Link href="/" className="inline-flex items-center py-2 gap-x-1">
-              <MdChevronLeft className="w-7 h-7" />
-              <p className="text-sm text-primary-1">Kembali</p>
+              <MdChevronLeft className="w-7 h-7 text-secondary-2" />
+              <p className="text-lg font-bold text-secondary-2">Kembali</p>
             </Link>
           </div>
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-12">
@@ -178,7 +205,7 @@ export default function Submission({ roomSubmission }) {
                       </button>
                     </div>
                     <div className="bg-gray-300 text-center text-primary-1 sm:text-sm border-1 rounded-lg block w-10 h-10 p-2.5 appearance-none">
-                      {count}
+                      {capacity}
                     </div>
                     <div className="inline-flex items-center gap-x-2">
                       <button
@@ -199,6 +226,8 @@ export default function Submission({ roomSubmission }) {
                         id="inline-radio"
                         type="radio"
                         defaultValue
+                        disabled
+                        checked={radio === "ktp"}
                         name="inline-radio-group"
                         className="w-4 h-4 text-gray-600 bg-gray-100 border-gray-300 "
                       />
@@ -214,6 +243,8 @@ export default function Submission({ roomSubmission }) {
                         id="inline-2-radio"
                         type="radio"
                         defaultValue
+                        disabled
+                        checked={radio === "sim"}
                         name="inline-radio-group"
                         className="w-4 h-4 text-gray-600 bg-gray-100 border-gray-300 "
                       />
@@ -230,6 +261,8 @@ export default function Submission({ roomSubmission }) {
                         id="inline-checked-radio"
                         type="radio"
                         defaultValue
+                        disabled
+                        checked={radio === "passport"}
                         name="inline-radio-group"
                         className="w-4 h-4 text-gray-600 bg-gray-100 border-gray-300 "
                       />
@@ -340,11 +373,6 @@ export default function Submission({ roomSubmission }) {
                 </div>
                 <div className="flex flex-col p-5 gap-y-4">
                   <div className="inline-block items-center gap-x-4">
-                    <div className="block mb-5">
-                      <span className="inline-flex items-center h-7 px-4 py-1 text-xs text-center text-white bg-primary-3 rounded-full">
-                        Superkost
-                      </span>
-                    </div>
                     <h5 className="text-[32px] font-bold">
                       {roomSubmission.name}
                     </h5>
@@ -407,7 +435,7 @@ export default function Submission({ roomSubmission }) {
               </button>
             </div>
 
-            <Modal isOpen={open} setIsOpen={setOpen}>
+            <Modal isOpen={openModal} setIsOpen={setOpenModal}>
               <img
                 src="/images/succes_pengajuan_sewa.png"
                 alt="Cancel"
@@ -434,8 +462,8 @@ export default function Submission({ roomSubmission }) {
   );
 }
 
-export const getServerSideProps = async (ctx) => {
-  const { data } = await roomService.get(ctx.query.roomId);
+export const getServerSideProps = async (contex) => {
+  const { data } = await roomService.get(contex.query.roomId);
   return {
     props: {
       roomSubmission: data,
