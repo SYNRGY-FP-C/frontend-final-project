@@ -4,7 +4,7 @@ import Carrousel from "@/components/Carrousel";
 import { ROLE_ADMIN } from "@/constants/roles";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import ProtectedPage from "@/layouts/ProtectedPage";
-import statisticService from "@/services/statistic";
+import statisticService from "@/services/statistic.service";
 import { useEffect, useState } from "react";
 
 export default function Dashboard() {
