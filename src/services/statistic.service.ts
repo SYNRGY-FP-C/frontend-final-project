@@ -5,7 +5,7 @@ const getAll = async () => {
 };
 
 const getAllDash = async () => {
-  return await backendJavaPrivate.get("/v1/statistics");
+  return await backendJavaPrivate.get("/v1/statistic/");
 };
 
 const statisticService = {

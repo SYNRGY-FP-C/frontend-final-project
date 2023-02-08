@@ -18,9 +18,7 @@ export default function Footer() {
             >
               <KostHub className="w-8 h-8 mr-3" color="white" /> KostHub
             </Link>
-            <p className="text-white ">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            </p>
+            <p className="text-white ">Cari Kost Makin Mudah Dengan KostHub!</p>
             <GooglePlay className="cursor-pointer" />
           </div>
           <div className="flex flex-col gap-y-3">

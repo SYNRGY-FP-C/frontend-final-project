@@ -5,6 +5,7 @@ import TestimoniCard from "@/components/cards/TestimoniCard";
 import WhyUsCard from "@/components/cards/WhyUsCard";
 import SearchBar from "@/components/forms/SearchBar";
 import Hero from "@/components/Hero";
+import { cities } from "@/constants/cities";
 import DefaultLayout from "@/layouts/DefaultLayout";
 import Featured from "@/layouts/Featured";
 import Footer from "@/layouts/Footer";
@@ -70,14 +71,9 @@ export default function Home({ hits_room, newest_room }) {
         </Section>
         <Section>
           <Featured center title="Area Kost Populer">
-            <LocationCard />
-            <LocationCard />
-            <LocationCard />
-            <LocationCard />
-            <LocationCard />
-            <LocationCard />
-            <LocationCard />
-            <LocationCard />
+            {cities.map((city) => (
+              <LocationCard key={uuid()} data={city} />
+            ))}
           </Featured>
         </Section>
         <Section>
