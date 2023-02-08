@@ -71,7 +71,7 @@ export default function Submission({ roomSubmission }) {
   const [user, setUser] = useState(mockDataUser);
   const [count, setCount] = useState(0);
   const [rentDate, setRentDate] = useState("");
-  const [typePayment, setTypePayment] = useState("");
+  const [paymentScheme, setPaymentScheme] = useState("");
   const [checkedOrder, setCheckedOrder] = useState(
     new Array(itemChecked.length).fill(false)
   );
@@ -84,9 +84,9 @@ export default function Submission({ roomSubmission }) {
     setRentDate(value);
   };
 
-  const handleTypePayment = (e) => {
+  const handlePaymentScheme = (e) => {
     const value = e.target.value;
-    setTypePayment(value);
+    setPaymentScheme(value);
   };
 
   const increment = () => {
@@ -273,8 +273,8 @@ export default function Submission({ roomSubmission }) {
                     labelName=""
                     placeholder="Tipe Pembayaran"
                     required
-                    value={typePayment}
-                    onChange={(e) => handleTypePayment(e)}
+                    value={paymentScheme}
+                    onChange={(e) => handlePaymentScheme(e)}
                   />
                 </SubmissionDetail>
 

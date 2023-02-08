@@ -5,41 +5,16 @@ import { ROLE_USER } from "@/constants/roles";
 import Defaultlayout from "@/layouts/DefaultLayout";
 import ProtectedPage from "@/layouts/ProtectedPage";
 import Section from "@/layouts/Section";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function Favorite() {
-  const [response, setReponse] = useState({
-    isLoading: false,
-    isError: false,
-  });
-
-  const [favorites, setfavorites] = useState([
-    {
-      id: 1,
-      title:
-        "Room 1 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.",
-      image: "/images/hero-image.jpg",
-      description: "Room 1 description amet consectetur adipisicing",
-      price: 1200000,
-      address: "Kecamatan Lorem, Bandung",
-      type: "campur",
-    },
-    {
-      id: 1,
-      title:
-        "Room 1 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.",
-      image: "/images/hero-image.jpg",
-      description: "Room 1 description amet consectetur adipisicing",
-      price: 1200000,
-      address: "Kecamatan Lorem, Bandung",
-      type: "campur",
-    },
-  ]);
+  const [favorites, setfavorites] = useState([]);
 
   useEffect(() => {
-    const tempFavorites = JSON.parse(localStorage.getItem("favorite")) || [];
+    const tempFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
     if (tempFavorites.length > 0) {
-      setfavorites(favorites);
+      setfavorites(tempFavorites);
     }
   }, []);
 

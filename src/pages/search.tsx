@@ -6,9 +6,49 @@ import SearchBar from "@/components/forms/SearchBar";
 import Star from "@/components/icons/Star";
 import DefaultLayout from "@/layouts/DefaultLayout";
 import Section from "@/layouts/Section";
-import React from "react";
+import roomService from "@/services/room.service";
+import React, { useState } from "react";
 
 export default function Search() {
+  const [response, setResponse] = useState({
+    isLoading: false,
+    isError: false,
+    data: [],
+  });
+  const [search, setSearch] = useState({
+    keyword: "kamar",
+    label: "",
+    type: "",
+    price_min: 0,
+    price_max: 999999999,
+    size: 10 + 5,
+  });
+
+  const handleSearch = async () => {
+    setResponse({
+      ...response,
+      isLoading: true,
+      isError: false,
+    });
+    try {
+      const temp = await roomService.search({
+        params: search,
+      });
+
+      setResponse({
+        isLoading: false,
+        isError: false,
+        data: temp.data,
+      });
+    } catch (error) {
+      setResponse({
+        ...response,
+        isLoading: false,
+        isError: true,
+      });
+    }
+  };
+
   return (
     <DefaultLayout title="Cari kost impianmu">
       <Section>
@@ -51,7 +91,16 @@ export default function Search() {
                   <div className="flex flex-col gap-y-3">
                     <h5 className="font-bold text-base-1">Rentang Harga</h5>
                     <div className="flex flex-col gap-y-3">
-                      <Input type="number" placeholder="Harga Minimum" />
+                      <Input
+                        type="number"
+                        placeholder="Harga Minimum"
+                        onChange={(e) =>
+                          setSearch({
+                            ...search,
+                            price_min: Number(e.target.value),
+                          })
+                        }
+                      />
                       <Input type="number" placeholder="Harga Maksimum" />
                     </div>
                   </div>
@@ -126,7 +175,10 @@ export default function Search() {
                   </div>
 
                   <div className="flex flex-row justify-between gap-x-3">
-                    <button className="w-full py-3 text-white rounded-lg bg-primary-1">
+                    <button
+                      className="w-full py-3 text-white rounded-lg bg-primary-1"
+                      onClick={handleSearch}
+                    >
                       Filter
                     </button>
                     <button className="w-full py-3 border rounded-lg bg-base-9 text-primary-1 border-primary-1">

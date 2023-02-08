@@ -1,10 +1,28 @@
 import axios from "axios";
 
-const backendJava = axios.create({
+const backendJavaPublic = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL_JAVA,
 });
 
-backendJava.interceptors.request.use(
+backendJavaPublic.interceptors.response.use(
+  (response) => response.data,
+  (error) => Promise.reject(error)
+);
+
+const backendFSWPublic = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_API_URL_FSW,
+});
+
+backendFSWPublic.interceptors.response.use(
+  (response) => response.data,
+  (error) => Promise.reject(error)
+);
+
+const backendFSWPrivate = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_API_URL_FSW,
+});
+
+backendFSWPrivate.interceptors.request.use(
   (config) => {
     const accessToken = localStorage.getItem("accessToken");
     if (accessToken) {
@@ -15,24 +33,34 @@ backendJava.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-backendJava.interceptors.response.use(
+backendFSWPrivate.interceptors.response.use(
   (response) => response.data,
   (error) => Promise.reject(error)
 );
 
-
-const backendJavaPublic = axios.create({
+const backendJavaPrivate = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL_JAVA,
 });
 
+backendJavaPrivate.interceptors.request.use(
+  (config) => {
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+      config.headers["Authorization"] = `Bearer ${accessToken}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
 
-backendJavaPublic.interceptors.response.use(
+backendJavaPrivate.interceptors.response.use(
   (response) => response.data,
   (error) => Promise.reject(error)
 );
 
-const backendFSW = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL_FSW,
-});
-
-export { backendFSW, backendJava, backendJavaPublic };
+export {
+  backendFSWPrivate,
+  backendFSWPublic,
+  backendJavaPrivate,
+  backendJavaPublic,
+};

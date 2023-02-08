@@ -1,3 +1,8 @@
+import DropdownButton from "@/components/buttons/DropdownButton";
+import MenuButton from "@/components/buttons/MenuButton";
+import ProfileButton from "@/components/buttons/ProfileButton";
+import Drawer from "@/components/Drawer";
+import Logo from "@/components/Logo";
 import {
   adminMenu,
   loginMenu,
@@ -8,12 +13,6 @@ import {
 import { ROLE_ADMIN, ROLE_USER } from "@/constants/roles";
 import { useAuth } from "@/contexts/AuthContext";
 import React from "react";
-
-import DropdownButton from "../components/buttons/DropdownButton";
-import MenuButton from "../components/buttons/MenuButton";
-import ProfileButton from "../components/buttons/ProfileButton";
-import Drawer from "../components/Drawer";
-import Logo from "../components/Logo";
 
 export default function Navbar({ isAuthenticated = false }) {
   const { user } = useAuth();
