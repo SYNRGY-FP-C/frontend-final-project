@@ -4,26 +4,25 @@ import React from "react";
 
 const defaultData = {
   id: 1,
-  location: "Jakarta",
+  name: "Jakarta",
+  image: "/images/hero-image.jpg",
 };
 
-export default function LocationCard({ data = defaultData }) {
+export default function nameCard({ data = defaultData }) {
   return (
     <div className="relative flex-1 rounded-lg hover:shadow-xl">
-      <Link href={`/details/${data.id}`}>
+      <Link href="/search">
         <div className="flex justify-center object-cover w-full h-64 overflow-hidden rounded-lg">
           <img
             className="object-cover w-full"
-            src="/images/hero-image.jpg"
-            alt={data.location}
+            src={data.image}
+            alt={data.name}
           />
         </div>
 
         <div className="absolute top-0 left-0 w-full h-full bg-black rounded-lg opacity-50" />
         <div className="absolute p-1 left-5 bottom-3">
-          <h4 className="text-[28px] font-bold text-gray-100 ">
-            {data.location}
-          </h4>
+          <h4 className="text-[28px] font-bold text-gray-100 ">{data.name}</h4>
         </div>
       </Link>
     </div>
