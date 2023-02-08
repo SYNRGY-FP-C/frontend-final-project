@@ -9,6 +9,7 @@ import Love from "@/components/icons/Love";
 import LoveOutline from "@/components/icons/LoveOutline";
 import DescriptionItem from "@/components/items/DescriptionItem";
 import Modal from "@/components/Modal";
+import { useAuth } from "@/contexts/AuthContext";
 import useFavorive from "@/hooks/useFavorite";
 import DefaultLayout from "@/layouts/DefaultLayout";
 import RoomDescription from "@/layouts/RoomDescription";
@@ -23,13 +24,14 @@ import { BsTelephone } from "react-icons/bs";
 import { FiShare2 } from "react-icons/fi";
 
 export default function Details({ room }) {
-  const isVerified = true;
+  const { user } = useAuth();
+  console.log(user);
   const router = useRouter();
   const [openModal, setOpenModal] = useState(false);
   const [isFavorite, addFavorite, removeFavorite] = useFavorive(room);
 
   const handleButtonRegistrasi = () => {
-    if (isVerified) {
+    if (user.verified) {
       router.push(`/details/${room.id}/submission`);
     } else {
       setOpenModal(true);
@@ -71,7 +73,7 @@ export default function Details({ room }) {
               <h3 className="font-bold text-primary-1 text-3xl md:text-[40px]">
                 {room.name}
               </h3>
-              <p className="text-sm italic md:text-xl">Sisa 1 kamar</p>
+              <p className="text-sm italic md:text-xl">{`Sisa ${room.available_room} kamar`}</p>
             </div>
           </div>
 
@@ -98,9 +100,6 @@ export default function Details({ room }) {
                     </DescriptionItem>
                   ))}
                 </div>
-                <p className="underline decoration-primary-1-200 decoration-2">
-                  Lihat semua
-                </p>
               </RoomDetail>
 
               <hr className="h-0.5 bg-gray-200 border-0 my-8" />
@@ -114,9 +113,6 @@ export default function Details({ room }) {
                     </DescriptionItem>
                   ))}
                 </div>
-                <p className="underline decoration-primary-1-200 decoration-2">
-                  Lihat semua
-                </p>
               </RoomDetail>
               <hr className="h-0.5 bg-gray-200 border-0 my-8" />
 
@@ -228,7 +224,7 @@ export default function Details({ room }) {
                     <div className="inline-flex flex-col gap-2 lg:items-center lg:flex-row pt-3">
                       <Location className="w-5 h-5 mr-1" />
                       <p className="text-[15px]">
-                        {`${room?.location?.district}, ${room?.location?.city}`}
+                        {`${room?.district}, ${room?.city}`}
                       </p>
                     </div>
                   </div>

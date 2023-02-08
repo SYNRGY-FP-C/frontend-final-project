@@ -12,7 +12,7 @@ export default function RoomDescription({ room }) {
 
       <div className="inline-flex items-center gap-x-2">
         <Location className="w-5 h-5 mr-1" />{" "}
-        {`${room?.location?.district}, ${room?.location?.city}`}
+        {`${room?.district}, ${room?.city}`}
       </div>
       <div className="block">
         <span className="inline-flex items-center px-4 py-1 text-xs text-center border border-black rounded-full">

@@ -14,7 +14,7 @@ export default function OtherRoomCard({ room }) {
       <div className="relative flex justify-center object-cover w-full h-64 overflow-hidden">
         <img
           className="object-cover w-full rounded-t-2xl"
-          src="/images/image_room1.png"
+          src={room.thumbnail}
           alt={room?.name}
         />
         <div className="absolute flex flex-row items-center justify-end w-full p-5 gap-x-3">
@@ -36,7 +36,7 @@ export default function OtherRoomCard({ room }) {
         <div className="inline-flex items-center gap-x-2">
           <Location className="w-5 h-5 mr-1" />
           <p className="overflow-hidden text-xs text-ellipsis whitespace-nowrap">
-            {`${room?.district}, ${room?.city}`}
+            {`${room?.location?.district}, ${room?.location?.city}`}
           </p>
         </div>
         <div className="inline-flex justify-between">
