@@ -18,10 +18,11 @@ import Section from "@/layouts/Section";
 import roomService from "@/services/room.service";
 import { imageToBase64 } from "@/utils/helper";
 import Link from "next/link";
-import router from "next/router";
+import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 
 export default function Kost() {
+  const router = useRouter();
   const [openModal, setOpenModal] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
   const [preview, setPreview] = React.useState({
