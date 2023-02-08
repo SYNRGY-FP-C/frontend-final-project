@@ -24,10 +24,6 @@ const search = async (data) => {
   return await backendJavaPublic.get("/v1/public/search", data);
 };
 
-const search = async (data) => {
-  return await backendJavaPublic.delete("/api/search", data);
-};
-
 const roomService = {
   create,
   getAll,
