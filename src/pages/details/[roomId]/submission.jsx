@@ -32,6 +32,7 @@ export default function Submission({ roomSubmission }) {
   const [totalCost, setTotalCost] = useState(0);
   const [openModal, setOpenModal] = useState(false);
   const [response, setResponse] = useState({
+    isLoading: false,
     isError: false,
     message: "",
   });
@@ -90,17 +91,19 @@ export default function Submission({ roomSubmission }) {
       payment_scheme: paymentScheme,
       addons_facilities: checkedAddOnFacilities,
     };
-    setResponse({ isError: false, message: "" });
+    setResponse({ isLoading: true, isError: false, message: "" });
     try {
       const transaction = await transactionService.create(dataTransaction);
       console.log(transaction);
       setResponse({
+        isLoading: false,
         isError: false,
         message: "Transaksi Berhasil",
       });
       setOpenModal(true);
     } catch (error) {
       setResponse({
+        isLoading: false,
         isError: true,
         message: error,
       });
