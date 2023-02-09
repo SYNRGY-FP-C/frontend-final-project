@@ -1,5 +1,5 @@
-/* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @next/next/no-img-element */
 import Alert from "@/components/Alert";
 import BackButton from "@/components/buttons/BackButton";
 import Button from "@/components/buttons/Button";
@@ -16,12 +16,12 @@ import DefaultLayout from "@/layouts/DefaultLayout";
 import ProtectedPage from "@/layouts/ProtectedPage";
 import Section from "@/layouts/Section";
 import roomService from "@/services/room.service";
-import { imageToBase64 } from "@/utils/helper";
+import { imageToBase64, urlToBase64 } from "@/utils/helper";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 
-export default function Kost() {
+export default function Room() {
   const router = useRouter();
   const [openModal, setOpenModal] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
@@ -40,11 +40,11 @@ export default function Kost() {
   const [form, setForm] = React.useState({
     name: "",
     images: [],
-    quantity: "",
-    price: "",
-    length: "",
-    width: "",
-    max_person: "",
+    quantity: 0,
+    price: 0,
+    length: 0,
+    width: 0,
+    max_person: 0,
     indoor_bathroom: null,
     bathroom_facilities: [],
     bedroom_facilities: [],
@@ -55,9 +55,8 @@ export default function Kost() {
     e.preventDefault();
     setResponse({ isLoading: true, isError: false, message: "" });
     try {
-      await roomService.create({
+      await roomService.update(router?.query?.roomId, {
         ...form,
-        kost_id: router?.query?.kostId,
         indoor_bathroom: form.indoor_bathroom === "LUAR" ? true : false,
       });
       setResponse({
@@ -88,6 +87,27 @@ export default function Kost() {
     setForm({ ...form, [key]: checkboxes });
   };
 
+  const getRoom = async () => {
+    const { data } = await roomService.get(router?.query?.roomId);
+    setForm({
+      ...form,
+      name: data.name || "",
+      images: [
+        ((await urlToBase64(data?.images[0])) as string) || "",
+        ((await urlToBase64(data?.images[1])) as string) || "",
+      ],
+      price: data.price || 0,
+      max_person: data.max_person || 1,
+      indoor_bathroom: null,
+      bathroom_facilities: [],
+      bedroom_facilities: [],
+      addons_facilities: [],
+    });
+    setPreview({
+      images: data?.images[0] || "",
+    });
+  };
+
   const bathroom_facilities = [
     {
       id: 1,
@@ -101,13 +121,9 @@ export default function Kost() {
       name: "Cleaning Service",
     },
   ];
-
-  const getRoomDetail = async () => {
-    const { data } = await roomService.get(router?.query?.roomId);
-  };
-
   useEffect(() => {
-    if (router?.query?.kostId || router?.query?.roomId) {
+    if (router?.query?.roomId) {
+      getRoom();
       setLoading(false);
     }
   }, [router.isReady]);
@@ -116,18 +132,18 @@ export default function Kost() {
 
   return (
     <ProtectedPage allowed={[ROLE_ADMIN]} redirect="/403">
-      <DefaultLayout title="Tambah Kamar">
+      <DefaultLayout title="Update Kamar">
         <Modal isOpen={openModal} setIsOpen={setOpenModal}>
           <img src="/images/sukses.png" alt="Sukses" className="w-24" />
           <p className="text-xl font-bold text-center text-base-1">
-            Kamar berhasil diubah!
+            Kamar berhasil diperbarui!
           </p>
           <p className="max-w-xs text-center text-base-1">
-            Yuk lihat kamar kost terbaru Anda!
+            Yuk lihat kamar baru anda!
           </p>
           <Link
             className="inline-flex justify-center w-full px-4 py-3 text-white rounded-lg bg-primary-1"
-            href={`/dashboard/kost/${router?.query?.kostId}`}
+            href={`/dashboard/kost/${router?.query?.roomId}/rooms`}
           >
             Lihat kamar
           </Link>
@@ -238,7 +254,7 @@ export default function Kost() {
                       onChange={(e) =>
                         setForm({
                           ...form,
-                          quantity: e.target.value,
+                          quantity: Number(e.target.value),
                         })
                       }
                       required
@@ -259,10 +275,11 @@ export default function Kost() {
                           name="Panjang"
                           type="number"
                           placeholder="Panjang"
+                          value={form.length}
                           onChange={(e) =>
                             setForm({
                               ...form,
-                              length: e.target.value,
+                              length: Number(e.target.value),
                             })
                           }
                           required
@@ -275,11 +292,12 @@ export default function Kost() {
                           id="Lebar"
                           name="Lebar"
                           type="number"
+                          value={form.width}
                           placeholder="Lebar"
                           onChange={(e) =>
                             setForm({
                               ...form,
-                              width: e.target.value,
+                              width: Number(e.target.value),
                             })
                           }
                           required
@@ -301,10 +319,11 @@ export default function Kost() {
                       type="number"
                       name="Jumlah Penghuni"
                       placeholder="Jumlah Penghuni"
+                      value={form.max_person}
                       onChange={(e) =>
                         setForm({
                           ...form,
-                          max_person: e.target.value,
+                          max_person: Number(e.target.value),
                         })
                       }
                       required
@@ -453,7 +472,7 @@ export default function Kost() {
                         onChange={(e) =>
                           setForm({
                             ...form,
-                            price: e.target.value,
+                            price: Number(e.target.value),
                           })
                         }
                         required
@@ -467,7 +486,7 @@ export default function Kost() {
                           type="submit"
                           className="w-full px-5 py-2 text-center text-white rounded-lg bg-primary-1 hover:bg-primary-1 disabled:bg-primary-2"
                         >
-                          Tambah
+                          Perbarui
                         </Button>
                       </div>
                     </div>

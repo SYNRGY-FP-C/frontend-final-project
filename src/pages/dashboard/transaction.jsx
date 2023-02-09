@@ -30,6 +30,7 @@ export default function Transaction() {
   return (
     <ProtectedPage allowed={[ROLE_ADMIN]} redirect="/403">
       <DashboardLayout title="Dashboard - Transaksi">
+        <h1 className="text-3xl font-bold text-base-1">Transaksi</h1>
         <div className="flex flex-col gap-y-3">
           {response.data.length > 0 ? (
             response.data.map((transaksi) => {

@@ -12,17 +12,17 @@ import File from "@/components/icons/File";
 import LoadingScreen from "@/components/LoadingScreen";
 import Modal from "@/components/Modal";
 import { ROLE_ADMIN } from "@/constants/roles";
+import { payments } from "@/constants/schemes";
 import { TYPES } from "@/constants/types";
 import Defaultlayout from "@/layouts/DefaultLayout";
 import ProtectedPage from "@/layouts/ProtectedPage";
 import Section from "@/layouts/Section";
 import kostService from "@/services/kost.service";
 import ruleService from "@/services/rules.service";
-import { imageToBase64 } from "@/utils/helper";
+import { imageToBase64, urlToBase64 } from "@/utils/helper";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
-import { v4 as uuid } from "uuid";
 
 export default function Add() {
   const [loading, setLoading] = React.useState(true);
@@ -39,14 +39,15 @@ export default function Add() {
   });
   const [step, setStep] = React.useState(1);
   const [form, setForm] = React.useState({
+    id: router?.query?.kostId || null,
     name: "",
     outdoor_photo: "",
     indoor_photo: "",
     type: null,
     description: "",
     additional_rule: "",
-    payment_scheme: null,
-    rules: null,
+    payment_scheme: [],
+    rules: [],
     longitude: null,
     latitude: null,
     address: "",
@@ -60,7 +61,7 @@ export default function Add() {
     e.preventDefault();
     setResponse({ isLoading: true, isError: false, message: "" });
     try {
-      await kostService.update(router?.query?.kostId, form);
+      await kostService.update(form);
       setResponse({
         isLoading: false,
         isError: false,
@@ -79,9 +80,11 @@ export default function Add() {
   const getKost = async () => {
     const { data } = await kostService.get(router?.query?.kostId);
     setForm({
+      id: router?.query?.kostId || null,
       name: data?.kostName || "",
-      outdoor_photo: data?.outdoorPhotoUrl || "",
-      indoor_photo: data?.indoorPhotoUrl || "",
+      outdoor_photo:
+        ((await urlToBase64(data?.outdoorPhotoUrl)) as string) || "",
+      indoor_photo: ((await urlToBase64(data?.indoorPhotoUrl)) as string) || "",
       type: data?.kostType || null,
       description: data?.description || "",
       additional_rule: data?.additionalKostRule || "",
@@ -103,8 +106,8 @@ export default function Add() {
 
   useEffect(() => {
     if (router?.query?.kostId) {
-      setLoading(false);
       getKost();
+      setLoading(false);
     }
   }, [router.isReady]);
 
@@ -123,7 +126,7 @@ export default function Add() {
           </p>
           <Link
             className="inline-flex justify-center w-full px-4 py-3 text-white rounded-lg bg-primary-1"
-            href="/dashboard/kost"
+            href={`/dashboard/kost/${router?.query?.kostId}/rooms`}
           >
             Lihat kost
           </Link>
@@ -193,7 +196,7 @@ export default function Add() {
                             }
                           }}
                         >
-                          {step === 1 ? "Selanjutnya" : "Tambahkan"}
+                          {step === 1 ? "Selanjutnya" : "Perbarui"}
                         </Button>
                       </div>
                     </div>
@@ -348,12 +351,20 @@ function DataForm({ formData, setFormData, preview, setPreview }) {
       </div>
       <div className="grid w-full lg:col-span-9">
         <div className="grid grid-flow-col grid-rows-3 gap-3">
-          <Checkbox>Harian</Checkbox>
-          <Checkbox>Mingguan</Checkbox>
-          <Checkbox>Bulanan</Checkbox>
-          <Checkbox>Per 3 bulan</Checkbox>
-          <Checkbox>Per 6 bulan</Checkbox>
-          <Checkbox>Pertahun</Checkbox>
+          {payments.map((payment) => (
+            <Checkbox
+              key={payment.id}
+              checked={formData?.payment_scheme.find(
+                (item) => item.id === payment.id
+              )}
+              onChange={() =>
+                handleCheckbox(payment.id, "payment_scheme", payments)
+              }
+              required
+            >
+              {payment.name}
+            </Checkbox>
+          ))}
         </div>
       </div>
       <div className="grid w-full lg:col-span-3">
@@ -364,10 +375,12 @@ function DataForm({ formData, setFormData, preview, setPreview }) {
       <div className="grid w-full lg:col-span-9">
         {" "}
         <div className="grid grid-cols-1 gap-3">
-          {rules.map((rule) => (
+          {rules?.map((rule) => (
             <Checkbox
-              key={uuid()}
+              key={rule.id}
+              checked={formData.rules.find((item) => item.id === rule.id)}
               onChange={() => handleCheckbox(rule.id, "rules", rules)}
+              required
             >
               {rule.rule}
             </Checkbox>
@@ -410,6 +423,7 @@ function AddressForm({ formData, setFormData }) {
       <div className="grid w-full lg:col-span-9">
         <Input
           id="Alamat"
+          type="text"
           name="Alamat"
           value={formData.address}
           placeholder="Alamat"
@@ -419,6 +433,7 @@ function AddressForm({ formData, setFormData }) {
               address: e.target.value,
             })
           }
+          required
         />
       </div>
       <div className="grid w-full lg:col-span-3">
@@ -429,6 +444,7 @@ function AddressForm({ formData, setFormData }) {
       <div className="grid w-full lg:col-span-9">
         <Input
           id="Provinsi"
+          type="text"
           name="Provinsi"
           value={formData.province}
           placeholder="Provinsi"
@@ -438,6 +454,7 @@ function AddressForm({ formData, setFormData }) {
               province: e.target.value,
             })
           }
+          required
         />
       </div>
       <div className="grid w-full lg:col-span-3">
@@ -448,6 +465,7 @@ function AddressForm({ formData, setFormData }) {
       <div className="grid w-full lg:col-span-9">
         <Input
           id="Kabupaten/Kota"
+          type="text"
           name="Kabupaten/Kota"
           value={formData.city}
           placeholder="Kabupaten/Kota"
@@ -457,6 +475,7 @@ function AddressForm({ formData, setFormData }) {
               city: e.target.value,
             })
           }
+          required
         />
       </div>
       <div className="grid w-full lg:col-span-3">
@@ -467,6 +486,7 @@ function AddressForm({ formData, setFormData }) {
       <div className="grid w-full lg:col-span-9">
         <Input
           id="Kecamatan"
+          type="text"
           name="Kecamatan"
           value={formData.district}
           placeholder="Kecamatan"
@@ -476,6 +496,7 @@ function AddressForm({ formData, setFormData }) {
               district: e.target.value,
             })
           }
+          required
         />
       </div>
       <div className="grid w-full lg:col-span-3">

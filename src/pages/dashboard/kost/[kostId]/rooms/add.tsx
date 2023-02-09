@@ -21,7 +21,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 
-export default function Kost() {
+export default function Room() {
   const router = useRouter();
   const [openModal, setOpenModal] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
@@ -296,6 +296,7 @@ export default function Kost() {
                       type="number"
                       name="Jumlah Penghuni"
                       placeholder="Jumlah Penghuni"
+                      value={form.max_person}
                       onChange={(e) =>
                         setForm({
                           ...form,
