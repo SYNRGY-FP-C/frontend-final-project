@@ -1,4 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
+import Button from "@/components/buttons/Button";
 import RoomCard from "@/components/cards/RoomCard";
 import Checkbox from "@/components/forms/Checkbox";
 import Input from "@/components/forms/Input";
@@ -6,22 +8,24 @@ import SearchBar from "@/components/forms/SearchBar";
 import Star from "@/components/icons/Star";
 import DefaultLayout from "@/layouts/DefaultLayout";
 import Section from "@/layouts/Section";
-import React, { useState, useEffect } from "react";
 import roomService from "@/services/room.service";
+import clsx from "clsx";
+import React, { useEffect, useState } from "react";
+import { v4 as uuid } from "uuid";
 
-export default function Search() {
+export default function Search({ data }) {
   const [response, setResponse] = useState({
     isLoading: false,
     isError: false,
-    data: [],
+    data: data || [],
   });
   const [search, setSearch] = useState({
-    keyword: "kamar",
+    keyword: "",
     label: "",
     type: "",
     price_min: 0,
     price_max: 999999999,
-    size: 10,
+    size: 5,
   });
 
   const handleSearch = async (e) => {
@@ -35,7 +39,6 @@ export default function Search() {
       const temp = await roomService.search({
         params: search,
       });
-      console.log(temp);
       setResponse({
         isLoading: false,
         isError: false,
@@ -50,11 +53,54 @@ export default function Search() {
     }
   };
 
-  const [show, setShow] = useState([]);
+  const handleLabel = (type) => {
+    if (search.type === type) {
+      setSearch({
+        ...search,
+        type: "",
+      });
+      return;
+    }
+    setSearch({
+      ...search,
+      type: type,
+    });
+  };
+
+  const handleShowMore = async () => {
+    setResponse({
+      ...response,
+      isLoading: true,
+      isError: false,
+    });
+    try {
+      const temp = await roomService.search({
+        params: search,
+      });
+      setResponse({
+        isLoading: false,
+        isError: false,
+        data: temp.data,
+      });
+    } catch (error) {
+      setResponse({
+        ...response,
+        isLoading: false,
+        isError: true,
+      });
+    }
+  };
+
   useEffect(() => {
-    const data = response.data.filter((item) => item.keyword === search);
-    setShow(data);
-  }, [search]);
+    handleShowMore();
+  }, [search.size]);
+
+  const handleClick = () => {
+    setSearch({
+      ...search,
+      size: search.size + 5,
+    });
+  };
 
   return (
     <DefaultLayout title="Cari kost impianmu">
@@ -62,9 +108,11 @@ export default function Search() {
         <div className="flex flex-col pt-24 pb-4 gap-y-4">
           <div className="flex flex-col gap-y-4 lg:gap-y-8">
             <h2 className="font-bold text-2xl lg:text-[40px] text-base-1">
-              Hasil pencarian: Bandung, Jawa Barat
+              Hasil pencarian: {search.keyword}
             </h2>
-            <p className="text-base-1">Ditemukan 50 kost-kostan</p>
+            <p className="text-base-2">
+              Ditemukan {response.data.length} kost-kostan
+            </p>
           </div>
           <div className="grid h-full grid-cols-12">
             <div className="hidden col-span-4 lg:grid">
@@ -85,35 +133,44 @@ export default function Search() {
                     <h5 className="font-bold text-base-1">Tipe</h5>
                     <div className="flex flex-row gap-x-2">
                       <button
-                        className="w-24 text-center py-0.5 border border-gray-300 text-base-2 rounded-lg"
-                        onChange={(e) =>
-                          setSearch({
-                            ...search,
-                            type: String(e.target),
-                          })
-                        }
+                        className={clsx(
+                          "w-24 text-center py-0.5 border rounded-lg",
+                          {
+                            ["bg-primary-1 text-white"]:
+                              search.type === "CAMPURAN",
+                            ["border-gray-300 text-base-2"]:
+                              search.type !== "CAMPURAN",
+                          }
+                        )}
+                        onClick={() => handleLabel("CAMPURAN")}
                       >
                         Campur
                       </button>
                       <button
-                        className="w-24 text-center py-0.5 border border-gray-300 text-base-2 rounded-lg"
-                        onChange={(e) =>
-                          setSearch({
-                            ...search,
-                            type: String(e.target),
-                          })
-                        }
+                        className={clsx(
+                          "w-24 text-center py-0.5 border rounded-lg",
+                          {
+                            ["bg-primary-1 text-white"]:
+                              search.type === "PUTRI",
+                            ["border-gray-300 text-base-2"]:
+                              search.type !== "PUTRI",
+                          }
+                        )}
+                        onClick={() => handleLabel("PUTRI")}
                       >
                         Pria
                       </button>
                       <button
-                        className="w-24 text-center py-0.5 border border-gray-300 text-base-2 rounded-lg"
-                        onChange={(e) =>
-                          setSearch({
-                            ...search,
-                            type: String(e.target),
-                          })
-                        }
+                        className={clsx(
+                          "w-24 text-center py-0.5 border rounded-lg",
+                          {
+                            ["bg-primary-1 text-white"]:
+                              search.type === "PUTRA",
+                            ["border-gray-300 text-base-2"]:
+                              search.type !== "PUTRA",
+                          }
+                        )}
+                        onClick={() => handleLabel("PUTRA")}
                       >
                         Wanita
                       </button>
@@ -125,6 +182,7 @@ export default function Search() {
                       <Input
                         type="number"
                         placeholder="Harga Minimum"
+                        value={search.price_min}
                         onChange={(e) =>
                           setSearch({
                             ...search,
@@ -135,6 +193,7 @@ export default function Search() {
                       <Input
                         type="number"
                         placeholder="Harga Maksimum"
+                        value={search.price_max}
                         onChange={(e) =>
                           setSearch({
                             ...search,
@@ -221,7 +280,20 @@ export default function Search() {
                     >
                       Filter
                     </button>
-                    <button className="w-full py-3 border rounded-lg bg-base-9 text-primary-1 border-primary-1">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setSearch({
+                          keyword: "",
+                          label: "",
+                          type: "",
+                          price_min: 0,
+                          price_max: 999999999,
+                          size: 5,
+                        })
+                      }
+                      className="w-full py-3 border rounded-lg bg-base-9 text-primary-1 border-primary-1"
+                    >
                       Reset
                     </button>
                   </div>
@@ -250,28 +322,28 @@ export default function Search() {
                   />
                 </form>
                 <div className="flex flex-col w-full h-full py-6 gap-y-6">
-                  {/* <RoomCard />
-                  <RoomCard />
-                  <RoomCard />
-                  <RoomCard />
-                  <RoomCard /> */}
-
-                  {response.data.length > 0
-                    ? response.data.map((data) => {
-                        return <RoomCard key={data.id} data={data} />;
-                      })
-                    : "tidak ada kamar"}
-                  <button
-                    onClick={(e) => {
-                      setSearch({
-                        ...search,
-                        size: search.size + 5,
-                      });
-                      handleSearch(e);
-                    }}
-                  >
-                    Lihat
-                  </button>
+                  {response.data.length > 0 ? (
+                    response.data.map((data) => {
+                      return <RoomCard key={uuid()} data={data} />;
+                    })
+                  ) : (
+                    <p className="text-lg font-semibold text-center">
+                      Kamar tidak ditemukan
+                    </p>
+                  )}
+                  <div className="flex justify-center">
+                    {response.data.length > 0 && (
+                      <div className="block">
+                        <Button
+                          className="block"
+                          isLoading={response.isLoading}
+                          onClick={handleClick}
+                        >
+                          Lihat lebih banyak
+                        </Button>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
@@ -281,3 +353,16 @@ export default function Search() {
     </DefaultLayout>
   );
 }
+
+export const getServerSideProps = async () => {
+  const { data } = await roomService.search({
+    params: {
+      size: 5,
+    },
+  });
+  return {
+    props: {
+      data,
+    },
+  };
+};

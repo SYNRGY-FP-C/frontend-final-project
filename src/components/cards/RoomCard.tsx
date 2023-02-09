@@ -11,7 +11,7 @@ import React from "react";
 const defaultData = {
   id: 1,
   name: "Room 1 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.",
-  image: "/images/hero-image.jpg",
+  thumbnail: "/images/hero-image.jpg",
   description: "Room 1 description amet consectetur adipisicing",
   price: 1200000,
   address: "Kecamatan Lorem, Bandung",
@@ -22,13 +22,19 @@ const defaultData = {
 
 export default function RoomCard({ data = defaultData }) {
   const [isFavorite, addFavorite, removeFavorite] = useFavorive(data);
+
+  const labels = {
+    KOST_HITS: "Kost Hits",
+    KOST_TERBARU: "Kost Terbaru",
+    SUPERKOST: "SuperKost",
+  };
   return (
     <div className="grid grid-cols-1 border border-gray-200 hover:shadow lg:grid-cols-12 rounded-2xl">
       <div className="grid col-span-4">
         <div className="flex justify-center object-cover w-full h-56 overflow-hidden">
           <img
             className="object-cover w-full rounded-t-xl lg:rounded-l-2xl lg:rounded-r-none"
-            src={data.image}
+            src={data.thumbnail}
             alt={data.name}
           />
         </div>
@@ -36,15 +42,17 @@ export default function RoomCard({ data = defaultData }) {
       <div className="grid col-span-8 p-6">
         <div className="relative flex flex-col h-full gap-y-3">
           <div className="flex flex-col justify-between md:flex-row">
-            <Link href={`details/${data.id}`}>
+            <Link href={`/details/${data.id}`}>
               <h5 className="max-w-xs overflow-hidden text-[20px] font-bold text-base-1 text-ellipsis whitespace-nowrap">
                 {data.name}
               </h5>
             </Link>
             <div className="flex flex-row items-center gap-3">
-              <span className="inline-flex items-center px-4 py-1.5 text-xs font-bold text-center text-white rounded-2xl bg-secondary-1">
-                {data.label}
-              </span>
+              {data?.label && (
+                <span className="inline-flex items-center px-4 py-1.5 text-xs font-bold text-center text-white rounded-2xl bg-secondary-1">
+                  {labels[data.label]}
+                </span>
+              )}
               {isFavorite ? (
                 <button onClick={() => removeFavorite(data)}>
                   <Love className="w-5 h-5" />
