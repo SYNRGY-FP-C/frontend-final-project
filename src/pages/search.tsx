@@ -6,8 +6,8 @@ import SearchBar from "@/components/forms/SearchBar";
 import Star from "@/components/icons/Star";
 import DefaultLayout from "@/layouts/DefaultLayout";
 import Section from "@/layouts/Section";
+import React, { useState, useEffect } from "react";
 import roomService from "@/services/room.service";
-import React, { useState } from "react";
 
 export default function Search() {
   const [response, setResponse] = useState({
@@ -21,10 +21,11 @@ export default function Search() {
     type: "",
     price_min: 0,
     price_max: 999999999,
-    size: 10 + 5,
+    size: 10,
   });
 
-  const handleSearch = async () => {
+  const handleSearch = async (e) => {
+    e.preventDefault();
     setResponse({
       ...response,
       isLoading: true,
@@ -34,7 +35,7 @@ export default function Search() {
       const temp = await roomService.search({
         params: search,
       });
-
+      console.log(temp);
       setResponse({
         isLoading: false,
         isError: false,
@@ -48,6 +49,12 @@ export default function Search() {
       });
     }
   };
+
+  const [show, setShow] = useState([]);
+  useEffect(() => {
+    const data = response.data.filter((item) => item.keyword === search);
+    setShow(data);
+  }, [search]);
 
   return (
     <DefaultLayout title="Cari kost impianmu">
@@ -77,15 +84,39 @@ export default function Search() {
                   <div className="flex flex-col gap-y-3">
                     <h5 className="font-bold text-base-1">Tipe</h5>
                     <div className="flex flex-row gap-x-2">
-                      <span className="w-24 text-center py-0.5 border border-gray-300 text-base-2 rounded-lg">
+                      <button
+                        className="w-24 text-center py-0.5 border border-gray-300 text-base-2 rounded-lg"
+                        onChange={(e) =>
+                          setSearch({
+                            ...search,
+                            type: String(e.target),
+                          })
+                        }
+                      >
                         Campur
-                      </span>
-                      <span className="w-24 text-center py-0.5 border border-gray-300 text-base-2 rounded-lg">
+                      </button>
+                      <button
+                        className="w-24 text-center py-0.5 border border-gray-300 text-base-2 rounded-lg"
+                        onChange={(e) =>
+                          setSearch({
+                            ...search,
+                            type: String(e.target),
+                          })
+                        }
+                      >
                         Pria
-                      </span>
-                      <span className="w-24 text-center py-0.5 border border-gray-300 text-base-2 rounded-lg">
+                      </button>
+                      <button
+                        className="w-24 text-center py-0.5 border border-gray-300 text-base-2 rounded-lg"
+                        onChange={(e) =>
+                          setSearch({
+                            ...search,
+                            type: String(e.target),
+                          })
+                        }
+                      >
                         Wanita
-                      </span>
+                      </button>
                     </div>
                   </div>
                   <div className="flex flex-col gap-y-3">
@@ -101,7 +132,16 @@ export default function Search() {
                           })
                         }
                       />
-                      <Input type="number" placeholder="Harga Maksimum" />
+                      <Input
+                        type="number"
+                        placeholder="Harga Maksimum"
+                        onChange={(e) =>
+                          setSearch({
+                            ...search,
+                            price_max: Number(e.target.value),
+                          })
+                        }
+                      />
                     </div>
                   </div>
                   <div className="flex flex-col gap-y-3">
@@ -200,13 +240,38 @@ export default function Search() {
             </div>
             <div className="grid h-full col-span-12 lg:col-span-8 md:px-4">
               <div className="flex flex-col">
-                <SearchBar placeholder="Cari nama kost, alamat, daerah atau kota" />
+                <form onSubmit={handleSearch}>
+                  <SearchBar
+                    placeholder="Cari nama kost, alamat, daerah atau kota"
+                    value={search.keyword}
+                    onChange={(e) =>
+                      setSearch({ ...search, keyword: e.target.value })
+                    }
+                  />
+                </form>
                 <div className="flex flex-col w-full h-full py-6 gap-y-6">
+                  {/* <RoomCard />
                   <RoomCard />
                   <RoomCard />
                   <RoomCard />
-                  <RoomCard />
-                  <RoomCard />
+                  <RoomCard /> */}
+
+                  {response.data.length > 0
+                    ? response.data.map((data) => {
+                        return <RoomCard key={data.id} data={data} />;
+                      })
+                    : "tidak ada kamar"}
+                  <button
+                    onClick={(e) => {
+                      setSearch({
+                        ...search,
+                        size: search.size + 5,
+                      });
+                      handleSearch(e);
+                    }}
+                  >
+                    Lihat
+                  </button>
                 </div>
               </div>
             </div>
