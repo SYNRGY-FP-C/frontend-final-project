@@ -4,9 +4,7 @@ import { useRouter } from "next/router";
 
 const NavItem = ({ href = "/", label = "label" }) => {
   const router = useRouter();
-  const paths = router.route.split("/");
-  const route = "/" + paths[1];
-  const isActive = route === href;
+  const isActive = router.pathname === href;
   return (
     <Link
       href={href}
