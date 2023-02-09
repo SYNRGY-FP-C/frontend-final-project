@@ -96,18 +96,14 @@ export default function Kost() {
     },
     {
       id: 6,
-      name: "Kloset Berdiri",
-    },
-    {
-      id: 7,
       name: "Kloset Jongkok",
     },
     {
-      id: 8,
+      id: 7,
       name: "Shower",
     },
     {
-      id: 9,
+      id: 8,
       name: "Wastafel",
     },
   ];
