@@ -84,24 +84,6 @@ export default function Upload() {
     }
   }, [router.isReady]);
 
-  // CountDown
-  // useEffect(() => {
-  //   let x = setInterval(function () {
-  //     let now = new Date().getTime();
-  //     let distance = new Date(dataPayment.tf_end_date).getTime() - now;
-  //     let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-  //     let hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
-  //     let minutes = Math.floor(distance / 60000);
-  //     let countDown = `${days} Hari ${hours} Jam ${minutes} Menit`;
-
-  //     if (distance < 0) {
-  //       return setPaymentDeadline("Kadaluarsa");
-  //     }
-
-  //     setPaymentDeadline(countDown);
-  //   }, 1000);
-  // }, [router.isReady]);
-
   const toggleAcc1 = (index) => {
     if (open === index) {
       return setOpenAcc1(null);
@@ -129,14 +111,12 @@ export default function Upload() {
   const handleUploadBuktiPembayaran = async (e) => {
     e.preventDefault();
     setResponse({ isLoading: true, isError: false, message: "" });
-    setIsLoading(true);
     try {
       const formData = new FormData();
       formData.append("id", dataPayment.id);
       formData.append("image", upload);
       await transactionService.upload(formData);
       setResponse({ isLoading: false, isError: false, message: "" });
-      setIsLoading(false);
       setOpenModal(true);
       setUpload(null);
     } catch (error) {
@@ -320,12 +300,15 @@ export default function Upload() {
                         }}
                         required
                       />
-                      <button
-                        className="px-4 py-3 w-full text-white rounded-lg bg-primary-1 hover:bg-sky-700"
+                      <Button
+                        isLoading={response.isLoading}
+                        disabled={response.isLoading}
+                        className="px-4 py-3 text-white rounded-lg w-72 bg-primary-1"
                         onClick={handleUploadBuktiPembayaran}
                       >
                         Bayar
-                      </button>
+                      </Button>
+
                       <Modal isOpen={openModal} setIsOpen={setOpenModal}>
                         <img
                           src="/images/successful-upload.png"
