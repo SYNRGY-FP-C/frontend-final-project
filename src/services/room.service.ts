@@ -12,6 +12,10 @@ const get = async (id) => {
   return await backendJavaPublic.get(`/v1/public/rooms/${id}`);
 };
 
+const getOwner = async (id) => {
+  return await backendJavaPublic.get(`/v1/public/contact/${id}`);
+};
+
 const getByKost = async (id) => {
   return await backendJavaPrivate.get(`/v1/rooms/${id}`);
 };
@@ -31,6 +35,7 @@ const search = async (data) => {
 const roomService = {
   create,
   getAll,
+  getOwner,
   getByKost,
   get,
   update,
