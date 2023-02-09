@@ -11,6 +11,7 @@ import ProtectedPage from "@/layouts/ProtectedPage";
 import Section from "@/layouts/Section";
 import transactionService from "@/services/transaction.service";
 import { formatRupiah } from "@/utils/helper";
+import moment from "moment";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -304,7 +305,9 @@ export default function Upload() {
                       <div className="inline-flex justify-between">
                         <p className="text-primary-1">Sisa Waktu Pembayaran</p>
                         <p className="font-bold text-primary-1">
-                          {dataPayment.tf_end_date}
+                          {moment(new Date(dataPayment.tf_end_date)).format(
+                            "LLL"
+                          )}
                         </p>
                       </div>
                       <InputDropzone
