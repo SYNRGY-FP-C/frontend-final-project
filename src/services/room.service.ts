@@ -21,7 +21,7 @@ const getByKost = async (id) => {
 };
 
 const update = async (id, data) => {
-  return await backendJavaPrivate.put(`/v1/rooms/${id}`, data);
+  return await backendJavaPrivate.put(`/v1/rooms/update/${id}`, data);
 };
 
 const remove = async (id) => {

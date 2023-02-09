@@ -38,4 +38,18 @@ export const urlToObject = async (url) => {
   return new File([blob], name, { type: blob?.type });
 };
 
+export const urlToBase64 = (url) => {
+  return fetch(url)
+    .then((response) => response.blob())
+    .then(
+      (blob) =>
+        new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onloadend = () => resolve(reader.result);
+          reader.onerror = reject;
+          reader.readAsDataURL(blob);
+        })
+    );
+};
+
 export const RE_DIGIT = new RegExp(/^\d+$/);
