@@ -1,8 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
+import { payments } from "@/constants/payments";
 import DefaultLayout from "@/layouts/DefaultLayout";
 import Section from "@/layouts/Section";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Collapse } from "react-collapse";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { IconContext } from "react-icons";
@@ -17,7 +18,16 @@ export default function Upload() {
   const [openAcc2, setOpenAcc2] = useState(0);
   const [openAcc3, setOpenAcc3] = useState(0);
   const [copied, setCopied] = useState(false);
-  const value = "1234 21412 21132";
+  const [value, setValue] = useState({
+    icon: "",
+    account_number: "",
+    steps: [
+      {
+        title: "",
+        rules: [],
+      },
+    ],
+  });
 
   const toggleAcc1 = (index) => {
     if (open === index) {
@@ -42,6 +52,13 @@ export default function Upload() {
 
     setOpenAcc3(index);
   };
+
+  useEffect(() => {
+    if (router?.query?.type) {
+      console.log(router?.query?.type);
+      setValue({ ...value, ...payments[router?.query?.type] });
+    }
+  }, [router.isReady]);
 
   return (
     <DefaultLayout title="Konfirmasi Pembayaran">
@@ -72,7 +89,7 @@ export default function Upload() {
                     onClick={() => toggleAcc1(!openAcc1)}
                   >
                     <div className="text-[25px] font-semibold inline-flex item-center">
-                      <p className="ml-4">ATM BCA</p>
+                      <p className="ml-4">{value.steps[0].title}</p>
                     </div>
                     <IconContext.Provider
                       value={{ color: "black", size: "20px" }}
@@ -90,21 +107,9 @@ export default function Upload() {
                   <div className="py-[5px]">
                     <div className="py-[10px] px-[40px] pb-[20px]">
                       <ul className="list-decimal">
-                        <li>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit.
-                        </li>
-                        <li>
-                          Nam sed nisi id mauris gravida interdum quis dui.
-                        </li>
-                        <li>
-                          Quisque ligula neque, blandit id mollis quis, posuere
-                          id augue.
-                        </li>
-                        <li>
-                          In suscipit sagittis finibus. Nullam vehicula mattis.
-                        </li>
-                        <li>Sed rutrum quis diam vel semper.</li>
+                        {value.steps[0].rules.map((rule, index) => (
+                          <li key={index}>{rule}</li>
+                        ))}
                       </ul>
                     </div>
                   </div>
@@ -117,7 +122,7 @@ export default function Upload() {
                     onClick={() => toggleAcc2(!openAcc2)}
                   >
                     <div className="text-[25px] font-semibold inline-flex item-center">
-                      <p className="ml-4">M-BCA (BCA Mobile)</p>
+                      <p className="ml-4">{value?.steps[1]?.title}</p>
                     </div>
                     <IconContext.Provider
                       value={{ color: "black", size: "20px" }}
@@ -135,18 +140,9 @@ export default function Upload() {
                   <div className="py-[5px]">
                     <div className="py-[10px] px-[40px] pb-[20px]">
                       <ul className="list-decimal">
-                        <li>
-                          {" "}
-                          Nam sed nisi id mauris gravida interdum quis dui.
-                        </li>
-                        <li>
-                          Quisque ligula neque, blandit id mollis quis,
-                          posuereid augue.
-                        </li>
-                        <li>
-                          In suscipit sagittis finibus. Nullam vehicula mattis.
-                        </li>
-                        <li>Sed rutrum quis diam vel semper.</li>
+                        {value?.steps[1]?.rules.map((rule, index) => (
+                          <li key={index}>{rule}</li>
+                        ))}
                       </ul>
                     </div>
                   </div>
@@ -159,7 +155,7 @@ export default function Upload() {
                     onClick={() => toggleAcc3(!openAcc3)}
                   >
                     <div className="text-[25px] font-semibold inline-flex item-center">
-                      <p className="ml-4">Klick BCA</p>
+                      <p className="ml-4">{value?.steps[2]?.title}</p>
                     </div>
                     <IconContext.Provider
                       value={{ color: "black", size: "20px" }}
@@ -177,18 +173,9 @@ export default function Upload() {
                   <div className="py-[5px]">
                     <div className="py-[10px] px-[40px] pb-[20px]">
                       <ul className="list-decimal">
-                        <li>
-                          {" "}
-                          Nam sed nisi id mauris gravida interdum quis dui.
-                        </li>
-                        <li>
-                          Quisque ligula neque, blandit id mollis quis,
-                          posuereid augue.
-                        </li>
-                        <li>
-                          In suscipit sagittis finibus. Nullam vehicula mattis.
-                        </li>
-                        <li>Sed rutrum quis diam vel semper.</li>
+                        {value?.steps[2]?.rules.map((rule, index) => (
+                          <li key={index}>{rule}</li>
+                        ))}
                       </ul>
                     </div>
                   </div>
@@ -199,19 +186,15 @@ export default function Upload() {
               <div className="bg-white col-span-12 lg:col-span-6 mt-2">
                 <div className="flex flex-col bg-base-900 rounded-lg border border-gray-300 gap-y-4">
                   <div className="flex flex-col py-11 px-12 gap-y-4">
-                    <img
-                      src="/images/bca.png"
-                      alt="bca"
-                      className="block mx-auto"
-                    />
+                    <img src={value.icon} alt="bca" className="block mx-auto" />
                     <div className="inline-flex justify-between">
                       <p className="text-primary-1 mt-1">No. Rekening:</p>
-                      <p className="font-bold text-primary-1 ml-[19rem] mt-1">
-                        {value}
+                      <p className="font-bold text-primary ml-7 sm:ml-[28rem] md:ml-[11rem] lg:ml-[21rem] mt-1">
+                        {value.account_number}
                       </p>
                       <CopyToClipboard
                         className="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300"
-                        text={value}
+                        text={value.account_number}
                         onCopy={() => setCopied(true)}
                       >
                         <button>
