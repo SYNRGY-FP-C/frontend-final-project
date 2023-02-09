@@ -94,3 +94,41 @@ export const authenticatedMenu = [
     link: "/wishlist",
   },
 ];
+
+export const dashboardMenu = [
+  {
+    href: "/dashboard",
+    title: "Beranda",
+  },
+  {
+    href: "/dashboard/transaction",
+    title: "Transaksi",
+  },
+  {
+    href: "/dashboard/history",
+    title: "Riwayat",
+  },
+];
+
+export const CMSMenu = [
+  {
+    href: "/cms",
+    title: "Beranda",
+  },
+  {
+    href: "/cms/users",
+    title: "Pengguna",
+  },
+  {
+    href: "/cms/kost",
+    title: "Kost",
+  },
+  {
+    href: "/cms/rooms",
+    title: "Kamar",
+  },
+  {
+    href: "/cms/transactions",
+    title: "Transaksi",
+  },
+];
