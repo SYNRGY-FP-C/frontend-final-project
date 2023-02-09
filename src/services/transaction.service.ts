@@ -16,11 +16,16 @@ const history = async () => {
   return await backendJavaPrivate.get("/v1/transactions/history");
 };
 
+const upload = async (data) => {
+  return await backendJavaPrivate.post("/v1/transactions/payment", data);
+};
+
 const transactionService = {
   transactions,
   history,
   create,
   get,
+  upload,
 };
 
 export default transactionService;

@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import LoadingScreen from "@/components/LoadingScreen";
 import { ROLE_USER } from "@/constants/roles";
 import DefaultLayout from "@/layouts/DefaultLayout";
 import ProtectedPage from "@/layouts/ProtectedPage";
@@ -14,11 +15,9 @@ import { BsCaretUpFill } from "react-icons/bs";
 import { MdPayment } from "react-icons/md";
 
 export default function Payment() {
-  // const [price, setPrice] = useState();
   const router = useRouter();
   const [dataPayment, setDataPayment] = useState([]);
-  console.log(dataPayment);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [openBank, setOpenBank] = useState(0);
   const [response, setResponse] = useState({
     isLoading: false,
@@ -29,12 +28,14 @@ export default function Payment() {
   useEffect(() => {
     const fetchPayment = async () => {
       setResponse({ isLoading: true, isError: false, message: "" });
+      setIsLoading(true);
       try {
         if (router?.query?.paymentId) {
           const response = await transactionService.get(
             router?.query?.paymentId
           );
           setDataPayment(response.data);
+          setIsLoading(false);
           setResponse({
             isLoading: false,
             isError: false,
@@ -60,7 +61,9 @@ export default function Payment() {
     setOpenBank(index);
   };
 
-  if (loading) return <>Loading</>;
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
 
   return (
     <ProtectedPage allowed={[ROLE_USER]} redirect="/403">
@@ -149,12 +152,3 @@ export default function Payment() {
     </ProtectedPage>
   );
 }
-
-// export const getServerSideProps = async (contex) => {
-//   const { data } = await transactionService.get(contex.query.paymentId);
-//   return {
-//     props: {
-//       payment: data,
-//     },
-//   };
-// };
