@@ -2,6 +2,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
 import Alert from "@/components/Alert";
+import BackButton from "@/components/buttons/BackButton";
 import Button from "@/components/buttons/Button";
 import Checkbox from "@/components/forms/Checkbox";
 import InputTypePayment from "@/components/forms/InputTypePayment";
@@ -23,7 +24,6 @@ import { formatRupiah } from "@/utils/helper";
 import moment from "moment";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { MdChevronLeft } from "react-icons/md";
 
 export default function Submission({ room }) {
   const { user } = useAuth();
@@ -139,10 +139,7 @@ export default function Submission({ room }) {
         <Section>
           <div className="flex flex-col gap-y-6">
             <div className="block mt-24">
-              <Link href="/" className="inline-flex items-center py-2 gap-x-1">
-                <MdChevronLeft className="w-7 h-7 text-secondary-2" />
-                <p className="text-lg font-bold text-secondary-2">Kembali</p>
-              </Link>
+              <BackButton />
             </div>
             <form onSubmit={handleAjukanSewa}>
               <div className="grid grid-cols-1 gap-4 lg:grid-cols-12">
@@ -219,7 +216,7 @@ export default function Submission({ room }) {
                             id="inline-radio"
                             type="radio"
                             disabled
-                            defaultChecked={radio === "ktp"}
+                            defaultChecked={radio === "KTP"}
                             name="inline-radio-group"
                             className="w-4 h-4 text-gray-600 bg-gray-100 border-gray-300 "
                           />
@@ -235,7 +232,7 @@ export default function Submission({ room }) {
                             id="inline-2-radio"
                             type="radio"
                             disabled
-                            defaultChecked={radio === "sim"}
+                            defaultChecked={radio === "SIM"}
                             name="inline-radio-group"
                             className="w-4 h-4 text-gray-600 bg-gray-100 border-gray-300 "
                           />
@@ -251,7 +248,7 @@ export default function Submission({ room }) {
                             id="inline-checked-radio"
                             type="radio"
                             disabled
-                            defaultChecked={radio === "passport"}
+                            defaultChecked={radio === "PASPORT"}
                             name="inline-radio-group"
                             className="w-4 h-4 text-gray-600 bg-gray-100 border-gray-300 "
                           />
@@ -266,7 +263,7 @@ export default function Submission({ room }) {
                     </SubmissionDetail>
 
                     <SubmissionDetail title="Dokumen Persyaratan">
-                      <div className="flex items-center justify-center w-full h-64 overflow-hidden bg-gray-100 object-fit">
+                      <div className="flex items-center justify-center w-full h-64 overflow-hidden bg-gray-100 rounded-lg object-fit">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         {user?.verification?.photo ? (
                           <img
