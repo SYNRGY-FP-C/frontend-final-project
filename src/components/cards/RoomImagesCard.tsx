@@ -1,7 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
 
-export default function RoomImagesCard() {
+export default function RoomImagesCard({roomImages}) {
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-2 lg:gap-y-0 lg:gap-x-2 rounded-2xl">
       <div className="flex w-full col-span-6 max-h-[392px]">
@@ -18,7 +19,7 @@ export default function RoomImagesCard() {
           <div className="flex justify-center object-cover w-full overflow-hidden max-h-24 lg:max-h-48">
             <img
               className="object-cover w-full"
-              src="/images/hero-image.jpg"
+              src={roomImages[0]}
               alt="Test"
             />
           </div>
