@@ -7,7 +7,6 @@ import Section from "@/layouts/Section";
 import React, { useState, useEffect } from "react";
 
 export default function Hits() {
-  // Tambahan
   const [response, setReponse] = useState({
     isLoading: false,
     isError: false,
@@ -42,7 +41,6 @@ export default function Hits() {
       sethits(hits);
     }
   }, []);
-  // Akhir Tambahan
   return (
     <DefaultLayout title="Kost Hits">
       <Section>
@@ -61,7 +59,6 @@ export default function Hits() {
               <div className="flex flex-col">
                 <SearchBar placeholder="Cari berdasarkan kota" />
                 <div className="flex flex-col w-full h-full py-6 gap-y-6">
-                  {/* Tambahan */}
                   {hits.length > 0 ? (
                     <div className="flex flex-col w-full h-full py-6 gap-y-6">
                       {hits.map((hit) => (
@@ -73,7 +70,6 @@ export default function Hits() {
                       <p>Tidak Ada Kamar</p>
                     </div>
                   )}
-                  {/* Akhir Tambahan */}
                 </div>
               </div>
             </div>
