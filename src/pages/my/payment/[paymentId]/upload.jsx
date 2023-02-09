@@ -303,7 +303,7 @@ export default function Upload() {
                       <Button
                         isLoading={response.isLoading}
                         disabled={response.isLoading}
-                        className="px-4 py-3 text-white rounded-lg w-72 bg-primary-1"
+                        className="px-4 py-3 text-white rounded-lg w-full bg-primary-1"
                         onClick={handleUploadBuktiPembayaran}
                       >
                         Bayar
