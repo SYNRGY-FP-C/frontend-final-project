@@ -5,14 +5,17 @@ import TestimoniCard from "@/components/cards/TestimoniCard";
 import WhyUsCard from "@/components/cards/WhyUsCard";
 import SearchBar from "@/components/forms/SearchBar";
 import Hero from "@/components/Hero";
+import { cities } from "@/constants/cities";
 import DefaultLayout from "@/layouts/DefaultLayout";
 import Featured from "@/layouts/Featured";
 import Footer from "@/layouts/Footer";
 import Section from "@/layouts/Section";
+import roomService from "@/services/room.service";
 import { useRouter } from "next/router";
 import React, { useRef } from "react";
+import { v4 as uuid } from "uuid";
 
-export default function Home() {
+export default function Home({ hits_room, newest_room }) {
   const router = useRouter();
   const scrollReff = useRef();
   return (
@@ -37,10 +40,15 @@ export default function Home() {
               description="Kost-kostan terpopuler bulan ini!"
               href="/hits"
             >
-              <FeaturedCard />
-              <FeaturedCard />
-              <FeaturedCard />
-              <FeaturedCard />
+              {hits_room.length > 0 ? (
+                hits_room.map((room) => (
+                  <FeaturedCard key={uuid()} data={room} />
+                ))
+              ) : (
+                <h1 className="col-span-12 text-center md:grid-cols-6 lg:grid-cols-3">
+                  Tidak ada kost
+                </h1>
+              )}
             </Featured>
           </Section>
         </div>
@@ -50,22 +58,22 @@ export default function Home() {
             description="Kost-kostan terbaru bulan ini!"
             href="/new"
           >
-            <FeaturedCard />
-            <FeaturedCard />
-            <FeaturedCard />
-            <FeaturedCard />
+            {newest_room.length > 0 ? (
+              newest_room.map((room) => (
+                <FeaturedCard key={uuid()} data={room} />
+              ))
+            ) : (
+              <h1 className="col-span-12 text-center md:grid-cols-6 lg:grid-cols-3">
+                Tidak ada kost
+              </h1>
+            )}
           </Featured>
         </Section>
         <Section>
           <Featured center title="Area Kost Populer">
-            <LocationCard />
-            <LocationCard />
-            <LocationCard />
-            <LocationCard />
-            <LocationCard />
-            <LocationCard />
-            <LocationCard />
-            <LocationCard />
+            {cities.map((city) => (
+              <LocationCard key={uuid()} data={city} />
+            ))}
           </Featured>
         </Section>
         <Section>
@@ -117,4 +125,19 @@ export default function Home() {
       <Footer />
     </>
   );
+}
+
+export async function getServerSideProps() {
+  const { data: hits_room } = await roomService.search({
+    params: { keyword: "kamar", label: "KOST_HITS", size: 4 },
+  });
+  const { data: newest_room } = await roomService.search({
+    params: { keyword: "kamar", label: "KOST_TERBARU", size: 4 },
+  });
+  return {
+    props: {
+      hits_room,
+      newest_room,
+    },
+  };
 }

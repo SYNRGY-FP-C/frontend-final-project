@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Alert from "@/components/Alert";
 import BackButton from "@/components/buttons/BackButton";
 import Button from "@/components/buttons/Button";
@@ -7,6 +8,7 @@ import InputDropzone from "@/components/forms/InputDropzone";
 import RadioButton from "@/components/forms/RadioButton";
 import TextArea from "@/components/forms/TextArea";
 import File from "@/components/icons/File";
+import Modal from "@/components/Modal";
 import { ROLE_ADMIN } from "@/constants/roles";
 import { TYPES } from "@/constants/types";
 import Defaultlayout from "@/layouts/DefaultLayout";
@@ -15,10 +17,12 @@ import Section from "@/layouts/Section";
 import kostService from "@/services/kost.service";
 import ruleService from "@/services/rules.service";
 import { imageToBase64 } from "@/utils/helper";
+import Link from "next/link";
 import React, { useEffect } from "react";
 import { v4 as uuid } from "uuid";
 
 export default function Add() {
+  const [openModal, setOpenModal] = React.useState(false);
   const [preview, setPreview] = React.useState({
     outdoor_photo: "",
     indoor_photo: "",
@@ -57,6 +61,7 @@ export default function Add() {
         isError: false,
         message: "Kost ditambahkan",
       });
+      setOpenModal(true);
     } catch (error) {
       setResponse({
         isLoading: false,
@@ -69,6 +74,27 @@ export default function Add() {
   return (
     <ProtectedPage allowed={[ROLE_ADMIN]} redirect="/403">
       <Defaultlayout title="Tambah Kost">
+        <Modal isOpen={openModal} setIsOpen={setOpenModal}>
+          <img src="/images/sukses.png" alt="Sukses" className="w-24" />
+          <p className="text-xl font-bold text-center text-base-1">
+            Kost berhasil ditambahkan!
+          </p>
+          <p className="max-w-xs text-center text-base-1">
+            Yuk lihat kost Anda dan tambahkan kamar pertama!
+          </p>
+          <Link
+            className="inline-flex justify-center w-full px-4 py-3 text-white rounded-lg bg-primary-1"
+            href="/dashboard/kost"
+          >
+            Lihat kost
+          </Link>
+          <Link
+            className="inline-flex justify-center w-full px-4 py-3 border rounded-lg bg-base-9 text-primary-1 border-primary-1"
+            href="/dashboard"
+          >
+            Beranda
+          </Link>
+        </Modal>
         <Section>
           <div className="flex flex-col py-16 lg:py-24">
             <BackButton />

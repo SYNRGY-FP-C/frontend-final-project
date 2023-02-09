@@ -8,7 +8,17 @@ const get = async (id) => {
   return await backendJavaPrivate.get(`/v1/transactions/history/${id}`);
 };
 
+const transactions = async () => {
+  return await backendJavaPrivate.get("/v1/transactions/owner");
+};
+
+const history = async () => {
+  return await backendJavaPrivate.get("/v1/transactions/history");
+};
+
 const transactionService = {
+  transactions,
+  history,
   create,
   get,
 };

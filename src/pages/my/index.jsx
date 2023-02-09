@@ -21,7 +21,7 @@ import { useEffect, useState } from "react";
 export default function MyProfile() {
   const [previewProfile, setPreviewProfile] = React.useState();
   const [preview, setPreview] = React.useState();
-  const { user, updateProfile, updateIdentity } = useAuth();
+  const { user, updateProfile, updateIdentity, updateBank } = useAuth();
   const [response, setResponse] = React.useState({
     isLoading: false,
     isError: false,
@@ -33,14 +33,20 @@ export default function MyProfile() {
     birthdate: user?.birthdate || "",
     gender: user?.gender || "",
     occupation: user?.occupation || "",
-    photo: user?.photo || null,
+    photo: user?.photo || "",
   });
 
   const [identity, setIdentity] = useState({
     email: user?.email || "",
     phone: user?.phone || "",
     type: user?.verification?.type || "",
-    photo: user?.verification?.photo || null,
+    photo: user?.verification?.photo || "",
+  });
+
+  const [bank, setBank] = useState({
+    bank_name: user?.bank?.bank_name || "",
+    account_number: user?.bank?.account_number || "",
+    account_name: user?.bank?.account_name || "",
   });
 
   const getUser = async () => {
@@ -49,20 +55,27 @@ export default function MyProfile() {
       birthdate: user?.birthdate ? originalDate(user?.birthdate) : "",
       gender: user?.gender || "",
       occupation: user?.occupation || "",
-      photo: (await urlToObject(user?.photo)) || null,
+      photo: (await urlToObject(user?.photo)) || "",
     });
     setIdentity({
       email: user?.email || "",
       phone: user?.phone || "",
       type: user?.verification?.type || "",
-      photo: (await urlToObject(user?.verification?.photo)) || null,
+      photo: (await urlToObject(user?.verification?.photo)) || "",
+    });
+    setBank({
+      bank_name: user?.bank?.bank_name || "",
+      account_number: user?.bank?.account_number || "",
+      account_name: user?.bank?.account_name || "",
     });
     setPreview(user?.verification?.photo || "");
     setPreviewProfile(user?.photo || "");
   };
 
   useEffect(() => {
-    getUser();
+    if (user) {
+      getUser();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
@@ -86,6 +99,9 @@ export default function MyProfile() {
       identityData.append("type", identity.type);
       identityData.append("photo", identity.photo);
 
+      if (user?.role === ROLE_ADMIN) {
+        await updateBank(bank);
+      }
       await updateProfile(formData);
       await updateIdentity(identityData);
       setResponse({
@@ -103,8 +119,8 @@ export default function MyProfile() {
   };
 
   const handleReset = () => {
-    setPreview(user?.verification?.photo || null);
-    setPreviewProfile(user?.photo || null);
+    setPreview(user?.verification?.photo || "");
+    setPreviewProfile(user?.photo || "");
     setForm({
       fullname: user?.fullname || "",
       birthdate: user?.birthdate ? originalDate(user?.birthdate) : "",
@@ -117,6 +133,11 @@ export default function MyProfile() {
       phone: user?.phone || "",
       type: user?.verification?.type || "",
       photo: user?.verification?.photo || null,
+    });
+    setBank({
+      bank_name: user?.bank?.bank_name || "",
+      account_number: user?.bank?.account_number || "",
+      account_name: user?.bank?.account_name || "",
     });
   };
 
@@ -323,6 +344,49 @@ export default function MyProfile() {
                       required
                     />
                   </div>
+                  {user?.role === ROLE_ADMIN && (
+                    <>
+                      <div className="my-4 text-3xl font-bold text-primary-1">
+                        Nomor Rekening
+                      </div>
+                      <InputWithLabel
+                        labelName="Nomor Rekening"
+                        placeholder="Nomor Rekening"
+                        type="text"
+                        value={bank.account_number}
+                        onChange={(e) =>
+                          setBank({
+                            ...bank,
+                            account_number: e.target.value,
+                          })
+                        }
+                      />
+                      <InputWithLabel
+                        labelName="Nama Bank"
+                        placeholder="Nama Bank"
+                        type="text"
+                        value={bank.bank_name}
+                        onChange={(e) =>
+                          setBank({
+                            ...bank,
+                            bank_name: e.target.value,
+                          })
+                        }
+                      />
+                      <InputWithLabel
+                        labelName="Nama Pemilik Rekening"
+                        placeholder="Nama Pemilik Rekening"
+                        type="text"
+                        value={bank.account_name}
+                        onChange={(e) =>
+                          setBank({
+                            ...bank,
+                            account_name: e.target.value,
+                          })
+                        }
+                      />
+                    </>
+                  )}
                   <div className="grid col-span-2 lg:place-content-end">
                     <div className="flex flex-row mt-3 gap-x-4">
                       <div className="block">

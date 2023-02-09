@@ -18,7 +18,7 @@ export default function DashboardLayout({ children, title = "Dashboard" }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <ProtectedPage allowed={[ROLE_ADMIN]} redirect="/401">
+    <ProtectedPage allowed={[ROLE_ADMIN]} redirect="/403">
       <Head>
         <title>{title}</title>
       </Head>
@@ -44,7 +44,7 @@ export default function DashboardLayout({ children, title = "Dashboard" }) {
         </ul>
       </Drawer>
       <div className="flex flex-row">
-        <Sidebar />
+        <Sidebar menu={dashboardMenu} />
         <div className="flex flex-col w-full px-4 py-4 lg:px-6 gap-y-6">
           <div className="flex flex-row justify-between gap-4">
             <div className="block">
