@@ -5,7 +5,7 @@ const create = async (data) => {
 };
 
 const get = async (id) => {
-  return await backendJavaPrivate.post(`/v1/transactions/history/${id}`);
+  return await backendJavaPrivate.get(`/v1/transactions/history/${id}`);
 };
 
 const transactionService = {

@@ -3,19 +3,54 @@ import { ROLE_USER } from "@/constants/roles";
 import DefaultLayout from "@/layouts/DefaultLayout";
 import ProtectedPage from "@/layouts/ProtectedPage";
 import transactionService from "@/services/transaction.service";
+import { formatRupiah } from "@/utils/helper";
+import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Collapse } from "react-collapse";
 import { IconContext } from "react-icons";
 import { BsCaretDownFill } from "react-icons/bs";
 import { BsCaretUpFill } from "react-icons/bs";
 import { MdPayment } from "react-icons/md";
 
-export default function Submission({ payment }) {
+export default function Payment() {
   // const [price, setPrice] = useState();
-  console.log(payment);
   const router = useRouter();
+  const [dataPayment, setDataPayment] = useState([]);
+  console.log(dataPayment);
+  const [loading, setLoading] = useState(false);
   const [openBank, setOpenBank] = useState(0);
+  const [response, setResponse] = useState({
+    isLoading: false,
+    isError: false,
+    message: "",
+  });
+
+  useEffect(() => {
+    const fetchPayment = async () => {
+      setResponse({ isLoading: true, isError: false, message: "" });
+      try {
+        if (router?.query?.paymentId) {
+          const response = await transactionService.get(
+            router?.query?.paymentId
+          );
+          setDataPayment(response.data);
+          setResponse({
+            isLoading: false,
+            isError: false,
+            message: "Berhasil Get Data Payment By Id",
+          });
+        }
+      } catch (err) {
+        setResponse({
+          isLoading: false,
+          isError: true,
+          message: `${err}, Gagal Get Data Payment By Id`,
+        });
+      }
+    };
+    fetchPayment();
+  }, [router.isReady]);
 
   const toggleBank = (index) => {
     if (open === index) {
@@ -25,15 +60,7 @@ export default function Submission({ payment }) {
     setOpenBank(index);
   };
 
-  // useEffect(() => {
-  //   if(router.params.paymentId){
-  //     setLoading(false)
-  //     const {data}
-  //     setPrice(data.price)
-  //   }
-  // }, [router.isReady])
-
-  // if(Loading) return <>Loading</>
+  if (loading) return <>Loading</>;
 
   return (
     <ProtectedPage allowed={[ROLE_USER]} redirect="/403">
@@ -72,9 +99,13 @@ export default function Submission({ payment }) {
 
                   <Collapse isOpened={openBank}>
                     <div className="bg-white rounded-b-lg border border-gray-300 py-[20px] px-[30px] pb-[20px]">
-                      <div className="bg-base-8 rounded-lg py-[20px] px-[50px] pb-[20px] hover:bg-slate-300">
-                        <img src="/images/bca.png" alt="bca" />
-                      </div>
+                      <Link
+                        href={`/my/payment/${dataPayment.id}/upload?type=bca`}
+                      >
+                        <div className="bg-base-8 rounded-lg py-[20px] px-[50px] pb-[20px] hover:bg-slate-300">
+                          <img src="/images/bca.png" alt="bca" />
+                        </div>
+                      </Link>
                     </div>
                   </Collapse>
                 </div>
@@ -88,7 +119,7 @@ export default function Submission({ payment }) {
                       </p>
                       <div className="inline-flex justify-between">
                         <p>Biaya Kamar</p>
-                        <p>Rp.1.200.000</p>
+                        <p>{formatRupiah(dataPayment.price)}</p>
                       </div>
                       <div className="flex flex-col">
                         <p>Tambahan</p>
@@ -100,11 +131,13 @@ export default function Submission({ payment }) {
                       <hr className="h-0.5 bg-gray-300 border-0" />
                       <div className="inline-flex justify-between">
                         <p className="font-bold text-primary-1">Total Biaya</p>
-                        <p className="font-bold text-primary-1">Rp.1.320.000</p>
+                        <p className="font-bold text-primary-1">
+                          {formatRupiah(dataPayment.price)}
+                        </p>
                       </div>
-                      <button className="px-4 py-3 w-full text-white rounded-lg bg-primary-1 hover:bg-sky-700">
+                      {/* <button className="px-4 py-3 w-full text-white rounded-lg bg-primary-1 hover:bg-sky-700">
                         Bayar
-                      </button>
+                      </button> */}
                     </div>
                   </div>
                 </div>
@@ -117,11 +150,11 @@ export default function Submission({ payment }) {
   );
 }
 
-export const getServerSideProps = async (contex) => {
-  const { data } = await transactionService.get(contex.query.paymentId);
-  return {
-    props: {
-      payment: data,
-    },
-  };
-};
+// export const getServerSideProps = async (contex) => {
+//   const { data } = await transactionService.get(contex.query.paymentId);
+//   return {
+//     props: {
+//       payment: data,
+//     },
+//   };
+// };
