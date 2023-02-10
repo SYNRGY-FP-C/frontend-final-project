@@ -5,99 +5,39 @@ import { ROLE_USER } from "@/constants/roles";
 import Defaultlayout from "@/layouts/DefaultLayout";
 import ProtectedPage from "@/layouts/ProtectedPage";
 import Section from "@/layouts/Section";
+import historyService from "@/services/transaction.service";
 import React from "react";
 import { useEffect, useState } from "react";
 
 export default function History() {
-  const kos = [
-    {
-      id: 1,
-      name: "A",
-      status: "onproccess",
-      label: "string",
-      thumbnail: "string",
-      address: "Bandung",
-      type: "campur",
-      rating: 5,
-    },
-    {
-      id: 2,
-      name: "B",
-      status: "approved",
-      label: "string",
-      thumbnail: "string",
-      address: "Bandung",
-      type: "campur",
-      rating: 5,
-    },
-    {
-      id: 3,
-      name: "C",
-      status: "rejected",
-      label: "string",
-      thumbnail: "string",
-      address: "Bandung",
-      type: "campur",
-      rating: 5,
-    },
-    {
-      id: 4,
-      name: "D",
-      status: "ongoing",
-      label: "string",
-      thumbnail: "string",
-      address: "Bandung",
-      type: "campur",
-      rating: 5,
-    },
-    {
-      id: 5,
-      name: "E",
-      status: "ended",
-      label: "string",
-      thumbnail: "string",
-      address: "Bandung",
-      type: "campur",
-      rating: 5,
-    },
-  ];
-
   // gambaran buat response handle
   const [select, setSelect] = useState("onproccess");
   const [show, setShow] = useState([]);
-  const [response, setResponse] = useState({
+  const [response, setReponse] = useState({
     isLoading: false,
     isError: false,
-    data: [...kos],
+    data: [],
   });
+  
+  const getHistory = async () => {
+    const { data } = await historyService.history();
+    setReponse({ isLoading: false, isError: false, data: data });
+  };
 
   useEffect(() => {
-    const data = response.data.filter((item) => item.role === select);
+    const data = response.data.filter((item) => item.status === select);
     setShow(data);
     // ketika nilai select berubah bakal jalan
   }, [select]);
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     setReponse({
-  //       isLoading: true,
-  //       isError: false,
-  //       data: [],
-  //     });
-  //     try {
-  //       // const data = await historyService.getAll();
-  //       setReponse({
-  //         isLoading: false,
-  //         isError: false,
-  //         data: data,
-  //       });
-  //     } catch (error) {
-  //       setReponse({ isLoading: false, isError: error, data: [] });
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    setReponse({ isLoading: true, isError: false, data: [] });
+    try {
+      getHistory();
+    } catch (error) {
+      setReponse({ isLoading: false, isError: error, data: [] });
+    }
+  }, []);
 
   return (
     <ProtectedPage allowed={[ROLE_USER]} redirect="/403">
