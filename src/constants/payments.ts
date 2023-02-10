@@ -2,7 +2,7 @@ export const payments = {
   bca: {
     name: "bca",
     icon: "/images/bca.png",
-    account_number: "123 123 4567",
+    account_number: "0041 6330 7561",
     steps: [
       {
         title: "ATM BCA",

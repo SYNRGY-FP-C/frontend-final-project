@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
 import LoadingScreen from "@/components/LoadingScreen";
 import { ROLE_USER } from "@/constants/roles";
@@ -16,41 +17,24 @@ import { MdPayment } from "react-icons/md";
 
 export default function Payment() {
   const router = useRouter();
-  const [dataPayment, setDataPayment] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [dataPayment, setDataPayment] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
   const [openBank, setOpenBank] = useState(0);
-  const [response, setResponse] = useState({
-    isLoading: false,
-    isError: false,
-    message: "",
-  });
+
+  const fetchPayment = async () => {
+    try {
+      const response = await transactionService.get(router?.query?.paymentId);
+      setDataPayment(response.data);
+      setIsLoading(false);
+    } catch (error) {
+      router.push("/404");
+    }
+  };
 
   useEffect(() => {
-    const fetchPayment = async () => {
-      setResponse({ isLoading: true, isError: false, message: "" });
-      setIsLoading(true);
-      try {
-        if (router?.query?.paymentId) {
-          const response = await transactionService.get(
-            router?.query?.paymentId
-          );
-          setDataPayment(response.data);
-          setIsLoading(false);
-          setResponse({
-            isLoading: false,
-            isError: false,
-            message: "Berhasil Get Data Payment By Id",
-          });
-        }
-      } catch (err) {
-        setResponse({
-          isLoading: false,
-          isError: true,
-          message: `${err}, Gagal Get Data Payment By Id`,
-        });
-      }
-    };
-    fetchPayment();
+    if (router?.query?.paymentId) {
+      fetchPayment();
+    }
   }, [router.isReady]);
 
   const toggleBank = (index) => {
@@ -73,7 +57,7 @@ export default function Payment() {
             <div className="flex flex-col gap-y-6">
               <div className="grid grid-cols-1 gap-4 lg:grid-cols-12">
                 {/* Accordion Payment */}
-                <div className="h-full col-span-12 lg:col-span-8 mt-20">
+                <div className="h-full col-span-12 mt-20 lg:col-span-8">
                   <h3 className="font-bold text-primary-1 text-3xl md:text-[40px] my-4">
                     Metode Pembayaran
                   </h3>
@@ -92,9 +76,9 @@ export default function Payment() {
                         value={{ color: "black", size: "20px" }}
                       >
                         {openBank ? (
-                          <BsCaretDownFill className="color-black" />
-                        ) : (
                           <BsCaretUpFill />
+                        ) : (
+                          <BsCaretDownFill className="color-black" />
                         )}
                       </IconContext.Provider>
                     </div>
@@ -103,7 +87,7 @@ export default function Payment() {
                   <Collapse isOpened={openBank}>
                     <div className="bg-white rounded-b-lg border border-gray-300 py-[20px] px-[30px] pb-[20px]">
                       <Link
-                        href={`/my/payment/${dataPayment.id}/upload?type=bca`}
+                        href={`/my/payment/${router?.query?.paymentId}/upload?type=bca`}
                       >
                         <div className="bg-base-8 rounded-lg py-[20px] px-[50px] pb-[20px] hover:bg-slate-300">
                           <img src="/images/bca.png" alt="bca" />
@@ -114,31 +98,31 @@ export default function Payment() {
                 </div>
 
                 {/* Total Payment */}
-                <div className="col-span-12 lg:col-span-4 mt-20">
-                  <div className="flex flex-col bg-base-900 border-l border-l-gray-300 gap-y-4">
+                <div className="col-span-12 mt-20 lg:col-span-4">
+                  <div className="flex flex-col border-l bg-base-900 border-l-gray-300 gap-y-4">
                     <div className="flex flex-col p-5 gap-y-4">
                       <p className="block text-[28px] font-bold text-primary-1 md:pt-2">
                         Rincian Pembayaran
                       </p>
                       <div className="inline-flex justify-between">
                         <p>Biaya Kamar</p>
-                        <p>{formatRupiah(dataPayment.price)}</p>
+                        <p>{formatRupiah(dataPayment?.price || 0)}</p>
                       </div>
-                      <div className="flex flex-col">
+                      {/* <div className="flex flex-col">
                         <p>Tambahan</p>
                         <div className="inline-flex justify-between mt-2 ml-5">
                           <p> &bull; Lorem ipsum</p>
                           <p>Rp.120.000</p>
                         </div>
-                      </div>
+                      </div> */}
                       <hr className="h-0.5 bg-gray-300 border-0" />
                       <div className="inline-flex justify-between">
                         <p className="font-bold text-primary-1">Total Biaya</p>
                         <p className="font-bold text-primary-1">
-                          {formatRupiah(dataPayment.price)}
+                          {formatRupiah(dataPayment?.price || 0)}
                         </p>
                       </div>
-                      {/* <button className="px-4 py-3 w-full text-white rounded-lg bg-primary-1 hover:bg-sky-700">
+                      {/* <button className="w-full px-4 py-3 text-white rounded-lg bg-primary-1 hover:bg-sky-700">
                         Bayar
                       </button> */}
                     </div>
