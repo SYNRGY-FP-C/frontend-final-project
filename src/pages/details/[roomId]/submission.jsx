@@ -216,7 +216,7 @@ export default function Submission({ room }) {
                             id="inline-radio"
                             type="radio"
                             disabled
-                            defaultChecked={radio === "KTP"}
+                            checked={radio === "KTP"}
                             name="inline-radio-group"
                             className="w-4 h-4 text-gray-600 bg-gray-100 border-gray-300 "
                           />
@@ -232,7 +232,7 @@ export default function Submission({ room }) {
                             id="inline-2-radio"
                             type="radio"
                             disabled
-                            defaultChecked={radio === "SIM"}
+                            checked={radio === "SIM"}
                             name="inline-radio-group"
                             className="w-4 h-4 text-gray-600 bg-gray-100 border-gray-300 "
                           />
@@ -248,7 +248,7 @@ export default function Submission({ room }) {
                             id="inline-checked-radio"
                             type="radio"
                             disabled
-                            defaultChecked={radio === "PASPORT"}
+                            checked={radio === "PASSPORT"}
                             name="inline-radio-group"
                             className="w-4 h-4 text-gray-600 bg-gray-100 border-gray-300 "
                           />
