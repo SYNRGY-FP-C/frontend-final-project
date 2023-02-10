@@ -5,7 +5,7 @@ const create = async (data) => {
 };
 
 const getAll = async () => {
-  return await backendJavaPrivate.get("/v1/kost");
+  return await backendJavaPrivate.get("/v1/kost/");
 };
 
 const get = async (id) => {

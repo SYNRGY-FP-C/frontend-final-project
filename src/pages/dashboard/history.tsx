@@ -26,7 +26,7 @@ export default function History() {
   };
 
   useEffect(() => {
-    const data = response.data.filter((item) => item.role === select);
+    const data = response.data.filter((item) => item.status === select);
     setShow(data);
     // ketika nilai select berubah bakal jalan
   }, [select]);
@@ -42,6 +42,7 @@ export default function History() {
   return (
     <ProtectedPage allowed={[ROLE_ADMIN]} redirect="/403">
       <DashboardLayout title="Dashboard - Riwayat">
+        <h1 className="text-3xl font-bold text-base-1">Riwayat</h1>
         <div className="flex flex-col gap-y-3">
           <div className="flex flex-row gap-3">
             <div className="block">

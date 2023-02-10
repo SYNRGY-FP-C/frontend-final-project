@@ -33,8 +33,23 @@ export const imageToBase64 = (file: File) => {
 
 export const urlToObject = async (url) => {
   const response = await fetch(url);
-  const blob = await response.blob();
-  return new File([blob], url, { type: blob.type });
+  const blob = await response?.blob();
+  const name = url?.split("/")?.pop();
+  return new File([blob], name, { type: blob?.type });
+};
+
+export const urlToBase64 = (url) => {
+  return fetch(url)
+    .then((response) => response.blob())
+    .then(
+      (blob) =>
+        new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onloadend = () => resolve(reader.result);
+          reader.onerror = reject;
+          reader.readAsDataURL(blob);
+        })
+    );
 };
 
 export const RE_DIGIT = new RegExp(/^\d+$/);

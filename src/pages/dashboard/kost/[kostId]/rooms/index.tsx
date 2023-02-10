@@ -27,8 +27,8 @@ export default function Rooms() {
 
   useEffect(() => {
     if (router?.query?.kostId) {
-      setLoading(false);
       getRooms();
+      setLoading(false);
     }
   }, [router.isReady]);
 
@@ -84,7 +84,7 @@ export default function Rooms() {
                         <div className="relative flex flex-col h-full gap-y-3">
                           <div className="flex flex-col justify-between md:flex-row">
                             <Link
-                              href={`/details/kost/${router?.query?.kostId}/rooms/${room.id}`}
+                              href={`/dashboard/kost/${router?.query?.kostId}/rooms/${room.id}`}
                             >
                               <h5 className="max-w-xs overflow-hidden text-[20px] font-bold text-base-1 text-ellipsis whitespace-nowrap">
                                 {room.name}

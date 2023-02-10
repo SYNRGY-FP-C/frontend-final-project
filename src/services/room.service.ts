@@ -1,7 +1,7 @@
 import { backendJavaPrivate, backendJavaPublic } from "../utils/axios";
 
 const create = async (data) => {
-  return await backendJavaPrivate.post("/v1/rooms", data);
+  return await backendJavaPrivate.post("/v1/rooms/add", data);
 };
 
 const getAll = async () => {
@@ -12,8 +12,16 @@ const get = async (id) => {
   return await backendJavaPublic.get(`/v1/public/rooms/${id}`);
 };
 
+const getOwner = async (id) => {
+  return await backendJavaPublic.get(`/v1/public/contact/${id}`);
+};
+
+const getByKost = async (id) => {
+  return await backendJavaPrivate.get(`/v1/rooms/${id}`);
+};
+
 const update = async (id, data) => {
-  return await backendJavaPrivate.put(`/v1/rooms/${id}`, data);
+  return await backendJavaPrivate.put(`/v1/rooms/update/${id}`, data);
 };
 
 const remove = async (id) => {
@@ -27,6 +35,8 @@ const search = async (data) => {
 const roomService = {
   create,
   getAll,
+  getOwner,
+  getByKost,
   get,
   update,
   remove,

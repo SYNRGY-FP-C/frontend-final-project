@@ -39,6 +39,10 @@
   }
 }
 
+.ReactCollapse--collapse {
+  transition: height 500ms;
+}
+
 body {
   padding: 0;
   margin: 0;
