@@ -36,7 +36,7 @@ export default function Favorite() {
                 {favorites.length > 0 ? (
                   <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
                     {favorites.map((favorite) => (
-                      <FeaturedCard key={favorite.title} favorite={favorite} />
+                      <FeaturedCard key={favorite.title} data={favorite} />
                     ))}
                   </div>
                 ) : (
