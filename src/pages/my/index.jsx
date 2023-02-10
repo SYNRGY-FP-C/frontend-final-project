@@ -317,7 +317,7 @@ export default function MyProfile() {
                       htmlFor="Verifikasi Identitas"
                       className="block text-lg text-base-1"
                     >
-                      Jenis Kelamin
+                      Verifikasi Identitas
                     </label>
                     <RadioButton
                       labelName="Verifikasi Identitas"
