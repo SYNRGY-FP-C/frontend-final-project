@@ -112,7 +112,7 @@ export default function Details({ room, owner }) {
                 <>
                   <hr className="h-0.5 bg-gray-200 border-0 my-8" />
                   <RoomDetail title="Tipe Kamar Lain dari Pemilik Kost Ini">
-                    <div className="flex gap-x-3">
+                    <div className="grid grid-cols-1 lg:grid-cols-2">
                       {room?.another_room?.map((value, index) => (
                         <OtherRoomCard key={index} room={value} />
                       ))}

@@ -12,8 +12,8 @@ const get = async (id) => {
   return await backendJavaPrivate.get(`/v1/kost/${id}`);
 };
 
-const update = async (id, data) => {
-  return await backendJavaPrivate.put(`/v1/kost/${id}`, data);
+const update = async (data) => {
+  return await backendJavaPrivate.put("/v1/kost/update", data);
 };
 
 const remove = async (id) => {

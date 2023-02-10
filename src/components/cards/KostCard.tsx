@@ -7,15 +7,14 @@ import React from "react";
 
 export default function KostCard({ data }) {
   return (
-    <Link
-      href={`/dashboard/kost/${data?.id}`}
-      className="w-full border rounded-lg hover:shadow-xl shadow-primary-2"
-    >
-      <img
-        src={data?.image}
-        alt={data?.image}
-        className="w-full h-32 rounded-t-lg"
-      />
+    <div className="w-full border rounded-lg hover:shadow-xl shadow-primary-2">
+      <Link href={`/dashboard/kost/${data?.id}/rooms`}>
+        <img
+          src={data?.image}
+          alt={data?.image}
+          className="w-full h-32 rounded-t-lg"
+        />
+      </Link>
       <div className="p-4">
         <div className="flex items-center place-content-between">
           <h1 className="font-bold">{data?.name}</h1>
@@ -28,16 +27,20 @@ export default function KostCard({ data }) {
           <h1 className="ml-3">{data.address}</h1>
         </div>
         <div className="flex items-center my-5 place-content-between">
-          <div className="rounded-full bg-primary-4">
+          {/* <div className="rounded-full bg-primary-4">
             <h1 className="px-3 py-1 text-xs text-white">{data?.label}</h1>
+          </div> */}
+          <div className="flex items-center">
+            <Star className="w-6" />
           </div>
-          <div>
-            <div className="flex items-center">
-              <Star className="w-6" />
-            </div>
-          </div>
+          <Link
+            href={`/dashboard/kost/${data?.id}`}
+            className="px-4 py-2 text-sm font-semibold bg-gray-100 rounded-lg"
+          >
+            Ubah
+          </Link>
         </div>
       </div>
-    </Link>
+    </div>
   );
 }
