@@ -35,7 +35,11 @@ export default function RoomCard({ data = defaultData }) {
         <div className="flex justify-center object-cover w-full h-56 overflow-hidden">
           <img
             className="object-cover w-full rounded-t-xl lg:rounded-l-2xl lg:rounded-r-none"
-            src={data.thumbnail ?? "/images/Kosthub.png"}
+            src={
+              data.thumbnail == "null" || !data.thumbnail
+                ? "/images/Kosthub.png"
+                : data.thumbnail
+            }
             alt={data.name}
           />
         </div>
@@ -65,11 +69,13 @@ export default function RoomCard({ data = defaultData }) {
               )}
             </div>
           </div>
-          <div className="flex flex-row items-center gap-x-2">
+          <div className="flex items-center gap-x-2">
             <Location className="w-5 h-5" />
-            <p className="max-w-lg overflow-hidden text-base-2 text-ellipsis whitespace-nowrap">
-              {data.address}
-            </p>
+            <div className="block">
+              <p className="max-w-xs overflow-hidden lg:max-w-sm text-base-2 text-ellipsis whitespace-nowrap">
+                {data.address}
+              </p>
+            </div>
           </div>
           <div className="flex flex-row items-center gap-x-3">
             <div className="inline-flex items-center gap-x-1">
