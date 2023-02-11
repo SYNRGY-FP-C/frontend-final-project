@@ -34,7 +34,7 @@ export default function MyProfile() {
     birthdate: user?.birthdate ? originalDate(user?.birthdate) : "",
     gender: user?.gender || "",
     occupation: user?.occupation || "",
-    photo: user?.photo ? urlToObject(user?.photo) : "",
+    photo: user?.photo ? urlToObject(user?.photo).then((result) => result) : "",
   });
 
   const [identity, setIdentity] = useState({
@@ -42,7 +42,7 @@ export default function MyProfile() {
     phone: user?.phone || "",
     type: user?.verification?.type || "",
     photo: user?.verification?.photo
-      ? urlToObject(user?.verification?.photo)
+      ? urlToObject(user?.verification?.photo).then((result) => result)
       : "",
   });
 
