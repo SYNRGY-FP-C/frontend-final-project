@@ -31,17 +31,19 @@ export default function MyProfile() {
 
   const [form, setForm] = useState({
     fullname: user?.fullname || "",
-    birthdate: user?.birthdate || "",
+    birthdate: user?.birthdate ? originalDate(user?.birthdate) : "",
     gender: user?.gender || "",
     occupation: user?.occupation || "",
-    photo: user?.photo || "",
+    photo: user?.photo ? urlToObject(user?.photo) : "",
   });
 
   const [identity, setIdentity] = useState({
     email: user?.email || "",
     phone: user?.phone || "",
     type: user?.verification?.type || "",
-    photo: user?.verification?.photo || "",
+    photo: user?.verification?.photo
+      ? urlToObject(user?.verification?.photo)
+      : "",
   });
 
   const [bank, setBank] = useState({
