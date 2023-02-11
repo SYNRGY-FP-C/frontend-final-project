@@ -73,11 +73,6 @@ export default function MyProfile() {
     setPreviewProfile(user?.photo || "");
   };
 
-  useEffect(() => {
-    getUserProfile();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setResponse({ isLoading: true, isError: false, message: "" });
@@ -140,6 +135,11 @@ export default function MyProfile() {
       account_name: user?.bank?.account_name || "",
     });
   };
+
+  useEffect(() => {
+    getUserProfile();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   return (
     <ProtectedPage
