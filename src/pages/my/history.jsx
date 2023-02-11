@@ -24,14 +24,13 @@ export default function History() {
   const getHistory = async () => {
     const { data } = await historyService.history();
     setReponse({ isLoading: false, isError: false, data: data });
-    setShow(data);
   };
 
   useEffect(() => {
     const data = response.data.filter((item) => item.status === select);
     setShow(data);
     // ketika nilai select berubah bakal jalan
-  }, [select]);
+  }, [select, ...response.data]);
 
   useEffect(() => {
     setReponse({ isLoading: true, isError: false, data: [] });
