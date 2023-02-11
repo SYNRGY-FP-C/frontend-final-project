@@ -325,7 +325,7 @@ export default function MyProfile() {
                     <RadioButton
                       labelName="Verifikasi Identitas"
                       options={IDENTITIES}
-                      value={identity.type}
+                      value={identity.type || user?.verification?.type}
                       onChange={(e) =>
                         setIdentity({
                           ...identity,
