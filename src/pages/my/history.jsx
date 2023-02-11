@@ -24,14 +24,13 @@ export default function History() {
   const getHistory = async () => {
     const { data } = await historyService.history();
     setReponse({ isLoading: false, isError: false, data: data });
-    setShow(data);
   };
 
   useEffect(() => {
     const data = response.data.filter((item) => item.status === select);
     setShow(data);
     // ketika nilai select berubah bakal jalan
-  }, [select]);
+  }, [select, ...response.data]);
 
   useEffect(() => {
     setReponse({ isLoading: true, isError: false, data: [] });
@@ -124,6 +123,43 @@ export default function History() {
                           onClick={() => setSelect("REJECTED")}
                         >
                           Ditolak
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                {(select === "APPROVED" || select === "ONPROCCESS") && (
+                  <div className="grid grid-col-span-2 place-content-start">
+                    <div className="flex flex-row mt-3 mb-3 gap-x-4">
+                      <div className="block">
+                        <Button
+                          className={clsx(
+                            "px-6 py-2 w-full text-center bg-primary-1 rounded-lg text-primary-1",
+                            {
+                              ["bg-primary-1 text-white"]:
+                                select === "APPROVED",
+                              ["bg-base-7 text-base-2"]: select !== "APPROVED",
+                            }
+                          )}
+                          onClick={() => setSelect("APPROVED")}
+                        >
+                          Disetujui
+                        </Button>
+                      </div>
+                      <div className="block">
+                        <Button
+                          className={clsx(
+                            "px-6 py-2 w-full text-center bg-primary-1 rounded-lg text-primary-1",
+                            {
+                              ["bg-primary-1 text-white"]:
+                                select === "ONPROCCESS",
+                              ["bg-base-7 text-base-2"]:
+                                select !== "ONPROCCESS",
+                            }
+                          )}
+                          onClick={() => setSelect("ONPROCCESS")}
+                        >
+                          Proses Verifikasi
                         </Button>
                       </div>
                     </div>

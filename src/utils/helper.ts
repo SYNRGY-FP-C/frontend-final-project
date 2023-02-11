@@ -34,10 +34,20 @@ export const imageToBase64 = (file: File) => {
 
 export const urlToObject = async (url) => {
   if (!url || url === "undefined") return null;
-  const response = await fetch(url);
-  const blob = await response?.blob();
-  const name = url?.split("/")?.pop();
-  return new File([blob], name, { type: blob?.type });
+  if (url.startsWith("http://")) {
+    url = url.replace(/http:\/\//g, "https://");
+  }
+  try {
+    const response = await fetch(url);
+    const blob = await response?.blob();
+    const name = url?.split("/")?.pop();
+    return new File([blob], name, { type: blob?.type });
+  } catch (error) {
+    const response = await fetch("/images/Kosthub.png");
+    const blob = await response?.blob();
+    const name = url?.split("/")?.pop();
+    return new File([blob], name, { type: blob?.type });
+  }
 };
 
 export const urlToBase64 = (url) => {

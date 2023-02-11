@@ -15,6 +15,7 @@ import { ROLE_ADMIN } from "@/constants/roles";
 import DefaultLayout from "@/layouts/DefaultLayout";
 import ProtectedPage from "@/layouts/ProtectedPage";
 import Section from "@/layouts/Section";
+import facilityService from "@/services/facilities.service";
 import roomService from "@/services/room.service";
 import { imageToBase64 } from "@/utils/helper";
 import Link from "next/link";
@@ -23,6 +24,7 @@ import React, { useEffect } from "react";
 
 export default function Room() {
   const router = useRouter();
+  const [facilities, setFacilities] = React.useState([]);
   const [openModal, setOpenModal] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
   const [preview, setPreview] = React.useState({
@@ -35,7 +37,7 @@ export default function Room() {
     message: "",
   });
 
-  const [addons, setAddons] = React.useState(true);
+  // const [addons, setAddons] = React.useState(true);
 
   const [form, setForm] = React.useState({
     name: "",
@@ -88,22 +90,15 @@ export default function Room() {
     setForm({ ...form, [key]: checkboxes });
   };
 
-  const bathroom_facilities = [
-    {
-      id: 1,
-      name: "Air Panas",
-    },
-  ];
+  const getFacilities = async () => {
+    const response = await facilityService.getAll();
+    setFacilities(response.data);
+    setLoading(false);
+  };
 
-  const bedroom_facilities = [
-    {
-      id: 1,
-      name: "Cleaning Service",
-    },
-  ];
   useEffect(() => {
     if (router?.query?.kostId) {
-      setLoading(false);
+      getFacilities();
     }
   }, [router.isReady]);
 
@@ -122,7 +117,7 @@ export default function Room() {
           </p>
           <Link
             className="inline-flex justify-center w-full px-4 py-3 text-white rounded-lg bg-primary-1"
-            href={`/dashboard/kost/${router?.query?.kostId}`}
+            href={`/dashboard/kost/${router?.query?.kostId}/rooms`}
           >
             Lihat kamar
           </Link>
@@ -325,7 +320,7 @@ export default function Room() {
                       }
                       required
                     />
-                    <div className="grid gap-3 pt-3">
+                    {/* <div className="grid gap-3 pt-3">
                       {bathroom_facilities.map((facility) => (
                         <Checkbox
                           key={facility.id}
@@ -340,7 +335,7 @@ export default function Room() {
                           {facility.name}
                         </Checkbox>
                       ))}
-                    </div>
+                    </div> */}
                   </div>
 
                   {/* Fasilitas Kamar */}
@@ -351,25 +346,25 @@ export default function Room() {
                   </div>
                   <div className="grid w-full lg:col-span-9">
                     <div className="grid gap-3">
-                      {bedroom_facilities.map((facility) => (
+                      {facilities.map((facility) => (
                         <Checkbox
                           key={facility.id}
                           onChange={() =>
                             handleCheckbox(
                               facility.id,
                               "bedroom_facilities",
-                              bedroom_facilities
+                              facilities
                             )
                           }
                         >
-                          {facility.name}
+                          {facility.facility_name}
                         </Checkbox>
                       ))}
                     </div>
                   </div>
 
                   {/* Fasilitas Tambahan */}
-                  <div className="grid w-full lg:col-span-3">
+                  {/* <div className="grid w-full lg:col-span-3">
                     <label htmlFor="Nama Kost" className="text-xl font-bold">
                       Fasilitas Tambahan*
                     </label>
@@ -427,7 +422,7 @@ export default function Room() {
                         </div>
                       )}
                     </div>
-                  </div>
+                  </div> */}
 
                   {/* Harga */}
                   <div className="grid w-full lg:col-span-3">
@@ -462,6 +457,7 @@ export default function Room() {
                         <Button
                           type="submit"
                           className="w-full px-5 py-2 text-center text-white rounded-lg bg-primary-1 hover:bg-primary-1 disabled:bg-primary-2"
+                          isLoading={response.isLoading}
                         >
                           Tambah
                         </Button>

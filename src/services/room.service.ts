@@ -25,7 +25,7 @@ const update = async (id, data) => {
 };
 
 const remove = async (id) => {
-  return await backendJavaPrivate.delete(`/v1/rooms/${id}`);
+  return await backendJavaPrivate.delete(`/v1/rooms/delete/${id}`);
 };
 
 const search = async (data) => {

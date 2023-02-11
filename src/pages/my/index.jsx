@@ -30,17 +30,19 @@ export default function MyProfile() {
 
   const [form, setForm] = useState({
     fullname: user?.fullname || "",
-    birthdate: user?.birthdate || "",
+    birthdate: user?.birthdate ? originalDate(user?.birthdate) : "",
     gender: user?.gender || "",
     occupation: user?.occupation || "",
-    photo: user?.photo || "",
+    photo: user?.photo ? urlToObject(user?.photo).then((result) => result) : "",
   });
 
   const [identity, setIdentity] = useState({
     email: user?.email || "",
     phone: user?.phone || "",
     type: user?.verification?.type || "",
-    photo: user?.verification?.photo || "",
+    photo: user?.verification?.photo
+      ? urlToObject(user?.verification?.photo).then((result) => result)
+      : "",
   });
 
   const [bank, setBank] = useState({
@@ -49,7 +51,7 @@ export default function MyProfile() {
     account_name: user?.bank?.account_name || "",
   });
 
-  const getUser = async () => {
+  const getUserProfile = async () => {
     setForm({
       fullname: user?.fullname || "",
       birthdate: user?.birthdate ? originalDate(user?.birthdate) : "",
@@ -71,11 +73,6 @@ export default function MyProfile() {
     setPreview(user?.verification?.photo || "");
     setPreviewProfile(user?.photo || "");
   };
-
-  useEffect(() => {
-    getUser();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -138,6 +135,11 @@ export default function MyProfile() {
       account_name: user?.bank?.account_name || "",
     });
   };
+
+  useEffect(() => {
+    getUserProfile();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   return (
     <ProtectedPage
@@ -228,7 +230,7 @@ export default function MyProfile() {
                     labelName="Nama Lengkap"
                     placeholder="Nama Lengkap"
                     type="text"
-                    value={form.fullname}
+                    value={form.fullname || user?.fullname}
                     onChange={(e) =>
                       setForm({
                         ...form,
@@ -240,7 +242,11 @@ export default function MyProfile() {
                   <InputWithLabel
                     labelName="Tanggal Lahir"
                     type="date"
-                    value={form.birthdate}
+                    value={
+                      form.birthdate || user?.birthdate
+                        ? originalDate(user?.birthdate)
+                        : ""
+                    }
                     onChange={(e) =>
                       setForm({
                         ...form,
@@ -259,7 +265,7 @@ export default function MyProfile() {
                     <RadioButton
                       labelName="Jenis Kelamin"
                       options={GENDER}
-                      value={form.gender}
+                      value={form.gender || user?.gender}
                       onChange={(e) =>
                         setForm({
                           ...form,
@@ -273,7 +279,7 @@ export default function MyProfile() {
                     labelName="Pekerjaan"
                     placeholder="Pekerjaan"
                     type="text"
-                    value={form.occupation}
+                    value={form.occupation || user?.occupation}
                     onChange={(e) =>
                       setForm({
                         ...form,
@@ -289,7 +295,7 @@ export default function MyProfile() {
                     labelName="Email"
                     placeholder="Email"
                     type="email"
-                    value={identity.email}
+                    value={identity.email || user?.email}
                     onChange={(e) =>
                       setIdentity({
                         ...form,
@@ -301,7 +307,7 @@ export default function MyProfile() {
                     labelName="Nomor Telepon"
                     placeholder="Nomor Telepon"
                     type="number"
-                    value={identity.phone}
+                    value={identity.phone || user?.phone}
                     onChange={(e) =>
                       setIdentity({
                         ...form,
@@ -319,7 +325,7 @@ export default function MyProfile() {
                     <RadioButton
                       labelName="Verifikasi Identitas"
                       options={IDENTITIES}
-                      value={identity.type}
+                      value={identity.type || user?.verification?.type}
                       onChange={(e) =>
                         setIdentity({
                           ...identity,
@@ -342,7 +348,6 @@ export default function MyProfile() {
                         setIdentity({ ...identity, photo: e.target.files[0] });
                         setPreview(URL.createObjectURL(e.target.files[0]));
                       }}
-                      required
                     />
                   </div>
                   {user?.role === ROLE_ADMIN && (
@@ -354,7 +359,9 @@ export default function MyProfile() {
                         labelName="Nomor Rekening"
                         placeholder="Nomor Rekening"
                         type="text"
-                        value={bank.account_number}
+                        value={
+                          bank.account_number || user?.bank?.account_number
+                        }
                         onChange={(e) =>
                           setBank({
                             ...bank,
@@ -366,7 +373,7 @@ export default function MyProfile() {
                         labelName="Nama Bank"
                         placeholder="Nama Bank"
                         type="text"
-                        value={bank.bank_name}
+                        value={bank.bank_name || user?.bank?.bank_name}
                         onChange={(e) =>
                           setBank({
                             ...bank,
@@ -378,7 +385,7 @@ export default function MyProfile() {
                         labelName="Nama Pemilik Rekening"
                         placeholder="Nama Pemilik Rekening"
                         type="text"
-                        value={bank.account_name}
+                        value={bank.account_name || user?.bank?.account_name}
                         onChange={(e) =>
                           setBank({
                             ...bank,
