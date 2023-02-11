@@ -10,7 +10,7 @@ import LoveOutline from "../icons/LoveOutline";
 export default function OtherRoomCard({ room }) {
   const [isFavorite, addFavorite, removeFavorite] = useFavorive(room);
   return (
-    <div className="shadow w-72 rounded-2xl">
+    <div className="w-full shadow rounded-2xl">
       <div className="relative flex justify-center object-cover w-full h-64 overflow-hidden">
         <img
           className="object-cover w-full rounded-t-2xl"

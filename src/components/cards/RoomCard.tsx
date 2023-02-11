@@ -72,7 +72,7 @@ export default function RoomCard({ data = defaultData }) {
           <div className="flex items-center gap-x-2">
             <Location className="w-5 h-5" />
             <div className="block">
-              <p className="max-w-xs overflow-hidden lg:max-w-sm text-base-2 text-ellipsis whitespace-nowrap">
+              <p className="max-w-[240px] overflow-hidden text-base-2 text-ellipsis whitespace-nowrap">
                 {data.address}
               </p>
             </div>

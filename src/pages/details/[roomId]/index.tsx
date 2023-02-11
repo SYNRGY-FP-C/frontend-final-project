@@ -146,7 +146,7 @@ export default function Details() {
                 <>
                   <hr className="h-0.5 bg-gray-200 border-0 my-8" />
                   <RoomDetail title="Aturan Kost">
-                    <div className="grid grid-cols-2 mb-8 gap-y-4">
+                    <div className="grid grid-cols-1 mb-8 md:grid-cols-2 gap-y-4">
                       {responseRoom?.room?.rules?.map((rule) => (
                         <DescriptionItem name={rule.name} key={rule.id}>
                           {rule.name}
@@ -162,7 +162,7 @@ export default function Details() {
                 <>
                   <hr className="h-0.5 bg-gray-200 border-0 my-8" />
                   <RoomDetail title="Tipe Kamar Lain dari Pemilik Kost Ini">
-                    <div className="grid grid-cols-1 lg:grid-cols-2">
+                    <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
                       {responseRoom?.room?.another_room?.map((value, index) => (
                         <OtherRoomCard key={index} room={value} />
                       ))}
