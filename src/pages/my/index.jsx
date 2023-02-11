@@ -76,6 +76,9 @@ export default function MyProfile() {
   };
 
   const handleSubmit = async (e) => {
+    console.log(form);
+    console.log(identity);
+    console.log(bank);
     e.preventDefault();
     setResponse({ isLoading: true, isError: false, message: "" });
     try {
