@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import HistoryCard from "@/components/cards/HistoryCard";
+import TransactionCard from "@/components/cards/TransactionCard";
 import { ROLE_ADMIN } from "@/constants/roles";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import ProtectedPage from "@/layouts/ProtectedPage";
@@ -27,6 +27,19 @@ export default function Transaction() {
       setReponse({ isLoading: false, isError: error, data: [] });
     }
   }, []);
+
+  const handleAcceptance = async (id, status) => {
+    setReponse({ ...response, isError: false });
+    try {
+      await transactionService.acceptance({
+        id: id,
+        status: status,
+      });
+      getTransaction();
+    } catch (error) {
+      setReponse({ isLoading: false, isError: error, data: [] });
+    }
+  };
   return (
     <ProtectedPage allowed={[ROLE_ADMIN]} redirect="/403">
       <DashboardLayout title="Dashboard - Transaksi">
@@ -34,7 +47,16 @@ export default function Transaction() {
         <div className="flex flex-col gap-y-3">
           {response.data.length > 0 ? (
             response.data.map((transaksi) => {
-              return <HistoryCard key={transaksi.id} />;
+              return (
+                <TransactionCard
+                  key={transaksi.id}
+                  data={transaksi}
+                  onAcceptance={() =>
+                    handleAcceptance(transaksi.id, "APPROVED")
+                  }
+                  onReject={() => handleAcceptance(transaksi.id, "REJECTED")}
+                />
+              );
             })
           ) : (
             <h1 className="text-center">Tidak ada transaksi</h1>

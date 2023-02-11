@@ -76,45 +76,43 @@ export default function HistoryCard({ data = defaultData }) {
                 <span className="font-bold">{data.rate}</span>
               </div>
             </div>
-            <div className="flex items-stretch justify-end h-full">
-              <div className="flex space-x-3">
-                {data.status === "REJECTED" ||
-                data.status === "PENDING" ||
-                data.status === "ENDED" ? (
-                  <div className="flex items-center gap-3">
-                    <span
-                      className={clsx("px-4 py-1.5 rounded-2xl text-xs", {
-                        ["bg-gray-200 text-base-1"]: data.status !== "REJECTED",
-                        ["bg-error text-white"]: data.status === "REJECTED",
-                      })}
+            <div className="flex items-end justify-end h-full space-x-3">
+              {data.status === "REJECTED" ||
+              data.status === "PENDING" ||
+              data.status === "ENDED" ? (
+                <div className="flex items-center gap-3">
+                  <span
+                    className={clsx("px-4 py-1.5 rounded-2xl text-xs", {
+                      ["bg-gray-200 text-base-1"]: data.status !== "REJECTED",
+                      ["bg-error text-white"]: data.status === "REJECTED",
+                    })}
+                  >
+                    {statuses[data.status]}
+                  </span>
+                </div>
+              ) : data.status === "APPROVED" ? (
+                <div className="flex items-center gap-3">
+                  <Button className="w-full px-5 py-2 text-center rounded-lg text-error disabled:bg-primary-2">
+                    Batalkan
+                  </Button>
+                  <Link key={data.id} href={`/my/payment/${data.id}`}>
+                    <Button
+                      type="button"
+                      className="w-full px-5 py-2 text-center text-white rounded-lg bg-primary-1 hover:bg-secondary-1 disabled:bg-primary-2"
                     >
-                      {statuses[data.status]}
-                    </span>
-                  </div>
-                ) : data.status === "APPROVED" ? (
-                  <div className="flex items-center gap-3">
-                    <Button className="w-full px-5 py-2 text-center rounded-lg text-error disabled:bg-primary-2">
-                      Batalkan
+                      Bayar
                     </Button>
-                    <Link key={data.id} href={`/my/payment/${data.id}`}>
-                      <Button
-                        type="button"
-                        className="px-5 py-2 text-center text-white rounded-lg w-36 bg-primary-1 hover:bg-secondary-1 disabled:bg-primary-2"
-                      >
-                        Bayar
-                      </Button>
-                    </Link>
-                  </div>
-                ) : data.status === "APPROVED" ? (
+                  </Link>
+                </div>
+              ) : (
+                data.status === "APPROVED" && (
                   <div className="flex items-center gap-3">
                     <span className="px-4 py-1.5 rounded-2xl text-xs bg-gray-200 text-base-1">
                       {statuses[data.status]}
                     </span>
                   </div>
-                ) : (
-                  ""
-                )}
-              </div>
+                )
+              )}
             </div>
           </div>
         </div>

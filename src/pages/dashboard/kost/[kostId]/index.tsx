@@ -65,7 +65,7 @@ export default function Add() {
       setResponse({
         isLoading: false,
         isError: false,
-        message: "Kost diperbarui",
+        message: "Kost berhasil diperbarui",
       });
       setOpenModal(true);
     } catch (error) {
@@ -195,6 +195,7 @@ export default function Add() {
                               setStep(2);
                             }
                           }}
+                          isLoading={response.isLoading}
                         >
                           {step === 1 ? "Selanjutnya" : "Perbarui"}
                         </Button>
@@ -378,7 +379,7 @@ function DataForm({ formData, setFormData, preview, setPreview }) {
           {rules?.map((rule) => (
             <Checkbox
               key={rule.id}
-              checked={formData.rules.find((item) => item.id === rule.id)}
+              checked={formData?.rules.find((item) => item.id == rule.id)}
               onChange={() => handleCheckbox(rule.id, "rules", rules)}
               required
             >
@@ -412,9 +413,9 @@ function DataForm({ formData, setFormData, preview, setPreview }) {
 function AddressForm({ formData, setFormData }) {
   return (
     <>
-      <div className="grid w-full lg:col-span-12">
+      {/* <div className="grid w-full lg:col-span-12">
         <Checkbox>Tentukan letak peta</Checkbox>
-      </div>
+      </div> */}
       <div className="grid w-full lg:col-span-3">
         <label htmlFor="Alamat" className="text-xl font-bold">
           Alamat

@@ -56,7 +56,7 @@ export default function History() {
                 )}
                 onClick={() => setSelect("ONGOING")}
               >
-                Diajukan
+                Sekarang
               </Button>
             </div>
             <div className="block">

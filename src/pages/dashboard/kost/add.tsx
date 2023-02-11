@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
 import Alert from "@/components/Alert";
 import BackButton from "@/components/buttons/BackButton";
@@ -8,6 +9,7 @@ import InputDropzone from "@/components/forms/InputDropzone";
 import RadioButton from "@/components/forms/RadioButton";
 import TextArea from "@/components/forms/TextArea";
 import File from "@/components/icons/File";
+import LoadingScreen from "@/components/LoadingScreen";
 import Modal from "@/components/Modal";
 import { ROLE_ADMIN } from "@/constants/roles";
 import { payments } from "@/constants/schemes";
@@ -19,9 +21,12 @@ import kostService from "@/services/kost.service";
 import ruleService from "@/services/rules.service";
 import { imageToBase64 } from "@/utils/helper";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 
 export default function Add() {
+  const router = useRouter();
+  const [isLoading, setIsLoading] = React.useState(true);
   const [openModal, setOpenModal] = React.useState(false);
   const [preview, setPreview] = React.useState({
     outdoor_photo: "",
@@ -71,6 +76,17 @@ export default function Add() {
     }
   };
 
+  const getKost = async () => {
+    const { data } = await kostService.getAll();
+    if (data.length >= 2) return router.push("/dashboard");
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    getKost();
+  }, []);
+
+  if (isLoading) return <LoadingScreen />;
   return (
     <ProtectedPage allowed={[ROLE_ADMIN]} redirect="/403">
       <Defaultlayout title="Tambah Kost">
@@ -315,6 +331,7 @@ function DataForm({ formData, setFormData, preview, setPreview }) {
           {payments.map((payment) => (
             <Checkbox
               key={payment.id}
+              value={payment.name}
               onChange={() =>
                 handleCheckbox(payment.id, "payment_scheme", payments)
               }
@@ -336,6 +353,7 @@ function DataForm({ formData, setFormData, preview, setPreview }) {
           {rules.map((rule) => (
             <Checkbox
               key={rule.id}
+              value={rule.rule}
               onChange={() => handleCheckbox(rule.id, "rules", rules)}
               required
             >
@@ -369,9 +387,9 @@ function DataForm({ formData, setFormData, preview, setPreview }) {
 function AddressForm({ formData, setFormData }) {
   return (
     <>
-      <div className="grid w-full lg:col-span-12">
+      {/* <div className="grid w-full lg:col-span-12">
         <Checkbox>Tentukan letak peta</Checkbox>
-      </div>
+      </div> */}
       <div className="grid w-full lg:col-span-3">
         <label htmlFor="Alamat" className="text-xl font-bold">
           Alamat

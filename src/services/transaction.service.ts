@@ -12,6 +12,10 @@ const transactions = async () => {
   return await backendJavaPrivate.get("/v1/transactions/owner");
 };
 
+const acceptance = async (data) => {
+  return await backendJavaPrivate.put("/v1/transactions/owner", data);
+};
+
 const history = async () => {
   return await backendJavaPrivate.get("/v1/transactions/history");
 };
@@ -23,6 +27,7 @@ const upload = async (data) => {
 const transactionService = {
   transactions,
   history,
+  acceptance,
   create,
   get,
   upload,
