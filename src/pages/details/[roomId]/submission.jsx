@@ -10,6 +10,7 @@ import InputWithLabel from "@/components/forms/InputWithLabel";
 import Location from "@/components/icons/Location";
 import Star from "@/components/icons/Star";
 import DescriptionItem from "@/components/items/DescriptionItem";
+import LoadingScreen from "@/components/LoadingScreen";
 import Modal from "@/components/Modal";
 import { ROLE_USER } from "@/constants/roles";
 import { useAuth } from "@/contexts/AuthContext";
@@ -23,10 +24,13 @@ import transactionService from "@/services/transaction.service";
 import { formatRupiah } from "@/utils/helper";
 import moment from "moment";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-export default function Submission({ room }) {
+export default function Submission() {
   const { user } = useAuth();
+  const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
   const [capacity, setCapacity] = useState(1);
   const [rentDate, setRentDate] = useState("");
   const [paymentScheme, setPaymentScheme] = useState("");
@@ -56,7 +60,7 @@ export default function Submission({ room }) {
   };
 
   const increment = () => {
-    if (capacity < room.max_person) setCapacity(capacity + 1);
+    if (capacity < responseRoom?.room.max_person) setCapacity(capacity + 1);
   };
 
   const decrement = () => {
@@ -77,18 +81,20 @@ export default function Submission({ room }) {
   };
 
   useEffect(() => {
-    const totalPrice = checkedAddOnFacilities.reduce((sum, currentState) => {
-      return sum + currentState.price;
-    }, 0);
+    if (!isLoading) {
+      const totalPrice = checkedAddOnFacilities.reduce((sum, currentState) => {
+        return sum + currentState.price;
+      }, 0);
 
-    setTotalExtra(totalPrice);
-    setTotalCost(room.price + totalPrice);
+      setTotalExtra(totalPrice);
+      setTotalCost(responseRoom?.room.price + totalPrice);
+    }
   }, [checkedAddOnFacilities]);
 
   const handleAjukanSewa = async (e) => {
     e.preventDefault();
     const dataTransaction = {
-      room_id: room.id,
+      room_id: responseRoom?.room.id,
       user_id: user?.id,
       capacity,
       start_date: moment(new Date(rentDate)).format("DD-MM-YYYY"),
@@ -112,6 +118,32 @@ export default function Submission({ room }) {
       });
     }
   };
+
+  const fetchRoomData = async () => {
+    setResponseRoom({ ...responseRoom, isLoading: true });
+    try {
+      const { data } = await roomService.get(router?.query?.roomId);
+      if (!data) router.push("/404");
+      setResponseRoom({ isLoading: false, room: data });
+      setTotalCost(data.price);
+      setIsLoading(false);
+    } catch (error) {
+      router.push("/404");
+    }
+  };
+
+  const [responseRoom, setResponseRoom] = useState({
+    isLoading: false,
+    room: null,
+  });
+
+  useEffect(() => {
+    if (router?.query?.roomId) {
+      fetchRoomData();
+    }
+  }, [router.isReady]);
+
+  if (isLoading) return <LoadingScreen />;
 
   return (
     <ProtectedPage allowed={[ROLE_USER]} redirect="/login/pencari">
@@ -173,7 +205,7 @@ export default function Submission({ room }) {
                         </div>
                         <div className="grid grid-cols-1 lg:grid-cols-2">
                           <p className="font-semibold">Jenis Kelamin</p>
-                          <p>{user?.gender}</p>
+                          <p>{user?.gender === "MALE" ? "Pria" : "Wanita"}</p>
                         </div>
                         <div className="grid grid-cols-1 lg:grid-cols-2">
                           <p className="font-semibold">Pekerjaan</p>
@@ -302,18 +334,21 @@ export default function Submission({ room }) {
                       />
                     </SubmissionDetail>
 
-                    {room?.addons_facilities.length > 0 && (
+                    {responseRoom?.room?.addons_facilities.length > 0 && (
                       <SubmissionDetail title="Tambahan Layanan & Fasilitas">
                         <div className="flex flex-col gap-y-2">
                           <div className="grid grid-cols-2 mb-8 gap-y-3">
-                            {room?.addons_facilities?.map(
+                            {responseRoom?.room?.addons_facilities?.map(
                               ({ id, name, price }) => (
                                 <Checkbox
                                   name={name}
                                   key={id}
                                   value={price}
                                   onChange={() =>
-                                    handleCheckbox(id, room?.addons_facilities)
+                                    handleCheckbox(
+                                      id,
+                                      responseRoom?.room?.addons_facilities
+                                    )
                                   }
                                 >
                                   {name}
@@ -332,7 +367,7 @@ export default function Submission({ room }) {
                     </h3>
                     <RoomDetail title="Fasilitas & Layanan">
                       <div className="grid grid-cols-2 mb-8 gap-y-4">
-                        {room?.facilities.map((facility) => (
+                        {responseRoom?.room?.facilities.map((facility) => (
                           <DescriptionItem
                             name={facility.name}
                             key={facility.id}
@@ -345,7 +380,7 @@ export default function Submission({ room }) {
                     <hr className="h-0.5 bg-gray-200 border-0 my-8" />
                     <RoomDetail title="Aturan Kost">
                       <div className="grid grid-cols-2 mb-8 gap-y-4">
-                        {room?.rules.map((rule) => (
+                        {responseRoom?.room?.rules.map((rule) => (
                           <DescriptionItem name={rule.name} key={rule.id}>
                             {rule.name}
                           </DescriptionItem>
@@ -361,37 +396,41 @@ export default function Submission({ room }) {
                     <div className="flex justify-center object-cover w-full overflow-hidden h-52">
                       <img
                         className="object-cover w-full rounded-t-xl"
-                        src={room.images[0]}
-                        alt={room.name}
+                        src={
+                          responseRoom?.room.images[0] ?? "/images/Kosthub.png"
+                        }
+                        alt={responseRoom?.room.name}
                       />
                     </div>
                     <div className="flex flex-col p-5 gap-y-4">
                       <div className="items-center inline-block gap-x-4">
-                        <h5 className="text-[32px] font-bold">{room.name}</h5>
+                        <h5 className="text-[32px] font-bold">
+                          {responseRoom?.room.name}
+                        </h5>
                       </div>
                       <div className="inline-flex gap-x-8">
                         <div className="inline-flex items-center gap-x-2">
                           <Star className="w-5 h-5" />
                           <span className="text-xl font-semibold">
-                            {room.rating}
+                            {responseRoom?.room.rating}
                           </span>
                         </div>
                         <div className="inline-flex items-center gap-x-2">
                           <span className="inline-flex items-center px-4 py-1 text-xs text-center border border-black rounded-full">
-                            {room.type}
+                            {responseRoom?.room.type}
                           </span>
                         </div>
                       </div>
                       <div className="inline-flex gap-y-2">
                         <Location className="w-10 h-5 mr-1" />
-                        <span>{`${room?.district}, ${room?.city}`}</span>
+                        <span>{`${responseRoom?.room?.district}, ${responseRoom?.room?.city}`}</span>
                       </div>
                       <p className="block text-xl font-semibold text-primary-1 md:pt-9">
                         Pembayaran Pertama
                       </p>
                       <div className="inline-flex justify-between">
                         <p>Biaya Kamar</p>
-                        <p>{formatRupiah(room.price)}</p>
+                        <p>{formatRupiah(responseRoom?.room.price)}</p>
                       </div>
                       <div className="inline-flex justify-between">
                         <p>Tambahan</p>
@@ -433,18 +472,3 @@ export default function Submission({ room }) {
     </ProtectedPage>
   );
 }
-
-export const getServerSideProps = async (ctx) => {
-  try {
-    const room = await roomService.get(ctx.query.roomId);
-    return {
-      props: {
-        room: room.data,
-      },
-    };
-  } catch (error) {
-    return {
-      notFound: true,
-    };
-  }
-};

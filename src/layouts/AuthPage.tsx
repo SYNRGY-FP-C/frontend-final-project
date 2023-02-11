@@ -14,21 +14,21 @@ const AuthPage = ({
   if (!skip) {
     if (isLoading) return <LoadingScreen />;
     if (!isAuthenticated && otp) {
-      setTimeout(() => router.push("/"), 2500);
+      setTimeout(() => router.push("/"), 1500);
       return <LoadingScreen redirect page="home" />;
     }
 
     if (isAuthenticated && !user?.verified && !otp) {
-      setTimeout(() => router.push("/verify"), 2500);
+      setTimeout(() => router.push("/verify"), 1500);
       return <LoadingScreen redirect page="verification" />;
     }
 
     if (user?.verified) {
-      if (user?.role === ROLE_USER) setTimeout(() => router.push("/"), 2500);
+      if (user?.role === ROLE_USER) setTimeout(() => router.push("/"), 1500);
       if (user?.role === ROLE_ADMIN)
-        setTimeout(() => router.push("/dashboard"), 2500);
+        setTimeout(() => router.push("/dashboard"), 1500);
       if (user?.role === ROLE_SUPERADMIN)
-        setTimeout(() => router.push("/cms"), 2500);
+        setTimeout(() => router.push("/cms"), 1500);
       return <LoadingScreen />;
     }
   }

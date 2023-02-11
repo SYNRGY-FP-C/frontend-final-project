@@ -10,7 +10,7 @@ export default function KostCard({ data }) {
     <div className="w-full border rounded-lg hover:shadow-xl shadow-primary-2">
       <Link href={`/dashboard/kost/${data?.id}/rooms`}>
         <img
-          src={data?.image}
+          src={data?.image ?? "/images/Kosthub.png"}
           alt={data?.image}
           className="w-full h-32 rounded-t-lg"
         />

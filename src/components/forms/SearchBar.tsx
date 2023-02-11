@@ -12,7 +12,7 @@ export default function SearchBar({
   ...rest
 }: SearchBarProps) {
   return (
-    <div className="flex flex-col gap-y-3">
+    <div className="flex flex-col w-full gap-y-3">
       <div className="relative flex items-center justify-center w-full mx-auto">
         <input
           type="text"

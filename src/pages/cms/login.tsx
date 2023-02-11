@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import Alert from "@/components/Alert";
+import Button from "@/components/buttons/Button";
 import InputWithLabel from "@/components/forms/InputWithLabel";
 import { useAuth } from "@/contexts/AuthContext";
 import AuthPage from "@/layouts/AuthPage";
@@ -81,13 +82,13 @@ export default function Login() {
                       }
                       required
                     />
-                    <button
+                    <Button
                       type="submit"
                       className="px-4 py-3 text-white rounded-lg bg-primary-1"
-                      disabled={response.isLoading}
+                      isLoading={response.isLoading}
                     >
-                      {!response.isLoading ? "Masuk" : "Loading..."}
-                    </button>
+                      Masuk
+                    </Button>
                   </form>
                 </div>
               </div>

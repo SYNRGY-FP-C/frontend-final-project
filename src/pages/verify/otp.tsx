@@ -75,7 +75,7 @@ export default function OTP() {
 
   const checkPoint = async () => {
     if (router.isReady && (!method || method === "undefined")) {
-      setTimeout(() => router.push("/verify"), 2500);
+      setTimeout(() => router.push("/verify"), 1500);
       return;
     }
 
@@ -181,7 +181,7 @@ export default function OTP() {
                           isLoading={response.isLoading}
                           disabled={response.isLoading || otp.length < 4}
                         >
-                          {response.isLoading ? "Loading..." : "Verifikasi"}
+                          Verifikasi
                         </Button>
                         <Link
                           href="/verify"

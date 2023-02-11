@@ -2,10 +2,9 @@
 /* eslint-disable @next/next/no-img-element */
 import Button from "@/components/buttons/Button";
 import RoomCard from "@/components/cards/RoomCard";
-import Checkbox from "@/components/forms/Checkbox";
 import Input from "@/components/forms/Input";
 import SearchBar from "@/components/forms/SearchBar";
-import Star from "@/components/icons/Star";
+// import Star from "@/components/icons/Star";
 import DefaultLayout from "@/layouts/DefaultLayout";
 import Section from "@/layouts/Section";
 import roomService from "@/services/room.service";
@@ -13,12 +12,19 @@ import clsx from "clsx";
 import React, { useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
 
-export default function Search({ data }) {
+export default function Search() {
   const [response, setResponse] = useState({
     isLoading: false,
     isError: false,
-    data: data || [],
+    data: [],
   });
+
+  const [show, setShow] = useState([]);
+
+  const [showMore, setShowMore] = useState({
+    isLoading: false,
+  });
+
   const [search, setSearch] = useState({
     keyword: "",
     label: "",
@@ -36,14 +42,15 @@ export default function Search({ data }) {
       isError: false,
     });
     try {
-      const temp = await roomService.search({
+      const { data } = await roomService.search({
         params: search,
       });
       setResponse({
         isLoading: false,
         isError: false,
-        data: temp.data,
+        data: data,
       });
+      setShow(data);
     } catch (error) {
       setResponse({
         ...response,
@@ -68,19 +75,19 @@ export default function Search({ data }) {
   };
 
   const handleShowMore = async () => {
-    setResponse({
-      ...response,
+    setShowMore({
       isLoading: true,
-      isError: false,
     });
     try {
       const temp = await roomService.search({
         params: search,
       });
       setResponse({
-        isLoading: false,
-        isError: false,
+        ...response,
         data: temp.data,
+      });
+      setShowMore({
+        isLoading: false,
       });
     } catch (error) {
       setResponse({
@@ -100,6 +107,38 @@ export default function Search({ data }) {
       ...search,
       size: search.size + 5,
     });
+  };
+  const fetchData = async () => {
+    setResponse({
+      ...response,
+      isLoading: true,
+      isError: false,
+    });
+    const { data } = await roomService.search({
+      params: search,
+    });
+    setResponse({
+      isLoading: false,
+      isError: false,
+      data: data,
+    });
+    setShow(data);
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const handleFilter = () => {
+    const filtered = response.data.filter((item) => {
+      return (
+        (!search.label || item.label === search.label) &&
+        (!search.price_min ||
+          !search.price_max ||
+          (item.price >= search.price_min && item.price <= search.price_max)) &&
+        (!search.type || item.type === search.type)
+      );
+    });
+    setShow(filtered);
   };
 
   return (
@@ -121,14 +160,14 @@ export default function Search({ data }) {
                   <h5 className="text-xl font-bold text-base-1">
                     Filter Pencarianmu
                   </h5>
-                  <div className="flex flex-col gap-y-3">
+                  {/* <div className="flex flex-col gap-y-3">
                     <h5 className="font-bold text-base-1">Label</h5>
                     <div className="grid grid-cols-2 gap-3">
                       <Checkbox>Kost Hits</Checkbox>
                       <Checkbox>SuperKost</Checkbox>
                       <Checkbox>Kost Terbaru</Checkbox>
                     </div>
-                  </div>
+                  </div> */}
                   <div className="flex flex-col gap-y-3">
                     <h5 className="font-bold text-base-1">Tipe</h5>
                     <div className="flex flex-row gap-x-2">
@@ -151,12 +190,12 @@ export default function Search({ data }) {
                           "w-24 text-center py-0.5 border rounded-lg",
                           {
                             ["bg-primary-1 text-white"]:
-                              search.type === "PUTRI",
+                              search.type === "PUTRA",
                             ["border-gray-300 text-base-2"]:
-                              search.type !== "PUTRI",
+                              search.type !== "PUTRA",
                           }
                         )}
-                        onClick={() => handleLabel("PUTRI")}
+                        onClick={() => handleLabel("PUTRA")}
                       >
                         Pria
                       </button>
@@ -165,12 +204,12 @@ export default function Search({ data }) {
                           "w-24 text-center py-0.5 border rounded-lg",
                           {
                             ["bg-primary-1 text-white"]:
-                              search.type === "PUTRA",
+                              search.type === "PUTRI",
                             ["border-gray-300 text-base-2"]:
-                              search.type !== "PUTRA",
+                              search.type !== "PUTRI",
                           }
                         )}
-                        onClick={() => handleLabel("PUTRA")}
+                        onClick={() => handleLabel("PUTRI")}
                       >
                         Wanita
                       </button>
@@ -203,7 +242,7 @@ export default function Search({ data }) {
                       />
                     </div>
                   </div>
-                  <div className="flex flex-col gap-y-3">
+                  {/* <div className="flex flex-col gap-y-3">
                     <h5 className="font-bold text-base-1">Rating</h5>
                     <div className="flex flex-col gap-y-3">
                       <Checkbox>
@@ -271,12 +310,12 @@ export default function Search({ data }) {
                       <Checkbox>Per 6 bulan</Checkbox>
                       <Checkbox>Per 12 bulan</Checkbox>
                     </div>
-                  </div>
+                  </div> */}
 
                   <div className="flex flex-row justify-between gap-x-3">
                     <button
                       className="w-full py-3 text-white rounded-lg bg-primary-1"
-                      onClick={handleSearch}
+                      onClick={handleFilter}
                     >
                       Filter
                     </button>
@@ -297,7 +336,7 @@ export default function Search({ data }) {
                       Reset
                     </button>
                   </div>
-                  <div className="flex flex-col gap-y-3">
+                  {/* <div className="flex flex-col gap-y-3">
                     <h5 className="font-bold text-base-1">Bandingkan Kost</h5>
                     <div className="flex flex-col gap-y-3">
                       <Input type="text" placeholder="Kost 1" />
@@ -306,7 +345,7 @@ export default function Search({ data }) {
                         Bandingkan
                       </button>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
@@ -322,28 +361,33 @@ export default function Search({ data }) {
                   />
                 </form>
                 <div className="flex flex-col w-full h-full py-6 gap-y-6">
-                  {response.data.length > 0 ? (
-                    response.data.map((data) => {
-                      return <RoomCard key={uuid()} data={data} />;
-                    })
+                  {response.isLoading ? (
+                    <h1 className="col-span-12 text-center md:grid-cols-6 lg:grid-cols-3">
+                      Memuat data...
+                    </h1>
+                  ) : response.data.length > 0 ? (
+                    show.map((room) => <RoomCard key={uuid()} data={room} />)
                   ) : (
                     <p className="text-lg font-semibold text-center">
                       Kamar tidak ditemukan
                     </p>
                   )}
-                  <div className="flex justify-center">
-                    {response.data.length > 0 && (
-                      <div className="block">
-                        <Button
-                          className="block"
-                          isLoading={response.isLoading}
-                          onClick={handleClick}
-                        >
-                          Lihat lebih banyak
-                        </Button>
-                      </div>
-                    )}
-                  </div>
+                  {!response.isLoading && (
+                    <div className="flex justify-center">
+                      {response.data.length > 0 && (
+                        <div className="block">
+                          <Button
+                            type="button"
+                            className="block"
+                            isLoading={showMore.isLoading}
+                            onClick={handleClick}
+                          >
+                            Lihat lebih banyak
+                          </Button>
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -353,16 +397,3 @@ export default function Search({ data }) {
     </DefaultLayout>
   );
 }
-
-export const getServerSideProps = async () => {
-  const { data } = await roomService.search({
-    params: {
-      size: 5,
-    },
-  });
-  return {
-    props: {
-      data,
-    },
-  };
-};

@@ -23,6 +23,7 @@ export const originalDate = (date) => {
 };
 
 export const imageToBase64 = (file: File) => {
+  if (!file) return null;
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -32,6 +33,7 @@ export const imageToBase64 = (file: File) => {
 };
 
 export const urlToObject = async (url) => {
+  if (!url || url === "undefined") return null;
   const response = await fetch(url);
   const blob = await response?.blob();
   const name = url?.split("/")?.pop();
@@ -39,6 +41,7 @@ export const urlToObject = async (url) => {
 };
 
 export const urlToBase64 = (url) => {
+  if (!url || url === "undefined") return null;
   return fetch(url)
     .then((response) => response.blob())
     .then(
