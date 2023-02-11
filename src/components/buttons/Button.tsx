@@ -13,7 +13,7 @@ export default function Button({
 }: ButtonProps) {
   return (
     <button className={className} {...rest}>
-      {isLoading ? "Loading..." : children}
+      {isLoading ? "Memuat..." : children}
     </button>
   );
 }

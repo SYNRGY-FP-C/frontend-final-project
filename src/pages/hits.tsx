@@ -10,11 +10,14 @@ import roomService from "@/services/room.service";
 import React, { useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
 
-export default function Hits({ data }) {
+export default function Hits() {
   const [response, setResponse] = useState({
     isLoading: false,
     isError: false,
-    data: data || [],
+    data: [],
+  });
+  const [showMore, setShowMore] = useState({
+    isLoading: false,
   });
 
   const [search, setSearch] = useState({
@@ -49,19 +52,19 @@ export default function Hits({ data }) {
   };
 
   const handleShowMore = async () => {
-    setResponse({
-      ...response,
+    setShowMore({
       isLoading: true,
-      isError: false,
     });
     try {
       const temp = await roomService.search({
         params: search,
       });
       setResponse({
-        isLoading: false,
-        isError: false,
+        ...response,
         data: temp.data,
+      });
+      setShowMore({
+        isLoading: false,
       });
     } catch (error) {
       setResponse({
@@ -72,21 +75,41 @@ export default function Hits({ data }) {
     }
   };
 
-  useEffect(() => {
-    handleShowMore();
-  }, [search.size]);
-
   const handleClick = () => {
     setSearch({
       ...search,
       size: search.size + 5,
     });
   };
+
+  useEffect(() => {
+    handleShowMore();
+  }, [search.size]);
+
+  const fetchData = async () => {
+    setResponse({
+      ...response,
+      isLoading: true,
+    });
+    const { data } = await roomService.search({
+      params: { label: "KOST_TERBARU", size: 4 },
+    });
+    setResponse({
+      ...response,
+      data,
+      isLoading: false,
+    });
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <DefaultLayout title="Kost Hits">
       <Section>
         <div className="flex pt-24 pb-4 gap-y-4">
-          <div className="grid h-full grid-cols-12 gap-y-3">
+          <div className="grid w-full h-full grid-cols-12 gap-y-3">
             <div className="grid w-full col-span-12 lg:col-span-4 place-items-start">
               <div className="flex flex-col gap-y-3">
                 <BackButton />
@@ -96,34 +119,38 @@ export default function Hits({ data }) {
                 Ditemukan {response.data.length} kost-kostan
               </div>
             </div>
-            <div className="grid h-full col-span-12 lg:col-span-8 md:px-4">
-              <div className="flex flex-col w-full h-full gap-y-6">
-                <form onSubmit={handleSearch}>
-                  <SearchBar
-                    placeholder="Cari berdasarkan kota"
-                    value={search.keyword}
-                    onChange={(e) =>
-                      setSearch({ ...search, keyword: e.target.value })
-                    }
-                  />
-                </form>
-                <div className="flex flex-col w-full h-full py-6 gap-y-6">
-                  {response.data.length > 0 ? (
-                    response.data.map((room) => (
-                      <RoomCard key={uuid()} data={room} />
-                    ))
-                  ) : (
-                    <p className="text-lg font-semibold text-center">
-                      Kamar tidak ditemukan
-                    </p>
-                  )}
+            <div className="grid w-full h-full col-span-12 lg:col-span-8 md:px-4">
+              <form onSubmit={handleSearch}>
+                <SearchBar
+                  placeholder="Cari berdasarkan kota"
+                  value={search.keyword}
+                  onChange={(e) =>
+                    setSearch({ ...search, keyword: e.target.value })
+                  }
+                />
+              </form>
+              <div className="flex flex-col w-full h-full py-6 gap-y-6">
+                {response.isLoading ? (
+                  <h1 className="col-span-12 text-center md:grid-cols-6 lg:grid-cols-3">
+                    Memuat data...
+                  </h1>
+                ) : response.data.length > 0 ? (
+                  response.data.map((room) => (
+                    <RoomCard key={uuid()} data={room} />
+                  ))
+                ) : (
+                  <p className="text-lg font-semibold text-center">
+                    Kamar tidak ditemukan
+                  </p>
+                )}
+                {!response.isLoading && (
                   <div className="flex justify-center">
                     {response.data.length > 0 && (
                       <div className="block">
                         <Button
                           type="button"
                           className="block"
-                          isLoading={response.isLoading}
+                          isLoading={showMore.isLoading}
                           onClick={handleClick}
                         >
                           Lihat lebih banyak
@@ -131,7 +158,7 @@ export default function Hits({ data }) {
                       </div>
                     )}
                   </div>
-                </div>
+                )}
               </div>
             </div>
           </div>
@@ -140,17 +167,3 @@ export default function Hits({ data }) {
     </DefaultLayout>
   );
 }
-
-export const getServerSideProps = async () => {
-  const { data } = await roomService.search({
-    params: {
-      label: "KOST_HITS",
-      size: 5,
-    },
-  });
-  return {
-    props: {
-      data,
-    },
-  };
-};

@@ -14,7 +14,7 @@ export default function OtherRoomCard({ room }) {
       <div className="relative flex justify-center object-cover w-full h-64 overflow-hidden">
         <img
           className="object-cover w-full rounded-t-2xl"
-          src={room.thumbnail}
+          src={room.thumbnail ?? "/images/Kosthub.png"}
           alt={room?.name}
         />
         <div className="absolute flex flex-row items-center justify-end w-full p-5 gap-x-3">
@@ -40,7 +40,7 @@ export default function OtherRoomCard({ room }) {
           </p>
         </div>
         <div className="inline-flex justify-between">
-          <p className="font-bold text-base text-secondary-1">
+          <p className="text-base font-bold text-secondary-1">
             {formatRupiah(room?.price)} / bulan
           </p>
           <div className="inline-flex items-center gap-x-2">

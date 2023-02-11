@@ -34,7 +34,7 @@ export default function RoomCard({ data = defaultData }) {
         <div className="flex justify-center object-cover w-full h-56 overflow-hidden">
           <img
             className="object-cover w-full rounded-t-xl lg:rounded-l-2xl lg:rounded-r-none"
-            src={data.thumbnail}
+            src={data.thumbnail ?? "/images/Kosthub.png"}
             alt={data.name}
           />
         </div>

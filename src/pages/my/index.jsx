@@ -73,9 +73,7 @@ export default function MyProfile() {
   };
 
   useEffect(() => {
-    if (user) {
-      getUser();
-    }
+    getUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
@@ -185,19 +183,18 @@ export default function MyProfile() {
                           }}
                           className="hidden"
                           accept="image/*"
-                          required
                         />
                       </label>
                     </div>
                     <div className="flex flex-row gap-3 lg:flex-col">
-                      <div className="block">
+                      {/* <div className="block">
                         <Button
                           type="submit"
                           className="px-4 py-2 text-white rounded-lg w-28 bg-primary-1"
                         >
                           Unggah
                         </Button>
-                      </div>
+                      </div> */}
                       <div className="block">
                         <button
                           type="button"

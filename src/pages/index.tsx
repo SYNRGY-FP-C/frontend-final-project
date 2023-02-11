@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
 import FeaturedCard from "@/components/cards/FeaturedCard";
 import LocationCard from "@/components/cards/LocationCard";
@@ -12,12 +13,54 @@ import Footer from "@/layouts/Footer";
 import Section from "@/layouts/Section";
 import roomService from "@/services/room.service";
 import { useRouter } from "next/router";
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { v4 as uuid } from "uuid";
 
-export default function Home({ hits_room, newest_room }) {
+export default function Home() {
   const router = useRouter();
   const scrollReff = useRef();
+  const [responseHits, setResponseHits] = useState({
+    hits_room: [],
+    isLoading: true,
+  });
+  const [responseNew, setResponseNew] = useState({
+    newest_room: [],
+    isLoading: true,
+  });
+
+  const fetchDataHITS = async () => {
+    setResponseHits({
+      ...responseHits,
+      isLoading: true,
+    });
+    const { data: hits_room } = await roomService.search({
+      params: { label: "KOST_HITS", size: 4 },
+    });
+    setResponseHits({
+      hits_room,
+      isLoading: false,
+    });
+  };
+
+  const fetchDataNew = async () => {
+    setResponseNew({
+      ...responseNew,
+      isLoading: true,
+    });
+    const { data: newest_room } = await roomService.search({
+      params: { label: "KOST_TERBARU", size: 4 },
+    });
+    setResponseNew({
+      newest_room,
+      isLoading: false,
+    });
+  };
+
+  useEffect(() => {
+    fetchDataHITS();
+    fetchDataNew();
+  }, []);
+
   return (
     <>
       <DefaultLayout title="KostHub - Cari kost dengan mudah">
@@ -40,13 +83,17 @@ export default function Home({ hits_room, newest_room }) {
               description="Kost-kostan terpopuler bulan ini!"
               href="/hits"
             >
-              {hits_room.length > 0 ? (
-                hits_room.map((room) => (
+              {responseHits.isLoading ? (
+                <h1 className="col-span-12 text-center md:grid-cols-6 lg:grid-cols-3">
+                  Memuat data...
+                </h1>
+              ) : responseHits.hits_room.length > 0 ? (
+                responseHits.hits_room.map((room) => (
                   <FeaturedCard key={uuid()} data={room} />
                 ))
               ) : (
                 <h1 className="col-span-12 text-center md:grid-cols-6 lg:grid-cols-3">
-                  Tidak ada kost
+                  Tidak ada kamar
                 </h1>
               )}
             </Featured>
@@ -58,13 +105,17 @@ export default function Home({ hits_room, newest_room }) {
             description="Kost-kostan terbaru bulan ini!"
             href="/new"
           >
-            {newest_room.length > 0 ? (
-              newest_room.map((room) => (
+            {responseNew.isLoading ? (
+              <h1 className="col-span-12 text-center md:grid-cols-6 lg:grid-cols-3">
+                Memuat data...
+              </h1>
+            ) : responseNew.newest_room.length > 0 ? (
+              responseNew.newest_room.map((room) => (
                 <FeaturedCard key={uuid()} data={room} />
               ))
             ) : (
               <h1 className="col-span-12 text-center md:grid-cols-6 lg:grid-cols-3">
-                Tidak ada kost
+                Tidak ada kamar
               </h1>
             )}
           </Featured>
@@ -125,19 +176,4 @@ export default function Home({ hits_room, newest_room }) {
       <Footer />
     </>
   );
-}
-
-export async function getServerSideProps() {
-  const { data: hits_room } = await roomService.search({
-    params: { keyword: "kamar", label: "KOST_HITS", size: 4 },
-  });
-  const { data: newest_room } = await roomService.search({
-    params: { keyword: "kamar", label: "KOST_TERBARU", size: 4 },
-  });
-  return {
-    props: {
-      hits_room,
-      newest_room,
-    },
-  };
 }

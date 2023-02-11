@@ -4,7 +4,7 @@ export default function LoadingScreen({ redirect = false, page = "login" }) {
   return (
     <>
       <Head>
-        <title>Loading...</title>
+        <title>Memuat...</title>
       </Head>
       <div className="items-center justify-center w-full h-screen bg-base-9">
         <div className="loading">
