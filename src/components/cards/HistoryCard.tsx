@@ -21,7 +21,7 @@ const defaultData = {
 
 const statuses = {
   ONPROCCESS: "Dalam proses verifikasi",
-  PENDING: "Dalam proses",
+  PENDING: "Dalam proses pengajuan",
   REJECTED: "Ditolak",
   ENDED: "Selesai",
   APPROVED: "Disetujui",
@@ -105,7 +105,7 @@ export default function HistoryCard({ data = defaultData }) {
                   </Link>
                 </div>
               ) : (
-                data.status === "APPROVED" && (
+                data.status === "ONPROCCESS" && (
                   <div className="flex items-center gap-3">
                     <span className="px-4 py-1.5 rounded-2xl text-xs bg-gray-200 text-base-1">
                       {statuses[data.status]}

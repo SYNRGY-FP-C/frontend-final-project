@@ -128,6 +128,43 @@ export default function History() {
                     </div>
                   </div>
                 )}
+                {(select === "APPROVED" || select === "ONPROCCESS") && (
+                  <div className="grid grid-col-span-2 place-content-start">
+                    <div className="flex flex-row mt-3 mb-3 gap-x-4">
+                      <div className="block">
+                        <Button
+                          className={clsx(
+                            "px-6 py-2 w-full text-center bg-primary-1 rounded-lg text-primary-1",
+                            {
+                              ["bg-primary-1 text-white"]:
+                                select === "APPROVED",
+                              ["bg-base-7 text-base-2"]: select !== "APPROVED",
+                            }
+                          )}
+                          onClick={() => setSelect("APPROVED")}
+                        >
+                          Disetujui
+                        </Button>
+                      </div>
+                      <div className="block">
+                        <Button
+                          className={clsx(
+                            "px-6 py-2 w-full text-center bg-primary-1 rounded-lg text-primary-1",
+                            {
+                              ["bg-primary-1 text-white"]:
+                                select === "ONPROCCESS",
+                              ["bg-base-7 text-base-2"]:
+                                select !== "ONPROCCESS",
+                            }
+                          )}
+                          onClick={() => setSelect("ONPROCCESS")}
+                        >
+                          Proses Verifikasi
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                )}
 
                 <div className="flex flex-col gap-3">
                   {response.isLoading ? (
