@@ -21,8 +21,7 @@ import { useEffect, useState } from "react";
 export default function MyProfile() {
   const [previewProfile, setPreviewProfile] = React.useState();
   const [preview, setPreview] = React.useState();
-  const { user, updateProfile, updateIdentity, updateBank, getUser } =
-    useAuth();
+  const { user, updateProfile, updateIdentity, updateBank } = useAuth();
   const [response, setResponse] = React.useState({
     isLoading: false,
     isError: false,
@@ -100,7 +99,6 @@ export default function MyProfile() {
       }
       await updateProfile(formData);
       await updateIdentity(identityData);
-      await getUser();
       setResponse({
         isLoading: false,
         isError: false,
