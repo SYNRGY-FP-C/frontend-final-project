@@ -1,14 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
+import Button from "@/components/buttons/Button";
 import Location from "@/components/icons/Location";
-import More from "@/components/icons/More";
 import Star from "@/components/icons/Star";
 import clsx from "clsx";
+import Link from "next/link";
 import React from "react";
 
 const defaultData = {
   id: 1,
   name: "Room 1 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.",
-  image: "/images/hero-image.jpg",
+  thumbnail: "/images/hero-image.jpg",
   description: "Room 1 description amet consectetur adipisicing",
   price: 1200000,
   address: "Kecamatan Lorem, Bandung",
@@ -19,11 +20,18 @@ const defaultData = {
 };
 
 const statuses = {
-  onprocess: "Dalam Proses",
-  rejected: "Ditolak",
-  ended: "Selesai",
-  approved: "Disetujui",
-  ongoing: "Sedang jalan",
+  ONPROCCESS: "Dalam proses verifikasi",
+  PENDING: "Dalam proses",
+  REJECTED: "Ditolak",
+  ENDED: "Selesai",
+  APPROVED: "Disetujui",
+  ONGOING: "Sedang jalan",
+};
+
+const labels = {
+  KOST_HITS: "Kost Hits",
+  KOST_TERBARU: "Kost Terbaru",
+  SUPERKOST: "SuperKost",
 };
 
 export default function HistoryCard({ data = defaultData }) {
@@ -33,7 +41,7 @@ export default function HistoryCard({ data = defaultData }) {
         <div className="flex justify-center object-cover w-full overflow-hidden h-60">
           <img
             className="object-cover w-full rounded-t-xl lg:rounded-l-xl lg:rounded-r-none"
-            src={data.image}
+            src={data.thumbnail ?? "/images/Kosthub.png"}
             alt={data.name}
           />
         </div>
@@ -45,43 +53,68 @@ export default function HistoryCard({ data = defaultData }) {
               {data.name}
             </h5>
             <div className="flex flex-row gap-x-3">
-              <span className="inline-flex items-center px-4 py-1.5 text-xs font-bold text-center text-white rounded-2xl bg-secondary-1">
-                {data.label}
-              </span>
+              {data?.label && (
+                <span className="inline-flex items-center px-4 py-1.5 text-xs font-bold text-center text-white rounded-2xl bg-secondary-1">
+                  {labels[data.label]}
+                </span>
+              )}
             </div>
           </div>
-          <div className="inline-flex flex-row items-center gap-x-3">
-            <Location className="w-5 h-5" />
-            <p className="max-w-lg overflow-hidden text-base-2 text-ellipsis whitespace-nowrap">
+          <div className="flex items-center mt-2 mb-4 gap-x-1">
+            <Location className="w-5 h-5 mr-1" />
+            <p className="overflow-hidden text-xs text-ellipsis whitespace-nowrap">
               {data.address}
             </p>
           </div>
-          <div className="flex flex-row items-center gap-x-3">
-            <span className="w-24 py-1.5 text-xs text-center border border-base-1 text-base-1 rounded-2xl">
-              {data.type}
-            </span>
-            <div className="inline-flex items-center gap-x-1">
-              <Star className="w-5 h-5" />{" "}
-              <span className="font-bold">{data.rate}</span>
+          <div className="flex flex-col h-full gap-3">
+            <div className="flex flex-row items-center gap-x-3">
+              <span className="w-24 py-1.5 text-xs text-center border border-base-1 text-base-1 rounded-2xl">
+                {data.type}
+              </span>
+              <div className="inline-flex items-center gap-x-1">
+                <Star className="w-5 h-5" />{" "}
+                <span className="font-bold">{data.rate}</span>
+              </div>
             </div>
-          </div>
-          <div className="flex items-stretch justify-end h-full">
-            <div className="inline-flex self-end space-x-3">
-              {Object.hasOwn(statuses, data.status) ? (
-                <span
-                  className={clsx("px-4 py-1.5 rounded-2xl text-xs", {
-                    "bg-gray-200 text-base-1": data.status !== "rejected",
-                    "bg-error text-white": data.status === "rejected",
-                  })}
-                >
-                  {statuses[data.status]}
-                </span>
-              ) : data.status === "approved" ? (
-                "Button and Button"
-              ) : (
-                ""
-              )}
-              <More />
+            <div className="flex items-stretch justify-end h-full">
+              <div className="flex space-x-3">
+                {data.status === "REJECTED" ||
+                data.status === "PENDING" ||
+                data.status === "ENDED" ? (
+                  <div className="flex items-center gap-3">
+                    <span
+                      className={clsx("px-4 py-1.5 rounded-2xl text-xs", {
+                        ["bg-gray-200 text-base-1"]: data.status !== "REJECTED",
+                        ["bg-error text-white"]: data.status === "REJECTED",
+                      })}
+                    >
+                      {statuses[data.status]}
+                    </span>
+                  </div>
+                ) : data.status === "APPROVED" ? (
+                  <div className="flex items-center gap-3">
+                    <Button className="w-full px-5 py-2 text-center rounded-lg text-error disabled:bg-primary-2">
+                      Batalkan
+                    </Button>
+                    <Link key={data.id} href={`/my/payment/${data.id}`}>
+                      <Button
+                        type="button"
+                        className="px-5 py-2 text-center text-white rounded-lg w-36 bg-primary-1 hover:bg-secondary-1 disabled:bg-primary-2"
+                      >
+                        Bayar
+                      </Button>
+                    </Link>
+                  </div>
+                ) : data.status === "APPROVED" ? (
+                  <div className="flex items-center gap-3">
+                    <span className="px-4 py-1.5 rounded-2xl text-xs bg-gray-200 text-base-1">
+                      {statuses[data.status]}
+                    </span>
+                  </div>
+                ) : (
+                  ""
+                )}
+              </div>
             </div>
           </div>
         </div>

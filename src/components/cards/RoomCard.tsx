@@ -28,6 +28,7 @@ export default function RoomCard({ data = defaultData }) {
     KOST_TERBARU: "Kost Terbaru",
     SUPERKOST: "SuperKost",
   };
+
   return (
     <div className="grid grid-cols-1 border border-gray-200 hover:shadow lg:grid-cols-12 rounded-2xl">
       <div className="grid col-span-4">

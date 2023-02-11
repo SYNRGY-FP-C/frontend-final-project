@@ -164,7 +164,7 @@ export default function MyProfile() {
                           src={
                             previewProfile ||
                             user?.photo ||
-                            "https://www.pngitem.com/pimgs/m/581-5813504_avatar-dummy-png-transparent-png.png"
+                            "/images/Kosthub.png"
                           }
                           alt="avatar"
                           className="w-64 h-64 rounded-full"
@@ -333,7 +333,11 @@ export default function MyProfile() {
                     <InputDropzone
                       labelName="Unggah Foto Identitas"
                       icon={<File />}
-                      preview={preview}
+                      preview={
+                        preview ||
+                        user?.verification?.photo ||
+                        "/images/Kosthub.png"
+                      }
                       onChange={(e) => {
                         setIdentity({ ...identity, photo: e.target.files[0] });
                         setPreview(URL.createObjectURL(e.target.files[0]));
