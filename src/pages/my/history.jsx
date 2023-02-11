@@ -8,7 +8,6 @@ import ProtectedPage from "@/layouts/ProtectedPage";
 import Section from "@/layouts/Section";
 import historyService from "@/services/transaction.service";
 import clsx from "clsx";
-import Link from "next/link";
 import React from "react";
 import { useEffect, useState } from "react";
 
@@ -131,20 +130,19 @@ export default function History() {
                   </div>
                 )}
 
-                {response.data.length > 0 && show.length > 0 ? (
-                  show.map((transaksi) => {
-                    return (
-                      <Link
-                        key={transaksi.id}
-                        href={`/my/payment/${transaksi.id}`}
-                      >
+                <div className="flex flex-col gap-3">
+                  {response.isLoading ? (
+                    <h1 className="text-center">Memuat...</h1>
+                  ) : response.data.length > 0 && show.length > 0 ? (
+                    show.map((transaksi) => {
+                      return (
                         <HistoryCard key={transaksi.id} data={transaksi} />
-                      </Link>
-                    );
-                  })
-                ) : (
-                  <h1 className="text-center">Tidak ada riwayat</h1>
-                )}
+                      );
+                    })
+                  ) : (
+                    <h1 className="text-center">Tidak ada riwayat</h1>
+                  )}
+                </div>
               </div>
             </div>
           </div>
