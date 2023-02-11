@@ -75,8 +75,10 @@ export default function History() {
                   </Button>
                   <Button
                     className={clsx("w-full px-4 py-2 text-left rounded-lg", {
-                      ["bg-primary-1 text-white"]: select === "APPROVED",
-                      ["bg-base-7 text-base-2"]: select !== "APPROVED",
+                      ["bg-primary-1 text-white"]:
+                        select === "APPROVED" || select === "ONPROCCESS",
+                      ["bg-base-7 text-base-2"]:
+                        select !== "APPROVED" && select !== "ONPROCCESS",
                     })}
                     onClick={() => setSelect("APPROVED")}
                   >

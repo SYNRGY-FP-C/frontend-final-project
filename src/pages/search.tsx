@@ -321,7 +321,7 @@ export default function Search() {
                     </button>
                     <button
                       type="button"
-                      onClick={() =>
+                      onClick={() => {
                         setSearch({
                           keyword: "",
                           label: "",
@@ -329,8 +329,9 @@ export default function Search() {
                           price_min: 0,
                           price_max: 999999999,
                           size: 5,
-                        })
-                      }
+                        });
+                        setShow(response.data);
+                      }}
                       className="w-full py-3 border rounded-lg bg-base-9 text-primary-1 border-primary-1"
                     >
                       Reset
