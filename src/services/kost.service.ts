@@ -17,7 +17,7 @@ const update = async (data) => {
 };
 
 const remove = async (id) => {
-  return await backendJavaPrivate.delete(`/v1/kost/${id}`);
+  return await backendJavaPrivate.delete(`/v1/kost/delete/${id}`);
 };
 
 const kostService = {

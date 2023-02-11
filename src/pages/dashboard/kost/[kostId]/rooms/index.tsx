@@ -1,38 +1,43 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
 import BackButton from "@/components/buttons/BackButton";
-import Location from "@/components/icons/Location";
-import Star from "@/components/icons/Star";
+import RoomKostCard from "@/components/cards/RoomKostCard";
 import LoadingScreen from "@/components/LoadingScreen";
 import { ROLE_ADMIN } from "@/constants/roles";
 import DefaultLayout from "@/layouts/DefaultLayout";
 import ProtectedPage from "@/layouts/ProtectedPage";
 import Section from "@/layouts/Section";
 import roomService from "@/services/room.service";
-import { formatRupiah } from "@/utils/helper";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
-import { v4 as uuid } from "uuid";
 
 export default function Rooms() {
   const router = useRouter();
   const [loading, setLoading] = React.useState(true);
   const [rooms, setRooms] = React.useState([]);
+  const [isLoading, setIsloading] = React.useState(true);
 
   const getRooms = async () => {
     const { data } = await roomService.getByKost(router?.query?.kostId);
     setRooms(data);
+    setIsloading(false);
   };
 
   useEffect(() => {
     if (router?.query?.kostId) {
+      setIsloading(true);
       getRooms();
       setLoading(false);
     }
   }, [router.isReady]);
 
   if (loading) return <LoadingScreen />;
+
+  const onDelete = async (id) => {
+    await roomService.remove(id);
+    await getRooms();
+  };
 
   return (
     <ProtectedPage allowed={[ROLE_ADMIN]} redirect="/403">
@@ -61,64 +66,17 @@ export default function Rooms() {
                   </Link>
                 </div>
               </div>
-              <div className="grid lg:col-span-8">
-                {rooms.length > 0 ? (
+              <div className="grid gap-3 lg:col-span-8">
+                {isLoading ? (
+                  <h1 className="w-full text-center">Memuat data...</h1>
+                ) : rooms.length > 0 ? (
                   rooms.map((room) => (
-                    <div
-                      key={uuid()}
-                      className="grid grid-cols-1 border border-gray-200 hover:shadow lg:grid-cols-12 rounded-2xl"
-                    >
-                      <div className="grid col-span-4">
-                        <div className="flex justify-center object-cover w-full h-56 overflow-hidden">
-                          <img
-                            className="object-cover w-full rounded-t-xl lg:rounded-l-2xl lg:rounded-r-none"
-                            src={
-                              room.image ||
-                              "https://www.ruparupa.com/blog/wp-content/uploads/2021/09/Screen-Shot-2021-09-02-at-14.56.22.jpg"
-                            }
-                            alt={room.name}
-                          />
-                        </div>
-                      </div>
-                      <div className="grid col-span-8 p-6">
-                        <div className="relative flex flex-col h-full gap-y-3">
-                          <div className="flex flex-col justify-between md:flex-row">
-                            <Link
-                              href={`/dashboard/kost/${router?.query?.kostId}/rooms/${room.id}`}
-                            >
-                              <h5 className="max-w-xs overflow-hidden text-[20px] font-bold text-base-1 text-ellipsis whitespace-nowrap">
-                                {room.name}
-                              </h5>
-                            </Link>
-                            <div className="flex flex-row items-center gap-3">
-                              <span className="inline-flex items-center px-4 py-1.5 text-xs font-bold text-center text-white rounded-2xl bg-secondary-1">
-                                {room.label}
-                              </span>
-                            </div>
-                          </div>
-                          <div className="flex flex-row items-center gap-x-2">
-                            <Location className="w-5 h-5" />
-                            <p className="max-w-lg overflow-hidden text-base-2 text-ellipsis whitespace-nowrap">
-                              {room.address}
-                            </p>
-                          </div>
-                          <div className="flex flex-row items-center gap-x-3">
-                            <div className="inline-flex items-center gap-x-1">
-                              <Star className="w-5 h-5" />{" "}
-                              <span className="font-bold">{room.rate}</span>
-                            </div>
-                            <span className="w-24 py-1.5 text-xs text-center border border-base-1 text-base-1 rounded-2xl">
-                              {room.type}
-                            </span>
-                          </div>
-                          <div className="flex items-stretch justify-end h-full">
-                            <p className="self-end text-xl font-bold text-secondary-1">
-                              {formatRupiah(room.price)} / bulan
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    <RoomKostCard
+                      key={room.id}
+                      data={room}
+                      href={`/dashboard/kost/${router?.query?.kostId}/rooms/${room.id}`}
+                      onDelete={() => onDelete(room.id)}
+                    />
                   ))
                 ) : (
                   <div className="flex flex-col items-center justify-center gap-5">
@@ -126,7 +84,7 @@ export default function Rooms() {
                       <img
                         className="object-cover w-full rounded-xl"
                         src="/images/register-pemilik.png"
-                        alt="Test"
+                        alt="Kamar kost"
                       />
                     </div>
                     <p className="max-w-xs text-center">

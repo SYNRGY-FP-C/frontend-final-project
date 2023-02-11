@@ -7,7 +7,6 @@ import ProtectedPage from "@/layouts/ProtectedPage";
 import kostService from "@/services/kost.service";
 import statisticService from "@/services/statistic.service";
 import { useEffect, useState } from "react";
-import { v4 as uuid } from "uuid";
 
 export default function Dashboard() {
   const [statistic, setStatistic] = useState({
@@ -36,6 +35,11 @@ export default function Dashboard() {
     getStatistic();
     getKost();
   }, []);
+
+  const onDelete = async (id) => {
+    await kostService.remove(id);
+    await getKost();
+  };
 
   return (
     <ProtectedPage allowed={[ROLE_ADMIN]} redirect="/403">
@@ -70,10 +74,16 @@ export default function Dashboard() {
         <div className="flex flex-col gap-y-2">
           <h1 className="text-2xl font-bold">Kos Anda</h1>
           <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
-            {kost[0] && <KostCard key={uuid()} data={kost[0]} />}
-            {kost[1] && <KostCard key={uuid()} data={kost[1]} />}
+            {kost.length > 0 &&
+              kost.map((kost) => (
+                <KostCard
+                  key={kost.id}
+                  data={kost}
+                  onDelete={() => onDelete(kost.id)}
+                />
+              ))}
             {kost.length < 2 && (
-              <div className="flex items-center justify-center border rounded-lg border-base-2 h-72">
+              <div className="flex items-center justify-center h-full border rounded-lg border-base-2">
                 <h1 className="text-center">Anda belum memiliki kost lain</h1>
               </div>
             )}
