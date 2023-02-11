@@ -84,17 +84,20 @@ export const AuthProvider = ({ children }: AuthProviderType) => {
 
   const updateProfile = async (data) => {
     await userService.updateProfile(data);
-    await userService.me();
+    const response = await userService.me();
+    setUser(response.data);
   };
 
   const updateIdentity = async (data) => {
     await userService.updateIdentity(data);
-    await userService.me();
+    const response = await userService.me();
+    setUser(response.data);
   };
 
   const updateBank = async (data) => {
     await userService.updateBank(data);
-    await userService.me();
+    const response = await userService.me();
+    setUser(response.data);
   };
 
   const logoutUser = async () => {
