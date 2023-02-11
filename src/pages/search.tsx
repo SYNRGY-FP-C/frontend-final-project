@@ -366,7 +366,7 @@ export default function Search() {
                     <h1 className="col-span-12 text-center md:grid-cols-6 lg:grid-cols-3">
                       Memuat data...
                     </h1>
-                  ) : response.data.length > 0 ? (
+                  ) : show.length > 0 ? (
                     show.map((room) => <RoomCard key={uuid()} data={room} />)
                   ) : (
                     <p className="text-lg font-semibold text-center">
