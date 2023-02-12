@@ -116,6 +116,18 @@ export const CMSMenu = [
     title: "Beranda",
   },
   {
+    href: "/cms/rules",
+    title: "Peraturan",
+  },
+  {
+    href: "/cms/facilities",
+    title: "Fasilitas",
+  },
+  {
+    href: "/cms/transactions",
+    title: "Transaksi",
+  },
+  {
     href: "/cms/users",
     title: "Pengguna",
   },
@@ -126,9 +138,5 @@ export const CMSMenu = [
   {
     href: "/cms/rooms",
     title: "Kamar",
-  },
-  {
-    href: "/cms/transactions",
-    title: "Transaksi",
   },
 ];

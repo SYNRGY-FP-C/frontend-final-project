@@ -31,7 +31,7 @@ export default function Search() {
     type: "",
     price_min: 0,
     price_max: 999999999,
-    size: 5,
+    size: 10,
   });
 
   const handleSearch = async (e) => {
@@ -41,9 +41,17 @@ export default function Search() {
       isLoading: true,
       isError: false,
     });
+    handleReset();
     try {
       const { data } = await roomService.search({
-        params: search,
+        params: {
+          keyword: search.keyword,
+          size: search.size,
+          label: "",
+          type: "",
+          price_min: 0,
+          price_max: 999999999,
+        },
       });
       setResponse({
         isLoading: false,
@@ -115,7 +123,10 @@ export default function Search() {
       isError: false,
     });
     const { data } = await roomService.search({
-      params: search,
+      params: {
+        search: search.keyword,
+        size: search.size,
+      },
     });
     setResponse({
       isLoading: false,
@@ -139,6 +150,18 @@ export default function Search() {
       );
     });
     setShow(filtered);
+  };
+
+  const handleReset = () => {
+    setSearch({
+      ...search,
+      label: "",
+      type: "",
+      price_min: 0,
+      price_max: 999999999,
+      size: 10,
+    });
+    setShow(response.data);
   };
 
   return (
@@ -321,17 +344,7 @@ export default function Search() {
                     </button>
                     <button
                       type="button"
-                      onClick={() => {
-                        setSearch({
-                          keyword: "",
-                          label: "",
-                          type: "",
-                          price_min: 0,
-                          price_max: 999999999,
-                          size: 5,
-                        });
-                        setShow(response.data);
-                      }}
+                      onClick={handleReset}
                       className="w-full py-3 border rounded-lg bg-base-9 text-primary-1 border-primary-1"
                     >
                       Reset
@@ -366,7 +379,7 @@ export default function Search() {
                     <h1 className="col-span-12 text-center md:grid-cols-6 lg:grid-cols-3">
                       Memuat data...
                     </h1>
-                  ) : response.data.length > 0 ? (
+                  ) : show.length > 0 ? (
                     show.map((room) => <RoomCard key={uuid()} data={room} />)
                   ) : (
                     <p className="text-lg font-semibold text-center">
@@ -375,7 +388,7 @@ export default function Search() {
                   )}
                   {!response.isLoading && (
                     <div className="flex justify-center">
-                      {response.data.length > 0 && (
+                      {show.length > 0 && (
                         <div className="block">
                           <Button
                             type="button"

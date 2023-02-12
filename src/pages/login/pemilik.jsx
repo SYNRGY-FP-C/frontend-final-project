@@ -63,12 +63,14 @@ export default function LoginPemilik() {
                       <InputWithLabel
                         labelName="Email"
                         type="email"
+                        placeholder="Email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
                       />
                       <InputPassword
                         labelName="Password"
+                        placeholder="Password"
                         value={password}
                         show={showPassword}
                         setShow={() => setShowPassword(!showPassword)}

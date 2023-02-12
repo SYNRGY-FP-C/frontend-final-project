@@ -70,6 +70,7 @@ export default function LoginPencari() {
                       <InputWithLabel
                         labelName="Email"
                         type="email"
+                        placeholder="Email"
                         value={form.email}
                         onChange={(e) =>
                           setForm({ ...form, email: e.target.value })
@@ -78,6 +79,7 @@ export default function LoginPencari() {
                       />
                       <InputPassword
                         labelName="Password"
+                        placeholder="Password"
                         value={form.password}
                         show={showPassword}
                         setShow={() => setShowPassword(!showPassword)}
