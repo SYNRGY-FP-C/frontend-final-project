@@ -4,6 +4,7 @@ import DashboardLayout from "@/layouts/DashboardSuperadmin";
 import ProtectedPage from "@/layouts/ProtectedPage";
 import cmsService from "@/services/cms.service";
 import { formatRupiah } from "@/utils/helper";
+import clsx from "clsx";
 import Link from "next/link";
 import React from "react";
 import { useEffect, useState } from "react";
@@ -17,7 +18,12 @@ export default function Transaction() {
   });
 
   const getTransaction = async () => {
-    const { data } = await cmsService.getTransaction();
+    const { data } = await cmsService.getTransaction({
+      params: {
+        page: 1,
+        size: 100,
+      },
+    });
     setReponse({ isLoading: false, isError: false, data: data });
   };
 
@@ -33,38 +39,44 @@ export default function Transaction() {
     <ProtectedPage allowed={[ROLE_SUPERADMIN]} redirect="/403">
       <DashboardLayout title="CMS - Transaksi">
         <div className="flex flex-col gap-y-3">
-          {response.data.length > 0 ? (
-            <table className="w-full text-sm text-left text-gray-500">
-              <thead className="text-xs text-gray-700 uppercase bg-gray-100">
-                <tr>
-                  <th scope="col" className="px-6 py-3 rounded-l-lg">
-                    ID
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    Pengguna
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    Jumlah Orang
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    Skema
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    Harga
-                  </th>
-                  <th scope="col" className="px-6 py-3 rounded-r-lg">
-                    Status
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    Aksi
-                  </th>
+          <table className="w-full text-sm text-left text-gray-500">
+            <thead className="text-xs text-gray-700 uppercase bg-gray-100">
+              <tr>
+                <th scope="col" className="px-6 py-3 rounded-l-lg">
+                  No
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Pengguna
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Jumlah Orang
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Skema
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Harga
+                </th>
+                <th scope="col" className="px-6 py-3 rounded-r-lg">
+                  Status
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Aksi
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {response.isLoading ? (
+                <tr className="bg-white">
+                  <td colSpan={7} className="px-6 py-4">
+                    <div className="flex justify-center">Memuat data...</div>
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {response.data.map((transaction) => (
+              ) : response.data.length > 0 ? (
+                response.data.map((transaction, index) => (
                   <tr className="bg-white" key={uuid()}>
                     <th scope="row" className="px-6 py-4">
-                      {transaction.id}
+                      {index + 1}
                     </th>
                     <td className="px-6 py-4">{transaction.account_id}</td>
                     <td className="px-6 py-4">{transaction.num_of_people}</td>
@@ -72,7 +84,20 @@ export default function Transaction() {
                     <td className="px-6 py-4">
                       {formatRupiah(transaction.price)}
                     </td>
-                    <td className="px-6 py-4">{transaction.status}</td>
+                    <td className="px-6 py-4">
+                      <span
+                        className={clsx("px-4 py-1.5 rounded-2xl text-xs", {
+                          "text-warning": transaction.status === "PENDING",
+                          "text-error": transaction.status === "REJECTED",
+                          "text-success": transaction.status === "APPROVED",
+                          "text-info": transaction.status === "ONPROCCESS",
+                          "text-primary-1": transaction.status === "ONGOING",
+                          "text-gray-300": transaction.status === "ENDED",
+                        })}
+                      >
+                        {transaction.status}
+                      </span>
+                    </td>
                     <td className="px-6 py-4">
                       <Link
                         href={`/cms/transactions/${transaction.id}`}
@@ -82,12 +107,18 @@ export default function Transaction() {
                       </Link>
                     </td>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          ) : (
-            <h1 className="text-center">Tidak ada pengguna</h1>
-          )}
+                ))
+              ) : (
+                <tr className="bg-white">
+                  <td colSpan={7} className="px-6 py-4">
+                    <div className="flex justify-center">
+                      Tidak ada transaksi
+                    </div>
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
         </div>
       </DashboardLayout>
     </ProtectedPage>

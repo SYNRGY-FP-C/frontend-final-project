@@ -73,7 +73,7 @@ export default function Dashboard() {
 
         <div className="flex flex-col gap-y-2">
           <h1 className="text-2xl font-bold">Kos Anda</h1>
-          <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
+          <div className="grid h-full min-h-full grid-cols-1 gap-3 lg:grid-cols-2">
             {kost.length > 0 &&
               kost.map((kost) => (
                 <KostCard
@@ -82,12 +82,17 @@ export default function Dashboard() {
                   onDelete={() => onDelete(kost.id)}
                 />
               ))}
-            {kost.length < 2 && (
-              <div className="flex items-center justify-center h-full border rounded-lg border-base-2">
+            {kost.length > 0 && kost.length < 2 && (
+              <div className="flex items-center justify-center h-full min-h-full border rounded-lg border-base-2">
                 <h1 className="text-center">Anda belum memiliki kost lain</h1>
               </div>
             )}
           </div>
+          {kost.length === 0 && (
+            <div className="flex items-center justify-center h-full min-h-full">
+              <h1 className="text-center">Loading</h1>
+            </div>
+          )}
         </div>
       </DashboardLayout>
     </ProtectedPage>

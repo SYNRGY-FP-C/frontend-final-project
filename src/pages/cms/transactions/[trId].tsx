@@ -8,6 +8,7 @@ import { ROLE_SUPERADMIN } from "@/constants/roles";
 import DashboardLayout from "@/layouts/DashboardSuperadmin";
 import ProtectedPage from "@/layouts/ProtectedPage";
 import cmsService from "@/services/cms.service";
+import { formatRupiah } from "@/utils/helper";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { useState } from "react";
@@ -28,7 +29,7 @@ export default function Transaction() {
     status: "",
     price: 0,
     payment_scheme: "",
-    photo: "",
+    payment_proof: "",
   });
 
   const getTransactionById = async () => {
@@ -36,11 +37,11 @@ export default function Transaction() {
     try {
       const response = await cmsService.getTransactionById(router?.query?.trId);
       setForm({
-        name: response.data.facility_name || "",
+        name: response.data.name || "",
         status: response.data.status || "",
         price: response.data.price || 0,
         payment_scheme: response.data.payment_scheme || "",
-        photo: response.data.photo || "",
+        payment_proof: response.data.payment_proof || "",
       });
 
       setReponse({
@@ -138,10 +139,10 @@ export default function Transaction() {
             />{" "}
             <InputWithLabel
               labelName="Harga"
-              type="number"
+              type="text"
               placeholder="Harga"
               disabled={true}
-              value={String(form.price)}
+              value={String(formatRupiah(form.price))}
             />
             <InputWithLabel
               labelName="Skema"
@@ -152,14 +153,22 @@ export default function Transaction() {
             />
           </div>
           <div className="col-span-2">
-            <div className="flex items-center justify-center w-full h-64 overflow-hidden bg-gray-100 rounded-lg object-fit">
+            <div className="flex items-center justify-center w-full min-h-[300px] max-w-xl overflow-hidden bg-gray-100 rounded-lg object-fit">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              {form.photo ? (
-                <img
-                  className="object-cover w-full rounded-lg"
-                  src={form.photo}
-                  alt={form.name}
-                />
+              {form.payment_proof ? (
+                <div className="relative w-full h-full group">
+                  <img
+                    className="relative object-cover w-full h-full rounded-lg"
+                    src={form.payment_proof}
+                    alt={form.name}
+                  />
+                  <a
+                    href={form.payment_proof}
+                    target="_blank"
+                    className="absolute inset-0 hidden group-hover:flex"
+                    rel="noreferrer"
+                  ></a>
+                </div>
               ) : (
                 <p className="text-primary-1">Belum ada dokumen</p>
               )}
