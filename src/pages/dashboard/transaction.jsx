@@ -24,7 +24,7 @@ export default function Transaction() {
     try {
       getTransaction();
     } catch (error) {
-      setReponse({ isLoading: false, isError: error, data: [] });
+      setReponse({ isLoading: false, isError: true, data: [] });
     }
   }, []);
 
@@ -37,7 +37,7 @@ export default function Transaction() {
       });
       getTransaction();
     } catch (error) {
-      setReponse({ isLoading: false, isError: error, data: [] });
+      setReponse({ isLoading: false, isError: true, data: [] });
     }
   };
   return (

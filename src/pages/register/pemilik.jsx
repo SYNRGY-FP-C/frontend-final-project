@@ -98,6 +98,7 @@ export default function RegisterPemilik() {
                       <InputWithLabel
                         labelName="Email"
                         type="email"
+                        placeholder="Email"
                         value={form.email}
                         onChange={(e) =>
                           setForm({ ...form, email: e.target.value })
@@ -106,6 +107,7 @@ export default function RegisterPemilik() {
                       />
                       <InputWithLabel
                         labelName="Nomor telepon"
+                        placeholder="Nomor telepon"
                         type="tel"
                         value={form.phone}
                         onChange={(e) =>
@@ -116,6 +118,7 @@ export default function RegisterPemilik() {
                       <InputPassword
                         labelName="Password"
                         value={form.password}
+                        placeholder="Password"
                         show={show.password}
                         errorMessage={passwordMessage}
                         setShow={() =>
@@ -131,6 +134,7 @@ export default function RegisterPemilik() {
                       />
                       <InputPassword
                         labelName="Konfirmasi Password"
+                        placeholder="Password"
                         value={form.repassword}
                         show={show.repassword}
                         errorMessage={repasswordMessage}

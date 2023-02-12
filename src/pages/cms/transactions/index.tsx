@@ -4,6 +4,7 @@ import DashboardLayout from "@/layouts/DashboardSuperadmin";
 import ProtectedPage from "@/layouts/ProtectedPage";
 import cmsService from "@/services/cms.service";
 import { formatRupiah } from "@/utils/helper";
+import Link from "next/link";
 import React from "react";
 import { useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
@@ -73,7 +74,12 @@ export default function Transaction() {
                     </td>
                     <td className="px-6 py-4">{transaction.status}</td>
                     <td className="px-6 py-4">
-                      {transaction.status === "PENDING" ? "Terima" : ""}
+                      <Link
+                        href={`/cms/transactions/${transaction.id}`}
+                        className="px-3 py-2 text-center border rounded-lg text-base-2"
+                      >
+                        Lihat
+                      </Link>
                     </td>
                   </tr>
                 ))}
