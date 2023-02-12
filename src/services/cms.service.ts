@@ -4,24 +4,24 @@ const getUsers = async () => {
   return await backendFSWPrivate.get("/v1/users");
 };
 
-const getKost = async () => {
-  return await backendFSWPrivate.get("/v1/kost");
+const getKost = async (data = {}) => {
+  return await backendFSWPrivate.get("/v1/kost", data);
 };
 
-const getRooms = async () => {
-  return await backendFSWPrivate.get("/v1/rooms");
+const getRooms = async (data = {}) => {
+  return await backendFSWPrivate.get("/v1/rooms", data);
 };
 
-const getTransaction = async () => {
-  return await backendFSWPrivate.get("/v1/transactions");
+const getTransaction = async (data = {}) => {
+  return await backendFSWPrivate.get("/v1/transactions", data);
 };
 
-const getFacilities = async () => {
-  return await backendFSWPrivate.get("/v1/facilities");
+const getFacilities = async (data = {}) => {
+  return await backendFSWPrivate.get("/v1/facilities", data);
 };
 
-const getRules = async () => {
-  return await backendFSWPrivate.get("/v1/rules");
+const getRules = async (data = {}) => {
+  return await backendFSWPrivate.get("/v1/rules", data);
 };
 
 const getTransactionById = async (id) => {

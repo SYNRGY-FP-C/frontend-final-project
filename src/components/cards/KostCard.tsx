@@ -21,7 +21,9 @@ export default function KostCard({ data, onDelete }) {
       </Link>
       <div className="p-4">
         <div className="flex items-center place-content-between">
-          <h1 className="font-bold">{data?.name}</h1>
+          <Link href={`/dashboard/kost/${data?.id}/rooms`}>
+            <h1 className="font-bold">{data?.name}</h1>
+          </Link>
           <h1 className="px-6 py-2 text-xs border border-black rounded-full">
             {data?.type}
           </h1>
