@@ -10,6 +10,7 @@ import LoveOutline from "@/components/icons/LoveOutline";
 import DescriptionItem from "@/components/items/DescriptionItem";
 import LoadingScreen from "@/components/LoadingScreen";
 import Modal from "@/components/Modal";
+import { useAuth } from "@/contexts/AuthContext";
 import DefaultLayout from "@/layouts/DefaultLayout";
 import RoomDescription from "@/layouts/RoomDescription";
 import RoomDetail from "@/layouts/RoomDetail";
@@ -25,6 +26,7 @@ import { FiShare2 } from "react-icons/fi";
 
 export default function Details() {
   const router = useRouter();
+  const { isAuthenticated } = useAuth();
   const [isLoading, setIsLoading] = useState(true);
   const [responseRoom, setResponseRoom] = useState({
     isLoading: false,
@@ -302,7 +304,11 @@ export default function Details() {
                   </p>
                   {/* Button Registrasi */}
                   <Link
-                    href={`/details/${responseRoom?.room?.id}/submission`}
+                    href={
+                      isAuthenticated
+                        ? `/details/${responseRoom?.room?.id}/submission`
+                        : "/login/pencari"
+                    }
                     className="w-full px-4 py-3 text-center text-white rounded-lg bg-primary-1 hover:bg-secondary-1"
                   >
                     Registrasi
