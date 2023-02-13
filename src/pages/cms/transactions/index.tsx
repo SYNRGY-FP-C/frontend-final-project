@@ -16,13 +16,12 @@ export default function Transaction() {
     isError: false,
     data: [],
   });
+  const [page, setPage] = useState(1);
+  const [size, setSize] = useState(30);
 
   const getTransaction = async () => {
     const { data } = await cmsService.getTransaction({
-      params: {
-        page: 1,
-        size: 100,
-      },
+      params: { page: page, size: size },
     });
     setReponse({ isLoading: false, isError: false, data: data });
   };
@@ -34,7 +33,7 @@ export default function Transaction() {
     } catch (error) {
       setReponse({ isLoading: false, isError: error, data: [] });
     }
-  }, []);
+  }, [page]);
   return (
     <ProtectedPage allowed={[ROLE_SUPERADMIN]} redirect="/403">
       <DashboardLayout title="CMS - Transaksi">
@@ -119,6 +118,17 @@ export default function Transaction() {
               )}
             </tbody>
           </table>
+          {response.data.length > 0 ? (
+            <div className="inline-flex item-center justify-center">
+              <button onClick={() => (page > 1 ? setPage(page - 1) : 1)}>
+                {"Prev <"}
+              </button>
+              <p className="mr-4 ml-4">{page}</p>
+              <button onClick={() => setPage(page + 1)}>{"> Next"}</button>
+            </div>
+          ) : (
+            ""
+          )}
         </div>
       </DashboardLayout>
     </ProtectedPage>

@@ -1,14 +1,14 @@
 import { backendFSWPrivate } from "@/utils/axios";
 
-const getUsers = async () => {
-  return await backendFSWPrivate.get("/v1/users");
+const getUsers = async (data) => {
+  return await backendFSWPrivate.get("/v1/users", data);
 };
 
 const getKost = async (data = {}) => {
   return await backendFSWPrivate.get("/v1/kost", data);
 };
 
-const getRooms = async (data = {}) => {
+const getRooms = async (data) => {
   return await backendFSWPrivate.get("/v1/rooms", data);
 };
 
