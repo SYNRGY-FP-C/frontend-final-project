@@ -24,6 +24,7 @@ export default function History() {
   const getHistory = async () => {
     const { data } = await historyService.history();
     setReponse({ isLoading: false, isError: false, data: data });
+    setShow(data.filter((item) => item.status === select));
   };
 
   useEffect(() => {
