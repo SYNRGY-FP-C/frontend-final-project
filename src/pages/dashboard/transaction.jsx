@@ -16,7 +16,11 @@ export default function Transaction() {
 
   const getTransaction = async () => {
     const { data } = await transactionService.transactions();
-    setReponse({ isLoading: false, isError: false, data: data });
+    setReponse({
+      isLoading: false,
+      isError: false,
+      data: data.filter((item) => item.status === "PENDING"),
+    });
   };
 
   useEffect(() => {

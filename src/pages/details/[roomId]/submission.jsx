@@ -447,24 +447,15 @@ export default function Submission() {
                   </div>
                 </div>
               </div>
-              <hr className="h-0.5 bg-gray-200 border-0 my-4" />
-              <RoomDetail title="Kebijakan Pembatalan">
-                <Checkbox required>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                  suscipit eleifend erat at fringilla. Praesent vestibulum diam
-                  mi, sed suscipit nisl iaculis vel.
-                </Checkbox>
-
-                <div className="flex justify-center my-5">
-                  <Button
-                    isLoading={response.isLoading}
-                    disabled={response.isLoading}
-                    className="px-4 py-3 text-white rounded-lg w-72 bg-primary-1"
-                  >
-                    Ajukan Sewa
-                  </Button>
-                </div>
-              </RoomDetail>
+              <div className="flex justify-center my-5">
+                <Button
+                  isLoading={response.isLoading}
+                  disabled={response.isLoading}
+                  className="px-4 py-3 text-white rounded-lg w-72 bg-primary-1"
+                >
+                  Ajukan Sewa
+                </Button>
+              </div>
             </form>
           </div>
         </Section>

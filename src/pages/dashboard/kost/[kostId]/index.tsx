@@ -19,7 +19,7 @@ import ProtectedPage from "@/layouts/ProtectedPage";
 import Section from "@/layouts/Section";
 import kostService from "@/services/kost.service";
 import ruleService from "@/services/rules.service";
-import { imageToBase64, urlToBase64 } from "@/utils/helper";
+import { imageToBase64, toHTTPS, urlToBase64 } from "@/utils/helper";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
@@ -99,8 +99,8 @@ export default function Add() {
       address_note: data?.addressNote || "",
     });
     setPreview({
-      outdoor_photo: data?.outdoorPhotoUrl || "",
-      indoor_photo: data?.indoorPhotoUrl || "",
+      outdoor_photo: toHTTPS(data?.outdoorPhotoUrl) || "",
+      indoor_photo: toHTTPS(data?.indoorPhotoUrl) || "",
     });
   };
 

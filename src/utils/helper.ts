@@ -52,6 +52,9 @@ export const urlToObject = async (url) => {
 
 export const urlToBase64 = (url) => {
   if (!url || url === "undefined") return null;
+  if (url.startsWith("http://")) {
+    url = url.replace(/http:\/\//g, "https://");
+  }
   return fetch(url)
     .then((response) => response.blob())
     .then(
@@ -63,6 +66,14 @@ export const urlToBase64 = (url) => {
           reader.readAsDataURL(blob);
         })
     );
+};
+
+export const toHTTPS = (url) => {
+  if (!url || url === "undefined") return null;
+  if (url.startsWith("http://")) {
+    url = url.replace(/http:\/\//g, "https://");
+  }
+  return url;
 };
 
 export const RE_DIGIT = new RegExp(/^\d+$/);
