@@ -150,7 +150,7 @@ export default function Settings() {
                   />
 
                   <div className="block md:w-64">
-                    <Button>Simpan</Button>
+                    <Button isLoading={response.isLoading}>Simpan</Button>
                   </div>
                 </form>
               </div>
