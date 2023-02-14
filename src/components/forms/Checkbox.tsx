@@ -9,7 +9,7 @@ export default function Checkbox({
 }) {
   const [isChecked, setIsChecked] = React.useState(checked);
   const handleChange = () => {
-    onChange();
+    if (onChange) onChange();
     setIsChecked(!isChecked);
   };
   return (
