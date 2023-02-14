@@ -242,11 +242,7 @@ export default function MyProfile() {
                   <InputWithLabel
                     labelName="Tanggal Lahir"
                     type="date"
-                    value={
-                      form.birthdate || user?.birthdate
-                        ? originalDate(user?.birthdate)
-                        : ""
-                    }
+                    value={form.birthdate || ""}
                     onChange={(e) =>
                       setForm({
                         ...form,
