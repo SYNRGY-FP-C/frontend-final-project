@@ -169,6 +169,7 @@ export default function Add() {
                               setStep(2);
                             }
                           }}
+                          isLoading={response.isLoading}
                         >
                           {step === 1 ? "Selanjutnya" : "Tambahkan"}
                         </Button>
