@@ -36,10 +36,10 @@ export default function Footer() {
                 <Link href="/help">Pusat Bantuan</Link>
               </li>
               <li>
-                <Link href="/help">Syarat & Ketentuan</Link>
+                <Link href="/tos">Syarat & Ketentuan</Link>
               </li>
               <li>
-                <Link href="/help">Kebijakan Privasi</Link>
+                <Link href="/privacy">Kebijakan Privasi</Link>
               </li>
             </ul>
           </div>

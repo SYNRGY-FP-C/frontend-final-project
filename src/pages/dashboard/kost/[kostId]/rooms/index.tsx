@@ -45,7 +45,7 @@ export default function Rooms() {
         <Section>
           <div className="flex flex-col py-16 lg:py-24">
             <div className="grid grid-cols-12">
-              <div className="grid w-full lg:col-span-4 place-items-start">
+              <div className="grid w-full col-span-12 lg:col-span-4 place-items-start">
                 <div className="flex flex-col">
                   <BackButton />
                   <h2 className="text-[40px] font-bold text-primary-1">
@@ -66,7 +66,7 @@ export default function Rooms() {
                   </Link>
                 </div>
               </div>
-              <div className="grid gap-3 lg:col-span-8">
+              <div className="grid col-span-12 gap-3 lg:col-span-8">
                 {isLoading ? (
                   <h1 className="w-full text-center">Memuat data...</h1>
                 ) : rooms.length > 0 ? (

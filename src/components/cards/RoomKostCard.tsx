@@ -15,8 +15,8 @@ export default function RoomKostCard({ data, href, onDelete }) {
   };
 
   return (
-    <div className="grid grid-cols-1 border border-gray-200 hover:shadow lg:grid-cols-12 rounded-2xl">
-      <div className="grid col-span-4">
+    <div className="grid w-full border border-gray-200 hover:shadow lg:grid-cols-12 rounded-2xl">
+      <div className="grid lg:col-span-4">
         <div className="flex justify-center object-cover w-full h-56 overflow-hidden">
           <img
             className="object-cover w-full rounded-t-xl lg:rounded-l-2xl lg:rounded-r-none"
@@ -25,7 +25,7 @@ export default function RoomKostCard({ data, href, onDelete }) {
           />
         </div>
       </div>
-      <div className="grid col-span-8 p-6">
+      <div className="grid p-6 lg:col-span-8">
         <div className="relative flex flex-col h-full gap-y-3">
           <div className="flex flex-col justify-between md:flex-row">
             <Link href={href}>
