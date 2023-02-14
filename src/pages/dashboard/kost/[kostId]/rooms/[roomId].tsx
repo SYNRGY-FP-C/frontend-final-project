@@ -141,7 +141,7 @@ export default function Room() {
           </p>
           <Link
             className="inline-flex justify-center w-full px-4 py-3 text-white rounded-lg bg-primary-1"
-            href={`/dashboard/kost/${router?.query?.roomId}/rooms`}
+            href={`/dashboard/kost/${router?.query?.kostId}/rooms`}
           >
             Lihat kamar
           </Link>
