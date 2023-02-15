@@ -295,7 +295,7 @@ export default function MyProfile() {
                     onChange={(e) =>
                       setIdentity({
                         ...identity,
-                        identity: e.target.value,
+                        email: e.target.value,
                       })
                     }
                   />
@@ -307,7 +307,7 @@ export default function MyProfile() {
                     onChange={(e) =>
                       setIdentity({
                         ...identity,
-                        identity: e.target.value,
+                        phone: e.target.value,
                       })
                     }
                   />{" "}
