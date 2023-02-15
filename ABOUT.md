@@ -1,44 +1,26 @@
-# Folder Structure
+# Repository
 
-```bash
-src
-├── components
-├── contexts
-├── layouts
-├── pages
-│   ├── 404.jsx
-│   ├── 500.jsx
-│   ├── _app.jsx
-│   ├── _document.jsx
-│   ├── index.jsx
-│   ├── login.jsx
-│   ├── my
-│   │   └── index.jsx
-│   ├── register.jsx
-│   └── rooms
-│       ├── index.jsx
-│       └── [roomId].jsx
-├── services
-│   ├── README.md
-│   ├── room.service.js
-│   └── user.service.js
-├── styles
-└── utils
-    ├── axios.js
-    └── helper.js
+[Frontend FSW](https://github.com/SYNRGY-FP-C/frontend-final-project)
 
-```
+# FSW Frontend Team C
 
-# Tech Stack
+Contributor  :
+- Andri Wahyudi
+- Lusian Nandang Arjamulia
+- Abdul Jalil Nawawi
+- Evi Indah
+- Hasan Al Choiri
+- Akmal Ariq
+- Khoironi Kurnia Syah
 
-- [React](https://reactjs.org/)
-- [Next.js](https://nextjs.org/)
-- [Javascript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Jest](https://jestjs.io/) (Test)
-- [Cypress](https://www.cypress.io/) (Test)
-- [ESLint](https://eslint.org/) (Linter)
-- [Prettier](https://prettier.io/) (Formatter)
-- [Github Actions](https://github.com/features/actions) (CI/CD)
-- [Vercel](https://vercel.com/) (Deployment)
+## Tech
+
+ - [React.js](https://reactjs.org/)
+ - [Next.js](https://nextjs.org/)
+ - [Tailwindcss](https://tailwindcss.com/)
+ - [Vercel](https://vercel.com/)
+ - [Github Action](https://github.com/features/actions)
+
+## Authors
+
+- Kosthub - FSW Frontend Team
