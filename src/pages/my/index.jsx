@@ -291,7 +291,7 @@ export default function MyProfile() {
                     labelName="Email"
                     placeholder="Email"
                     type="email"
-                    value={identity.email || user?.email}
+                    value={identity.email}
                     onChange={(e) =>
                       setIdentity({
                         ...form,
@@ -303,7 +303,7 @@ export default function MyProfile() {
                     labelName="Nomor Telepon"
                     placeholder="Nomor Telepon"
                     type="number"
-                    value={identity.phone || user?.phone}
+                    value={identity.phone}
                     onChange={(e) =>
                       setIdentity({
                         ...form,
@@ -355,9 +355,7 @@ export default function MyProfile() {
                         labelName="Nomor Rekening"
                         placeholder="Nomor Rekening"
                         type="text"
-                        value={
-                          bank.account_number || user?.bank?.account_number
-                        }
+                        value={bank.account_number}
                         onChange={(e) =>
                           setBank({
                             ...bank,
@@ -369,7 +367,7 @@ export default function MyProfile() {
                         labelName="Nama Bank"
                         placeholder="Nama Bank"
                         type="text"
-                        value={bank.bank_name || user?.bank?.bank_name}
+                        value={bank.bank_name}
                         onChange={(e) =>
                           setBank({
                             ...bank,
@@ -381,7 +379,7 @@ export default function MyProfile() {
                         labelName="Nama Pemilik Rekening"
                         placeholder="Nama Pemilik Rekening"
                         type="text"
-                        value={bank.account_name || user?.bank?.account_name}
+                        value={bank.account_name}
                         onChange={(e) =>
                           setBank({
                             ...bank,
